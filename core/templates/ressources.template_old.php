@@ -8,7 +8,8 @@
                     <th>{production_level}</th>
                     <th width="250">
                         <div style="border: 1px solid rgb(153, 153, 255); width: 250px;">
-                            <div id="prodBar" style="background-color: {production_level_barcolor}; width: {production_level_bar}px;">
+                            <div id="prodBar"
+                                 style="background-color: {production_level_barcolor}; width: {production_level_bar}px;">
                                 &nbsp;
                             </div>
                         </div>
@@ -67,7 +68,9 @@
             </tr>
 
             <tr>
-                <td colspan="5"><center></center></td>
+                <td colspan="5">
+                    <center></center>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -119,7 +122,8 @@
                 <th>{metal_storage}</th>
                 <th width="250">
                     <div style="border: 1px solid rgb(153, 153, 255); width: 250px;">
-                        <div id="AlmMBar" style="background-color: {metal_storage_barcolor}; width: {metal_storage_bar}px;">
+                        <div id="AlmMBar"
+                             style="background-color: {metal_storage_barcolor}; width: {metal_storage_bar}px;">
                             &nbsp;
                         </div>
                     </div>
@@ -130,7 +134,8 @@
                 <th>{crystal_storage}</th>
                 <th width="250">
                     <div style="border: 1px solid rgb(153, 153, 255); width: 250px;">
-                        <div id="AlmCBar" style="background-color: {crystal_storage_barcolor}; width: {crystal_storage_bar}px; opacity: 0.98;">
+                        <div id="AlmCBar"
+                             style="background-color: {crystal_storage_barcolor}; width: {crystal_storage_bar}px; opacity: 0.98;">
                             &nbsp;
                         </div>
                     </div>
@@ -141,7 +146,8 @@
                 <th>{deuterium_storage}</th>
                 <th width="250">
                     <div style="border: 1px solid rgb(153, 153, 255); width: 250px;">
-                        <div id="AlmDBar" style="background-color: {deuterium_storage_barcolor}; width: {deuterium_storage_bar}px;">
+                        <div id="AlmDBar"
+                             style="background-color: {deuterium_storage_barcolor}; width: {deuterium_storage_bar}px;">
                             &nbsp;
                         </div>
                     </div>

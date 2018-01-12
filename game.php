@@ -8,11 +8,11 @@
 
     // if there is no userID stored,
     // redirect to the login-page
-    if(isset($_SESSION['userID'])) {
+    if (isset($_SESSION['userID'])) {
         $userID = $_SESSION['userID'];
     } else {
         header('Location: login.php');
-//        die(header('Location: login.php'));
+        //        die(header('Location: login.php'));
     }
 
     if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
@@ -26,15 +26,15 @@
     // the user is logged in, so we allow
     // script-access within the game
     define('INSIDE', true);
-    
+
 
     // load the server-configuration
     require_once('core/config.php');
-    
+
     // load the database-class
     require_once($path['classes'] . 'db.class.php');
     $db = new Database();
-    
+
 
     // load the userdata
     $data = loadUserData($userID);
@@ -47,25 +47,25 @@
 
     // check if a page was requested and if there is
     // a controller to the request
-    if(isset($_GET['page']) && file_exists($path['controllers'].$_GET['page'].'.controller.php')) {
+    if (isset($_GET['page']) && file_exists($path['controllers'] . $_GET['page'] . '.controller.php')) {
         $page = $_GET['page'];
 
         // delete the element, because the controller
         // does not need the page-value
         unset($_GET['page']);
     } else {
-        if(isset($_GET['page']) && !file_exists($path['controllers'].$_GET['page'].'.controller.php')) {
+        if (isset($_GET['page']) && !file_exists($path['controllers'] . $_GET['page'] . '.controller.php')) {
             die("404 page not found - <a href=\"javascript:history.back()\">Go Back</a>");
         }
     }
 
     // include the MVC-files
-    require_once($path['models'].$page.'.model.php');
-    require_once($path['views'].$page.'.view.php');
-    require_once($path['controllers'].$page.'.controller.php');
+    require_once($path['models'] . $page . '.model.php');
+    require_once($path['views'] . $page . '.view.php');
+    require_once($path['controllers'] . $page . '.controller.php');
 
     // load the controller
-    switch($page) {
+    switch ($page) {
         case 'overview':
             $controller = new C_Overview($_GET, $_POST);
             break;
@@ -102,7 +102,6 @@
     $controller->display();
 
 
-
     /**
      * loads all relevant user-information (planet, buildings, fleet, tech, defense etc.)
      * @param $userID the user id
@@ -110,13 +109,14 @@
      * @throws FileNotFoundException
      */
     function loadUserData($userID) {
+
         global $path;
 
         $file = $path['classes'] . 'loader.class.php';
-        if(file_exists($file)) {
+        if (file_exists($file)) {
             require_once($file);
         } else {
-            throw new FileNotFoundException('File \''.$file.'\' not found');
+            throw new FileNotFoundException('File \'' . $file . '\' not found');
         }
 
         return new Loader($userID);

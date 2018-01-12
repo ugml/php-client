@@ -1,33 +1,37 @@
 <?php
 
-    declare(strict_types=1);
+    declare(strict_types = 1);
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
     // autoload the classes
     spl_autoload_register(function ($name) {
+
         //if(file_exists(lcfirst($name) . '.class.php')) {
-            require_once lcfirst($name) . '.class.php';
+        require_once lcfirst($name) . '.class.php';
         //}
     });
 
     class Loader {
+
         private $user = null;
+
         private $planet = null;
+
         private $galaxy = null;
+
         private $building = null;
+
         private $defense = null;
+
         private $tech = null;
+
         private $fleet = null;
+
         private $units = null;
 
-        public function printData() : void {
-            echo '<pre>';
-            print_r($this);
-            echo '</pre>';
-        }
-
         function __construct($userID) {
+
             global $database, $db;
 
             $query = 'SELECT 
@@ -124,80 +128,114 @@
                         fleet.destroyer AS fleet_destroyer,
                         fleet.battlecruiser AS fleet_battlecruiser,
                         fleet.deathstar AS fleet_deathstar
-                        FROM '.$database['prefix'].'users AS user 
-                        LEFT JOIN '.$database['prefix'].'planets AS planet ON user.userID = planet.ownerID  
-                        LEFT JOIN '.$database['prefix'].'galaxy AS galaxy ON planet.planetID = galaxy.planetID
-                        LEFT JOIN '.$database['prefix'].'buildings AS building ON planet.planetID = building.planetID
-                        LEFT JOIN '.$database['prefix'].'defenses AS defense ON planet.planetID = defense.planetID
-                        LEFT JOIN '.$database['prefix'].'techs AS tech ON user.userID = tech.userID
-                        LEFT JOIN '.$database['prefix'].'fleet AS fleet ON planet.planetID = fleet.planetID
+                        FROM ' . $database['prefix'] . 'users AS user 
+                        LEFT JOIN ' . $database['prefix'] . 'planets AS planet ON user.userID = planet.ownerID  
+                        LEFT JOIN ' . $database['prefix'] . 'galaxy AS galaxy ON planet.planetID = galaxy.planetID
+                        LEFT JOIN ' . $database['prefix'] . 'buildings AS building ON planet.planetID = building.planetID
+                        LEFT JOIN ' . $database['prefix'] . 'defenses AS defense ON planet.planetID = defense.planetID
+                        LEFT JOIN ' . $database['prefix'] . 'techs AS tech ON user.userID = tech.userID
+                        LEFT JOIN ' . $database['prefix'] . 'fleet AS fleet ON planet.planetID = fleet.planetID
                         WHERE user.userID = :userID;';
 
             $stmt = $db->prepare($query);
-            
-            $stmt->bindParam(':userID',$userID);
-            
+
+            $stmt->bindParam(':userID', $userID);
+
             $stmt->execute();
-            
+
             $planetList = [];
 
-            while($data = $stmt->fetch()) {
-                
-                $p =  new Planet(intval($data->planet_planetID), intval($userID), $data->planet_name, intval($data->planet_galaxy), intval($data->planet_system),
-                                    intval($data->planet_planet), intval($data->planet_last_update), intval($data->planet_type), $data->planet_image, intval($data->planet_diameter), 
-                                    intval($data->planet_fields_current), intval($data->planet_fields_max), intval($data->planet_temp_min), intval($data->planet_temp_max), floatval($data->planet_metal),
-                                    floatval($data->planet_crystal), floatval($data->planet_deuterium), intval($data->planet_energy_used), intval($data->planet_energy_max), intval($data->planet_metal_mine_percent),
-                                    intval($data->planet_crystal_mine_percent), intval($data->planet_deuterium_synthesizer_percent), intval($data->planet_solar_plant_percent), intval($data->planet_fusion_reactor_percent), 
-                                    intval($data->planet_solar_satellite_percent), intval($data->planet_b_building_id), intval($data->planet_b_building_endtime), intval($data->planet_b_tech_id), 
-                                    intval($data->planet_b_tech_endtime), intval($data->planet_b_hangar_start_time), (isset($data->planet_b_hangar_id) ? $data->planet_b_hangar_id : ""), intval($data->planet_b_hangar_plus), intval($data->planet_destroyed));
-                
-                // current planet
-                if($data->user_currentplanet == $data->planet_planetID) {
-                    $this->user = new User(intval($userID), $data->user_username, $data->user_email, intval($data->user_onlinetime), intval($data->user_currentplanet));
-                    
-                    $this->building = new Building(intval($data->building_metal_mine), intval($data->building_crystal_mine), intval($data->building_deuterium_synthesizer), intval($data->building_solar_plant), 
-                                                    intval($data->building_fusion_reactor), intval($data->building_robotic_factory), intval($data->building_nanite_factory), intval($data->building_shipyard), 
-                                                    intval($data->building_metal_storage), intval($data->building_crystal_storage), intval($data->building_deuterium_storage), intval($data->building_research_lab), 
-                                                    intval($data->building_terraformer), intval($data->building_alliance_depot), intval($data->building_missile_silo));
-                    
-                    //$this->galaxy = new Galaxy();
-                    
-                    $this->defense = new Defense(intval($data->defense_rocket_launcher), intval($data->defense_light_laser), intval($data->defense_heavy_laser), intval($data->defense_ion_cannon), 
-                                                intval($data->defense_gauss_cannon), intval($data->defense_plasma_turret), intval($data->defense_small_shield_dome), intval($data->defense_large_shield_dome), 
-                                                intval($data->defense_anti_ballistic_missile), intval($data->defense_interplanetary_missile));
-                                            
-                    $this->galaxy = new Galaxy(intval($data->galaxy_debris_metal), intval($data->galaxy_debris_crystal));
+            while ($data = $stmt->fetch()) {
 
-                    $this->fleet = new Fleet(intval($data->fleet_small_cargo_ship), intval($data->fleet_large_cargo_ship), intval($data->fleet_light_fighter), intval($data->fleet_heavy_fighter), 
-                                            intval($data->fleet_cruiser), intval($data->fleet_battleship), intval($data->fleet_colony_ship), intval($data->fleet_recycler), intval($data->fleet_espionage_probe), 
-                                            intval($data->fleet_bomber), intval($data->fleet_solar_satellite), intval($data->fleet_destroyer), intval($data->fleet_battlecruiser), intval($data->fleet_deathstar));
-                    
-                    $this->tech = new Tech(intval($data->tech_espionage_tech), intval($data->tech_computer_tech), intval($data->tech_weapon_tech), intval($data->tech_armour_tech), intval($data->tech_shielding_tech), 
-                                        intval($data->tech_energy_tech), intval($data->tech_hyperspace_tech), intval($data->tech_combustion_drive_tech), intval($data->tech_impulse_drive_tech), 
-                                        intval($data->tech_hyperspace_drive_tech), intval($data->tech_laser_tech), intval($data->tech_ion_tech), intval($data->tech_plasma_tech), intval($data->tech_intergalactic_research_tech), 
-                                        intval($data->tech_graviton_tech));
-                                        
+                $p = new Planet(intval($data->planet_planetID), intval($userID), $data->planet_name,
+                    intval($data->planet_galaxy), intval($data->planet_system),
+                    intval($data->planet_planet), intval($data->planet_last_update), intval($data->planet_type),
+                    $data->planet_image, intval($data->planet_diameter),
+                    intval($data->planet_fields_current), intval($data->planet_fields_max),
+                    intval($data->planet_temp_min), intval($data->planet_temp_max), floatval($data->planet_metal),
+                    floatval($data->planet_crystal), floatval($data->planet_deuterium),
+                    intval($data->planet_energy_used), intval($data->planet_energy_max),
+                    intval($data->planet_metal_mine_percent),
+                    intval($data->planet_crystal_mine_percent), intval($data->planet_deuterium_synthesizer_percent),
+                    intval($data->planet_solar_plant_percent), intval($data->planet_fusion_reactor_percent),
+                    intval($data->planet_solar_satellite_percent), intval($data->planet_b_building_id),
+                    intval($data->planet_b_building_endtime), intval($data->planet_b_tech_id),
+                    intval($data->planet_b_tech_endtime), intval($data->planet_b_hangar_start_time),
+                    (isset($data->planet_b_hangar_id) ? $data->planet_b_hangar_id : ""),
+                    intval($data->planet_b_hangar_plus), intval($data->planet_destroyed));
+
+                // current planet
+                if ($data->user_currentplanet == $data->planet_planetID) {
+                    $this->user = new User(intval($userID), $data->user_username, $data->user_email,
+                        intval($data->user_onlinetime), intval($data->user_currentplanet));
+
+                    $this->building = new Building(intval($data->building_metal_mine),
+                        intval($data->building_crystal_mine), intval($data->building_deuterium_synthesizer),
+                        intval($data->building_solar_plant),
+                        intval($data->building_fusion_reactor), intval($data->building_robotic_factory),
+                        intval($data->building_nanite_factory), intval($data->building_shipyard),
+                        intval($data->building_metal_storage), intval($data->building_crystal_storage),
+                        intval($data->building_deuterium_storage), intval($data->building_research_lab),
+                        intval($data->building_terraformer), intval($data->building_alliance_depot),
+                        intval($data->building_missile_silo));
+
+                    //$this->galaxy = new Galaxy();
+
+                    $this->defense = new Defense(intval($data->defense_rocket_launcher),
+                        intval($data->defense_light_laser), intval($data->defense_heavy_laser),
+                        intval($data->defense_ion_cannon),
+                        intval($data->defense_gauss_cannon), intval($data->defense_plasma_turret),
+                        intval($data->defense_small_shield_dome), intval($data->defense_large_shield_dome),
+                        intval($data->defense_anti_ballistic_missile), intval($data->defense_interplanetary_missile));
+
+                    $this->galaxy = new Galaxy(intval($data->galaxy_debris_metal),
+                        intval($data->galaxy_debris_crystal));
+
+                    $this->fleet = new Fleet(intval($data->fleet_small_cargo_ship),
+                        intval($data->fleet_large_cargo_ship), intval($data->fleet_light_fighter),
+                        intval($data->fleet_heavy_fighter),
+                        intval($data->fleet_cruiser), intval($data->fleet_battleship), intval($data->fleet_colony_ship),
+                        intval($data->fleet_recycler), intval($data->fleet_espionage_probe),
+                        intval($data->fleet_bomber), intval($data->fleet_solar_satellite),
+                        intval($data->fleet_destroyer), intval($data->fleet_battlecruiser),
+                        intval($data->fleet_deathstar));
+
+                    $this->tech = new Tech(intval($data->tech_espionage_tech), intval($data->tech_computer_tech),
+                        intval($data->tech_weapon_tech), intval($data->tech_armour_tech),
+                        intval($data->tech_shielding_tech),
+                        intval($data->tech_energy_tech), intval($data->tech_hyperspace_tech),
+                        intval($data->tech_combustion_drive_tech), intval($data->tech_impulse_drive_tech),
+                        intval($data->tech_hyperspace_drive_tech), intval($data->tech_laser_tech),
+                        intval($data->tech_ion_tech), intval($data->tech_plasma_tech),
+                        intval($data->tech_intergalactic_research_tech),
+                        intval($data->tech_graviton_tech));
+
                     $this->units = new Units();
-                    
+
                     $this->planet = $p;
                 }
-                
-                
-                
-                
-                
+
+
                 array_push($planetList, $p);
-                
+
             }
-            
-            
+
+
             $this->user->setPlanetList($planetList);
+        }
+
+        public function printData() : void {
+
+            echo '<pre>';
+            print_r($this);
+            echo '</pre>';
         }
 
         /**
          * @return null|User
          */
-        public function getUser() : User{
+        public function getUser() : User {
+
             return $this->user;
         }
 
@@ -205,6 +243,7 @@
          * @return null|User
          */
         public function getPlanet() : Planet {
+
             return $this->planet;
         }
 
@@ -212,13 +251,15 @@
          * @return Fleet|null
          */
         public function getGalaxy() : Galaxy {
+
             return $this->galaxy;
         }
 
         /**
          * @return Building|null
          */
-        public function getBuilding() : Building{
+        public function getBuilding() : Building {
+
             return $this->building;
         }
 
@@ -226,6 +267,7 @@
          * @return Defense|null
          */
         public function getDefense() : Defense {
+
             return $this->defense;
         }
 
@@ -233,6 +275,7 @@
          * @return null|Tech
          */
         public function getTech() : Tech {
+
             return $this->tech;
         }
 
@@ -240,6 +283,7 @@
          * @return Fleet|null
          */
         public function getFleet() : Fleet {
+
             return $this->fleet;
         }
 
@@ -247,6 +291,7 @@
          * @return Units|null
          */
         public function getUnits() : Units {
+
             return $this->units;
         }
     }

@@ -10,20 +10,21 @@
          * @throws FileNotFoundException
          */
         public static function loadLanguage() {
+
             global $path, $config, $lang;
 
             $file = $path['language'] . $config['language'] . '/admin/dashboard.language.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             $file = $path['language'] . $config['language'] . '/menu.language.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             return $lang;
@@ -36,12 +37,14 @@
          * @throws FileNotFoundException
          */
         public static function loadUsers() {
+
             global $database;
 
-            $db = new PDO('mysql:host='.$database['host'].';dbname='.$database['dbname'], $database['user'], $database['pass']);
+            $db = new PDO('mysql:host=' . $database['host'] . ';dbname=' . $database['dbname'], $database['user'],
+                $database['pass']);
 
             $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $query = 'SELECT 
                         userID AS user_userID, 

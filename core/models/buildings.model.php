@@ -2,7 +2,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'].'model.interface.php';
+    require $path['interfaces'] . 'model.interface.php';
 
     class M_Buildings implements I_Model {
 
@@ -12,27 +12,28 @@
          * @throws FileNotFoundException
          */
         public static function loadLanguage() {
+
             global $path, $config, $lang;
 
             $file = $path['language'] . $config['language'] . '/buildings.language.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             $file = $path['language'] . $config['language'] . '/units.language.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             $file = $path['language'] . $config['language'] . '/menu.language.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             return $lang;
@@ -45,19 +46,21 @@
          * @throws FileNotFoundException
          */
         public static function loadUserData($userID) {
+
             global $path;
 
             $file = $path['classes'] . 'loader.class.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             return new Loader($userID);
         }
 
         public static function build($planetID, $buildID, $toLvl, $metal, $crystal, $deuterium) {
+
             global $database, $config, $db, $data;
 
             // check if requirements are met
@@ -100,18 +103,20 @@
                 }
             }
 
-            if($data->getPlanet()->getBBuildingId() == 0 && $data->getPlanet()->getBBuildingEndtime() == 0) {
-                if($buildID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
+            if ($data->getPlanet()->getBBuildingId() == 0 && $data->getPlanet()->getBBuildingEndtime() == 0) {
+                if ($buildID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
                     try {
 
-                        $buildTime = time() + 3600 * $data->getUnits()->getBuildTime($buildID,$toLvl,$data->getBuilding()->getRoboticFactory(),$data->getBuilding()->getShipyard(),$data->getBuilding()->getNaniteFactory());
+                        $buildTime = time() + 3600 * $data->getUnits()
+                                ->getBuildTime($buildID, $toLvl, $data->getBuilding()->getRoboticFactory(),
+                                    $data->getBuilding()->getShipyard(), $data->getBuilding()->getNaniteFactory());
 
-                        $params = array(':b_building_id' => $buildID,
-                            ':b_building_endtime' => $buildTime,
-                            ':metal' => $metal,
-                            ':crystal' => $crystal,
-                            ':deuterium' => $deuterium,
-                            ':planetID' => $planetID
+                        $params = array(':b_building_id'      => $buildID,
+                                        ':b_building_endtime' => $buildTime,
+                                        ':metal'              => $metal,
+                                        ':crystal'            => $crystal,
+                                        ':deuterium'          => $deuterium,
+                                        ':planetID'           => $planetID
                         );
 
                         $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'planets SET b_building_id = :b_building_id, b_building_endtime = :b_building_endtime, metal = :metal, crystal = :crystal, deuterium = :deuterium WHERE planetID = :planetID;');
@@ -130,16 +135,17 @@
         }
 
         public static function cancel($planetID, $metal, $crystal, $deuterium) {
+
             global $database, $db, $data;
 
-            if($data->getPlanet()->getBBuildingId() > 0 && $data->getPlanet()->getBBuildingEndtime() > 0) {
-                if($planetID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
+            if ($data->getPlanet()->getBBuildingId() > 0 && $data->getPlanet()->getBBuildingEndtime() > 0) {
+                if ($planetID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
                     try {
 
-                        $params = array(':planetID' => $planetID,
-                            ':metal' => $metal,
-                            ':crystal' => $crystal,
-                            ':deuterium' => $deuterium
+                        $params = array(':planetID'  => $planetID,
+                                        ':metal'     => $metal,
+                                        ':crystal'   => $crystal,
+                                        ':deuterium' => $deuterium
                         );
 
                         $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'planets SET b_building_id = 0, b_building_endtime = 0, metal = metal+:metal, crystal = crystal+:crystal, deuterium = deuterium+:deuterium WHERE planetID = :planetID;');

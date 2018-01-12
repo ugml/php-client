@@ -1,4 +1,3 @@
-
 <!-- content -->
 <div class="row" id="page-content">
     <div class="col-md-12">
@@ -70,7 +69,9 @@
                         <div>-</div>
                     </div>
                     <div class="col-md-1 text-center">
-                        <div><button>{calcule}</button></div>
+                        <div>
+                            <button>{calcule}</button>
+                        </div>
                     </div>
                 </div>
                 <div class="row">

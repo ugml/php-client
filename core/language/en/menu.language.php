@@ -14,13 +14,13 @@
     $lang['techtree'] = 'Technology';
     $lang['galaxy'] = 'Galaxy';
     $lang['defense'] = 'Defense';
-    
+
     $lang['alliance'] = 'Alliance';
     $lang['board'] = 'Board';
     $lang['stats'] = 'Statistics';
     $lang['search'] = 'Search';
     $lang['help'] = 'Help';
-    
+
     $lang['messages'] = 'Messages';
     $lang['notes'] = 'Notes';
     $lang['buddylist'] = 'Buddylist';

@@ -1,19 +1,21 @@
 <?php
 
-    declare(strict_types=1);
+    declare(strict_types = 1);
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'].'controller.interface.php';
+    require $path['interfaces'] . 'controller.interface.php';
 
     class C_Overview implements I_Controller {
 
         private $get = null;
+
         private $post = null;
+
         private $lang = null;
 
-
         function __construct($get, $post) {
+
             global $data, $debug, $path;
 
             try {
@@ -27,9 +29,9 @@
                 if (!empty($post)) {
                     self::handlePOST();
                 }
-                
-                require_once($path['classes']."topbar.class.php");
-                
+
+                require_once($path['classes'] . "topbar.class.php");
+
 
                 if (!empty($this->get['mode'])) {
                     switch ($this->get['mode']) {
@@ -44,17 +46,17 @@
                 }
 
                 // currently building?
-                if($data->getPlanet()->getBBuildingId() > 0) {
+                if ($data->getPlanet()->getBBuildingId() > 0) {
                     $this->lang['building'] = $data->getUnits()->getName($data->getPlanet()->getBBuildingId());
                 } else {
                     $this->lang['building'] = 'free';
                 }
-                
+
                 $this->lang['planet_image'] = 'skins/Maya/planeten/' . $data->getPlanet()->getImage() . '.png';
 
 
-            } catch(Exception $e) {
-                if(DEBUG) {
+            } catch (Exception $e) {
+                if (DEBUG) {
                     $debug->addLog(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
                 } else {
                     $debug->saveError(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
@@ -63,27 +65,34 @@
         }
 
         function handleGET() : void {
+
             global $data;
-            if(!empty($this->get['cp'])) {
+            if (!empty($this->get['cp'])) {
                 $data->getUser()->setCurrentPlanet(intval($this->get['cp']));
             }
         }
 
         function handlePOST() : void {
-            if(!empty($this->post['abandon'])) {
+
+            if (!empty($this->post['abandon'])) {
                 echo 'Destroy';
-            } else if(!empty($this->post['rename'])) {
-                if(!empty($this->post['newname'])) {
-                    $this->post['newname'] = str_replace(' ', '-', $this->post['newname']); // Replaces all spaces with hyphens.
-                    $this->post['newname'] = preg_replace('/[^A-Za-z0-9\-]/', '', $this->post['newname']); // Removes special chars.
-                    echo $this->post['newname'];
-                } else {
-                    echo 'empty name';
+            } else {
+                if (!empty($this->post['rename'])) {
+                    if (!empty($this->post['newname'])) {
+                        $this->post['newname'] = str_replace(' ', '-',
+                            $this->post['newname']); // Replaces all spaces with hyphens.
+                        $this->post['newname'] = preg_replace('/[^A-Za-z0-9\-]/', '',
+                            $this->post['newname']); // Removes special chars.
+                        echo $this->post['newname'];
+                    } else {
+                        echo 'empty name';
+                    }
                 }
             }
         }
 
         function display() : void {
+
             global $config;
 
             $view = new V_Overview();
@@ -91,12 +100,12 @@
             $this->lang = array_merge($this->lang, M_Overview::loadLanguage());
 
             $view->assign('lang', $this->lang);
-            $view->assign('title',$config['game_name']);
-            $view->assign('skinpath',$config['skinpath']);
-            $view->assign('copyright',$config['copyright']);
-            $view->assign('language',$config['language']);
+            $view->assign('title', $config['game_name']);
+            $view->assign('skinpath', $config['skinpath']);
+            $view->assign('copyright', $config['copyright']);
+            $view->assign('language', $config['language']);
 
-            if(!empty($this->get['mode'])) {
+            if (!empty($this->get['mode'])) {
                 die($view->loadTemplate($this->get['mode']));
             } else {
                 die($view->loadTemplate());

@@ -9,7 +9,7 @@
 
     // if there is no userID stored,
     // redirect to the login-page
-    if(!$userID) {
+    if (!$userID) {
         die(header("Location: login.php"));
     } else {
         die(header("Location: game.php"));

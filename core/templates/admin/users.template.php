@@ -1,7 +1,7 @@
 <style>
     .box {
         width: 90%;
-        margin-right:1em;
+        margin-right: 1em;
     }
 
     table {

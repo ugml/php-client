@@ -8,7 +8,8 @@
     require('core/config.php');
 
     try {
-        $db = new PDO('mysql:host=' . $database['host'] . ';dbname=' . $database['dbname'], $database['user'], $database['pass']);
+        $db = new PDO('mysql:host=' . $database['host'] . ';dbname=' . $database['dbname'], $database['user'],
+            $database['pass']);
 
         $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -70,12 +71,12 @@
                     fleet.destroyer AS fleet_destroyer,
                     fleet.battlecruiser AS fleet_battlecruiser,
                     fleet.deathstar AS fleet_deathstar
-                    FROM '.$database['prefix'].'users AS user 
-                    LEFT JOIN '.$database['prefix'].'planets AS planet ON planet.ownerID = user.userID
-                    LEFT JOIN '.$database['prefix'].'buildings AS building ON planet.planetID = building.planetID
-                    LEFT JOIN '.$database['prefix'].'defenses AS defense ON planet.planetID = defense.planetID
-                    LEFT JOIN '.$database['prefix'].'techs AS tech ON user.userID = tech.userID
-                    LEFT JOIN '.$database['prefix'].'fleet AS fleet ON planet.planetID = fleet.planetID;';
+                    FROM ' . $database['prefix'] . 'users AS user 
+                    LEFT JOIN ' . $database['prefix'] . 'planets AS planet ON planet.ownerID = user.userID
+                    LEFT JOIN ' . $database['prefix'] . 'buildings AS building ON planet.planetID = building.planetID
+                    LEFT JOIN ' . $database['prefix'] . 'defenses AS defense ON planet.planetID = defense.planetID
+                    LEFT JOIN ' . $database['prefix'] . 'techs AS tech ON user.userID = tech.userID
+                    LEFT JOIN ' . $database['prefix'] . 'fleet AS fleet ON planet.planetID = fleet.planetID;';
 
         $stmt = $db->prepare($query);
 
@@ -87,7 +88,7 @@
 
         $userPoints = [];
 
-        while($f = $stmt->fetch()) {
+        while ($f = $stmt->fetch()) {
             $userID = -1;
             $points_buildings = 0;
             $points_tech = 0;
@@ -96,10 +97,10 @@
 
 
             foreach ($f as $k => $v) {
-                switch($k) {
+                switch ($k) {
                     // get the userID
                     case (preg_match('#^user#', $k) === 1):
-                        if($k === 'user_userID') {
+                        if ($k === 'user_userID') {
                             $userID = $v;
                         }
                         break;
@@ -107,7 +108,7 @@
                     // calculate points for building
                     case (preg_match('#^building#', $k) === 1):
                         // if unit exists / has been built
-                        if($v > 0) {
+                        if ($v > 0) {
 
                             // get the unitID
                             $unitID = $units->getUnitID(substr($k, strlen('building_')));
@@ -123,24 +124,24 @@
                             $deuterium = $pricelist['deuterium'];
 
                             // calculate the total costs up to this level
-                            for($i = 0; $i < $v; $i++) {
+                            for ($i = 0; $i < $v; $i++) {
                                 $sum += $metal + $crystal + $deuterium;
                                 $metal *= $pricelist['factor'];
                                 $crystal *= $pricelist['factor'];
                                 $deuterium *= $pricelist['factor'];
                             }
 
-                            $points_buildings += $sum/1000;
+                            $points_buildings += $sum / 1000;
                         }
-                        if($k === 'user_userID') {
+                        if ($k === 'user_userID') {
                             $userID = $v;
                         }
-                    break;
+                        break;
 
                     // calculate points for the techs
                     case (preg_match('#^tech#', $k) === 1):
                         // if unit exists / has been built
-                        if($v > 0) {
+                        if ($v > 0) {
 
                             // get the unitID
                             $unitID = $units->getUnitID(substr($k, strlen('tech_')));
@@ -156,24 +157,24 @@
                             $deuterium = $pricelist['deuterium'];
 
                             // calculate the total costs up to this level
-                            for($i = 0; $i < $v; $i++) {
+                            for ($i = 0; $i < $v; $i++) {
                                 $sum += $metal + $crystal + $deuterium;
                                 $metal *= $pricelist['factor'];
                                 $crystal *= $pricelist['factor'];
                                 $deuterium *= $pricelist['factor'];
                             }
 
-                            $points_tech += $sum/1000;
+                            $points_tech += $sum / 1000;
                         }
-                        if($k === 'user_userID') {
+                        if ($k === 'user_userID') {
                             $userID = $v;
                         }
-                    break;
+                        break;
 
                     // calculate points for the techs
                     case (preg_match('#^defense#', $k) === 1):
                         // if unit exists / has been built
-                        if($v > 0) {
+                        if ($v > 0) {
 
                             // get the unitID
                             $unitID = $units->getUnitID(substr($k, strlen('defense_')));
@@ -189,17 +190,17 @@
                             $deuterium = $pricelist['deuterium'] * $v;
 
 
-                            $points_defense += ($metal + $crystal + $deuterium)/1000;
+                            $points_defense += ($metal + $crystal + $deuterium) / 1000;
                         }
-                        if($k === 'user_userID') {
+                        if ($k === 'user_userID') {
                             $userID = $v;
                         }
-                    break;
+                        break;
 
                     // calculate points for the techs
                     case (preg_match('#^fleet#', $k) === 1):
                         // if unit exists / has been built
-                        if($v > 0) {
+                        if ($v > 0) {
 
                             // get the unitID
                             $unitID = $units->getUnitID(substr($k, strlen('fleet_')));
@@ -215,23 +216,27 @@
                             $deuterium = $pricelist['deuterium'] * $v;
 
 
-                            $points_fleet += ($metal + $crystal + $deuterium)/1000;
+                            $points_fleet += ($metal + $crystal + $deuterium) / 1000;
                         }
-                        if($k === 'user_userID') {
+                        if ($k === 'user_userID') {
                             $userID = $v;
                         }
-                    break;
+                        break;
                 }
             }
 
-            if(array_key_exists($userID,$userPoints)) {
+            if (array_key_exists($userID, $userPoints)) {
                 $userPoints[$userID]['points_buildings'] += $points_buildings;
                 $userPoints[$userID]['points_tech'] += $points_tech;
                 $userPoints[$userID]['points_defense'] += $points_defense;
                 $userPoints[$userID]['points_fleet'] += $points_fleet;
 
             } else {
-                $userPoints[$userID] = ['points_buildings'=>$points_buildings, 'points_tech' => $points_tech, 'points_fleet' => $points_fleet, 'points_defense'=>$points_defense];
+                $userPoints[$userID] = ['points_buildings' => $points_buildings,
+                                        'points_tech'      => $points_tech,
+                                        'points_fleet'     => $points_fleet,
+                                        'points_defense'   => $points_defense
+                ];
             }
         }
 
@@ -249,11 +254,11 @@
         $stmt->bindParam(':points_defense',$userPoints[$userID]['points_defense']);
 
         $stmt->execute();*/
-        
+
         echo "<pre>";
         print_r($userPoints);
         die();
-        
+
     } catch (Exception $e) {
         $debug->saveError('points.php', 'points.php', __LINE__, get_class($e), $e->getMessage());
     }

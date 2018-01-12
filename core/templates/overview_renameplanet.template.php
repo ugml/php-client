@@ -3,7 +3,9 @@
     <form action="game.php?page=overview&mode=renameplanet" method="POST">
         <table width=519>
             <tr>
-                <th>{name}</th><th>{coordinates}</th><th></th>
+                <th>{name}</th>
+                <th>{coordinates}</th>
+                <th></th>
             </tr>
             <tr>
                 <th>{planet_name}</th>

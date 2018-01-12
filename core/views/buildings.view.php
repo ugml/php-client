@@ -2,7 +2,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'].'view.interface.php';
+    require $path['interfaces'] . 'view.interface.php';
 
     class V_Buildings extends View implements I_View {
 
@@ -13,29 +13,49 @@
         /**
          * assigns the variables for the view
          *
-         * @param String $key Schlüssel
+         * @param String $key   Schlüssel
          * @param String $value Variable
          */
-        public function assign($key, $value){
+        public function assign($key, $value) {
+
             $this->_[$key] = $value;
         }
-
 
         /**
          * sets the name of the template which will be used
          *
          * @param String $template Name des Templates.
          */
-        public function setTemplate($template){
+        public function setTemplate($template) {
+
             $this->template = $template;
         }
 
+        /**
+         * this loads the template file
+         *
+         * @param string $mode the subtemplate (e.g. resources_row.template.php)
+         * @return string the template
+         * @throws FileNotFoundException
+         */
+        public function loadTemplate($mode = null) {
+
+            global $path, $data;
+
+            if ($mode != null) {
+                $this->template .= '_' . $mode;
+            }
+
+            return parent::mergeTemplates($this->template, $this->_);
+        }
+
         public function loadBuildingRows($buildings, $unitsBuilding, $planet) {
+
             global $path, $config, $lang, $data;
 
             $output = '';
 
-            foreach($unitsBuilding as $k => $v ) {
+            foreach ($unitsBuilding as $k => $v) {
 
                 $key = intval($k);
 
@@ -83,18 +103,18 @@
 
                 if ($req_met) {
 
-//                    2
-//                    3
-//                    4
-//                    6
-//                    8
-//                    9
-//                    10
-//                    11
-//                    12
-//                    14
-//                    15
-//                    16
+                    //                    2
+                    //                    3
+                    //                    4
+                    //                    6
+                    //                    8
+                    //                    9
+                    //                    10
+                    //                    11
+                    //                    12
+                    //                    14
+                    //                    15
+                    //                    16
 
                     $methodArr = explode('_', $v);
 
@@ -146,7 +166,8 @@
 
                     if ($data->getPlanet()->getBBuildingId() > 0) {
                         if ($unitID == $data->getPlanet()->getBBuildingId()) {
-                            $fields['b_build'] = '-<script>timer(' . ($data->getPlanet()->getBBuildingEndtime() - time()) . ', "build_' . $unitID . '", ' . $unitID . ');</script>';
+                            $fields['b_build'] = '-<script>timer(' . ($data->getPlanet()
+                                        ->getBBuildingEndtime() - time()) . ', "build_' . $unitID . '", ' . $unitID . ');</script>';
                         } else {
                             $fields['b_build'] = "-";
                         }
@@ -217,23 +238,6 @@
             }
 
             return $output;
-        }
-
-        /**
-         * this loads the template file
-         *
-         * @param string $mode the subtemplate (e.g. resources_row.template.php)
-         * @return string the template
-         * @throws FileNotFoundException
-         */
-        public function loadTemplate($mode = null){
-            global $path, $data;
-
-            if($mode != null) {
-                $this->template .= '_'.$mode;
-            }
-
-            return parent::mergeTemplates($this->template, $this->_);
         }
     }
 

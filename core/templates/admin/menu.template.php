@@ -3,7 +3,7 @@
     defined('INSIDE') OR exit('No direct script access allowed');
 
 ?>
- <ul class="menu">
+<ul class="menu">
     <li title="dashboard"><a href="?page=dashboard" class="dashboard">menu</a></li>
     <li title="users"><a href="?page=users" class="users">users</a></li>
     <li title="planets"><a href="?page=planets" class="planets">planets</a></li>
@@ -13,7 +13,7 @@
 </ul>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         var page = "<?php echo $_GET['page']; ?>";
 
         var item = document.getElementsByClassName(page);

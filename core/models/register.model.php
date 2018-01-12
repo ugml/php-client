@@ -2,18 +2,18 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'].'model.interface.php';
+    require $path['interfaces'] . 'model.interface.php';
 
     class M_Register implements I_Model {
 
         public static function loadLanguage() {
+
             global $path, $lang, $config;
 
             require $path['language'] . $config['language'] . '/register.language.php';
 
             return $lang;
         }
-
 
         /**
          * @param $username
@@ -23,9 +23,10 @@
          * @return int 0 if success
          */
         public static function createNewUser($username, $planetname, $email, $password) {
+
             global $database, $path;
-            
-            require_once $path['classes'].'db.class.php';
+
+            require_once $path['classes'] . 'db.class.php';
 
             $db = new Database();
 
@@ -42,6 +43,7 @@
             //if the username already exists
             if ($stmt->rowCount() > 0) {
                 echo 'username or email already taken';
+
                 return 1;
             }
 
@@ -49,7 +51,8 @@
             $playerID = rand(0, 100000);
 
             //check if ID is already taken
-            while ($db->query('SELECT userID FROM ' . $database['prefix'] . 'users WHERE userID=' . $playerID)->rowCount() > 0) {
+            while ($db->query('SELECT userID FROM ' . $database['prefix'] . 'users WHERE userID=' . $playerID)
+                    ->rowCount() > 0) {
                 $playerID = rand(0, 100000);
             }
 
@@ -87,5 +90,6 @@
             return 0;
         }
 
-        public static function loadUserData($userID) {}
+        public static function loadUserData($userID) {
+        }
     }

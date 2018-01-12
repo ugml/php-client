@@ -4,7 +4,7 @@
             Planet 1
         </div>
         <div class="col-md-12 text-center">
-            <img src="skins/Maya/planeten/wasserplanet02.jpg" class="planetImage" alt="Planet" />
+            <img src="skins/Maya/planeten/wasserplanet02.jpg" class="planetImage" alt="Planet"/>
         </div>
         <div class="col-md-12 text-center">
             {free}

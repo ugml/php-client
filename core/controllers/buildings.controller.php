@@ -1,19 +1,21 @@
 <?php
 
-    declare(strict_types=1);
+    declare(strict_types = 1);
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'].'controller.interface.php';
+    require $path['interfaces'] . 'controller.interface.php';
 
     class C_Building implements I_Controller {
 
         private $get = null;
+
         private $post = null;
+
         private $lang = null;
 
-
         function __construct($get, $post) {
+
             global $data, $debug, $path;
 
             try {
@@ -27,11 +29,11 @@
                 if (!empty($post)) {
                     self::handlePOST();
                 }
-                
-                require_once($path['classes']."topbar.class.php");
 
-            } catch(Exception $e) {
-                if(DEBUG) {
+                require_once($path['classes'] . "topbar.class.php");
+
+            } catch (Exception $e) {
+                if (DEBUG) {
                     $debug->addLog(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
                 } else {
                     $debug->saveError(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
@@ -40,17 +42,18 @@
         }
 
         function handleGET() : void {
+
             global $data;
-            if(!empty($this->get['cp'])) {
+            if (!empty($this->get['cp'])) {
                 $data->getUser()->setCurrentPlanet(intval($this->get['cp']));
             }
 
-            if(isset($this->get['build'])) {
+            if (isset($this->get['build'])) {
 
                 $id = intval(filter_input(INPUT_GET, 'build', FILTER_VALIDATE_INT));
 
                 // if the passed value was of type integer, the $id should be set and not null
-                if(isset($id) && $id != null) {
+                if (isset($id) && $id != null) {
                     if ($id > 0) {
                         $this->build($id);
                     } else {
@@ -61,15 +64,15 @@
                 }
             }
 
-            if(isset($this->get['cancel']) && $data->getPlanet()->getBBuildingID() > 0) {
+            if (isset($this->get['cancel']) && $data->getPlanet()->getBBuildingID() > 0) {
 
                 $id = intval(filter_input(INPUT_GET, 'cancel', FILTER_VALIDATE_INT));
 
                 // if the passed value was of type integer, the $id should be set and not null
-                if(isset($id) && $id != null) {
+                if (isset($id) && $id != null) {
                     if ($id > 0) {
-                        
-                        if($data->getPlanet()->getBBuildingID() == $id) {
+
+                        if ($data->getPlanet()->getBBuildingID() == $id) {
                             $this->cancel($id);
                         } else {
                             throw new InvalidArgumentException("cancelID does not match currently building id");
@@ -84,15 +87,12 @@
             }
         }
 
-        function handlePOST() : void {
-
-        }
-
         function build($buildID) : void {
+
             global $data, $debug;
 
             try {
-                if($buildID < 1 || $buildID > 99 || !array_key_exists($buildID, $data->getUnits()->getBuildings())) {
+                if ($buildID < 1 || $buildID > 99 || !array_key_exists($buildID, $data->getUnits()->getBuildings())) {
                     throw new InvalidArgumentException("ID out of range");
                 }
 
@@ -152,9 +152,11 @@
         }
 
         function cancel($buildID) : void {
+
             global $data;
 
-            if($data->getPlanet()->getBBuildingId() == $buildID && $data->getPlanet()->getBBuildingEndtime() > time()) {
+            if ($data->getPlanet()->getBBuildingId() == $buildID && $data->getPlanet()
+                    ->getBBuildingEndtime() > time()) {
                 $units = new Units();
 
                 $pricelist = $units->getPriceList($buildID);
@@ -163,7 +165,7 @@
 
                 $method = 'get';
 
-                foreach($methodArr as $a => $b) {
+                foreach ($methodArr as $a => $b) {
                     $method .= ucfirst($b);
                 }
                 $level = call_user_func_array(array($data->getBuilding(), $method), array());
@@ -173,7 +175,7 @@
                 $deuterium = $pricelist['deuterium'];
 
                 // calculate the total costs up to this level
-                for($i = 0; $i < $level; $i++) {
+                for ($i = 0; $i < $level; $i++) {
                     $metal *= $pricelist['factor'];
                     $crystal *= $pricelist['factor'];
                     $deuterium *= $pricelist['factor'];
@@ -186,7 +188,12 @@
 
         }
 
+        function handlePOST() : void {
+
+        }
+
         function display() : void {
+
             global $config, $data;
 
             // load view
@@ -195,25 +202,25 @@
             $v_lang = M_Buildings::loadLanguage();
 
             // load the individual rows for each building
-            $this->lang['building_list'] = $view->loadBuildingRows($data->getBuilding(), $data->getUnits()->getBuildings(), $data->getPlanet());
+            $this->lang['building_list'] = $view->loadBuildingRows($data->getBuilding(),
+                $data->getUnits()->getBuildings(), $data->getPlanet());
 
-            if(is_array($this->lang) && is_array($v_lang)) {
+            if (is_array($this->lang) && is_array($v_lang)) {
                 $this->lang = array_merge($this->lang, $v_lang);
             } else {
-                if(!isset($this->lang) && empty($this->lang) && isset($v_lang) && !empty($v_lang)) {
+                if (!isset($this->lang) && empty($this->lang) && isset($v_lang) && !empty($v_lang)) {
                     $this->lang = $v_lang;
                 }
             }
 
 
-
             $view->assign('lang', $this->lang);
-            $view->assign('title',$config['game_name']);
-            $view->assign('skinpath',$config['skinpath']);
-            $view->assign('copyright',$config['copyright']);
-            $view->assign('language',$config['language']);
+            $view->assign('title', $config['game_name']);
+            $view->assign('skinpath', $config['skinpath']);
+            $view->assign('copyright', $config['copyright']);
+            $view->assign('language', $config['language']);
 
-            if(!empty($this->get['mode'])) {
+            if (!empty($this->get['mode'])) {
                 die($view->loadTemplate($this->get['mode']));
             } else {
                 die($view->loadTemplate());

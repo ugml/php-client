@@ -2,7 +2,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'].'model.interface.php';
+    require $path['interfaces'] . 'model.interface.php';
 
     class M_Research implements I_Model {
 
@@ -12,33 +12,35 @@
          * @throws FileNotFoundException
          */
         public static function loadLanguage() {
+
             global $path, $config, $lang;
 
             $file = $path['language'] . $config['language'] . '/research.language.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             $file = $path['language'] . $config['language'] . '/units.language.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             $file = $path['language'] . $config['language'] . '/menu.language.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             return $lang;
         }
 
         public static function build($planetID, $buildID, $toLvl, $metal, $crystal, $deuterium) {
+
             global $database, $db, $data;
 
             //echo $key . " - " . $v . "<br />";
@@ -84,23 +86,25 @@
                 }
             }
 
-            if($data->getPlanet()->getBTechID() == 0 && $data->getPlanet()->getBTechEndtime() == 0) {
-                if($buildID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
+            if ($data->getPlanet()->getBTechID() == 0 && $data->getPlanet()->getBTechEndtime() == 0) {
+                if ($buildID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
                     try {
-                        
-                        $price = $data->getUnits()->getPriceList($buildID);
-                        
-                        
-                        // preis * faktor ^ level
-                        
-                        $buildTime = time() + ($price["metal"] * pow($price["factor"],$toLvl-1) + $price["crystal"] * pow($price["factor"],$toLvl-1))/(1000 * (1 + $data->getBuilding()->getResearchLab()))*3600;
 
-                        $params = array(':b_tech_id' => $buildID,
-                            ':b_tech_endtime' => $buildTime,
-                            ':metal' => $metal,
-                            ':crystal' => $crystal,
-                            ':deuterium' => $deuterium,
-                            ':planetID' => $planetID
+                        $price = $data->getUnits()->getPriceList($buildID);
+
+
+                        // preis * faktor ^ level
+
+                        $buildTime = time() + ($price["metal"] * pow($price["factor"],
+                                    $toLvl - 1) + $price["crystal"] * pow($price["factor"],
+                                    $toLvl - 1)) / (1000 * (1 + $data->getBuilding()->getResearchLab())) * 3600;
+
+                        $params = array(':b_tech_id'      => $buildID,
+                                        ':b_tech_endtime' => $buildTime,
+                                        ':metal'          => $metal,
+                                        ':crystal'        => $crystal,
+                                        ':deuterium'      => $deuterium,
+                                        ':planetID'       => $planetID
                         );
 
                         $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'planets SET b_tech_id = :b_tech_id, b_tech_endtime = :b_tech_endtime, metal = :metal, crystal = :crystal, deuterium = :deuterium WHERE planetID = :planetID;');
@@ -119,16 +123,17 @@
         }
 
         public static function cancel($planetID, $metal, $crystal, $deuterium) {
+
             global $database, $db, $data;
 
-            if($data->getPlanet()->getBTechID() > 0 && $data->getPlanet()->getBTechEndtime() > 0) {
-                if($planetID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
+            if ($data->getPlanet()->getBTechID() > 0 && $data->getPlanet()->getBTechEndtime() > 0) {
+                if ($planetID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
                     try {
 
-                        $params = array(':planetID' => $planetID,
-                            ':metal' => $metal,
-                            ':crystal' => $crystal,
-                            ':deuterium' => $deuterium
+                        $params = array(':planetID'  => $planetID,
+                                        ':metal'     => $metal,
+                                        ':crystal'   => $crystal,
+                                        ':deuterium' => $deuterium
                         );
 
                         $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'planets SET b_tech_id = 0, b_tech_endtime = 0, metal = metal+:metal, crystal = crystal+:crystal, deuterium = deuterium+:deuterium WHERE planetID = :planetID;');

@@ -1,7 +1,5 @@
 ![N|Solid](https://mamen.at/ugamela/images/logo.png)
 
-![N|solid](http://raspinoip.ddns.net:60023/job/ugamela/badge/icon)
-
 # What is ugamela?
 
 ugamela is a open-source clone of the popular browsergame ogame, developed by the Gameforge 4D GmbH. It first appeared around the year 2006, when Peberos published the source-code for his version of ugamela. It stayed open-source until the version 0.2-r13, which can still be found for download. After this, Peberos continued to improve ugamela as a closed-source browsergame.
@@ -15,6 +13,7 @@ This open-source project is still in an alpha-state, **please do not use this in
 # Project-Structure
 
 ```shell
+├── admin/                       # → the admin interface
 ├── core/                        # → contains all necessary classes
 │   └── classes/                 # → classes for the ORM-Mapping and parent-classes
 │   └── controllers/             # → all needed controller-classes
@@ -30,14 +29,15 @@ This open-source project is still in an alpha-state, **please do not use this in
 ├── skins/                       # → skins, which are useable ingame (all images and css for the game must go here)
 ├── game.php                     # → the main php-file, which dynamically loads the needed pages
 ├── index.php                    # → redirects to the game.php if logged in, else to the login-page
-└── login.php                    # → login-form for the user
+├── login.php                    # → login-form for the user
+└── logout.php                   # → user-logout
 ```
 
 # Quick Start
 
 1.  This project uses is being developed with the (currently) latest release of PHP (Version 7.1.9) and mariaDB (Version 10.2). For a easy quick start, use the latest release of [XAMPP](https://www.apachefriends.org/de/download.html) or use [Docker](https://www.docker.com) with the necessary containers.
 2.  After setting up your environment, import the sql-file located in the install directory.
-3.  Edit the config.php in the core-folder to match your server-configuration.
+3.  Edit the config.sample.php in the core-folder to match your server-configuration and **rename it to config.php**.
 4.  Login to the game with the  **default Username** "admin" and  **default Password** "admin"
 
 # Support / Questions

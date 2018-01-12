@@ -2,7 +2,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'].'model.interface.php';
+    require $path['interfaces'] . 'model.interface.php';
 
     class M_Dashboard implements I_Model {
 
@@ -12,20 +12,21 @@
          * @throws FileNotFoundException
          */
         public static function loadLanguage() {
+
             global $path, $config, $lang;
 
             $file = $path['language'] . $config['language'] . '/admin/dashboard.language.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             $file = $path['language'] . $config['language'] . '/menu.language.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             return $lang;
@@ -38,13 +39,14 @@
          * @throws FileNotFoundException
          */
         public static function loadUserData($userID) {
+
             global $path;
 
             $file = $path['classes'] . 'loader.class.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             return new Loader($userID);

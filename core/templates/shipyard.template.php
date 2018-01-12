@@ -3,15 +3,15 @@
     <div class="col-md-12">
         <div class="row">
             <form action="game.php?page=shipyard" method="post">
-            <div class="col-md-12 content-header">
-                {page}
-            </div>
-            <div class="col-md-12 content-body">
+                <div class="col-md-12 content-header">
+                    {page}
+                </div>
+                <div class="col-md-12 content-body">
                     {shipyard_list}
-            </div>
-            <div class="col-md-12 content-header text-center">
-                <button>Senden</button>
-            </div>
+                </div>
+                <div class="col-md-12 content-header text-center">
+                    <button>Senden</button>
+                </div>
             </form>
         </div>
     </div>

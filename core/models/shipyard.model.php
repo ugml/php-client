@@ -2,7 +2,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'].'model.interface.php';
+    require $path['interfaces'] . 'model.interface.php';
 
     class M_Shipyard implements I_Model {
 
@@ -12,27 +12,28 @@
          * @throws FileNotFoundException
          */
         public static function loadLanguage() {
+
             global $path, $config, $lang;
 
             $file = $path['language'] . $config['language'] . '/shipyard.language.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             $file = $path['language'] . $config['language'] . '/units.language.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             $file = $path['language'] . $config['language'] . '/menu.language.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             return $lang;
@@ -45,50 +46,54 @@
          * @throws FileNotFoundException
          */
         public static function loadUserData($userID) {
+
             global $path;
 
             $file = $path['classes'] . 'loader.class.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 require $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             return new Loader($userID);
         }
 
-        public static function build(int $planetID, array $buildingQueue, int $costMetal, int $costCrystal, int $costDeuterium) {
+        public static function build(int $planetID, array $buildingQueue, int $costMetal, int $costCrystal,
+            int $costDeuterium) {
+
             global $database, $db, $data;
-            
-            if($data->getUser()->getCurrentPlanet() != $planetID || $costMetal < 0 || $costCrystal < 0 || $costDeuterium < 0) {
+
+            if ($data->getUser()
+                    ->getCurrentPlanet() != $planetID || $costMetal < 0 || $costCrystal < 0 || $costDeuterium < 0) {
                 throw new InvalidArgumentException('Passed arguments are not valid');
                 //break;
             }
-            
+
             try {
-                
+
                 // append to current queue
-                if($data->getPlanet()->getBHangarId() !== "0") {
+                if ($data->getPlanet()->getBHangarId() !== "0") {
                     $buildingString = $data->getPlanet()->getBHangarId();
                 }
-                
-                foreach($buildingQueue as $k => $v) {
-                    $key = key($v);
-                    
-                    $buildingString .= $key . ",".$v[$key].";\n";
-                }
-                
-                
-                 $params = array(
-                     ':b_hangar_start_time' => time(),
-                     ':b_hangar_id' => $buildingString,
-                     ':metal' => $data->getPlanet()->getMetal() - $costMetal,
-                     ':crystal' => $data->getPlanet()->getCrystal() - $costCrystal,
-                     ':deuterium' => $data->getPlanet()->getDeuterium() - $costDeuterium,
-                     ':planetID' => $planetID
-                 );
 
-                 $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'planets SET 
+                foreach ($buildingQueue as $k => $v) {
+                    $key = key($v);
+
+                    $buildingString .= $key . "," . $v[$key] . ";\n";
+                }
+
+
+                $params = array(
+                    ':b_hangar_start_time' => time(),
+                    ':b_hangar_id'         => $buildingString,
+                    ':metal'               => $data->getPlanet()->getMetal() - $costMetal,
+                    ':crystal'             => $data->getPlanet()->getCrystal() - $costCrystal,
+                    ':deuterium'           => $data->getPlanet()->getDeuterium() - $costDeuterium,
+                    ':planetID'            => $planetID
+                );
+
+                $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'planets SET 
                                             b_hangar_start_time = :b_hangar_start_time, 
                                             b_hangar_id = :b_hangar_id, 
                                             metal = :metal, 
@@ -96,10 +101,10 @@
                                             deuterium = :deuterium 
                                         WHERE planetID = :planetID;');
 
-                 $stmt->execute($params);
-             } catch (PDOException $e) {
-                 die($e);
-             }
+                $stmt->execute($params);
+            } catch (PDOException $e) {
+                die($e);
+            }
 
         }
     }

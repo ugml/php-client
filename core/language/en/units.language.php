@@ -85,7 +85,7 @@
     $lang['terraformer_descr'] = 'The Terraformer is needed to expand nearly developed planets. 5 free fields are added per level, plus an additional field every 2 levels, but you need energy for the construction.';
     $lang['alliance_depot_descr'] = 'With this facility, it is possible to support holding fleets with deuterium via support rockets. Higher levels will allow friendly fleets to remain in orbit longer.';
     $lang['missile_silo_descr'] = 'The Missile Silo is used to build Anti-Ballistic Missiles and Interplanetary Missiles.';
-    
+
     // moon
     $lang['lunar_base_descr'] = 'This structure can only be built on a moon. It is necessary to get more building slots, since a moon consists of only one field at the beginning.';
     $lang['sensor_phalanx_descr'] = 'This facility can, like the Lunar Base, only be built on a moon.';
@@ -107,8 +107,8 @@
     $lang['plasma_tech_descr'] = '';
     $lang['intergalactic_research_tech_descr'] = '';
     $lang['graviton_tech_descr'] = '';
-    
-    
+
+
     $lang['small_cargo_ship_descr'] = '';
     $lang['large_cargo_ship_descr'] = '';
     $lang['light_fighter_descr'] = '';

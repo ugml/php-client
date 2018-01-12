@@ -11,20 +11,21 @@
         /**
          * assigns the variables for the view
          *
-         * @param String $key Schlüssel
+         * @param String $key   Schlüssel
          * @param String $value Variable
          */
-        public function assign($key, $value){
+        public function assign($key, $value) {
+
             $this->_[$key] = $value;
         }
-
 
         /**
          * sets the name of the template which will be used
          *
          * @param String $template Name des Templates.
          */
-        public function setTemplate($template = 'resources'){
+        public function setTemplate($template = 'resources') {
+
             $this->template = $template;
         }
 
@@ -35,49 +36,50 @@
          * @return string the template
          * @throws FileNotFoundException
          */
-        public function loadTemplate($mode = null){
+        public function loadTemplate($mode = null) {
+
             global $path;
 
-            if($mode != null) {
-                $this->template .= '_'.$mode;
+            if ($mode != null) {
+                $this->template .= '_' . $mode;
             }
 
             // write the output into a buffer
             ob_start();
 
             $file = $path['templates'] . 'header.template.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 include $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['templates'] .'admin/topbar.template.php';
-            if(file_exists($file)) {
+            $file = $path['templates'] . 'admin/topbar.template.php';
+            if (file_exists($file)) {
                 include $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['templates'] .'admin/menu.template.php';
-            if(file_exists($file)) {
+            $file = $path['templates'] . 'admin/menu.template.php';
+            if (file_exists($file)) {
                 include $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['templates'] .'admin/'. $this->template . '.template.php';
-            if(file_exists($file)) {
+            $file = $path['templates'] . 'admin/' . $this->template . '.template.php';
+            if (file_exists($file)) {
                 include $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             $file = $path['templates'] . 'footer.template.php';
-            if(file_exists($file)) {
+            if (file_exists($file)) {
                 include $file;
             } else {
-                throw new FileNotFoundException('File \''.$file.'\' not found');
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
             $output = ob_get_contents();

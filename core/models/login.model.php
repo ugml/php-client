@@ -2,11 +2,12 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require_once $path['interfaces'].'model.interface.php';
+    require_once $path['interfaces'] . 'model.interface.php';
 
     class M_Login implements I_Model {
 
         public static function loadLanguage() {
+
             global $path, $lang, $config;
 
             require_once $path['language'] . $config['language'] . '/login.language.php';
@@ -14,11 +15,11 @@
             return $lang;
         }
 
-
         public static function getUserInfo($username) {
+
             global $database, $path;
-            
-            require_once $path['classes'].'db.class.php';
+
+            require_once $path['classes'] . 'db.class.php';
 
             $db = new Database();
 
@@ -26,7 +27,7 @@
 
                 $params = array(':username' => $username);
 
-                $stmt = $db->prepare('SELECT userID, password FROM '.$database['prefix'].'users WHERE username = :username;');
+                $stmt = $db->prepare('SELECT userID, password FROM ' . $database['prefix'] . 'users WHERE username = :username;');
 
                 $stmt->execute($params);
 
@@ -36,5 +37,6 @@
             }
         }
 
-         public static function loadUserData($userID){}
+        public static function loadUserData($userID) {
+        }
     }

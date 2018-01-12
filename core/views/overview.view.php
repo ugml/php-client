@@ -2,7 +2,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'].'view.interface.php';
+    require $path['interfaces'] . 'view.interface.php';
 
     class V_Overview extends View implements I_View {
 
@@ -13,20 +13,21 @@
         /**
          * assigns the variables for the view
          *
-         * @param String $key Schlüssel
+         * @param String $key   Schlüssel
          * @param String $value Variable
          */
-        public function assign($key, $value){
+        public function assign($key, $value) {
+
             $this->_[$key] = $value;
         }
-
 
         /**
          * sets the name of the template which will be used
          *
          * @param String $template Name des Templates.
          */
-        public function setTemplate($template){
+        public function setTemplate($template) {
+
             $this->template = $template;
         }
 
@@ -39,8 +40,8 @@
          */
         public function loadTemplate($mode = null) {
 
-            if($mode != null) {
-                $this->template .= '_'.$mode;
+            if ($mode != null) {
+                $this->template .= '_' . $mode;
             }
 
             return parent::mergeTemplates($this->template, $this->_);

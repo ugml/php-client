@@ -13,7 +13,7 @@
                     </div>
                     <div class="col-md-6 content-body">
                         <div>
-                            <input type="text" />
+                            <input type="text"/>
                         </div>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-md-6 content-body">
                         <div>
-                            <input type="text" />
+                            <input type="text"/>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-md-6 content-body">
                         <div>
-                            <input type="text" />
+                            <input type="text"/>
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-md-6 content-body">
                         <div>
-                            <input type="text" />
+                            <input type="text"/>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-md-6 content-body">
                         <div>
-                            <input type="text" />
+                            <input type="text"/>
                         </div>
                     </div>
                 </div>
