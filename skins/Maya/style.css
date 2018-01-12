@@ -1,0 +1,275 @@
+@import url('https://fonts.googleapis.com/css?family=Amiko|Ramabhadra');
+
+.debug_table {
+    margin: 1em auto 0 auto;
+    border:0.1em solid rgb(74,91,97);
+    width: 80%;
+}
+
+.debug_table tr {
+    background-color: rgb(35,43,46);
+}
+
+.debug_table tr:nth-child(2n) {
+    background-color: rgb(47,61,66);
+}
+
+.debug_table tr th {
+    font-weight:bold;
+    padding:0.5em 0;
+    border:0.1em solid rgb(74,91,97);
+}
+
+.debug_table tr td {
+    border:0.1em solid rgb(74,91,97);
+    font-size: 1em;
+    padding:0.5em;
+}
+
+.debug_table tr td:not(:first-child) {
+    text-align: center;
+}
+
+body {
+    background: #11181E url(img/background.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    color: #fff;
+    font-family: 'Amiko', sans-serif;
+    font-size: 1em;
+    width:100%;
+    height: 100%;
+}
+
+a, a:link, a:visited, a:active {
+    font-family: 'Ramabhadra', sans-serif;
+    text-decoration: none;
+    color:rgb(43,151,178);
+}
+
+a:hover {
+    font-family: 'Ramabhadra', sans-serif;
+    text-decoration: none;
+    color:rgb(64,217,255);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Ramabhadra', sans-serif;
+}
+
+h1 {
+    font-size: 1.5em;
+    border-bottom: 0.1em solid rgb(74,91,97);
+    margin-bottom: 1em;
+}
+
+h2 {
+    font-size: 1.3em;
+    margin-top: 1em;
+    margin-bottom: 0.3em;
+}
+
+
+
+input {
+    font-size: 1em;
+}
+
+input[type=text], input[type=password] {
+    border:0.1em solid rgb(74,91,97);
+    background-color: rgb(47,61,66);
+    color: rgb(193,204,207);
+    padding:1em;
+    margin:1em 0;
+    width: 90%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+button:not([class]), button:not([class])[type=submit] {
+    background-color: rgba(100, 221, 23, 0.5);
+    border: solid 1px rgba(104, 159, 56, 0.5);
+    padding:0.5em;
+    transition: box-shadow 0.3s, border 0.3s;
+    color: #FAFAFA;
+    margin:1em 0;
+    width: 90%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+button:hover:not([class]), button:not([class])[type=submit]:hover {
+    box-shadow: 0 0 5px 1px rgba(100, 221, 23, 0.5);
+    background-color: rgba(100, 221, 23, 0.5);
+    border: solid 1px rgba(104, 159, 56, 0.5);
+
+    color: rgb(255,255,255);
+    padding:0.5em;
+    margin:1em 0;
+    width: 90%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+select {
+    border:0.1em solid rgb(74,91,97);
+    background-color: rgb(36,47,51);
+    color: rgb(255,255,255);
+    padding:0.2em 0.5em;
+}
+
+#page table.data {
+    border:0.1em solid rgb(74,91,97);
+    width: 100%;
+}
+
+#page table.data tr:nth-child(2n) {
+    background-color: rgb(47,61,66);
+}
+
+#page table.data tr th {
+    font-weight:bold;
+    font-size: 1.2em;
+    padding:0.5em 0;
+    border:0.1em solid rgb(74,91,97);
+}
+
+#page table.data tr td {
+    border:0.1em solid rgb(74,91,97);
+    font-size: 1em;
+    padding:0.5em;
+}
+
+#page table.data tr td:not(:first-child) {
+    text-align: center;
+}
+
+th.heading {
+    text-align: left;
+    padding-left: 2em;
+}
+
+
+.progressbar {
+    border: 0.1em solid rgb(74,91,97);
+    margin: 0 1em;
+}
+
+.progressbar-lime {
+    background-color: lime;
+}
+
+#wrapper {
+    width:80%;
+    margin: 2em auto;
+    display: flex;
+	flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.box {
+    padding: 1em;
+    background-color: rgb(35,43,46);
+    border: 0.1em solid rgb(67,82,88);
+}
+
+/* --- the page --- */
+#page {
+    flex: 1;
+    width:80%;
+    margin-left: 1em;
+    align-items: flex-start;
+}
+
+#page:after {
+    clear: both;
+}
+
+.page_heading {
+    flex: 1 1 100%;
+
+    font-weight:bold;
+    padding:0.5em 0 0.5em 1em;
+    border:0.1em solid rgb(74,91,97);
+    border-bottom:none;
+    background-color: rgb(35,43,46);
+}
+
+.page_events, .page_content {
+    flex: 1 1 100%;
+    font-weight:bold;
+    padding:0.5em 0 0.5em 1em;
+    border:0.1em solid rgb(74,91,97);
+    border-bottom:none;
+    background-color: rgb(47,61,66);
+}
+
+.overview_leftcol {
+    flex:1 1 auto;
+    text-align: center;
+    font-weight:bold;
+    padding:0.5em 0 0.5em 1em;
+    border:0.1em solid rgb(74,91,97);
+    border-bottom:none;
+    background-color: rgb(47,61,66);
+}
+
+.overview_rightcol {
+    flex:1 1 auto;
+
+    font-weight:bold;
+    padding:0.5em 0 0.5em 1em;
+    border:0.1em solid rgb(74,91,97);
+    border-bottom:none;
+    background-color: rgb(47,61,66);
+}
+
+.overview_stats {
+    flex: 1 1 100%;
+
+    font-weight:bold;
+    padding:0.5em 0 0.5em 1em;
+    border:0.1em solid rgb(74,91,97);
+    background-color: rgb(47,61,66);
+}
+
+footer {
+    flex:1 1 100%;
+}
+
+
+/* --- topbar --- */
+#topbar {
+    width:100%;
+    margin-bottom:1em;
+    flex: 1 1 100%;
+}
+
+#planetImageBox {
+    width:10%;
+    text-align: center;
+    display: inline-block;
+}
+
+#planetDataBox {
+    width:30%;
+    text-align: left;
+    display: inline-block;
+}
+
+#planetResBox {
+    width:50%;
+    text-align: center;
+    display: inline-block;
+}
+
+
+/* --- main menu --- */
+#mainMenu ul li {
+    padding-bottom: 1em;
+}

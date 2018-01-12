@@ -1,0 +1,7 @@
+.idea/
+
+core/config.php
+*test.*
+*todo.*
+
+.DS_Store

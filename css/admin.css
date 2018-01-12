@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css?family=Amiko|Ramabhadra');
+
+body {
+    background-color: #FFF;
+    color: #333;
+    font-family: 'Amiko', sans-serif;
+    width:100%;
+    height: 100%;
+}
+
+.page {
+    margin-left:6em;
+    margin-right:1em;
+    padding-top: 1em;
+}
+
+footer {
+    margin-top:1em;
+    margin-left:6em;
+}
+
+h1 {
+    border-bottom:0.05em solid #333;
+    font-size: 1.5em;
+    margin-bottom: 1em;
+}
+
+
+
+.row:after {
+    content: ".";
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0px;
+}
+
+.box {
+    padding:1em;
+    margin-bottom: 1em;
+    margin-right:0.5em;
+    background: #f5f5f5;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    box-shadow: 1px 2px 4px rgba(0,0,0,.4);
+    float:left;
+
+}
+
+.box:first-child {
+    margin-left: 0;
+}
+
+
+
+
+
+
+/* menu */
+
+@import url("//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css");
+.menu, .menu-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background: #f7f7f7;
+    z-index:10;
+    overflow:hidden;
+    box-shadow: 2px 0 18px rgba(0, 0, 0, 0.26);
+}
+.menu li a{
+  display: block;
+  text-indent: -500em;
+  height: 5em;
+  width: 5em;
+  line-height: 5em;
+  text-align:center;
+  color: #333;
+  position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background 0.1s ease-in-out;
+}
+.menu li a:before {
+  font-family: FontAwesome;
+  speak: none;
+  text-indent: 0em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 1.4em;
+}
+.menu li a.dashboard:before {
+  content: "\f0e4";
+}
+.menu li a.users:before {
+  content: "\f0c0";
+}
+.menu li a.planets:before {
+  content: "\f0ac";
+}
+.menu li a.reports:before {
+  content: "\f024";
+}
+.menu li a.errors:before {
+  content: "\f188";
+}
+.menu li a.logout:before {
+  content: "\f08b";
+}
+.menu li a:hover,
+.menu li a.active {
+  background: #267fdd;
+  color: #fff;
+}
+.menu-bar{
+    overflow:hidden;
+    left:5em;
+    z-index:5;
+    width:0;
+    height:0;
+    transition: all 0.1s ease-in-out;
+}
+.menu-bar li a{
+  display: block;
+  height: 4em;
+  line-height: 4em;
+  text-align:center;
+  color: #72739f;
+  text-decoration:none;
+  position: relative;
+  font-family:verdana;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background 0.1s ease-in-out;
+}
