@@ -7,9 +7,9 @@
     //include_once 'path/to/project/classes/helloWorld.php';
 
     use mageekguy\atoum;
-    use vendor\project;
+    use core\classes;
 
-    class helloWorld extends atoum\test
+    class user.class extends atoum\test
     {
         public function testSay()
         {
