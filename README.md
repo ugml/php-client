@@ -1,4 +1,5 @@
 ![N|Solid](https://mamen.at/ugamela/images/logo.png)
+![N|Solid](https://travis-ci.com/mamen/ugamela.svg?token=W9dJHsFajvdU8w61Xgun&branch=master)
 
 # What is ugamela?
 
