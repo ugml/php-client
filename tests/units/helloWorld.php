@@ -1,6 +1,6 @@
 <?php
 
-    namespace vendor\project\tests\units;
+    namespace tests\units;
 
 //    require_once 'vendor/bin/atoum.phar';
 
