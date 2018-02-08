@@ -2,7 +2,7 @@
 
     namespace vendor\project\tests\units;
 
-    require_once 'vendor/bin/atoum.phar';
+//    require_once 'vendor/bin/atoum.phar';
 
     //include_once 'path/to/project/classes/helloWorld.php';
 
