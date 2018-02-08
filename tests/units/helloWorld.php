@@ -9,7 +9,7 @@
     use mageekguy\atoum;
     use core\classes;
 
-    class user.class extends atoum\test
+    class customTest extends atoum\test
     {
         public function testSay()
         {
