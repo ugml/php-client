@@ -2,9 +2,9 @@
 
     namespace vendor\project\tests\units;
 
-    require_once 'path/to/atoum.phar';
+    require_once 'vendor/bin/atoum.phar';
 
-    include_once 'path/to/project/classes/helloWorld.php';
+    //include_once 'path/to/project/classes/helloWorld.php';
 
     use mageekguy\atoum;
     use vendor\project;
@@ -13,8 +13,8 @@
     {
         public function testSay()
         {
-            $helloWorld = new project\helloWorld();
+            $helloWorld = "Hello World!";
 
-            $this->string($helloWorld->say())->isEqualTo('Hello World!');
+            $this->string($helloWorld)->isEqualTo("Hello World!");
         }
     }
