@@ -77,7 +77,7 @@
             $this->missile_silo = $bmissile_silo;
         }
 
-        public function printBuilding() {
+        public function printBuilding() : void {
 
             echo '<pre>';
             print_r($this);
@@ -111,7 +111,7 @@
         /**
          * @param $crystal_mine
          */
-        public function setCrystalMine($crystal_mine) {
+        public function setCrystalMine($crystal_mine) : void {
 
             $this->crystal_mine = $crystal_mine;
         }
@@ -127,7 +127,7 @@
         /**
          * @param $deuterium_synthesizer
          */
-        public function setDeuteriumSynthesizer($deuterium_synthesizer) {
+        public function setDeuteriumSynthesizer($deuterium_synthesizer) : void {
 
             $this->deuterium_synthesizer = $deuterium_synthesizer;
         }
@@ -143,7 +143,7 @@
         /**
          * @param $solar_plant
          */
-        public function setSolarPlant($solar_plant) {
+        public function setSolarPlant($solar_plant) : void {
 
             $this->solar_plant = $solar_plant;
         }
@@ -159,7 +159,7 @@
         /**
          * @param $fusion_reactor
          */
-        public function setFusionReactor($fusion_reactor) {
+        public function setFusionReactor($fusion_reactor) : void {
 
             $this->fusion_reactor = $fusion_reactor;
         }
@@ -175,7 +175,7 @@
         /**
          * @param $robotic_factory
          */
-        public function setRoboticFactory($robotic_factory) {
+        public function setRoboticFactory($robotic_factory) : void {
 
             $this->robotic_factory = $robotic_factory;
         }
@@ -191,7 +191,7 @@
         /**
          * @param $nanite_factory
          */
-        public function setNaniteFactory($nanite_factory) {
+        public function setNaniteFactory($nanite_factory) : void {
 
             $this->nanite_factory = $nanite_factory;
         }
@@ -207,7 +207,7 @@
         /**
          * @param $shipyard
          */
-        public function setShipyard($shipyard) {
+        public function setShipyard($shipyard) : void {
 
             $this->shipyard = $shipyard;
         }
@@ -223,7 +223,7 @@
         /**
          * @param $metal_storage
          */
-        public function setMetalStorage($metal_storage) {
+        public function setMetalStorage($metal_storage) : void {
 
             $this->metal_storage = $metal_storage;
         }
@@ -239,7 +239,7 @@
         /**
          * @param $crystal_storage
          */
-        public function setCrystalStorage($crystal_storage) {
+        public function setCrystalStorage($crystal_storage) : void {
 
             $this->crystal_storage = $crystal_storage;
         }
@@ -255,7 +255,7 @@
         /**
          * @param $deuterium_storage
          */
-        public function setDeuteriumStorage($deuterium_storage) {
+        public function setDeuteriumStorage($deuterium_storage) : void {
 
             $this->deuterium_storage = $deuterium_storage;
         }
@@ -271,7 +271,7 @@
         /**
          * @param $research_lab
          */
-        public function setResearchLab($research_lab) {
+        public function setResearchLab($research_lab) : void {
 
             $this->research_lab = $research_lab;
         }
@@ -287,7 +287,7 @@
         /**
          * @param $terraformer
          */
-        public function setTerraformer($terraformer) {
+        public function setTerraformer($terraformer) : void {
 
             $this->terraformer = $terraformer;
         }
@@ -303,7 +303,7 @@
         /**
          * @param $alliance_depot
          */
-        public function setAllianceDepot($alliance_depot) {
+        public function setAllianceDepot($alliance_depot) : void {
 
             $this->alliance_depot = $alliance_depot;
         }
@@ -319,7 +319,7 @@
         /**
          * @param $missile_silo
          */
-        public function setMissileSilo($missile_silo) {
+        public function setMissileSilo($missile_silo) : void {
 
             $this->missile_silo = $missile_silo;
         }

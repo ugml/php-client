@@ -46,9 +46,13 @@
             }
         }
 
+        /**
+         * handles get-requests
+         */
         function handleGET() : void {
 
             global $data;
+
             if (!empty($this->get['cp'])) {
                 $data->getUser()->setCurrentPlanet(intval($this->get['cp']));
             }
@@ -92,42 +96,29 @@
             }
         }
 
+        /**
+         * build the building with the given ID
+         * @param $buildID the given building-id
+         */
         function build($buildID) : void {
 
-            global $data, $debug;
+            global $data, $debug, $units;
 
             try {
-                if ($buildID < 1 || $buildID > 99 || !array_key_exists($buildID, $data->getUnits()->getBuildings())) {
+                if ($buildID < 1 || $buildID > 99 || !array_key_exists($buildID, $units->getBuildings())) {
                     throw new InvalidArgumentException("ID out of range");
                 }
-
 
                 //build it only, if there is not already a building in the queue
                 if ($data->getPlanet()->getBBuildingId() == 0) {
 
                     $units = new UnitsData();
 
-                    $pricelist = $units->getPriceList($buildID);
+                    $level = $data->getBuilding()[$buildID]->getLevel();
 
-                    $methodArr = explode('_', $units->getUnit($buildID));
-
-                    $method = 'get';
-
-                    foreach ($methodArr as $a => $b) {
-                        $method .= ucfirst($b);
-                    }
-                    $level = call_user_func_array(array($data->getBuilding(), $method), array());
-
-                    $metal = $pricelist['metal'];
-                    $crystal = $pricelist['crystal'];
-                    $deuterium = $pricelist['deuterium'];
-
-                    // calculate the total costs up to this level
-                    for ($i = 0; $i < $level; $i++) {
-                        $metal *= $pricelist['factor'];
-                        $crystal *= $pricelist['factor'];
-                        $deuterium *= $pricelist['factor'];
-                    }
+                    $metal = $data->getBuilding()[$buildID]->getCostMetal();
+                    $crystal = $data->getBuilding()[$buildID]->getCostCrystal();
+                    $deuterium = $data->getBuilding()[$buildID]->getCostDeuterium();
 
 
                     if ($data->getPlanet()->getMetal() >= $metal &&
@@ -156,6 +147,10 @@
 
         }
 
+        /**
+         * cancels the current buildprogress
+         * @param $buildID
+         */
         function cancel($buildID) : void {
 
             global $data;
@@ -166,14 +161,7 @@
 
                 $pricelist = $units->getPriceList($buildID);
 
-                $methodArr = explode('_', $units->getUnit($buildID));
-
-                $method = 'get';
-
-                foreach ($methodArr as $a => $b) {
-                    $method .= ucfirst($b);
-                }
-                $level = call_user_func_array(array($data->getBuilding(), $method), array());
+                $level = $data->getBuilding()[$buildID]->getLevel();
 
                 $metal = $pricelist['metal'];
                 $crystal = $pricelist['crystal'];
@@ -193,13 +181,20 @@
 
         }
 
+        /**
+         * handles post-requests
+         */
         function handlePOST() : void {
 
         }
 
+        /**
+         * display the page
+         * @throws FileNotFoundException
+         */
         function display() : void {
 
-            global $config, $data;
+            global $config, $data, $units;
 
             // load view
             $view = new V_Buildings();
@@ -208,7 +203,7 @@
 
             // load the individual rows for each building
             $this->lang['building_list'] = $view->loadBuildingRows($data->getBuilding(),
-                $data->getUnits()->getBuildings(), $data->getPlanet());
+                $units->getBuildings(), $data->getPlanet());
 
             if (is_array($this->lang) && is_array($v_lang)) {
                 $this->lang = array_merge($this->lang, $v_lang);

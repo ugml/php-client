@@ -52,7 +52,7 @@
 
         public function loadBuildingRows($buildings, $unitsBuilding, $planet) {
 
-            global $path, $config, $lang, $data;
+            global $path, $config, $lang, $data, $units;
 
             $output = '';
 
@@ -63,9 +63,9 @@
                 $req_met = true;
 
                 // check requirements
-                if ($data->getUnits()->getRequirements($key) !== []) {
+                if ($units->getRequirements($key) !== []) {
 
-                    $req = $data->getUnits()->getRequirements($key);
+                    $req = $units->getRequirements($key);
 
                     foreach ($req as $bID => $lvl) {
 
@@ -73,28 +73,16 @@
                             break;
                         }
 
-                        $methodArr = explode('_', $data->getUnits()->getUnit($bID));
-
-                        $method = 'get';
-
-                        foreach ($methodArr as $a => $b) {
-                            $method .= ucfirst($b);
-                        }
-
                         // if requirement is a building
                         if ($bID < 100) {
-                            $level = call_user_func_array(array($buildings, $method), array());
+                            $level = ($data->getBuilding()[$bID])->getLevel();
                         }
-
                         // if requirement is a research
                         if ($bID > 100 && $bID < 200) {
-                            $level = call_user_func_array(array($data->getTech(), $method), array());
-
+                            $level = ($data->getTech()[$bID])->getLevel();
                         }
 
-
                         if ($level < $lvl) {
-                            //echo $method . " -> is: " . $level . " needed: " . $lvl . " || ";
                             $req_met = false;
                         }
 
@@ -104,37 +92,15 @@
 
                 if ($req_met) {
 
-                    //                    2
-                    //                    3
-                    //                    4
-                    //                    6
-                    //                    8
-                    //                    9
-                    //                    10
-                    //                    11
-                    //                    12
-                    //                    14
-                    //                    15
-                    //                    16
+                    $unitID = $units->getUnitID($v);
 
-                    $methodArr = explode('_', $v);
+                    $level = $data->getBuilding()[$unitID]->getLevel();
 
-                    $method = 'get';
+                    $pricelist = $units->getPriceList($unitID);
 
-                    foreach ($methodArr as $a => $b) {
-                        $method .= ucfirst($b);
-                    }
-
-                    $level = call_user_func_array(array($buildings, $method), array());
-
-                    $unitID = $data->getUnits()->getUnitID($v);
-
-
-                    $pricelist = $data->getUnits()->getPriceList($unitID);
-
-                    $fields['b_name'] = $data->getUnits()->getName($unitID);
+                    $fields['b_name'] = $units->getName($unitID);
                     $fields['b_level'] = $level;
-                    $fields['b_description'] = $data->getUnits()->getDescription($unitID);
+                    $fields['b_description'] = $units->getDescription($unitID);
 
 
                     //echo $fields['b_name'] . "<br/>";
@@ -195,9 +161,9 @@
                     $fields['b_crystal'] = number_format(ceil($crystal), 0);
                     $fields['b_deuterium'] = number_format(ceil($deuterium), 0);
 
-                    $duration = 3600 * $data->getUnits()->getBuildTime($unitID, ($level + 1),
-                            $data->getBuilding()->getRoboticFactory(), $data->getBuilding()->getShipyard(),
-                            $data->getBuilding()->getNaniteFactory());
+                    $duration = 3600 * $units->getBuildTime($unitID, ($level + 1),
+                            $data->getBuilding()['robotic_factory'], $data->getBuilding()['shipyard'],
+                            $data->getBuilding()['nanite_factory']);
 
                     $hours = floor($duration / 3600);
                     $minutes = floor(($duration / 60) % 60);

@@ -90,27 +90,20 @@
 
         function build($buildID) : void {
 
-            global $data, $debug;
+            global $data, $debug, $units;
 
             try {
                 if ($buildID < 100 || $buildID > 199 || !array_key_exists($buildID,
-                        $data->getUnits()->getTechnologies())) {
+                        $units->getTechnologies())) {
                     throw new InvalidArgumentException("ID out of range");
                 }
 
                 //build it only, if there is not already a building in the queue
                 if ($data->getPlanet()->getBTechId() == 0) {
 
-                    $pricelist = $data->getUnits()->getPriceList($buildID);
+                    $pricelist = $units->getPriceList($buildID);
 
-                    $methodArr = explode('_', $data->getUnits()->getUnit($buildID));
-
-                    $method = 'get';
-
-                    foreach ($methodArr as $a => $b) {
-                        $method .= ucfirst($b);
-                    }
-                    $level = call_user_func_array(array($data->getTech(), $method), array());
+                    $level = ($data->getTech()[$buildID])->getLevel();
 
                     $metal = $pricelist['metal'];
                     $crystal = $pricelist['crystal'];
@@ -153,20 +146,13 @@
 
         function cancel($buildID) : void {
 
-            global $data;
+            global $data, $units;
 
             if ($data->getPlanet()->getBTechId() == $buildID && $data->getPlanet()->getBTechEndtime() > time()) {
 
-                $pricelist = $data->getUnits()->getPriceList($buildID);
+                $pricelist = $units->getPriceList($buildID);
 
-                $methodArr = explode('_', $data->getUnits()->getUnit($buildID));
-
-                $method = 'get';
-
-                foreach ($methodArr as $a => $b) {
-                    $method .= ucfirst($b);
-                }
-                $level = call_user_func_array(array($data->getTech(), $method), array());
+                $level = ($data->getTech()[$buildID])->getLevel();
 
                 $metal = $pricelist['metal'];
                 $crystal = $pricelist['crystal'];
@@ -192,7 +178,7 @@
 
         function display() : void {
 
-            global $config, $data;
+            global $config, $data, $units;
 
             // load view
             $view = new V_Research();
@@ -200,8 +186,11 @@
             $v_lang = M_Research::loadLanguage();
 
             // load the individual rows for each building
-            $this->lang['research_list'] = $view->loadResearchRows($data->getTech(),
-                $data->getUnits()->getTechnologies(), $data->getPlanet());
+            $this->lang['research_list'] = $view->loadResearchRows(
+                $data->getTech(),
+                $units->getTechnologies(),
+                $data->getPlanet()
+            );
 
             if (is_array($this->lang) && is_array($v_lang)) {
                 $this->lang = array_merge($this->lang, $v_lang);

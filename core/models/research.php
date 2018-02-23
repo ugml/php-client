@@ -41,16 +41,18 @@
 
         public static function build($planetID, $buildID, $toLvl, $metal, $crystal, $deuterium) {
 
-            global $database, $db, $data;
+            global $database, $db, $data, $units;
 
             //echo $key . " - " . $v . "<br />";
 
             $req_met = true;
 
             // check requirements
-            if ($data->getUnits()->getRequirements($buildID) !== []) {
+            if ($units->getRequirements($buildID) !== []) {
 
-                $req = $data->getUnits()->getRequirements($buildID);
+
+
+                $req = $units->getRequirements($buildID);
 
                 foreach ($req as $bID => $lvl) {
 
@@ -58,24 +60,14 @@
                         break;
                     }
 
-                    $methodArr = explode('_', $data->getUnits()->getUnit($bID));
-
-                    $method = 'get';
-
-                    foreach ($methodArr as $a => $b) {
-                        $method .= ucfirst($b);
-                    }
-
                     // if requirement is a building
                     if ($bID < 100) {
-                        $level = call_user_func_array(array($data->getBuilding(), $method), array());
-                        //echo $key . " need (building) lvl " . $lvl . " has " . $level . "<br />";
+                        $level = ($data->getBuilding()[$bID])->getLevel();
                     }
 
                     // if requirement is a research
                     if ($bID > 100 && $bID < 200) {
-                        $level = call_user_func_array(array($data->getTech(), $method), array());
-                        //echo $key . " need (research) lvl " . $lvl . " has " . $level . "<br />";
+                        $level = $data->getTech()[$bID]->getLevel();
                     }
 
                     if ($level < $lvl) {
@@ -90,14 +82,14 @@
                 if ($buildID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
                     try {
 
-                        $price = $data->getUnits()->getPriceList($buildID);
+                        $price = $units->getPriceList($buildID);
 
 
                         // preis * faktor ^ level
 
                         $buildTime = time() + ($price["metal"] * pow($price["factor"],
                                     $toLvl - 1) + $price["crystal"] * pow($price["factor"],
-                                    $toLvl - 1)) / (1000 * (1 + $data->getBuilding()->getResearchLab())) * 3600;
+                                    $toLvl - 1)) / (1000 * (1 + $data->getBuilding()['research_lab'])) * 3600;
 
                         $params = array(':b_tech_id'      => $buildID,
                                         ':b_tech_endtime' => $buildTime,

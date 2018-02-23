@@ -14,17 +14,14 @@
 
         private $lang = null;
 
+        /**
+         * C_Overview constructor.
+         * @param $get
+         * @param $post
+         */
         function __construct($get, $post) {
 
             global $data, $debug, $path;
-
-
-//            require_once($path['data'] . "unitData.php");
-//            require_once($path['data'] . "buildingData.php");
-//
-//
-//            print_r($data->getBuilding());
-
 
             try {
                 $this->get = $get;
@@ -72,6 +69,9 @@
             }
         }
 
+        /**
+         * handles get-requests
+         */
         function handleGET() : void {
 
             global $data;
@@ -80,6 +80,9 @@
             }
         }
 
+        /**
+         * handles post-requests
+         */
         function handlePOST() : void {
 
             if (!empty($this->post['abandon'])) {
@@ -99,6 +102,10 @@
             }
         }
 
+        /**
+         * display the page
+         * @throws FileNotFoundException
+         */
         function display() : void {
 
             global $config;

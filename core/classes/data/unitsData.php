@@ -4,6 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
+
     class UnitsData {
 
         private $units;
@@ -368,7 +369,7 @@
             return array_keys($this->units, $unitName)[0];
         }
 
-        function getUnit($id) : string {
+        function getUnitName($id) : string {
 
             return $this->units[$id];
         }
@@ -441,7 +442,6 @@
             if ($id > 200 && $id < 400) {
                 return ($metal + $crystal) / (2500 * (1 + $shipYardLvl) * pow(2, $naniteLvl));
             }
-
 
         }
 

@@ -45,14 +45,13 @@
         }
 
         public function printDefense() : void {
-
             echo '<pre>';
             print_r($this);
             echo '</pre>';
         }
 
         /**
-         * @return mixed
+         * @return int
          */
         public function getRocketLauncher() : int {
 
@@ -60,7 +59,7 @@
         }
 
         /**
-         * @param mixed $rocket_launcher
+         * @param $rocket_launcher
          */
         public function setRocketLauncher($rocket_launcher) : void {
 
@@ -68,7 +67,7 @@
         }
 
         /**
-         * @return mixed
+         * @return int
          */
         public function getLightLaser() : int {
 
@@ -76,7 +75,7 @@
         }
 
         /**
-         * @param mixed $light_laser
+         * @param $light_laser
          */
         public function setLightLaser($light_laser) : void {
 
@@ -84,7 +83,7 @@
         }
 
         /**
-         * @return mixed
+         * @return int
          */
         public function getHeavyLaser() : int {
 
@@ -92,7 +91,7 @@
         }
 
         /**
-         * @param mixed $heavy_laser
+         * @param $heavy_laser
          */
         public function setHeavyLaser($heavy_laser) : void {
 
@@ -100,7 +99,7 @@
         }
 
         /**
-         * @return mixed
+         * @return int
          */
         public function getIonCannon() : int {
 
@@ -108,7 +107,7 @@
         }
 
         /**
-         * @param mixed $ion_cannon
+         * @param $ion_cannon
          */
         public function setIonCannon($ion_cannon) : void {
 
@@ -116,7 +115,7 @@
         }
 
         /**
-         * @return mixed
+         * @return int
          */
         public function getGaussCannon() : int {
 
@@ -124,7 +123,7 @@
         }
 
         /**
-         * @param mixed $gauss_cannon
+         * @param $gauss_cannon
          */
         public function setGaussCannon($gauss_cannon) : void {
 
@@ -132,7 +131,7 @@
         }
 
         /**
-         * @return mixed
+         * @return int
          */
         public function getPlasmaTurret() : int {
 
@@ -140,7 +139,7 @@
         }
 
         /**
-         * @param mixed $plasma_turret
+         * @param $plasma_turret
          */
         public function setPlasmaTurret($plasma_turret) : void {
 
@@ -148,7 +147,7 @@
         }
 
         /**
-         * @return mixed
+         * @return int
          */
         public function getSmallShieldDome() : int {
 
@@ -156,7 +155,7 @@
         }
 
         /**
-         * @param mixed $small_shield_dome
+         * @param $small_shield_dome
          */
         public function setSmallShieldDome($small_shield_dome) : void {
 
@@ -164,7 +163,7 @@
         }
 
         /**
-         * @return mixed
+         * @return int
          */
         public function getLargeShieldDome() : int {
 
@@ -172,7 +171,7 @@
         }
 
         /**
-         * @param mixed $large_shield_dome
+         * @param $large_shield_dome
          */
         public function setLargeShieldDome($large_shield_dome) : void {
 
@@ -180,7 +179,7 @@
         }
 
         /**
-         * @return mixed
+         * @return int
          */
         public function getAntiBallisticMissile() : int {
 
@@ -188,7 +187,7 @@
         }
 
         /**
-         * @param mixed $anti_ballistic_missile
+         * @param $anti_ballistic_missile
          */
         public function setAntiBallisticMissile($anti_ballistic_missile) : void {
 
@@ -196,7 +195,7 @@
         }
 
         /**
-         * @return mixed
+         * @return int
          */
         public function getInterplanetaryMissile() : int {
 
@@ -204,7 +203,7 @@
         }
 
         /**
-         * @param mixed $interplanetary_missile
+         * @param $interplanetary_missile
          */
         public function setInterplanetaryMissile($interplanetary_missile) : void {
 

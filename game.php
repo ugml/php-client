@@ -21,26 +21,34 @@
         session_destroy();   // destroy session data in storage
     }
 
-    $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
-
     // the user is logged in, so we allow
     // script-access within the game
     define('INSIDE', true);
 
+    $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 
     // load the server-configuration
     require_once('core/config.php');
 
+
+    if (DEBUG) {
+        define("RENDERING_STARTTIME",microtime(true));
+    }
+
     // load the database-class
     require_once($path['classes'] . 'db.php');
     $db = new Database();
+
+    // load data about all units
+    require_once($path['classes'] . 'data/unitsData.php');
+    $units = new UnitsData();
 
 
     // load the userdata
     $data = loadUserData($userID);
 
     // update the planet (ressources etc.)
-    $data->getPlanet()->updatePlanet();
+    $data->getPlanet()->update();
 
     // default value
     $page = 'overview';

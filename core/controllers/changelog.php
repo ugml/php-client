@@ -14,6 +14,11 @@
 
         private $lang = null;
 
+        /**
+         * C_Changelog constructor.
+         * @param $get
+         * @param $post
+         */
         function __construct($get, $post) {
 
             global $data, $debug, $path;
@@ -41,6 +46,9 @@
             }
         }
 
+        /**
+         * handles get-requests
+         */
         function handleGET() : void {
 
             global $data;
@@ -49,10 +57,17 @@
             }
         }
 
+        /**
+         * handles post-requests
+         */
         function handlePOST() : void {
 
         }
 
+        /**
+         * display the page
+         * @throws FileNotFoundException
+         */
         function display() : void {
 
             global $config;

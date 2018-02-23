@@ -52,48 +52,37 @@
 
         public function loadResearchRows($research, $unitsResearch, $planet) {
 
-            global $path, $config, $lang, $data;
+            global $path, $config, $lang, $data, $units;
 
             $output = '';
 
             foreach ($unitsResearch as $k => $v) {
 
                 // the key of the current research
-                $key = $data->getUnits()->getUnitID($v);
-
-                //echo $key . " - " . $v . "<br />";
+                $key = $units->getUnitID($v);
 
                 $req_met = true;
 
                 // check requirements
-                if ($data->getUnits()->getRequirements($key) !== []) {
+                if ($units->getRequirements($key) !== []) {
 
-                    $req = $data->getUnits()->getRequirements($key);
+                    $req = $units->getRequirements($key);
 
                     foreach ($req as $bID => $lvl) {
 
+                        // if requirements are not met, exit the loop
                         if (!$req_met) {
                             break;
                         }
 
-                        $methodArr = explode('_', $data->getUnits()->getUnit($bID));
-
-                        $method = 'get';
-
-                        foreach ($methodArr as $a => $b) {
-                            $method .= ucfirst($b);
-                        }
-
                         // if requirement is a building
                         if ($bID < 100) {
-                            $level = call_user_func_array(array($data->getBuilding(), $method), array());
-                            //echo $key . " need (building) lvl " . $lvl . " has " . $level . "<br />";
+                            $level = ($data->getBuilding()[$bID])->getLevel();
                         }
 
                         // if requirement is a research
                         if ($bID > 100 && $bID < 200) {
-                            $level = call_user_func_array(array($research, $method), array());
-                            //echo $key . " need (research) lvl " . $lvl . " has " . $level . "<br />";
+                            $level = ($data->getTech()[$bID])->getLevel();
                         }
 
                         if ($level < $lvl) {
@@ -106,23 +95,15 @@
 
                 if ($req_met) {
 
-                    $methodArr = explode('_', $v);
+                    $unitID = $units->getUnitID($v);
 
-                    $method = 'get';
+                    $level = ($data->getTech()[$unitID])->getLevel();
 
-                    foreach ($methodArr as $a => $b) {
-                        $method .= ucfirst($b);
-                    }
+                    $pricelist = $units->getPriceList($unitID);
 
-                    $level = call_user_func_array(array($research, $method), array());
-
-                    $unitID = $data->getUnits()->getUnitID($v);
-
-                    $pricelist = $data->getUnits()->getPriceList($unitID);
-
-                    $fields['r_name'] = $data->getUnits()->getName($unitID);
+                    $fields['r_name'] = $units->getName($unitID);
                     $fields['r_level'] = $level;
-                    $fields['r_description'] = $data->getUnits()->getDescription($unitID);
+                    $fields['r_description'] = $units->getDescription($unitID);
 
 
                     // get the baseprice
@@ -152,8 +133,7 @@
 
                     if ($data->getPlanet()->getBTechId() > 0) {
                         if ($unitID == $data->getPlanet()->getBTechId()) {
-                            $fields['r_build'] = '-<script>timer(' . ($data->getPlanet()
-                                        ->getBTechEndtime() - time()) . ', "build_' . $unitID . '", ' . $unitID . ');</script>';
+                            $fields['r_build'] = '-<script>timer(' . ($data->getPlanet()->getBTechEndtime() - time()) . ', "build_' . $unitID . '", ' . $unitID . ');</script>';
                         } else {
                             $fields['r_build'] = "-";
                         }
@@ -181,7 +161,7 @@
                     $fields['r_deuterium'] = number_format(ceil($deuterium), 0);
 
 
-                    $duration = ($metal + $crystal) / (1000 * (1 + $data->getBuilding()->getResearchLab())) * 3600;
+                    $duration = ($metal + $crystal) / (1000 * (1 + $data->getBuilding()['research_lab'])) * 3600;
 
                     $hours = floor($duration / 3600);
                     $minutes = floor(($duration / 60) % 60);

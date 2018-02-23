@@ -32,12 +32,28 @@
                         </tr>';
         }
 
+        /**
+         * adds a row to the debug-log
+         * @param $class
+         * @param $method
+         * @param $line
+         * @param $exception
+         * @param $descr
+         */
         function addLog($class, $method, $line, $exception, $descr) {
 
             $this->count++;
             $this->log .= '<tr><td>' . $this->count . '</td><td>' . $class . '</td><td>' . $method . '</td><td>' . $line . '</td><td>' . $exception . '</td><td>' . $descr . '</td><td>' . time() . '</td>';
         }
 
+        /**
+         * stores the error in the database
+         * @param $class
+         * @param $method
+         * @param $line
+         * @param $exception
+         * @param $descr
+         */
         function saveError($class, $method, $line, $exception, $descr) {
 
             global $database, $db;
@@ -56,6 +72,9 @@
 
         }
 
+        /**
+         * prints the debug-log on the current page
+         */
         function printDebugLog() {
 
             $this->log .= '

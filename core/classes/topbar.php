@@ -1,6 +1,6 @@
 <?php
 
-    global $config;
+    global $config, $units;
 
     // set the values for the topbar
     $this->lang['planet_galaxy'] = $data->getPlanet()->getGalaxy();
@@ -16,16 +16,13 @@
     $this->lang['planet_crystal'] = $data->getPlanet()->getCrystal();
     $this->lang['planet_deuterium'] = $data->getPlanet()->getDeuterium();
 
-    $this->lang['planet_metal_max'] = $data->getUnits()->getStorageCapacity($data->getBuilding()->getMetalStorage());
-    $this->lang['planet_crystal_max'] = $data->getUnits()->getStorageCapacity($data->getBuilding()
-        ->getCrystalStorage());
-    $this->lang['planet_deuterium_max'] = $data->getUnits()->getStorageCapacity($data->getBuilding()
-        ->getDeuteriumStorage());
+    $this->lang['planet_metal_max'] = $units->getStorageCapacity($data->getBuilding()['metal_storage']);
+    $this->lang['planet_crystal_max'] = $units->getStorageCapacity($data->getBuilding()['crystal_storage']);
+    $this->lang['planet_deuterium_max'] = $units->getStorageCapacity($data->getBuilding()['deuterium_storage']);
 
     $this->lang['planet_energy_used'] = number_format($data->getPlanet()->getEnergyUsed(), 0);
     $this->lang['planet_energy_max'] = number_format($data->getPlanet()->getEnergyMax(), 0);
-    $this->lang['planet_image_small'] = $config['skinpath'] . 'planeten/small/s_' . $data->getPlanet()
-            ->getImage() . '.png';
+    $this->lang['planet_image_small'] = $config['skinpath'] . 'planeten/small/s_' . $data->getPlanet()->getImage() . '.png';
     $this->lang['icon_metal'] = $config['skinpath'] . 'images/metal.gif';
     $this->lang['icon_crystal'] = $config['skinpath'] . 'images/crystal.gif';
     $this->lang['icon_deuterium'] = $config['skinpath'] . 'images/deuterium.gif';

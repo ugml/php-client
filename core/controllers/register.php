@@ -14,6 +14,11 @@
 
         private $skin = 'css/register.css';
 
+        /**
+         * C_Register constructor.
+         * @param $get
+         * @param $post
+         */
         function __construct($get, $post) {
 
             $this->get = $get;
@@ -29,10 +34,16 @@
 
         }
 
+        /**
+         * handles get-requests
+         */
         function handleGET() : void {
 
         }
 
+        /**
+         * handles post-requests
+         */
         function handlePOST() : void {
 
             if ($_POST) {
@@ -72,6 +83,9 @@
             }
         }
 
+        /**
+         * display the page
+         */
         function display() : void {
 
             global $config;

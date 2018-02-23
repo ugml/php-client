@@ -6,6 +6,13 @@
 
         private $_ = array();
 
+        /**
+         * merges all used templates on the current page into one
+         * @param $class
+         * @param $fields
+         * @return string
+         * @throws FileNotFoundException
+         */
         public function mergeTemplates($class, $fields) : string {
 
             global $path, $db, $debug;
@@ -20,11 +27,6 @@
                 include $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
-            }
-
-            if (DEBUG) {
-                $debug->printDebugLog();
-                $db->printLog();
             }
 
             $file = $path['templates'] . 'menu.php';

@@ -61,15 +61,17 @@
 
         public static function build($planetID, $buildID, $toLvl, $metal, $crystal, $deuterium) {
 
-            global $database, $config, $db, $data;
+            global $database, $config, $db, $data, $units;
 
             // check if requirements are met
             $req_met = true;
 
             // check requirements
-            if ($data->getUnits()->getRequirements($buildID) !== []) {
+            if ($units->getRequirements($buildID) !== []) {
 
-                $req = $data->getUnits()->getRequirements($buildID);
+
+
+                $req = $units->getRequirements($buildID);
 
                 foreach ($req as $bID => $lvl) {
 
@@ -77,22 +79,14 @@
                         break;
                     }
 
-                    $methodArr = explode('_', $data->getUnits()->getUnit($bID));
-
-                    $method = 'get';
-
-                    foreach ($methodArr as $a => $b) {
-                        $method .= ucfirst($b);
-                    }
-
                     // if requirement is a building
                     if ($bID < 100) {
-                        $level = call_user_func_array(array($data->getBuilding(), $method), array());
+                        $level = $data->getBuilding()[$buildID]->getLevel();
                     }
 
                     // if requirement is a research
                     if ($bID > 100 && $bID < 200) {
-                        $level = call_user_func_array(array($data->getTech(), $method), array());
+                        $level = $data->getTech()[$buildID]->getLevel();
                     }
 
                     if ($level < $lvl) {
@@ -107,9 +101,10 @@
                 if ($buildID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
                     try {
 
-                        $buildTime = time() + 3600 * $data->getUnits()
-                                ->getBuildTime($buildID, $toLvl, $data->getBuilding()->getRoboticFactory(),
-                                    $data->getBuilding()->getShipyard(), $data->getBuilding()->getNaniteFactory());
+                        $buildTime = time() + 3600 * $units->getBuildTime($buildID, $toLvl, $data->getBuilding()['robotic_factory'],
+                                $data->getBuilding()['shipyard'], $data->getBuilding()['nanite_factory']);
+
+
 
                         $params = array(':b_building_id'      => $buildID,
                                         ':b_building_endtime' => $buildTime,
