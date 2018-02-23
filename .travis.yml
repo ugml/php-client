@@ -8,3 +8,5 @@ notifications:
   slack:
     on_success: never
     on_failure: never
+
+script: phpunit tests/
