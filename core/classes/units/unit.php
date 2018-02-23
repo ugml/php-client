@@ -32,7 +32,7 @@
          * @return int the unit-id
          */
         public function getUnitId() : int {
-            return $this->id;
+            return $this->unitID;
         }
 
         /**

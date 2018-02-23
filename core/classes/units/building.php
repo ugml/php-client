@@ -4,7 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class Building2 extends Unit{
+    class Building extends Unit {
 
         private $level;
         private $costFactor;
@@ -30,7 +30,7 @@
          * @return float the metal-costs for the given level
          */
         public function getCostMetal() : float {
-            return floor(parent::getCostMetal() * pow($this->costFactor,$this->level));
+            return floor(parent::getCostMetal() * $this->costFactor ** $this->level);
         }
 
         /**
@@ -76,5 +76,12 @@
             }
 
             return 0;
+        }
+
+        /**
+         * @return int
+         */
+        public function getLevel() : int {
+            return $this->level;
         }
     }

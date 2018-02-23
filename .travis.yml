@@ -4,10 +4,6 @@ php:
   - '7.1'
   - '7.2'
 
-
-before_script: composer require atoum/atoum
-script: vendor/bin/atoum -d tests/
-
 notifications:
   slack:
     on_success: never
