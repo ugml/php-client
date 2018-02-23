@@ -49,8 +49,8 @@
     $lang['language'] = $config['language'];
     $lang['copyright'] = $config['copyright'];
 
-    require_once $path['classes'] . 'debug.class.php';
-    require_once $path['classes'] . 'db.class.php';
+    require_once $path['classes'] . 'debug.php';
+    require_once $path['classes'] . 'db.php';
 
     $debug = new Debug();
 

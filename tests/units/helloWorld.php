@@ -4,7 +4,7 @@
 
 //    require_once 'vendor/bin/atoum.phar';
 
-    include_once 'core/classes/user.class.php';
+    include_once 'core/classes/user.php';
 
     use mageekguy\atoum;
     use core\classes;

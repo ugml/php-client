@@ -18,6 +18,8 @@ This open-source project is still in an alpha-state, **please do not use this in
 ├── admin/                       # → the admin interface
 ├── core/                        # → contains all necessary classes
 │   └── classes/                 # → classes for the ORM-Mapping and parent-classes
+│       └── data                 # → classes, which map database-values to objects
+│       └── units                # → classes for various ingame-units
 │   └── controllers/             # → all needed controller-classes
 │   └── interfaces/              # → interfaces the classes
 │   └── language/                # → contains all translations in subfolders named after their ISO 639-1 language-code

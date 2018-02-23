@@ -25,7 +25,7 @@
 
     // check if a page was requested and if there is
     // a controller to the request
-    if (isset($_GET['page']) && file_exists($path['controllers'] . 'admin/' . $_GET['page'] . '.controller.php')) {
+    if (isset($_GET['page']) && file_exists($path['controllers'] . 'admin/' . $_GET['page'] . '.php')) {
         $page = $_GET['page'];
 
         // do not delete the page-value,
@@ -38,9 +38,9 @@
 
 
     // include the MVC-files
-    require($path['models'] . 'admin/' . $page . '.model.php');
-    require($path['views'] . 'admin/' . $page . '.view.class.php');
-    require($path['controllers'] . 'admin/' . $page . '.controller.php');
+    require($path['models'] . 'admin/' . $page . '.php');
+    require($path['views'] . 'admin/' . $page . '.php');
+    require($path['controllers'] . 'admin/' . $page . '.php');
 
     // load the controller
     switch ($page) {

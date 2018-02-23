@@ -82,7 +82,7 @@
 
         $stmt->execute();
 
-        require $path['classes'] . 'units.class.php';
+        require $path['classes'] . 'units.php';
 
         $units = new Units();
 

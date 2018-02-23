@@ -32,7 +32,7 @@
     require_once('core/config.php');
 
     // load the database-class
-    require_once($path['classes'] . 'db.class.php');
+    require_once($path['classes'] . 'db.php');
     $db = new Database();
 
 
@@ -47,22 +47,22 @@
 
     // check if a page was requested and if there is
     // a controller to the request
-    if (isset($_GET['page']) && file_exists($path['controllers'] . $_GET['page'] . '.controller.php')) {
+    if (isset($_GET['page']) && file_exists($path['controllers'] . $_GET['page'] . '.php')) {
         $page = $_GET['page'];
 
         // delete the element, because the controller
         // does not need the page-value
         unset($_GET['page']);
     } else {
-        if (isset($_GET['page']) && !file_exists($path['controllers'] . $_GET['page'] . '.controller.php')) {
+        if (isset($_GET['page']) && !file_exists($path['controllers'] . $_GET['page'] . '.php')) {
             die("404 page not found - <a href=\"javascript:history.back()\">Go Back</a>");
         }
     }
 
     // include the MVC-files
-    require_once($path['models'] . $page . '.model.php');
-    require_once($path['views'] . $page . '.view.php');
-    require_once($path['controllers'] . $page . '.controller.php');
+    require_once($path['models'] . $page . '.php');
+    require_once($path['views'] . $page . '.php');
+    require_once($path['controllers'] . $page . '.php');
 
     // load the controller
     switch ($page) {
@@ -112,7 +112,7 @@
 
         global $path;
 
-        $file = $path['classes'] . 'loader.class.php';
+        $file = $path['classes'] . 'loader.php';
         if (file_exists($file)) {
             require_once($file);
         } else {

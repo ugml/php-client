@@ -5,9 +5,9 @@
 
     require('core/config.php');
 
-    require($path['controllers'] . '/login.controller.php');
-    require($path['models'] . '/login.model.php');
-    require($path['views'] . '/login.view.php');
+    require($path['controllers'] . '/login.php');
+    require($path['models'] . '/login.php');
+    require($path['views'] . '/login.php');
 
 
     // Controller erstellen
