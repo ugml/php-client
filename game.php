@@ -1,5 +1,9 @@
 <?php
 
+    if (DEBUG) {
+        define("RENDERING_STARTTIME", microtime(true));
+    }
+
     // start the session
     // and load the userID
     if (session_status() == PHP_SESSION_NONE) {
@@ -21,31 +25,29 @@
         session_destroy();   // destroy session data in storage
     }
 
+    // ---- user is logged in at this point ----
+
     // the user is logged in, so we allow
     // script-access within the game
     define('INSIDE', true);
 
-    $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+    // update last activity time stamp
+    $_SESSION['LAST_ACTIVITY'] = time();
+
+    // register autoloader
+    require_once 'core/autoload.php';
 
     // load the server-configuration
     require_once('core/config.php');
 
-
-    if (DEBUG) {
-        define("RENDERING_STARTTIME",microtime(true));
-    }
-
     // load the database-class
-    require_once($path['classes'] . 'db.php');
     $db = new Database();
 
     // load data about all units
-    require_once($path['classes'] . 'data/unitsData.php');
-    $units = new UnitsData();
-
+    $units = new Data_Units();
 
     // load the userdata
-    $data = loadUserData($userID);
+    $data = new Loader($userID);
 
     // update the planet (ressources etc.)
     $data->getPlanet()->update();
@@ -62,15 +64,11 @@
         // does not need the page-value
         unset($_GET['page']);
     } else {
+        // file does not exist -> display 404
         if (isset($_GET['page']) && !file_exists($path['controllers'] . $_GET['page'] . '.php')) {
             die("404 page not found - <a href=\"javascript:history.back()\">Go Back</a>");
         }
     }
-
-    // include the MVC-files
-    require_once($path['models'] . $page . '.php');
-    require_once($path['views'] . $page . '.php');
-    require_once($path['controllers'] . $page . '.php');
 
     // load the controller
     switch ($page) {
@@ -80,7 +78,7 @@
         case 'resources':
             $controller = new C_Resources($_GET, $_POST);
             break;
-        case 'buildings':
+        case 'building':
             $controller = new C_Building($_GET, $_POST);
             break;
         case 'research':
@@ -108,24 +106,3 @@
 
     // display the page
     $controller->display();
-
-
-    /**
-     * loads all relevant user-information (planet, buildings, fleet, tech, defense etc.)
-     * @param $userID the user id
-     * @return Loader an object containing all the information
-     * @throws FileNotFoundException
-     */
-    function loadUserData($userID) {
-
-        global $path;
-
-        $file = $path['classes'] . 'loader.php';
-        if (file_exists($file)) {
-            require_once($file);
-        } else {
-            throw new FileNotFoundException('File \'' . $file . '\' not found');
-        }
-
-        return new Loader($userID);
-    }

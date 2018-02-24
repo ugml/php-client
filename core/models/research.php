@@ -2,8 +2,6 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'] . 'model.php';
-
     class M_Research implements I_Model {
 
         /**
@@ -49,7 +47,6 @@
 
             // check requirements
             if ($units->getRequirements($buildID) !== []) {
-
 
 
                 $req = $units->getRequirements($buildID);

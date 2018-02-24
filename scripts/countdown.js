@@ -21,7 +21,7 @@ function timer(duration, containerClass, buildingID) {
         if (buildingID > 100) {
             page = "research";
         } else {
-            page = "buildings";
+            page = "building";
         }
 
         container.innerHTML = "<div class='row'><div class='col-md-12'>" + hours + ":" + minutes + ":" + seconds + "</div><div class='col-md-12'><a href=\"game.php?page=" + page + "&cancel=" + buildingID + "\">Cancel</a></div></div>";

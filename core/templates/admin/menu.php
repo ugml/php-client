@@ -18,6 +18,7 @@
 
         var item = document.getElementsByClassName(page);
 
-        item[0]List.add("active");
+        item[0]
+        List.add("active");
     });
 </script>

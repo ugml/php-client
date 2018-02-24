@@ -4,16 +4,6 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    // autoload the classes
-    spl_autoload_register(function ($name) {
-        if (strpos($name, "Data") === FALSE) {
-            require_once 'units/' . lcfirst($name) . '.php';
-        } else {
-            require_once 'data/' . lcfirst($name) . '.php';
-        }
-
-    });
-
     class Loader {
 
         private $user = null;
@@ -23,8 +13,11 @@
         private $galaxy = null;
 
         private $buildingList = [];
+
         private $defenseList = [];
+
         private $techList = [];
+
         private $fleetList = [];
 
         /**
@@ -151,7 +144,7 @@
             // process data and store it in objects
             while ($data = $stmt->fetch()) {
 
-                $p = new Planet(
+                $p = new Unit_Planet(
                     intval($data->planet_planetID),
                     intval($userID),
                     $data->planet_name,
@@ -189,96 +182,115 @@
 
                 // current planet -> get buildings / tech / fleet / defense
                 if ($data->user_currentplanet == $data->planet_planetID) {
-                    $this->user = new UserData(intval($userID), $data->user_username, $data->user_email,
+                    $this->user = new Data_User(intval($userID), $data->user_username, $data->user_email,
                         intval($data->user_onlinetime), intval($data->user_currentplanet));
 
 
                     // data about all building-levels from the database
                     $dBuilding = [
-                                    intval($data->building_metal_mine),
-                                    intval($data->building_crystal_mine),
-                                    intval($data->building_deuterium_synthesizer),
-                                    intval($data->building_solar_plant),
-                                    intval($data->building_fusion_reactor),
-                                    intval($data->building_robotic_factory),
-                                    intval($data->building_nanite_factory),
-                                    intval($data->building_shipyard),
-                                    intval($data->building_metal_storage),
-                                    intval($data->building_crystal_storage),
-                                    intval($data->building_deuterium_storage),
-                                    intval($data->building_research_lab),
-                                    intval($data->building_terraformer),
-                                    intval($data->building_alliance_depot),
-                                    intval($data->building_missile_silo)
-                                ];
+                        intval($data->building_metal_mine),
+                        intval($data->building_crystal_mine),
+                        intval($data->building_deuterium_synthesizer),
+                        intval($data->building_solar_plant),
+                        intval($data->building_fusion_reactor),
+                        intval($data->building_robotic_factory),
+                        intval($data->building_nanite_factory),
+                        intval($data->building_shipyard),
+                        intval($data->building_metal_storage),
+                        intval($data->building_crystal_storage),
+                        intval($data->building_deuterium_storage),
+                        intval($data->building_research_lab),
+                        intval($data->building_terraformer),
+                        intval($data->building_alliance_depot),
+                        intval($data->building_missile_silo)
+                    ];
 
                     $dDefense = [intval($data->defense_rocket_launcher),
-                                 intval($data->defense_light_laser), intval($data->defense_heavy_laser),
+                                 intval($data->defense_light_laser),
+                                 intval($data->defense_heavy_laser),
                                  intval($data->defense_ion_cannon),
-                                 intval($data->defense_gauss_cannon), intval($data->defense_plasma_turret),
-                                 intval($data->defense_small_shield_dome), intval($data->defense_large_shield_dome),
-                                 intval($data->defense_anti_ballistic_missile), intval($data->defense_interplanetary_missile)];
+                                 intval($data->defense_gauss_cannon),
+                                 intval($data->defense_plasma_turret),
+                                 intval($data->defense_small_shield_dome),
+                                 intval($data->defense_large_shield_dome),
+                                 intval($data->defense_anti_ballistic_missile),
+                                 intval($data->defense_interplanetary_missile)
+                    ];
 
                     $dFleet = [intval($data->fleet_small_cargo_ship),
-                               intval($data->fleet_large_cargo_ship), intval($data->fleet_light_fighter),
+                               intval($data->fleet_large_cargo_ship),
+                               intval($data->fleet_light_fighter),
                                intval($data->fleet_heavy_fighter),
-                               intval($data->fleet_cruiser), intval($data->fleet_battleship), intval($data->fleet_colony_ship),
-                               intval($data->fleet_recycler), intval($data->fleet_espionage_probe),
-                               intval($data->fleet_bomber), intval($data->fleet_solar_satellite),
-                               intval($data->fleet_destroyer), intval($data->fleet_battlecruiser),
-                               intval($data->fleet_deathstar)];
+                               intval($data->fleet_cruiser),
+                               intval($data->fleet_battleship),
+                               intval($data->fleet_colony_ship),
+                               intval($data->fleet_recycler),
+                               intval($data->fleet_espionage_probe),
+                               intval($data->fleet_bomber),
+                               intval($data->fleet_solar_satellite),
+                               intval($data->fleet_destroyer),
+                               intval($data->fleet_battlecruiser),
+                               intval($data->fleet_deathstar)
+                    ];
 
-                    $dResearch = [intval($data->tech_espionage_tech), intval($data->tech_computer_tech),
-                              intval($data->tech_weapon_tech), intval($data->tech_armour_tech),
-                              intval($data->tech_shielding_tech),
-                              intval($data->tech_energy_tech), intval($data->tech_hyperspace_tech),
-                              intval($data->tech_combustion_drive_tech), intval($data->tech_impulse_drive_tech),
-                              intval($data->tech_hyperspace_drive_tech), intval($data->tech_laser_tech),
-                              intval($data->tech_ion_tech), intval($data->tech_plasma_tech),
-                              intval($data->tech_intergalactic_research_tech),
-                              intval($data->tech_graviton_tech)];
+                    $dResearch = [intval($data->tech_espionage_tech),
+                                  intval($data->tech_computer_tech),
+                                  intval($data->tech_weapon_tech),
+                                  intval($data->tech_armour_tech),
+                                  intval($data->tech_shielding_tech),
+                                  intval($data->tech_energy_tech),
+                                  intval($data->tech_hyperspace_tech),
+                                  intval($data->tech_combustion_drive_tech),
+                                  intval($data->tech_impulse_drive_tech),
+                                  intval($data->tech_hyperspace_drive_tech),
+                                  intval($data->tech_laser_tech),
+                                  intval($data->tech_ion_tech),
+                                  intval($data->tech_plasma_tech),
+                                  intval($data->tech_intergalactic_research_tech),
+                                  intval($data->tech_graviton_tech)
+                    ];
 
 
                     // create a building-object for each building
-                    for($i = 1; $i <= count($dBuilding); $i++) {
+                    for ($i = 1; $i <= count($dBuilding); $i++) {
                         //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
 
-//                        echo $i . " <br />";
+                        //                        echo $i . " <br />";
 
-                        $this->buildingList[$i] = new Building(
-                                                        $i,
-                                                        $dBuilding[$i-1],
-                                                        $units->getPriceList($i)['metal'],
-                                                        $units->getPriceList($i)['crystal'],
-                                                        $units->getPriceList($i)['deuterium'],
-                                                        $units->getPriceList($i)['energy'],
-                                                        $units->getPriceList($i)['factor']
-                                                    );
+                        $this->buildingList[$i] = new Unit_Building(
+                            $i,
+                            $dBuilding[$i - 1],
+                            $units->getPriceList($i)['metal'],
+                            $units->getPriceList($i)['crystal'],
+                            $units->getPriceList($i)['deuterium'],
+                            $units->getPriceList($i)['energy'],
+                            $units->getPriceList($i)['factor']
+                        );
                     }
 
                     // create a defense-object for each defense
-                    for($i = 1; $i <= count($dResearch); $i++) {
+                    for ($i = 1; $i <= count($dResearch); $i++) {
                         //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
 
-                        $this->techList[$i+100] = new Research(
-                                                        $i,
-                                                        $dResearch[$i-1],
-                                                        $units->getPriceList($i)['metal'],
-                                                        $units->getPriceList($i)['crystal'],
-                                                        $units->getPriceList($i)['deuterium'],
-                                                        $units->getPriceList($i)['energy'],
-                                                        $units->getPriceList($i)['factor']
-                                                    );
+                        $this->techList[$i + 100] = new Unit_Research(
+                            $i,
+                            $dResearch[$i - 1],
+                            $units->getPriceList($i)['metal'],
+                            $units->getPriceList($i)['crystal'],
+                            $units->getPriceList($i)['deuterium'],
+                            $units->getPriceList($i)['energy'],
+                            $units->getPriceList($i)['factor']
+                        );
                     }
 
                     // create a defense-object for each defense
-                    for($i = 1; $i < count($dDefense); $i++) {
+                    for ($i = 1; $i < count($dDefense); $i++) {
                         //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
 
                         array_push($this->defenseList,
-                            new Building(
+                            new Unit_Building(
                                 $i,
-                                $dDefense[$i-1],
+                                $dDefense[$i - 1],
                                 $units->getPriceList($i)['metal'],
                                 $units->getPriceList($i)['crystal'],
                                 $units->getPriceList($i)['deuterium'],
@@ -288,7 +300,7 @@
                         );
                     }
 
-                    $this->galaxy = new GalaxyData(intval($data->galaxy_debris_metal),
+                    $this->galaxy = new Data_Galaxy(intval($data->galaxy_debris_metal),
                         intval($data->galaxy_debris_crystal));
 
                     $this->planet = $p;
@@ -305,11 +317,10 @@
 
 
             $functions = spl_autoload_functions();
-            foreach($functions as $function) {
+            foreach ($functions as $function) {
                 spl_autoload_unregister($function);
             }
         }
-
 
         public function printData() : void {
 
@@ -319,38 +330,38 @@
         }
 
         /**
-         * @return UserData
+         * @return Data_User
          */
-        public function getUser() : UserData {
+        public function getUser() : Data_User {
 
             return $this->user;
         }
 
         /**
-         * @return PlanetData
+         * @return Data_Planet
          */
-        public function getPlanet() : Planet {
+        public function getPlanet() : Unit_Planet {
 
             return $this->planet;
         }
 
         /**
-         * @return GalaxyData
+         * @return Data_Galaxy
          */
-        public function getGalaxy() : GalaxyData {
+        public function getGalaxy() : Data_Galaxy {
 
             return $this->galaxy;
         }
 
         /**
-         * @return BuildingData
+         * @return Data_Building
          */
         public function getBuilding() : array {
             return $this->buildingList;
         }
 
         /**
-         * @return DefenseData
+         * @return Data_Defense
          */
         public function getDefense() : array {
 
@@ -358,7 +369,7 @@
         }
 
         /**
-         * @return TechData
+         * @return Data_Tech
          */
         public function getTech() : array {
 
@@ -366,7 +377,7 @@
         }
 
         /**
-         * @return FleetData
+         * @return Data_Fleet
          */
         public function getFleet() : array {
 

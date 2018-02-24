@@ -4,7 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class FleetData {
+    class Data_Fleet {
 
         private $small_cargo_ship;
 

@@ -4,7 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class GalaxyData {
+    class Data_Galaxy {
 
         private $debris_metal;
 

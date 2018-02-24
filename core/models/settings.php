@@ -2,8 +2,6 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'] . 'model.php';
-
     class M_Settings implements I_Model {
 
         /**

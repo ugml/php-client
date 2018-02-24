@@ -4,8 +4,6 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'] . 'controller.php';
-
     class C_Resources implements I_Controller {
 
         private $get = null;
@@ -50,9 +48,12 @@
 
 
                 // planet storage
-                $this->lang['planet_storage_metal'] = number_format($units->getStorageCapacity($data->getBuilding()['metal_storage']), 0);
-                $this->lang['planet_storage_crystal'] = number_format($units->getStorageCapacity($data->getBuilding()['crystal_storage']), 0);
-                $this->lang['planet_storage_deuterium'] = number_format($units->getStorageCapacity($data->getBuilding()['deuterium_storage']), 0);
+                $this->lang['planet_storage_metal'] = number_format($units->getStorageCapacity($data->getBuilding()['metal_storage']),
+                    0);
+                $this->lang['planet_storage_crystal'] = number_format($units->getStorageCapacity($data->getBuilding()['crystal_storage']),
+                    0);
+                $this->lang['planet_storage_deuterium'] = number_format($units->getStorageCapacity($data->getBuilding()['deuterium_storage']),
+                    0);
 
                 // load view
                 $this->view = new V_Resources();

@@ -2,8 +2,6 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'] . 'model.php';
-
     class M_Register implements I_Model {
 
         public static function loadLanguage() {
@@ -71,7 +69,7 @@
             //------- create a planet ----------------------------------------------------------------------------------
             require 'core/classes/planet.php';
 
-            $planet = new Planet();
+            $planet = new Unit_Planet();
 
 
             $planet->setOwnerID($playerID);

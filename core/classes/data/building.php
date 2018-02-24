@@ -4,7 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class BuildingData {
+    class Data_Building {
 
         private $metal_mine;
 

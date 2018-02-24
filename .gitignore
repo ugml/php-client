@@ -4,4 +4,6 @@ core/config.php
 ./test*.php
 *todo.*
 
+phar/*
+
 .DS_Store

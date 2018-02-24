@@ -2,9 +2,6 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require_once $path['interfaces'] . 'view.php';
-    require_once $path['classes'] . 'view.php';
-
     class V_Register implements I_View {
 
         // Pfad zum Template

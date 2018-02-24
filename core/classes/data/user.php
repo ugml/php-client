@@ -4,7 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class UserData {
+    class Data_User {
 
         private $userID;
 

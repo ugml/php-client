@@ -2,10 +2,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require_once $path['interfaces'] . 'view.php';
-    require_once $path['classes'] . 'view.php';
-
-    class V_Buildings extends View implements I_View {
+    class V_Building extends V_View implements I_View {
 
         private $template = 'buildings';
 
@@ -141,7 +138,7 @@
                     } else {
                         if ($level > 0) {
                             if ($buildable) {
-                                $fields['b_build'] = '<a href="?page=buildings&build=' . $unitID . '"  class="' . $fields['b_build_class'] . '">' . str_replace("%s",
+                                $fields['b_build'] = '<a href="?page=building&build=' . $unitID . '"  class="' . $fields['b_build_class'] . '">' . str_replace("%s",
                                         ++$level, $lang['upgrade']) . '</a>';
                             } else {
                                 $fields['b_build'] = '<span class="' . $fields['b_build_class'] . '">' . str_replace("%s",
@@ -149,7 +146,7 @@
                             }
                         } else {
                             if ($buildable) {
-                                $fields['b_build'] = '<a href="?page=buildings&build=' . $unitID . '"  class="' . $fields['b_build_class'] . '">' . $lang['build'] . '</a>';
+                                $fields['b_build'] = '<a href="?page=building&build=' . $unitID . '"  class="' . $fields['b_build_class'] . '">' . $lang['build'] . '</a>';
                             } else {
                                 $fields['b_build'] = '<span class="' . $fields['b_build_class'] . '">' . $lang['build'] . '</span>';
                             }
@@ -203,6 +200,7 @@
                     $output .= $row;
                 }
             }
+
 
             return $output;
         }

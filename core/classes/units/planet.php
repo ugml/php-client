@@ -4,7 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class Planet {
+    class Unit_Planet {
 
         private $planetID;
 
@@ -163,12 +163,12 @@
                 $lvl_deuterium = $data->getBuilding()[$units->getUnitID('deuterium_synthesizer')];
 
                 $prod_energy = array_sum($units->getEnergyProduction(
-                                        $data->getBuilding()[$units->getUnitID('solar_plant')],
-                                        $data->getBuilding()[$units->getUnitID('fusion_reactor')],
-                                        $data->getTech()[$units->getUnitID('energy_tech')],
-                                        $data->getFleet()[$units->getUnitID('solar_satellite')],
-                                        $this->temp_max
-                            )
+                    $data->getBuilding()[$units->getUnitID('solar_plant')],
+                    $data->getBuilding()[$units->getUnitID('fusion_reactor')],
+                    $data->getTech()[$units->getUnitID('energy_tech')],
+                    $data->getFleet()[$units->getUnitID('solar_satellite')],
+                    $this->temp_max
+                )
                 );
 
                 $cons_energy = $this->getMetalMinePercent() / 100 * $units->getEnergyConsumption($lvl_metal) +
@@ -393,6 +393,62 @@
 
                 $stmt->execute();
             }
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getMetalMinePercent() {
+            return $this->metal_mine_percent;
+        }
+
+        /**
+         * @param mixed $metal_mine_percent
+         */
+        public function setMetalMinePercent($metal_mine_percent) : void {
+            $this->metal_mine_percent = $metal_mine_percent;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getCrystalMinePercent() {
+            return $this->crystal_mine_percent;
+        }
+
+        /**
+         * @param mixed $crystal_mine_percent
+         */
+        public function setCrystalMinePercent($crystal_mine_percent) : void {
+            $this->crystal_mine_percent = $crystal_mine_percent;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getDeuteriumSynthesizerPercent() {
+            return $this->deuterium_synthesizer_percent;
+        }
+
+        /**
+         * @param mixed $deuterium_synthesizer_percent
+         */
+        public function setDeuteriumSynthesizerPercent($deuterium_synthesizer_percent) : void {
+            $this->deuterium_synthesizer_percent = $deuterium_synthesizer_percent;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getFusionReactorPercent() {
+            return $this->fusion_reactor_percent;
+        }
+
+        /**
+         * @param mixed $fusion_reactor_percent
+         */
+        public function setFusionReactorPercent($fusion_reactor_percent) : void {
+            $this->fusion_reactor_percent = $fusion_reactor_percent;
         }
 
         /**
@@ -711,48 +767,6 @@
         /**
          * @return mixed
          */
-        public function getMetalMinePercent() {
-            return $this->metal_mine_percent;
-        }
-
-        /**
-         * @param mixed $metal_mine_percent
-         */
-        public function setMetalMinePercent($metal_mine_percent) : void {
-            $this->metal_mine_percent = $metal_mine_percent;
-        }
-
-        /**
-         * @return mixed
-         */
-        public function getCrystalMinePercent() {
-            return $this->crystal_mine_percent;
-        }
-
-        /**
-         * @param mixed $crystal_mine_percent
-         */
-        public function setCrystalMinePercent($crystal_mine_percent) : void {
-            $this->crystal_mine_percent = $crystal_mine_percent;
-        }
-
-        /**
-         * @return mixed
-         */
-        public function getDeuteriumSynthesizerPercent() {
-            return $this->deuterium_synthesizer_percent;
-        }
-
-        /**
-         * @param mixed $deuterium_synthesizer_percent
-         */
-        public function setDeuteriumSynthesizerPercent($deuterium_synthesizer_percent) : void {
-            $this->deuterium_synthesizer_percent = $deuterium_synthesizer_percent;
-        }
-
-        /**
-         * @return mixed
-         */
         public function getSolarPlantPercent() {
             return $this->solar_plant_percent;
         }
@@ -762,20 +776,6 @@
          */
         public function setSolarPlantPercent($solar_plant_percent) : void {
             $this->solar_plant_percent = $solar_plant_percent;
-        }
-
-        /**
-         * @return mixed
-         */
-        public function getFusionReactorPercent() {
-            return $this->fusion_reactor_percent;
-        }
-
-        /**
-         * @param mixed $fusion_reactor_percent
-         */
-        public function setFusionReactorPercent($fusion_reactor_percent) : void {
-            $this->fusion_reactor_percent = $fusion_reactor_percent;
         }
 
         /**

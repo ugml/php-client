@@ -2,8 +2,6 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'] . 'controller.php';
-
     class C_Users implements I_Controller {
 
         private $get = null;

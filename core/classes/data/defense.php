@@ -4,7 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class DefenseData {
+    class Data_Defense {
 
         private $rocket_launcher;
 

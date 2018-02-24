@@ -2,10 +2,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require_once $path['interfaces'] . 'view.php';
-    require_once $path['classes'] . 'view.php';
-
-    class V_Resources extends View implements I_View {
+    class V_Resources extends V_View implements I_View {
 
         private $template = 'resources';
 

@@ -2,7 +2,7 @@
 
     declare(strict_types = 1);
 
-    class View {
+    class V_View {
 
         private $_ = array();
 

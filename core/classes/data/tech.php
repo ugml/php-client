@@ -4,7 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class TechData {
+    class Data_Tech {
 
         private $espionage_tech;
 

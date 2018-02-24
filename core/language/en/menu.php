@@ -13,7 +13,7 @@
     $lang['fleet'] = 'Fleet';
     $lang['techtree'] = 'Technology';
     $lang['galaxy'] = 'Galaxy';
-    $lang['DefenseData'] = 'DefenseData';
+    $lang['defense'] = 'Defense';
 
     $lang['alliance'] = 'Alliance';
     $lang['board'] = 'Board';

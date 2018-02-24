@@ -7,6 +7,7 @@
     src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/K88pR3goAWT7BTt32Z01mxJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
     unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
 }
+
 /* cyrillic */
 @font-face {
     font-family: 'Open Sans';
@@ -15,6 +16,7 @@
     src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/RjgO7rYTmqiVp7vzi-Q5URJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
     unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
+
 /* greek-ext */
 @font-face {
     font-family: 'Open Sans';
@@ -23,6 +25,7 @@
     src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/LWCjsQkB6EMdfHrEVqA1KRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
     unicode-range: U+1F00-1FFF;
 }
+
 /* greek */
 @font-face {
     font-family: 'Open Sans';
@@ -31,6 +34,7 @@
     src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/xozscpT2726on7jbcb_pAhJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
     unicode-range: U+0370-03FF;
 }
+
 /* vietnamese */
 @font-face {
     font-family: 'Open Sans';
@@ -39,6 +43,7 @@
     src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/59ZRklaO5bWGqF5A9baEERJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
     unicode-range: U+0102-0103, U+1EA0-1EF9, U+20AB;
 }
+
 /* latin-ext */
 @font-face {
     font-family: 'Open Sans';
@@ -47,6 +52,7 @@
     src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/u-WUoqrET9fUeobQW7jkRRJtnKITppOI_IvcXXDNrsc.woff2) format('woff2');
     unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
+
 /* latin */
 @font-face {
     font-family: 'Open Sans';
@@ -56,33 +62,31 @@
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
-
 * {
 
-    font-size	: 14px;
+    font-size: 14px;
 }
 
 body {
     font-family: 'Open Sans', sans-serif;
-    padding:2% 0;
-    background: url("img/bg.png") no-repeat center center fixed; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
+    padding: 2% 0;
+    background: url("img/bg.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     color: #E6EBFB;
 }
 
-a
-{
+a {
     color: #E6EBFB;
-    text-decoration      : none;
-    font-weight          : bold;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 a:hover {
     color: #E6EBFB;
-    text-decoration      : underline;
+    text-decoration: underline;
 }
 
 select {
@@ -95,28 +99,29 @@ button {
     color: #E6EBFB;
     background-color: #1c2d42;
     border: 1px #192026 solid;
-    margin:0;
-    padding:0 2px;
+    margin: 0;
+    padding: 0 2px;
 }
 
 input {
     color: #E6EBFB;
     background-color: #243B55;
     border: 1px #192026 solid;
-    max-width:80%;
+    max-width: 80%;
     text-align: center;
 }
 
 #leftmenu {
     border-bottom: none;
     list-style: none;
-    padding:0;
+    padding: 0;
     width: 110px;
     margin: 10px 0 0 0;
 
 }
+
 #leftmenu li img {
-    width:100%;
+    width: 100%;
 }
 
 #leftmenu li {
@@ -135,7 +140,7 @@ input {
 
 #topnav {
     padding-left: 10%;
-    max-width:800px;
+    max-width: 800px;
 }
 
 #topnav #planetList {
@@ -148,7 +153,7 @@ input {
 }
 
 #topnav #planetList select {
-    margin-left:10px;
+    margin-left: 10px;
 }
 
 #topnav .resource-name {
@@ -163,9 +168,11 @@ input {
 .resource-crystal {
     color: rgb(127, 184, 196);
 }
+
 .resource-deuterium {
     color: rgb(113, 159, 91);
 }
+
 .resource-energy {
     color: rgb(167, 166, 92);
 }
@@ -173,46 +180,46 @@ input {
 #page-content {
     padding-left: 10%;
     padding-top: 1%;
-    max-width:800px;
+    max-width: 800px;
 }
 
 .content-header {
-    font-weight          : bold;
-    padding-left         : 5px;
-    background: rgb(36,59,85);
-	background: -moz-linear-gradient(top, rgb(36,59,85) 0%, rgb(20,30,48) 100%);
-	background: -webkit-linear-gradient(top, rgb(36,59,85) 0%,rgb(20,30,48) 100%);
-	background: linear-gradient(to bottom, rgb(36,59,85) 0%,rgb(20,30,48) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#243b55', endColorstr='#141e30',GradientType=0 );
-    border               : 1px #192026 solid;
+    font-weight: bold;
+    padding-left: 5px;
+    background: rgb(36, 59, 85);
+    background: -moz-linear-gradient(top, rgb(36, 59, 85) 0%, rgb(20, 30, 48) 100%);
+    background: -webkit-linear-gradient(top, rgb(36, 59, 85) 0%, rgb(20, 30, 48) 100%);
+    background: linear-gradient(to bottom, rgb(36, 59, 85) 0%, rgb(20, 30, 48) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#243b55', endColorstr='#141e30', GradientType=0);
+    border: 1px #192026 solid;
     margin-top: 2px;
 }
 
 .content-body .row div[class^='col-'] {
-    width:100%;
-    margin:0;
-    padding:2px 2px 0 0;
+    width: 100%;
+    margin: 0;
+    padding: 2px 2px 0 0;
 }
 
 .content-body .row div[class^='col-']:last-child {
-    padding:2px 0 0 0;
+    padding: 2px 0 0 0;
 }
 
 .content-body .row div[class^='col-'] div:not([class]) {
     background-color: #1c2d42;
     height: 100%;
-    width:100%;
-    padding-left:5px;
-    padding-right:3px;
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 3px;
 }
 
-#page-content  #otherPlanets .planetImage {
+#page-content #otherPlanets .planetImage {
     width: 100px;
-    border               : 1px #1c2d42 solid;
+    border: 1px #1c2d42 solid;
 }
 
 .resetMarginPadding {
-    margin:0;
+    margin: 0;
     padding: 0;
 }
 
@@ -221,8 +228,8 @@ input {
 }
 
 .building-image div img {
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
 }
 
 .orange {
@@ -238,34 +245,36 @@ input {
 }
 
 .vertical-center div {
-    display:flex;justify-content:center;align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .debug_table::before {
-	clear:both;
+    clear: both;
 }
 
 .debug_table {
-    width:100%;
-    margin-bottom:20px;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .sql_debug_table {
-    margin-bottom:20px;
-    width:100%;
+    margin-bottom: 20px;
+    width: 100%;
 }
 
 .sql_debug_table th, .debug_table th {
-    font-weight          : bold;
-    padding-left         : 5px;
-    background-image     : url(img/bg1.gif);
-    border               : 1px #415680 solid;
+    font-weight: bold;
+    padding-left: 5px;
+    background-image: url(img/bg1.gif);
+    border: 1px #415680 solid;
     margin-top: 2px;
 }
 
 .sql_debug_table td, .debug_table td {
     background-color: #1c2d42;
-    border               : 1px #415680 solid;
-    padding-left:5px;
-    padding-right:3px;
+    border: 1px #415680 solid;
+    padding-left: 5px;
+    padding-right: 3px;
 }

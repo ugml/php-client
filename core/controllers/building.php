@@ -4,8 +4,6 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'] . 'controller.php';
-
     class C_Building implements I_Controller {
 
         private $get = null;
@@ -112,7 +110,7 @@
                 //build it only, if there is not already a building in the queue
                 if ($data->getPlanet()->getBBuildingId() == 0) {
 
-                    $units = new UnitsData();
+                    $units = new Data_Units();
 
                     $level = $data->getBuilding()[$buildID]->getLevel();
 
@@ -131,7 +129,7 @@
 
                         $toLvl = $level + 1;
 
-                        M_Buildings::build($data->getPlanet()->getPlanetId(), $buildID, $toLvl, $n_metal, $n_crystal,
+                        M_Building::build($data->getPlanet()->getPlanetId(), $buildID, $toLvl, $n_metal, $n_crystal,
                             $n_deuterium);
                         header("Refresh:0");
                     }
@@ -157,7 +155,7 @@
 
             if ($data->getPlanet()->getBBuildingId() == $buildID && $data->getPlanet()
                     ->getBBuildingEndtime() > time()) {
-                $units = new UnitsData();
+                $units = new Data_Units();
 
                 $pricelist = $units->getPriceList($buildID);
 
@@ -174,7 +172,7 @@
                     $deuterium *= $pricelist['factor'];
                 }
 
-                M_Buildings::cancel($data->getPlanet()->getPlanetId(), $metal, $crystal, $deuterium);
+                M_Building::cancel($data->getPlanet()->getPlanetId(), $metal, $crystal, $deuterium);
             }
 
             header("Refresh:0");
@@ -197,9 +195,9 @@
             global $config, $data, $units;
 
             // load view
-            $view = new V_Buildings();
+            $view = new V_Building();
 
-            $v_lang = M_Buildings::loadLanguage();
+            $v_lang = M_Building::loadLanguage();
 
             // load the individual rows for each building
             $this->lang['building_list'] = $view->loadBuildingRows($data->getBuilding(),

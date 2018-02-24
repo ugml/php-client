@@ -22,7 +22,8 @@
 
     $this->lang['planet_energy_used'] = number_format($data->getPlanet()->getEnergyUsed(), 0);
     $this->lang['planet_energy_max'] = number_format($data->getPlanet()->getEnergyMax(), 0);
-    $this->lang['planet_image_small'] = $config['skinpath'] . 'planeten/small/s_' . $data->getPlanet()->getImage() . '.png';
+    $this->lang['planet_image_small'] = $config['skinpath'] . 'planeten/small/s_' . $data->getPlanet()
+            ->getImage() . '.png';
     $this->lang['icon_metal'] = $config['skinpath'] . 'images/metal.gif';
     $this->lang['icon_crystal'] = $config['skinpath'] . 'images/crystal.gif';
     $this->lang['icon_deuterium'] = $config['skinpath'] . 'images/deuterium.gif';

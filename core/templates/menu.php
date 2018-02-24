@@ -5,7 +5,7 @@
         <li><img src="<?php echo $this->_['skinpath']; ?>gfx/ogame-produktion.png" alt="ogame-produktion"/></li>
         <li><a href="game.php?page=overview">{overview}</a></li>
         <!--<li><a href="game.php?page=empire">{empire}</a></li>-->
-        <li><a href="game.php?page=buildings">{buildings}</a></li>
+        <li><a href="game.php?page=building">{buildings}</a></li>
         <li><a href="game.php?page=resources">{resources}</a></li>
         <!--<li><a href="game.php?page=merchant" class="orange">{merchant}</a></li>-->
         <li><a href="game.php?page=research">{research}</a></li>

@@ -4,8 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-
-    class UnitsData {
+    class Data_Units {
 
         private $units;
 

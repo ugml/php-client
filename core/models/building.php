@@ -2,9 +2,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'] . 'model.php';
-
-    class M_Buildings implements I_Model {
+    class M_Building implements I_Model {
 
         /**
          * loads the required language files
@@ -70,7 +68,6 @@
             if ($units->getRequirements($buildID) !== []) {
 
 
-
                 $req = $units->getRequirements($buildID);
 
                 foreach ($req as $bID => $lvl) {
@@ -101,9 +98,9 @@
                 if ($buildID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
                     try {
 
-                        $buildTime = time() + 3600 * $units->getBuildTime($buildID, $toLvl, $data->getBuilding()['robotic_factory'],
+                        $buildTime = time() + 3600 * $units->getBuildTime($buildID, $toLvl,
+                                $data->getBuilding()['robotic_factory'],
                                 $data->getBuilding()['shipyard'], $data->getBuilding()['nanite_factory']);
-
 
 
                         $params = array(':b_building_id'      => $buildID,
@@ -124,7 +121,7 @@
                     throw new InvalidArgumentException('Passed arguments are not valid');
                 }
             } else {
-                throw new UnexpectedValueException('a building is already in the buildingqueue');
+                throw new UnexpectedFalueException('a building is already in the buildingqueue');
             }
 
         }

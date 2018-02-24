@@ -2,12 +2,9 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require_once $path['interfaces'] . 'view.php';
-    require_once $path['classes'] . 'view.php';
+    class V_Research extends V_View implements I_View {
 
-    class V_Research extends View implements I_View {
-
-        private $template = 'research';
+        private $template = 'Research';
 
         private $_ = array();
 
@@ -133,7 +130,8 @@
 
                     if ($data->getPlanet()->getBTechId() > 0) {
                         if ($unitID == $data->getPlanet()->getBTechId()) {
-                            $fields['r_build'] = '-<script>timer(' . ($data->getPlanet()->getBTechEndtime() - time()) . ', "build_' . $unitID . '", ' . $unitID . ');</script>';
+                            $fields['r_build'] = '-<script>timer(' . ($data->getPlanet()
+                                        ->getBTechEndtime() - time()) . ', "build_' . $unitID . '", ' . $unitID . ');</script>';
                         } else {
                             $fields['r_build'] = "-";
                         }

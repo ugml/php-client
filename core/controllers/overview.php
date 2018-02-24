@@ -4,8 +4,6 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require $path['interfaces'] . 'controller.php';
-
     class C_Overview implements I_Controller {
 
         private $get = null;
@@ -52,9 +50,9 @@
 
                 // currently building?
                 if ($data->getPlanet()->getBBuildingId() > 0) {
-                    $this->lang['BuildingData'] = $data->getUnits()->getName($data->getPlanet()->getBBuildingId());
+                    $this->lang['Data_Building'] = $data->getUnits()->getName($data->getPlanet()->getBBuildingId());
                 } else {
-                    $this->lang['BuildingData'] = 'free';
+                    $this->lang['Data_Building'] = 'free';
                 }
 
                 $this->lang['planet_image'] = 'skins/Maya/planeten/' . $data->getPlanet()->getImage() . '.png';

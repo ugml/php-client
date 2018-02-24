@@ -3,10 +3,9 @@
     declare(strict_types = 1);
 
 
-
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class PlanetData {
+    class Data_Planet {
 
         private $planetID;
 
