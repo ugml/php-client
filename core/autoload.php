@@ -35,8 +35,6 @@
                 break;
         }
 
-        echo $p . "<br />";
-
         if (file_exists($p)) {
             require_once $p;
         }
