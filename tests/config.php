@@ -1,7 +1,5 @@
 <?php
 
-    defined('INSIDE') OR exit('No direct script access allowed');
-
     // enable debug-mode
     define('DEBUG', true);
 
