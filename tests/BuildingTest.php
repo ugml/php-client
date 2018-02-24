@@ -4,6 +4,8 @@
 
     define("INSIDE", true);
 
+    require_once __DIR__.'/../core/autoload.php';
+
     class BuildingTest extends TestCase {
 
         public function testGetCostMetal() {

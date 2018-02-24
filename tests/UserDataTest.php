@@ -4,6 +4,8 @@
 
     define("INSIDE", true);
 
+    require_once __DIR__.'/../core/autoload.php';
+
     class UserDataTest extends TestCase {
 
         public function testGetUserID() {
