@@ -2,7 +2,7 @@
 
     use PHPUnit\Framework\TestCase;
 
-    define("INSIDE", true);
+//    define("INSIDE", true);
 
     require_once __DIR__.'/../core/autoload.php';
 
