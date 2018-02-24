@@ -1,12 +1,11 @@
 <?php
 
-    defined('INSIDE') OR exit('No direct script access allowed');
+    define('INSIDE', true);
 
     // enable debug-mode
     define('DEBUG', true);
 
     $root = $_SERVER['DOCUMENT_ROOT'] . '/ugamela/';
-
 
     define('PRODUCTION', false);
 

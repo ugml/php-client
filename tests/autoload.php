@@ -1,8 +1,6 @@
 <?php
 
     function __autoload($className) {
-        global $path;
-
 
         $s = explode("_", $className);
 
@@ -35,10 +33,7 @@
                 break;
         }
 
-        echo $p;
-
         if (file_exists($p)) {
-
             require_once $p;
         }
 
