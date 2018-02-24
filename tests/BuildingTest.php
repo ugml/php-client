@@ -2,14 +2,15 @@
 
     use PHPUnit\Framework\TestCase;
 
-//    define("INSIDE", true);
+    define("INSIDE", true);
 
     require_once __DIR__.'/config.php';
-    require_once __DIR__.'/../core/autoload.php';
+    require_once __DIR__.'/autoload.php';
 
     class BuildingTest extends TestCase {
 
         public function testGetCostMetal() {
+
             $level = 1;
 
             $building = new Unit_Building(1, $level, 60, 15, 0, 0, 1.5);

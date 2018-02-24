@@ -2,10 +2,8 @@
 
     use PHPUnit\Framework\TestCase;
 
-//    define("INSIDE", true);
-
     require_once __DIR__.'/config.php';
-    require_once __DIR__.'/../core/autoload.php';
+    require_once __DIR__.'/autoload.php';
 
     class UserDataTest extends TestCase {
 
