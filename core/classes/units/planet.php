@@ -281,8 +281,8 @@
 
                     $shipsLeftArray = [];
 
-                    foreach ($shipQueueRows as $k => $v) {
-                        $exp = explode(",", $v);
+                    foreach ($shipQueueRows as $key => $value) {
+                        $exp = explode(",", $value);
 
                         $unitID = intval($exp[0]);
                         $unitCnt = intval($exp[1]);
@@ -479,7 +479,7 @@
             //--- check the passed values ------------------------------------------------------------------------------
             //check if only one or two are null
             if (empty($g) + empty($s) + empty($p) < 3) {
-                die('one argument was null');
+                throw new InvalidArgumentException("one argument was null");
             } else {
                 if (empty($g) + empty($s) + empty($p) == 3) {
                     //create random coordinates
@@ -490,19 +490,19 @@
                     if ($g > 1 && $g <= $config['max_galaxy']) {
                         $this->galaxy = $g;
                     } else {
-                        die('galaxy out of range');
+                        throw new InvalidArgumentException("galaxy out of range");
                     }
 
                     if ($s > 1 && $s <= $config['max_system']) {
                         $this->system = $p;
                     } else {
-                        die('system out of range');
+                        throw new InvalidArgumentException("system out of range");
                     }
 
                     if ($p > 1 && $p <= $config['max_planet']) {
                         $this->planet = $p;
                     } else {
-                        die('planet out of range');
+                        throw new InvalidArgumentException("planet out of range");
                     }
                 }
             }

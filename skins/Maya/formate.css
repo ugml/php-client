@@ -229,7 +229,7 @@ input {
 }
 
 .building-image div {
-    padding: 2px !important;
+    padding: 2px;
 }
 
 .building-image div img {
@@ -238,7 +238,7 @@ input {
 }
 
 .orange {
-    color: rgb(233, 132, 34) !important;
+    color: rgb(233, 132, 34);
 }
 
 .buildable {

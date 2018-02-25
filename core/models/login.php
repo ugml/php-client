@@ -17,7 +17,7 @@
 
         public static function getUserInfo($username) {
 
-            global $database, $path;
+            global $database, $path, $debug;
 
             require_once $path['classes'] . 'db.php';
 
@@ -33,7 +33,11 @@
 
                 return $stmt->fetch();
             } catch (PDOException $e) {
-                die($e->getMessage());
+                if (DEBUG) {
+                    $debug->addLog(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
+                } else {
+                    $debug->saveError(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
+                }
             }
         }
 

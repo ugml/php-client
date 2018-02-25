@@ -67,7 +67,6 @@
             $stmt->execute();
 
             //------- create a planet ----------------------------------------------------------------------------------
-            require 'core/classes/planet.php';
 
             $planet = new Unit_Planet();
 
@@ -89,5 +88,6 @@
         }
 
         public static function loadUserData($userID) {
+
         }
     }

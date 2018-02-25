@@ -69,10 +69,11 @@
                 }
 
                 return $output;
-            } else {
-                // Template-File existiert nicht-> Fehlermeldung.
-                return 'could not find template';
             }
+
+            // template-dile does not exist
+            return 'could not find template';
+
         }
     }
 
