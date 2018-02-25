@@ -1,6 +1,7 @@
 ![N|Solid](https://mamen.at/ugamela/images/logo.png)
 
 ![N|Solid](https://travis-ci.com/mamen/ugamela.svg?token=W9dJHsFajvdU8w61Xgun&branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/196af56b9f6a451393a8f25560495fbf)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mamen/ugamela&amp;utm_campaign=Badge_Grade)
 [![Discord Server](https://discordapp.com/api/guilds/339129999082913794/embed.png)](https://discord.gg/WPApmAX)
 
 # What is ugamela?
