@@ -1,6 +1,7 @@
 ![N|Solid](https://mamen.at/ugamela/images/logo.png)
 
 ![N|Solid](https://travis-ci.com/mamen/ugamela.svg?token=W9dJHsFajvdU8w61Xgun&branch=master)
+[![Discord Server](https://discordapp.com/api/guilds/339129999082913794/embed.png)](https://discord.gg/WPApmAX)
 
 # What is ugamela?
 
