@@ -12,6 +12,8 @@
 
         private $lang = null;
 
+        private $model = null;
+
         /**
          * C_Overview constructor.
          * @param $get
@@ -20,6 +22,8 @@
         function __construct($get, $post) {
 
             global $data, $debug, $path, $config;
+
+            $this->model = new M_Overview();
 
             try {
                 $this->get = $get;
@@ -54,6 +58,10 @@
                 } else {
                     $this->lang['building'] = 'free';
                 }
+
+                $this->lang['user_points'] = number_format($data->getUser()->getPoints(), 0);
+                $this->lang['user_rank'] = number_format($data->getUser()->getCurrentRank(), 0);
+                $this->lang['num_users'] = number_format($this->model->getNumUsers(), 0);
 
 
                 $this->lang['moon_image'] = '<img src="'. $config['skinpath'] . '/planeten/small/s_mond.png" />';
@@ -114,11 +122,12 @@
 
             $view = new V_Overview();
 
-            $this->lang = array_merge($this->lang, M_Overview::loadLanguage());
+            $this->lang = array_merge($this->lang, $this->model->loadLanguage());
 
             $view->assign('lang', $this->lang);
             $view->assign('title', $config['game_name']);
             $view->assign('skinpath', $config['skinpath']);
+
             $view->assign('copyright', $config['copyright']);
             $view->assign('language', $config['language']);
 

@@ -4,5 +4,5 @@
 
     interface I_Model {
 
-        public static function loadLanguage();
+        public function loadLanguage();
     }

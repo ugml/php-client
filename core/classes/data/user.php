@@ -18,13 +18,22 @@
 
         private $planetList = [];
 
-        public function __construct(int $uID, string $uname, string $email, int $otime, int $currPlanet) {
+        private $points;
+
+        private $current_rank;
+
+        private $old_rank;
+
+        public function __construct(int $uID, string $uname, string $email, int $otime, int $currPlanet, int $points, int $cRank, int $oRank) {
 
             $this->userID = $uID;
             $this->username = $uname;
             $this->email = $email;
             $this->onlineTime = $otime;
             $this->currentPlanet = $currPlanet;
+            $this->points = $points;
+            $this->current_rank = $cRank;
+            $this->old_rank = $oRank;
         }
 
         public function printUser() : void {
@@ -118,5 +127,49 @@
 
             $this->planetList = $pList;
         }
+
+        /**
+         * @return mixed
+         */
+        public function getPoints() {
+            return $this->points;
+        }
+
+        /**
+         * @param mixed $points
+         */
+        public function setPoints($points) : void {
+            $this->points = $points;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getCurrentRank() {
+            return $this->current_rank;
+        }
+
+        /**
+         * @param mixed $current_rank
+         */
+        public function setCurrentRank($current_rank) : void {
+            $this->current_rank = $current_rank;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getOldRank() {
+            return $this->old_rank;
+        }
+
+        /**
+         * @param mixed $old_rank
+         */
+        public function setOldRank($old_rank) : void {
+            $this->old_rank = $old_rank;
+        }
+
+
 
     }

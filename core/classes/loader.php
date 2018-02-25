@@ -28,17 +28,6 @@
 
             global $database, $db, $units;
 
-
-            // update the onlinetime
-            $query = 'UPDATE ' . $database['prefix'] . 'users SET onlinetime = '.time().' WHERE userID = :userID;';
-
-            $stmt = $db->prepare($query);
-
-            $stmt->bindParam(':userID', $userID);
-
-            $stmt->execute();
-
-
             // get all data from the database
             $query = 'SELECT 
                         user.userID AS user_userID, 
@@ -46,6 +35,9 @@
                         user.email AS user_email,
                         user.onlinetime AS user_onlinetime,
                         user.currentplanet AS user_currentplanet,
+                        stats.points AS user_points,
+                        stats.old_rank AS user_old_rank,
+                        stats.rank AS user_rank,
                         planet.planetID AS planet_planetID,
                         planet.name AS planet_name,
                         planet.galaxy AS planet_galaxy,
@@ -135,6 +127,7 @@
                         fleet.battlecruiser AS fleet_battlecruiser,
                         fleet.deathstar AS fleet_deathstar
                         FROM ' . $database['prefix'] . 'users AS user 
+                        LEFT JOIN ' . $database['prefix'] . 'stats AS stats ON user.userID = stats.userID  
                         LEFT JOIN ' . $database['prefix'] . 'planets AS planet ON user.userID = planet.ownerID  
                         LEFT JOIN ' . $database['prefix'] . 'galaxy AS galaxy ON planet.planetID = galaxy.planetID
                         LEFT JOIN ' . $database['prefix'] . 'buildings AS building ON planet.planetID = building.planetID
@@ -192,8 +185,18 @@
 
                 // current planet -> get buildings / tech / fleet / defense
                 if ($data->user_currentplanet == $data->planet_planetID) {
-                    $this->user = new Data_User(intval($userID), $data->user_username, $data->user_email,
-                        intval($data->user_onlinetime), intval($data->user_currentplanet));
+
+                    //int $points, int $cRank, int $oRank
+                    $this->user = new Data_User(
+                                        intval($userID),
+                                        $data->user_username,
+                                        $data->user_email,
+                                        intval($data->user_onlinetime),
+                                        intval($data->user_currentplanet),
+                                        intval($data->user_points),
+                                        intval($data->user_rank),
+                                        intval($data->user_rank_old)
+                                    );
 
 
                     // data about all building-levels from the database
@@ -338,11 +341,90 @@
 
             $this->user->setPlanetList($planetList);
 
+            // update points
+            $points = 0;
 
-            $functions = spl_autoload_functions();
-            foreach ($functions as $function) {
-                spl_autoload_unregister($function);
+            // buildings
+            foreach($dBuilding as $key => $level) {
+                $pricelist = $units->getPriceList($key+1);
+
+                //120 * (1,5 ^ X - 1,5 ^ Y)
+
+                $metal = 0;
+                $crystal = 0;
+                $deuterium = 0;
+
+                for($i = 0; $i < $level; $i++) {
+                    $metal += $pricelist['metal'] * ($pricelist['factor'] ** $i);
+                    $crystal += $pricelist['crystal'] * ($pricelist['factor'] ** $i);
+                    $deuterium += $pricelist['deuterium'] * ($pricelist['factor'] ** $i);
+                }
+
+                $points += floor((round($metal, -3) + round($crystal , -3)+ round($deuterium, -3))/1000);
             }
+
+            // tech
+            foreach($dResearch as $key => $level) {
+                $pricelist = $units->getPriceList($key+101);
+                $metal = 0;
+                $crystal = 0;
+                $deuterium = 0;
+
+                for($i = 0; $i < $level; $i++) {
+                    $metal += $pricelist['metal'] * ($pricelist['factor'] ** $i);
+                    $crystal += $pricelist['crystal'] * ($pricelist['factor'] ** $i);
+                    $deuterium += $pricelist['deuterium'] * ($pricelist['factor'] ** $i);
+                }
+
+                $points += floor((round($metal, -3) + round($crystal , -3)+ round($deuterium, -3))/1000);
+            }
+
+            // fleet
+            foreach($dFleet as $key => $level) {
+                $pricelist = $units->getPriceList($key+201);
+
+                $metal = $pricelist['metal'] * $level;
+                $crystal = $pricelist['crystal'] * $level;
+                $deuterium = $pricelist['deuterium'] * $level;
+
+
+                $points += floor((round($metal, -3) + round($crystal , -3)+ round($deuterium, -3))/1000);
+            }
+
+            // defense
+            foreach($dDefense as $key => $level) {
+                $pricelist = $units->getPriceList($key+301);
+
+                $metal = $pricelist['metal'] * $level;
+                $crystal = $pricelist['crystal'] * $level;
+                $deuterium = $pricelist['deuterium'] * $level;
+
+                $points += floor((round($metal, -3) + round($crystal , -3)+ round($deuterium, -3))/1000);
+            }
+
+            $query = 'UPDATE ' . $database['prefix'] . 'stats SET points = '.$points.' WHERE userID = :userID;';
+
+            $stmt = $db->prepare($query);
+
+            $stmt->bindParam(':userID', $userID);
+
+            $stmt->execute();
+
+
+            // update onlinetime
+            $query = 'UPDATE ' . $database['prefix'] . 'users SET onlinetime = '.time().' WHERE userID = :userID;';
+
+            $stmt = $db->prepare($query);
+
+            $stmt->bindParam(':userID', $userID);
+
+            $stmt->execute();
+
+
+//            $functions = spl_autoload_functions();
+//            foreach ($functions as $function) {
+//                spl_autoload_unregister($function);
+//            }
         }
 
         public function printData() : void {

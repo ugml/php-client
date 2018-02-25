@@ -9,7 +9,7 @@
          * @return array the loaded language-array
          * @throws FileNotFoundException
          */
-        public static function loadLanguage() {
+        public function loadLanguage() : array {
 
             global $path, $config, $lang;
 
@@ -35,5 +35,21 @@
             }
 
             return $lang;
+        }
+
+        /**
+         * @return int the number of registered users
+         */
+        public function getNumUsers() : int {
+            global $db, $database;
+
+
+            $query = 'SELECT COUNT(userID) FROM ' . $database['prefix'] . 'users;';
+
+            $stmt = $db->prepare($query);
+
+            $stmt->execute();
+
+            return $stmt->fetchColumn(0);
         }
     }

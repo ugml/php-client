@@ -4,7 +4,7 @@
 
     class M_Changelog implements I_Model {
 
-        public static function loadLanguage() {
+        public function loadLanguage() {
 
             global $path, $lang, $config;
 

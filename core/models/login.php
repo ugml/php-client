@@ -6,7 +6,7 @@
 
     class M_Login implements I_Model {
 
-        public static function loadLanguage() {
+        public function loadLanguage() {
 
             global $path, $lang, $config;
 
@@ -15,7 +15,7 @@
             return $lang;
         }
 
-        public static function getUserInfo($username) {
+        public function getUserInfo($username) {
 
             global $database, $path, $debug;
 
@@ -41,6 +41,6 @@
             }
         }
 
-        public static function loadUserData($userID) {
+        public function loadUserData($userID) {
         }
     }

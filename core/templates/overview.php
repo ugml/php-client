@@ -75,7 +75,7 @@
                     </div>
                     <div class="col-md-10 text-center">
                         <div>{user_points} ({rank} <a href="game.php?page=stats&start={u_user_rank}">{user_rank}</a> {of}
-                            {max_users})
+                            {num_users})
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@
          * @return array the loaded language-array
          * @throws FileNotFoundException
          */
-        public static function loadLanguage() {
+        public function loadLanguage() {
 
             global $path, $config, $lang;
 
