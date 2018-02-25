@@ -5,8 +5,8 @@ php:
   - '7.2'
 
 script:
-  - php composer.phar self-update
-  - php composer.phar install --dev
+#  - composer self-update
+  - composer install --dev
   - ./vendor/bin/phpunit
 
 notifications:
