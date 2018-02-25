@@ -1,22 +1,51 @@
-<div class="b_building gridcontainer">
-    <div class="row">
-        <div class="col-12 b_building_title">
-            <span>{b_name} (Level {b_level})</span>
+<div class="row galaxy_row">
+    <div class="col-md-1 text-center vertical-center">
+        <div>
+            {galaxy_pos}
         </div>
-        <div class="col-2 b_building_image">
-            <img src="{b_image}"/>
+    </div>
+    <div class="col-md-1 text-center vertical-center">
+        <div>
+            {galaxy_planetimg}
         </div>
-        <div class="col-8">
-            <p>{b_description}</p>
-            <p>
-                <span><img src="skins/Maya/images/metal.gif"/>{b_metal}</span>
-                <span><img src="skins/Maya/images/crystal.gif"/>{b_crystal}</span>
-                <span><img src="skins/Maya/images/deuterium.gif"/>{b_deuterium}</span>
-                <span><img src="skins/Maya/images/energy.gif"/>{b_time}s</span>
-            </p>
+    </div>
+    <div class="col-md-2 text-center vertical-center">
+        <div>
+            {galaxy_name}
         </div>
-        <div class="col-2 center" id="b_{b_id}">
-            <button name="build" class="{b_build_class}" value="{b_id}" {b_disabled}>{b_build}</button>
+    </div>
+    <div class="col-md-1 text-center vertical-center">
+        <div>
+            {galaxy_moon}
+        </div>
+    </div>
+    <div class="col-md-1 text-center vertical-center">
+        <div>
+            {galaxy_debris}
+        </div>
+    </div>
+    <div class="col-md-2 text-center vertical-center">
+        <div>
+            {galaxy_player}
+        </div>
+    </div>
+    <div class="col-md-1 text-center vertical-center">
+        <div>
+            {galaxy_alliance}
+        </div>
+    </div>
+    <div class="col-md-3 text-center vertical-center">
+        <div>
+            {galaxy_actions}
         </div>
     </div>
 </div>
+
+
+<!--Pos.-->
+<!--Name (Aktivität)-->
+<!--Mond-->
+<!--TF-->
+<!--Spieler (Status)-->
+<!--Allianz-->
+<!--Aktionen-->

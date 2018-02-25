@@ -10,7 +10,7 @@
                     {shipyard_list}
                 </div>
                 <div class="col-md-12 content-header text-center">
-                    <button>Senden</button>
+                    <button>{build}</button>
                 </div>
             </form>
         </div>

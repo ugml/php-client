@@ -244,6 +244,21 @@ input {
     color: rgb(230, 10, 10);
 }
 
+
+
+/* GALAXY */
+.inactive_long {
+    color: #474747;
+    font-weight: bold;
+}
+
+.inactive_short {
+    color: #707070;
+    font-weight: bold;
+}
+
+
+
 .vertical-center div {
     display: flex;
     justify-content: center;
@@ -277,4 +292,9 @@ input {
     border: 1px #415680 solid;
     padding-left: 5px;
     padding-right: 3px;
+}
+
+
+.galaxy_row div {
+    padding: 5px 0px;
 }

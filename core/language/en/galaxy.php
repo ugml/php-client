@@ -4,7 +4,6 @@
 
     $lang['page'] = "Galaxy";
 
-
-    $lang['build'] = "Build";
-
-    $lang['upgrade'] = "Upgrade to level %s";
+    $lang['galaxy_system'] = "System";
+    $lang['planets_populated'] = "planets populated";
+    $lang['legend'] = "Legend";

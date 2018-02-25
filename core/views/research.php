@@ -200,6 +200,10 @@
                 }
             }
 
+            if($output === '') {
+                $output .= '<div class="row"><div class="col-md-12"><div>'.$lang['no_research_available'].'</div></div></div>';
+            }
+
             return $output;
         }
     }

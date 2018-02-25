@@ -64,11 +64,12 @@
         // does not need the page-value
         unset($_GET['page']);
     } else {
-        // file does not exist -> display 404
+        // file does not exist -> redirect to overview
         if (isset($_GET['page']) && !file_exists($path['controllers'] . $_GET['page'] . '.php')) {
-            die("404 page not found - <a href=\"javascript:history.back()\">Go Back</a>");
+            $page = 'overview';
         }
     }
+
 
     // load the controller
     switch ($page) {

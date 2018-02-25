@@ -6,10 +6,9 @@
     </div>
     <div class="col-md-9">
         <div>
-            <a href="?page=techtree&bid={b_id}">{b_name}</a> (Level {b_level})<br/>
+            <a href="?page=techtree&bid={b_id}">{b_name}</a> ({level} {b_level})<br/>
             {b_description}<br/>
-            {requirements}: {metal}: {b_metal} {crystal}: {b_crystal} {deuterium}: {b_deuterium}<br/>
-            {construction_time}: {b_time}
+            {required_ressources} - {b_time}
         </div>
     </div>
     <div class="col-md-1 vertical-center build_{b_id}">

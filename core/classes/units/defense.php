@@ -28,19 +28,19 @@
             $this->costFactor = $uCostFactor;
         }
 
-        public function getCostMetal() : int {
+        public function getCostMetal() : float {
             // TODO: Implement getCostMetal() method.
         }
 
-        public function getCostCrystal() : int {
+        public function getCostCrystal() : float {
             // TODO: Implement getCostCrystal() method.
         }
 
-        public function getCostDeuterium() : int {
+        public function getCostDeuterium() : float {
             // TODO: Implement getCostDeuterium() method.
         }
 
-        public function getCostEnergy() : int {
+        public function getCostEnergy() : float {
             // TODO: Implement getCostEnergy() method.
         }
     }

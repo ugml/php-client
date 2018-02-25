@@ -12,7 +12,7 @@
         <li><a href="game.php?page=shipyard">{shipyard}</a></li>
         <!--<li><a href="game.php?page=fleet">{fleet}</a></li>-->
         <!--<li><a href="game.php?page=techtree">{techtree}</a></li>-->
-        <!--<li><a href="game.php?page=galaxy&amp;g={g}&amp;s={s}">{galaxy}</a></li>-->
+        <li><a href="game.php?page=galaxy&amp;g={g}&amp;s={s}">{galaxy}</a></li>
         <!--<li><a href="game.php?page=defense">{defense}</a></li>-->
         <li><img src="<?php echo $this->_['skinpath']; ?>gfx/info-help.png" alt="info-help"/></li>
         <!--<li><a href="game.php?page=alliance">{alliance}</a></li>-->

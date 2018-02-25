@@ -7,6 +7,8 @@
 
     $lang['build'] = "Build";
 
+    $lang['level'] = "Level";
+
     $lang['upgrade'] = "Upgrade to level %s";
     $lang['requirements'] = "Requirements";
     $lang['construction_time'] = "Construction Time";

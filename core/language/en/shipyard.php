@@ -6,6 +6,7 @@
 
     $lang['available'] = "available";
 
+    $lang['no_fleet_available'] = "There are currently no ships available to build.";
 
     $lang['build'] = "Build";
 

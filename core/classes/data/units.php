@@ -343,7 +343,7 @@
                 8   => [6 => 2],
                 13  => [7 => 1, 106 => 12],
 
-                //techs
+                // techs
                 101 => [12 => 3],
                 102 => [12 => 1],
                 103 => [12 => 4],
@@ -358,7 +358,23 @@
                 112 => [12 => 4, 106 => 4, 111 => 5],
                 113 => [12 => 4, 106 => 8, 111 => 10, 112 => 5],
                 114 => [12 => 10, 102 => 8, 107 => 8],
-                115 => [12 => 12]
+                115 => [12 => 12],
+
+                // fleet
+                201 => [8 => 2, 108 => 2],
+                202 => [8 => 4, 108 => 6],
+                203 => [8 => 1, 108 => 1],
+                204 => [8 => 3, 104 => 2, 109 => 2],
+                205 => [8 => 5, 109 => 4, 112 => 2],
+                206 => [8 => 7, 110 => 4],
+                207 => [8 => 4, 109 => 3],
+                208 => [8 => 4, 108 => 6, 105 => 2],
+                209 => [8 => 3, 108 => 3, 101 => 2],
+                210 => [8 => 8, 109 => 6, 113 => 5],
+                211 => [8 => 1],
+                212 => [8 => 9, 107 => 5, 110 => 6],
+                213 => [8 => 8, 111 => 12, 107 => 5, 110 => 5],
+                214 => [8 => 12, 115 => 1, 107 => 6, 110 => 7]
             ];
 
         }
@@ -421,24 +437,28 @@
             }
         }
 
-        function getBuildTime($id, $toLevel, $robotLvl, $shipYardLvl, $naniteLvl) : float {
+        function getBuildTime($building, $robotLvl, $shipYardLvl, $naniteLvl) : float {
 
-            $metal = $this->pricelist[$id]['metal'];
-            $crystal = $this->pricelist[$id]['crystal'];
-            $factor = $this->pricelist[$id]['factor'] * $toLevel;
+
+
+            $metal = $building->getCostMetal();
+            $crystal = $building->getCostCrystal();
+            $factor = $building->getFactor();
 
             // building
-            if ($id < 100) {
-                return ($metal * $factor + $crystal * $factor) / (2500 * (1 + $robotLvl) * pow(2, $naniteLvl));
+            if ($building->getUnitId() < 100) {
+                //(39410 + 9852)/(2500 * (1+10) * 2^3)
+//                echo ($metal + $crystal) / (2500 * (1 + $robotLvl) * (2 ** $naniteLvl)) . "<br />";
+                return ($metal + $crystal) / (2500 * (1 + $robotLvl) * (2 ** $naniteLvl));
             }
 
             // tech
-            if ($id > 100 && $id < 200) {
+            if ($building->getUnitId() > 100 && $building->getUnitId() < 200) {
                 return ($metal * $factor + $crystal * $factor) / (2500 * (1 + $robotLvl) * pow(2, $naniteLvl));
             }
 
             // fleet and defense
-            if ($id > 200 && $id < 400) {
+            if ($building->getUnitId() > 200 && $building->getUnitId() < 400) {
                 return ($metal + $crystal) / (2500 * (1 + $shipYardLvl) * pow(2, $naniteLvl));
             }
 

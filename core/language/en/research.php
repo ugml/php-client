@@ -4,6 +4,7 @@
 
     $lang['page'] = "Research";
 
+    $lang['no_research_available'] = "There are currently no technologies available to research.";
 
     $lang['build'] = "Research";
 

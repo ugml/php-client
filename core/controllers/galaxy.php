@@ -18,7 +18,7 @@
 
         function __construct($get, $post) {
 
-            global $debug;
+            global $data, $debug, $path;
 
             try {
                 $this->get = $get;
@@ -32,6 +32,8 @@
                     self::handlePOST();
                 }
 
+                require_once($path['classes'] . "topbar.php");
+
 
             } catch (Exception $e) {
                 if (DEBUG) {
@@ -43,6 +45,7 @@
         }
 
         function handleGET() : void {
+
 
             global $data;
             if (!empty($this->get['cp'])) {
@@ -74,7 +77,8 @@
         }
 
         function handlePOST() : void {
-
+            print_r($this->post);
+            echo "<h1>ASDASD</h1>";
         }
 
         function display() : void {
@@ -84,35 +88,22 @@
             // load view
             $view = new V_Galaxy();
 
-            // set the values for the topbar
-            $this->lang['planet_galaxy'] = $data->getPlanet()->getGalaxy();
-            $this->lang['planet_system'] = $data->getPlanet()->getSystem();
-            $this->lang['planet_planet'] = $data->getPlanet()->getPlanet();
-            $this->lang['planet_name'] = $data->getPlanet()->getName();
-            $this->lang['planet_diameter'] = $data->getPlanet()->getDiameter();
-            $this->lang['planet_fields_current'] = $data->getPlanet()->getFieldsCurrent();
-            $this->lang['planet_fields_max'] = $data->getPlanet()->getFieldsMax();
-            $this->lang['planet_temp_min'] = $data->getPlanet()->getTempMin();
-            $this->lang['planet_temp_max'] = $data->getPlanet()->getTempMax();
-            $this->lang['planet_metal'] = number_format($data->getPlanet()->getMetal(), 0);
-            $this->lang['planet_crystal'] = number_format($data->getPlanet()->getCrystal(), 0);
-            $this->lang['planet_deuterium'] = number_format($data->getPlanet()->getDeuterium(), 0);
-            $this->lang['planet_energy_used'] = number_format($data->getPlanet()->getEnergyUsed(), 0);
-            $this->lang['planet_energy_max'] = number_format($data->getPlanet()->getEnergyMax(), 0);
-            $this->lang['planet_image_small'] = 'skins/Maya/planeten/small/s_' . $data->getPlanet()
-                    ->getImage() . '.jpg';
-            $this->lang['planet_image'] = 'skins/Maya/planeten/' . $data->getPlanet()->getImage() . '.jpg';
-            $this->lang['icon_metal'] = 'skins/Maya/images/metal.gif';
-            $this->lang['icon_crystal'] = 'skins/Maya/images/crystal.gif';
-            $this->lang['icon_deuterium'] = 'skins/Maya/images/deuterium.gif';
-            $this->lang['icon_energy'] = 'skins/Maya/images/energy.gif';
-            $this->lang['basepath'] = $config['basepath'];
-
             $v_lang = M_Galaxy::loadLanguage();
             $galaxyData = M_Galaxy::loadGalaxyData($this->currentGalaxy, $this->currentSystem);
 
             // load the individual rows for each building
-            $this->lang['galaxy_list'] = $view->loadGalaxyRows();
+            $this->lang['galaxy_list'] = $view->loadGalaxyRows($galaxyData);
+
+
+            $this->lang['galaxy_pos_g'] = $this->currentGalaxy;
+            $this->lang['galaxy_pos_s'] = $this->currentSystem;
+
+            $this->lang['galaxy_pos_g_prev'] = $this->currentGalaxy-1;
+            $this->lang['galaxy_pos_g_next'] = $this->currentGalaxy+1;
+
+
+
+            $this->lang['galaxy_num_planets'] = count($galaxyData);
 
             if (is_array($this->lang) && is_array($v_lang)) {
                 $this->lang = array_merge($this->lang, $v_lang);

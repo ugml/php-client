@@ -45,89 +45,98 @@
             return parent::mergeTemplates($this->template, $this->_);
         }
 
-        public function loadGalaxyRows() {
+        public function loadGalaxyRows($galaxyData) {
+            global $path, $config;
 
-            //            global $path, $config, $lang, $data;
-            //
-            //            $output = '';
-            //
-            //            foreach($unitsBuilding as $k => $v ) {
-            //                $methodArr = explode('_', $v);
-            //
-            //                $method = 'get';
-            //
-            //                foreach($methodArr as $a => $b) {
-            //                    $method .= ucfirst($b);
-            //                }
-            //
-            //                $level = call_user_func_array(array($buildings, $method), array());
-            //
-            //
-            //                $unitID = $data->getUnits()->getUnitID($v);
-            //
-            //
-            //                $pricelist = $data->getUnits()->getPriceList($unitID);
-            //
-            //                $fields['b_name'] = $data->getUnits()->getName($unitID);
-            //                $fields['b_level'] = $level;
-            //                $fields['b_description'] = $data->getUnits()->getDescription($unitID);
-            //
-            //                if($level > 0) {
-            //                    $fields['b_build'] = str_replace("%s", ++$level, $lang['upgrade']);
-            //                } else {
-            //                    $fields['b_build'] = $lang['build'];
-            //                }
-            //
-            //
-            //                // get the baseprice
-            //                $metal = $pricelist['metal'];
-            //                $crystal = $pricelist['crystal'];
-            //                $deuterium = $pricelist['deuterium'];
-            //
-            //                // calculate the total costs up to this level
-            //                for($i = 0; $i < $level; $i++) {
-            //                    $metal *= $pricelist['factor'];
-            //                    $crystal *= $pricelist['factor'];
-            //                    $deuterium *= $pricelist['factor'];
-            //                }
-            //
-            //                if($planet->getMetal() >= $metal &&
-            //                    $planet->getCrystal() >= $crystal &&
-            //                    $planet->getDeuterium() >= $deuterium &&
-            //                    $planet->getBBuildingId() == 0) {
-            //                    $fields['b_build_class'] = 'buildable';
-            //                    $fields['b_disabled'] = '';
-            //                } else {
-            //                    $fields['b_build_class'] = 'notbuildable';
-            //                    $fields['b_disabled'] = 'disabled';
-            //                }
-            //
-            //                $fields['b_image'] = $config['skinpath'] . 'gebaeude/'. $unitID .'.gif';
-            //                $fields['b_metal'] = number_format(ceil($metal),0);
-            //                $fields['b_crystal'] = number_format(ceil($crystal),0);
-            //                $fields['b_deuterium'] = number_format(ceil($deuterium),0);
-            //                $fields['b_time'] = 3600 * $data->getUnits()->getBuildTime($unitID,($level+1),$data->getBuilding()->getRoboticFactory(), $data->getBuilding()->getNaniteFactory());
-            //                $fields['b_id'] = $unitID;
-            //
-            //
-            //                ob_start();
-            //
-            //            $file = $path['templates'] . $this->template . '_row.php';
-            //            if (file_exists($file)) {
-            //                include $file;
-            //            } else {
-            //                throw new FileNotFoundException('File \'' . $file . '\' not found');
-            //            }
-            //
-            //            $row = ob_get_contents();
-            //            ob_end_clean();
-            //
-            //                foreach ($fields as $a => $b) {
-            //                    $row = str_replace("{{$a}}", $b, $row);
-            //                }
-            //
-            //                $output .= $row;
-            //            }
+//            echo "<pre>";
+//            print_r($galaxyData);
+//            echo "</pre>";
+
+            ob_start();
+
+            $file = $path['templates'] . $this->template . '_row.php';
+            if (file_exists($file)) {
+                include $file;
+            } else {
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
+            }
+
+            $row = ob_get_contents();
+            ob_end_clean();
+
+
+
+            $output = "";
+
+            for($i = 1; $i <= 15; $i++){
+
+                $fields['galaxy_pos'] = $i;
+
+                // if there is a planet at this position
+                if(array_key_exists($i, $galaxyData)) {
+                    $fields['galaxy_planetimg'] = "<img width='32px' height='32px' src=\"".$config['skinpath'] .  "/planeten/small/s_".$galaxyData[$i]->image.".png\" />";
+                    $fields['galaxy_name'] = $galaxyData[$i]->name;
+
+
+                    if(intval($galaxyData[$i]->moonID) > 0) {
+                        $fields['galaxy_moon'] = "<img width='32px' height='32px' src=\"".$config['skinpath'] .  "/planeten/mond.png\" />";
+                    } else {
+                        $fields['galaxy_moon'] = "";
+                    }
+
+
+                    // TODO: mouse-over for more details
+                    if($galaxyData[$i]->debris_metal > 0 || $galaxyData[$i]->debris_crystal > 0) {
+                        $fields['galaxy_debris'] = "<img src=\"".$config['skinpath'] .  "/images/debris.png\" />";
+                    } else {
+                        $fields['galaxy_debris'] = "-";
+                    }
+
+
+                    $status = "";
+
+                    $inactiveSince = time() - $galaxyData[$i]->onlinetime;
+
+                    // TODO: vacation / banned
+                    // 2 weeks or 1 week inactive?
+                    if($inactiveSince > 604800) {
+                        $status .= '(<span class="inactive_long">I</span>)';
+                    } else if($inactiveSince > 302400) {
+                        $status .= '(<span class="inactive_short">i</span>)';
+                    }
+
+
+                    $fields['galaxy_player'] = $galaxyData[$i]->username . " " . $status;
+
+                    // TODO
+                    $fields['galaxy_alliance'] = "-";
+
+
+
+                    $fields['galaxy_actions'] = "-";
+                } else {
+                    $fields['galaxy_planetimg'] = "";
+                    $fields['galaxy_name'] = "";
+                    $fields['galaxy_moon'] = "";
+                    $fields['galaxy_debris'] = "";
+                    $fields['galaxy_player'] = "";
+                    $fields['galaxy_alliance'] = "";
+                    $fields['galaxy_actions'] = "";
+                }
+
+                $temp = $row;
+
+                foreach ($fields as $a => $b) {
+
+//                    echo $a . " => " . $b . "<br />";
+
+                    $temp = str_replace("{{$a}}", $b, $temp);
+                }
+
+                $output .= $temp;
+
+
+            }
 
             return $output;
         }

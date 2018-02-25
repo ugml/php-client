@@ -53,6 +53,7 @@
 
             $output = '';
 
+            // foreach building
             foreach ($unitsBuilding as $k => $v) {
 
                 $key = intval($k);
@@ -91,36 +92,20 @@
 
                     $unitID = $units->getUnitID($v);
 
-                    $level = $data->getBuilding()[$unitID]->getLevel();
+                    $building = $data->getBuilding()[$unitID];
 
-                    $pricelist = $units->getPriceList($unitID);
+                    $level = $building->getLevel();
 
                     $fields['b_name'] = $units->getName($unitID);
                     $fields['b_level'] = $level;
                     $fields['b_description'] = $units->getDescription($unitID);
 
-
-                    //echo $fields['b_name'] . "<br/>";
-
-
-                    // get the baseprice
-                    $metal = $pricelist['metal'];
-                    $crystal = $pricelist['crystal'];
-                    $deuterium = $pricelist['deuterium'];
-
-                    // calculate the total costs up to this level
-                    for ($i = 0; $i < $level; $i++) {
-                        $metal *= $pricelist['factor'];
-                        $crystal *= $pricelist['factor'];
-                        $deuterium *= $pricelist['factor'];
-                    }
-
-
                     $buildable = false;
 
-                    if ($planet->getMetal() >= $metal &&
-                        $planet->getCrystal() >= $crystal &&
-                        $planet->getDeuterium() >= $deuterium &&
+                    // check if building is buildable and set the button accordingly
+                    if ($planet->getMetal() >= $building->getCostMetal() &&
+                        $planet->getCrystal() >= $building->getCostCrystal() &&
+                        $planet->getDeuterium() >= $building->getCostDeuterium() &&
                         $planet->getBBuildingId() == 0) {
                         $fields['b_build_class'] = 'buildable';
                         $buildable = true;
@@ -154,29 +139,56 @@
                     }
 
                     $fields['b_image'] = $config['skinpath'] . 'gebaeude/' . $unitID . '.png';
-                    $fields['b_metal'] = number_format(ceil($metal), 0);
-                    $fields['b_crystal'] = number_format(ceil($crystal), 0);
-                    $fields['b_deuterium'] = number_format(ceil($deuterium), 0);
 
-                    $duration = 3600 * $units->getBuildTime($unitID, ($level + 1),
-                            $data->getBuilding()['robotic_factory'], $data->getBuilding()['shipyard'],
-                            $data->getBuilding()['nanite_factory']);
+                    $fields['required_ressources'] = '';
 
-                    $hours = floor($duration / 3600);
+                    if($building->getCostMetal() > 0) {
+                        $fields['required_ressources'] .= '<img src="'.$config['skinpath'] .  '/images/metal.png"> ' . number_format($building->getCostMetal(), 0) . ' ';
+                    }
+
+                    if($building->getCostCrystal() > 0) {
+                        $fields['required_ressources'] .= '<img src="'.$config['skinpath'] .  '/images/crystal.png"> ' . number_format($building->getCostCrystal(), 0) . ' ';
+                    }
+
+                    if($building->getCostDeuterium() > 0) {
+                        $fields['required_ressources'] .= '<img src="'.$config['skinpath'] .  '/images/deuterium.png"> ' . number_format($building->getCostDeuterium(), 0) . ' ';
+                    }
+
+                    if($building->getCostEnergy() > 0) {
+                        $fields['required_ressources'] .= '<img src="'.$config['skinpath'] .  '/images/energy.png"> ' . number_format($building->getCostEnergy(), 0) . ' ';
+                    }
+
+                    $duration = 3600 * $units->getBuildTime($building,
+                            $data->getBuilding()[$units->getUnitID('robotic_factory')]->getLevel(),
+                            $data->getBuilding()[$units->getUnitID('shipyard')]->getLevel(),
+                            $data->getBuilding()[$units->getUnitID('nanite_factory')]->getLevel());
+
+
+                    $weeks = floor(($duration / 604800));
+                    $days = floor(($duration / 86400) % 7);
+                    $hours = floor(($duration / 3600) % 24);
                     $minutes = floor(($duration / 60) % 60);
                     $seconds = $duration % 60;
 
                     $fields['b_time'] = "";
 
+                    if ($weeks > 0) {
+                        $fields['b_time'] .= $weeks . $lang['weeks_short'] . " ";
+                    }
+
+                    if ($days > 0) {
+                        $fields['b_time'] .= $days . $lang['days_short'] . " ";
+                    }
+
                     if ($hours > 0) {
-                        $fields['b_time'] .= $hours . "h ";
+                        $fields['b_time'] .= $hours . $lang['hours_short'] . " ";
                     }
 
                     if ($minutes > 0) {
-                        $fields['b_time'] .= $minutes . "m ";
+                        $fields['b_time'] .= $minutes . $lang['minutes_short'] . " ";
                     }
 
-                    $fields['b_time'] .= $seconds . "s";
+                    $fields['b_time'] .= $seconds . $lang['seconds_short'] . " ";
 
                     $fields['b_id'] = $unitID;
 

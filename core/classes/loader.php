@@ -29,6 +29,16 @@
             global $database, $db, $units;
 
 
+            // update the onlinetime
+            $query = 'UPDATE ' . $database['prefix'] . 'users SET onlinetime = '.time().' WHERE userID = :userID;';
+
+            $stmt = $db->prepare($query);
+
+            $stmt->bindParam(':userID', $userID);
+
+            $stmt->execute();
+
+
             // get all data from the database
             $query = 'SELECT 
                         user.userID AS user_userID, 
@@ -268,7 +278,7 @@
                         );
                     }
 
-                    // create a defense-object for each defense
+                    // create a research-object for each defense
                     for ($i = 1; $i <= count($dResearch); $i++) {
                         //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
 
@@ -283,20 +293,33 @@
                         );
                     }
 
-                    // create a defense-object for each defense
-                    for ($i = 1; $i < count($dDefense); $i++) {
+                    // create a fleet-object for each defense
+                    for ($i = 1; $i <= count($dFleet); $i++) {
                         //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
 
-                        array_push($this->defenseList,
-                            new Unit_Building(
-                                $i,
-                                $dDefense[$i - 1],
-                                $units->getPriceList($i)['metal'],
-                                $units->getPriceList($i)['crystal'],
-                                $units->getPriceList($i)['deuterium'],
-                                $units->getPriceList($i)['energy'],
-                                $units->getPriceList($i)['factor']
-                            )
+                        $this->fleetList[$i + 200] = new Unit_Fleet(
+                            $i,
+                            $dFleet[$i - 1],
+                            $units->getPriceList($i)['metal'],
+                            $units->getPriceList($i)['crystal'],
+                            $units->getPriceList($i)['deuterium'],
+                            $units->getPriceList($i)['energy'],
+                            $units->getPriceList($i)['factor']
+                        );
+                    }
+
+                    // create a fleet-object for each defense
+                    for ($i = 1; $i <= count($dDefense); $i++) {
+                        //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
+
+                        $this->defenseList[$i + 300] = new Unit_Defense(
+                            $i,
+                            $dDefense[$i - 1],
+                            $units->getPriceList($i)['metal'],
+                            $units->getPriceList($i)['crystal'],
+                            $units->getPriceList($i)['deuterium'],
+                            $units->getPriceList($i)['energy'],
+                            $units->getPriceList($i)['factor']
                         );
                     }
 

@@ -39,37 +39,36 @@
 
         public static function loadGalaxyData($galaxy, $system) {
 
-            global $database;
+            global $database, $db;
 
             try {
-                $db = connectToDB();
-
-                $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-                $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                 $params = array(':galaxy' => $galaxy,
                                 ':system' => $system
                 );
 
-                $stmt = $db->prepare('SELECT u.username, p.name, p.planet FROM ' . $database['prefix'] . 'planets AS p LEFT JOIN ' . $database['prefix'] . 'users AS u ON u.userID = p.ownerID WHERE p.galaxy = :galaxy AND p.system = :system ORDER BY p.planet ASC');
+                $stmt = $db->prepare('SELECT p.planetID, p.name, p.image, p.planet, u.userID, u.username, u.onlinetime, 
+                                             g.debris_metal, g.debris_crystal, m.planetID AS moonID FROM planets AS p 
+                                             LEFT JOIN users AS u ON u.userID = p.ownerID 
+                                             LEFT JOIN galaxy AS g ON g.planetID = p.planetID 
+                                             LEFT JOIN planets AS m ON m.galaxy = p.galaxy AND m.system = p.system AND m.planet = p.planet AND m.planet_type = 2 
+                                             WHERE p.galaxy = :galaxy AND p.system = :system AND p.planet_type = 1 ORDER BY p.planet ASC');
+
+
 
                 $stmt->execute($params);
 
+                $rows = [];
 
                 while (($data = $stmt->fetch()) != null) {
-                    echo $data->username;
-                    echo " ";
-                    echo $data->name;
-                    echo " [";
-                    echo $galaxy;
-                    echo ":";
-                    echo $system;
-                    echo ":";
-                    echo $data->planet;
-                    echo "]";
-                    echo "<br />";
-                    //                    echo $data->username + " " + $data->name + " [" + $galaxy + ":" + $system + ":" + $data->planet + "]";
+                    $rows[$data->planet] = $data;
                 }
+
+//                echo "<pre>";
+//                print_r($rows);
+//                echo "</pre>";
+
+                return $rows;
 
             } catch (PDOException $e) {
                 die($e);

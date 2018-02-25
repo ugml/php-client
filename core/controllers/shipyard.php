@@ -107,7 +107,7 @@
                     $shipID = key($v);
                     $shipCnt = $v[$shipID];
 
-                    $pricelist = $data->getUnits()->getPriceList($shipID);
+                    $pricelist = $units->getPriceList($shipID);
 
                     $maxBuildable = 0;
 
@@ -169,7 +169,7 @@
 
         function display() : void {
 
-            global $config, $data;
+            global $config, $data, $units;
 
             // load view
             $view = new V_Shipyard();
@@ -177,7 +177,7 @@
             $v_lang = M_Shipyard::loadLanguage();
 
             // load the individual rows for each building
-            $this->lang['shipyard_list'] = $view->loadShipyardRows($data->getFleet(), $data->getUnits()->getFleet(),
+            $this->lang['shipyard_list'] = $view->loadShipyardRows($data->getFleet(), $units->getFleet(),
                 $data->getPlanet());
 
             if (is_array($this->lang) && is_array($v_lang)) {

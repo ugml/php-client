@@ -51,6 +51,7 @@
 
             global $data;
 
+            // change current planet
             if (!empty($this->get['cp'])) {
                 $data->getUser()->setCurrentPlanet(intval($this->get['cp']));
             }
@@ -153,8 +154,8 @@
 
             global $data;
 
-            if ($data->getPlanet()->getBBuildingId() == $buildID && $data->getPlanet()
-                    ->getBBuildingEndtime() > time()) {
+            if ($data->getPlanet()->getBBuildingId() == $buildID && $data->getPlanet()->getBBuildingEndtime() > time()) {
+
                 $units = new Data_Units();
 
                 $pricelist = $units->getPriceList($buildID);

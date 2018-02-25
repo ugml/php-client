@@ -57,6 +57,13 @@
         }
 
         /**
+         * @return float
+         */
+        public function getFactor() : float {
+            return $this->costFactor;
+        }
+
+        /**
          * @return float the energy-consumption for the given level
          */
         public function getEnergyConsumption() : float {

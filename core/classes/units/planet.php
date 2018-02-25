@@ -377,6 +377,14 @@
 
                 $stmt = $db->prepare($query);
 
+                // update the values of the planet-object
+                $this->last_update = $time;
+                $this->metal = $prod_metal;
+                $this->crystal = $prod_crystal;
+                $this->deuterium = $prod_deuterium;
+                $this->energy_used = $cons_energy;
+                $this->energy_max = $prod_energy;
+
                 $stmt->bindParam(':last_update', $time);
                 $stmt->bindParam(':metal', $prod_metal);
 

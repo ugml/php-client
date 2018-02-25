@@ -7,6 +7,13 @@
     $lang['deuterium'] = 'Deuterium';
     $lang['energy'] = 'Energy';
 
+
+    $lang['weeks_short'] = 'w';
+    $lang['days_short'] = 'd';
+    $lang['hours_short'] = 'h';
+    $lang['minutes_short'] = 'm';
+    $lang['seconds_short'] = 's';
+
     $lang['metal_mine'] = 'Metal Mine';
     $lang['crystal_mine'] = 'Crystal Mine';
     $lang['deuterium_synthesizer'] = 'Deuterium Synthesizer';
