@@ -3,7 +3,6 @@
     function __autoload($className) {
         global $path;
 
-
         $s = explode("_", $className);
 
         $p = "";

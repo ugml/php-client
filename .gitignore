@@ -7,3 +7,8 @@ core/config.php
 phar/*
 
 .DS_Store
+
+composer.lock
+composer.phar
+
+vendor/*

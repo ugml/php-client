@@ -4,9 +4,10 @@ php:
   - '7.1'
   - '7.2'
 
-notifications:
-  slack:
-    on_success: never
-    on_failure: never
+script:
+  - php composer.phar self-update
+  - php composer.phar install --dev
+  - ./vendor/bin/phpunit
 
-script: phpunit tests/
+notifications:
+  email: false

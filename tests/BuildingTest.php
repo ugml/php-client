@@ -1,11 +1,11 @@
 <?php
 
-    use PHPUnit\Framework\TestCase;
-
     require_once __DIR__.'/config.php';
-    require_once __DIR__.'/autoload.php';
 
-    class BuildingTest extends TestCase {
+    require_once "core/classes/units/unit.php";
+    require_once "core/classes/units/building.php";
+
+    class BuildingTest extends PHPUnit_Framework_TestCase {
 
         public function testGetCostMetal() {
 

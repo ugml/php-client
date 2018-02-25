@@ -1,11 +1,11 @@
 <?php
 
-    use PHPUnit\Framework\TestCase;
-
     require_once __DIR__.'/config.php';
-    require_once __DIR__.'/autoload.php';
 
-    class UserDataTest extends TestCase {
+
+    require_once "core/classes/data/user.php";
+
+    class UserDataTest extends PHPUnit_Framework_TestCase {
 
         public function testGetUserID() {
             $user = new Data_User(123, "testname", "email@mail.at", time(), 0);
