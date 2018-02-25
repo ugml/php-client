@@ -1,4 +1,5 @@
 <!-- content -->
+
 <div class="row" id="page-content">
     <div class="col-md-12">
         <div class="row">
@@ -20,22 +21,25 @@
             </div>
             <div class="col-md-12 content-body">
                 <div class="row">
-                    <div class="col-md-2">
-                        <div>&nbsp;<!-- mond --></div>
+                    <div class="col-md-2 text-center vertical-center">
+                        <div>{moon_image}</div>
                     </div>
-                    <div class="col-md-5 text-center vertical-center">
+                    <div class="col-md-5 text-center">
                         <div>
-                            <br/>
                             <img src="{planet_image}" class="planetImage" alt="Planet"/><br/>
                             {building}
                         </div>
+
                     </div>
                     <div class="col-md-5">
-                        <div id="otherPlanets">
-                            <div class="row resetMarginPadding">
-                                {planetlist_row}
-                            </div>
+                        <div>
+                            {planetlist_row}
                         </div>
+<!--                        <div id="otherPlanets">-->
+<!--                            <div class="row resetMarginPadding">-->
+<!--                                -->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -61,7 +65,7 @@
                         <div>{position}</div>
                     </div>
                     <div class="col-md-10 text-center">
-                        <div><a href="galaxy.php?g={planet_galaxy}&s={planet_system}">[{planet_galaxy}:{planet_system}:{planet_planet}]</a>
+                        <div><a href="game.php?page=galaxy&g={planet_galaxy}&s={planet_system}">[{planet_galaxy}:{planet_system}:{planet_planet}]</a>
                         </div>
                     </div>
                 </div>
@@ -70,7 +74,7 @@
                         <div>{points}</div>
                     </div>
                     <div class="col-md-10 text-center">
-                        <div>{user_points} ({rank} <a href="stat.php?start={u_user_rank}">{user_rank}</a> {of}
+                        <div>{user_points} ({rank} <a href="game.php?page=stats&start={u_user_rank}">{user_rank}</a> {of}
                             {max_users})
                         </div>
                     </div>

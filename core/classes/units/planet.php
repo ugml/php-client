@@ -150,31 +150,34 @@
         }
 
         public function update() {
-            global $data, $database, $db, $units;
+            global $data, $database, $db, $units, $base_income;
 
             $query = 'UPDATE ' . $database['prefix'] . 'planets SET last_update = :last_update, metal = :metal, crystal = :crystal, deuterium = :deuterium, energy_used = :energy_used, energy_max = :energy_max';
 
-            if ($this->last_update < time()) {
+            $time = time();
 
-                $time_diff = time() - $this->last_update;
+            if ($this->last_update < $time) {
 
-                $lvl_metal = $data->getBuilding()[$units->getUnitID('metal_mine')];
-                $lvl_crystal = $data->getBuilding()[$units->getUnitID('crystal_mine')];
-                $lvl_deuterium = $data->getBuilding()[$units->getUnitID('deuterium_synthesizer')];
+                $time_diff = $time - $this->last_update;
+
+                $lvl_metal = $data->getBuilding()[$units->getUnitID('metal_mine')]->getLevel();
+                $lvl_crystal = $data->getBuilding()[$units->getUnitID('crystal_mine')]->getLevel();
+                $lvl_deuterium = $data->getBuilding()[$units->getUnitID('deuterium_synthesizer')]->getLevel();
+                $lvl_fusion = $data->getBuilding()[$units->getUnitID('fusion_reactor')]->getLevel();
 
                 $prod_energy = array_sum($units->getEnergyProduction(
-                    $data->getBuilding()[$units->getUnitID('solar_plant')],
-                    $data->getBuilding()[$units->getUnitID('fusion_reactor')],
-                    $data->getTech()[$units->getUnitID('energy_tech')],
-                    $data->getFleet()[$units->getUnitID('solar_satellite')],
+                    $data->getBuilding()[$units->getUnitID('solar_plant')]->getLevel(),
+                    $data->getBuilding()[$units->getUnitID('fusion_reactor')]->getLevel(),
+                    $data->getTech()[$units->getUnitID('energy_tech')]->getLevel(),
+                    $data->getFleet()[$units->getUnitID('solar_satellite')]->getAmount(),
                     $this->temp_max
                 )
-                );
+                ) + $base_income['energy'];
 
                 $cons_energy = $this->getMetalMinePercent() / 100 * $units->getEnergyConsumption($lvl_metal) +
                     $this->getCrystalMinePercent() / 100 * $units->getEnergyConsumption($lvl_crystal) +
                     $this->getDeuteriumSynthesizerPercent() / 100 * $units->getEnergyConsumption($lvl_deuterium) +
-                    $this->getFusionReactorPercent() / 100 * $units->getEnergyConsumption($data->getBuilding()['fusion_reactor']);
+                    $this->getFusionReactorPercent() / 100 * $units->getEnergyConsumption($lvl_fusion);
 
                 $prod_factor = 1;
 
@@ -183,14 +186,14 @@
                 }
 
                 $storage = array(
-                    'metal'     => $units->getStorageCapacity($data->getBuilding()['metal_storage']),
-                    'crystal'   => $units->getStorageCapacity($data->getBuilding()['crystal_storage']),
-                    'deuterium' => $units->getStorageCapacity($data->getBuilding()['deuterium_storage'])
+                    'metal'     => $units->getStorageCapacity($data->getBuilding()[$units->getUnitID('metal_storage')]->getLevel()),
+                    'crystal'   => $units->getStorageCapacity($data->getBuilding()[$units->getUnitID('crystal_storage')]->getLevel()),
+                    'deuterium' => $units->getStorageCapacity($data->getBuilding()[$units->getUnitID('deuterium_storage')]->getLevel())
                 );
 
                 // do not produce more then there is storage!
                 if ($this->metal < $storage['metal']) {
-                    $prod_metal = $prod_factor * $this->getMetalMinePercent() * ($units->getMetalProductionPerHour($lvl_metal) / 3600) * $time_diff;
+                    $prod_metal = $prod_factor * $this->getMetalMinePercent() * ($units->getMetalProductionPerHour($lvl_metal) / 3600) * $time_diff + ($base_income['metal']/3600*$time_diff);
 
                     if ($this->metal + $prod_metal > $storage['metal']) {
                         $prod_metal = $this->metal + ($storage['metal'] - $this->metal);
@@ -204,7 +207,7 @@
                 // do not produce more then there is storage!
                 if ($this->crystal < $storage['crystal']) {
                     $prod_crystal = $prod_factor * $this->getCrystalMinePercent() * ($units
-                                ->getCrystalProductionPerHour($lvl_crystal) / 3600) * $time_diff;
+                                ->getCrystalProductionPerHour($lvl_crystal) / 3600) * $time_diff + ($base_income['crystal']/3600*$time_diff);
                     if ($this->crystal + $prod_crystal > $storage['crystal']) {
                         $prod_crystal = $this->crystal + ($storage['crystal'] - $this->crystal);
                     } else {
@@ -217,7 +220,7 @@
                 // do not produce more then there is storage!
                 if ($this->deuterium < $storage['deuterium']) {
                     $prod_deuterium = $prod_factor * $this->getDeuteriumSynthesizerPercent() * ($units
-                                ->getDeuteriumProductionPerHour($lvl_deuterium) / 3600) * $time_diff;
+                                ->getDeuteriumProductionPerHour($lvl_deuterium) / 3600) * $time_diff + ($base_income['deuterium']/3600*$time_diff);
                     if ($this->deuterium + $prod_deuterium > $storage['deuterium']) {
                         $prod_crystal = $this->deuterium + ($storage['deuterium'] - $this->deuterium);
                     } else {
@@ -227,11 +230,8 @@
                     $prod_deuterium = $this->deuterium;
                 }
 
-
-                $time = time();
-
                 // check if building finished
-                if ($this->b_building_id > 0 && $this->b_building_endtime > 0 && $this->b_building_endtime <= time()) {
+                if ($this->b_building_id > 0 && $this->b_building_endtime > 0 && $this->b_building_endtime <= $time) {
 
                     $methodArr = explode('_', $units->getUnit($this->b_building_id));
 
@@ -252,7 +252,7 @@
                 }
 
                 // check if research finished
-                if ($this->b_tech_id > 0 && $this->b_tech_endtime > 0 && $this->b_tech_endtime <= time()) {
+                if ($this->b_tech_id > 0 && $this->b_tech_endtime > 0 && $this->b_tech_endtime <= $time) {
 
                     $level = $data->getTech()[$units->getUnit($this->b_tech_id)]->getLevel();
 
@@ -268,12 +268,13 @@
                 $someShipsFinished = false;
 
 
+                // TODO
                 // check if hangar finished
                 if ($this->b_hangar_id != null && $this->b_hangar_id != "" && $this->b_hangar_id != 0) {
 
                     $shipQueueRows = explode(";", $this->b_hangar_id);
 
-                    $timePassedSinceStart = time() - $this->b_hangar_start_time;
+                    $timePassedSinceStart = $time - $this->b_hangar_start_time;
                     $totalBuildTimePassed = 0;
 
                     $i = 0;
@@ -288,9 +289,10 @@
 
                         if ($unitID > 0 && $unitCnt > 0) {
 
+
                             $durationForOneUnit = 3600 * $units
-                                    ->getBuildTime($unitID, 0, $data->getBuilding()->getRoboticFactory(),
-                                        $data->getBuilding()->getShipyard(), $data->getBuilding()->getNaniteFactory());
+                                    ->getBuildTime($unitID, 0, $data->getBuilding()[$units->getUnitID('robotic_factory')]->getLevel(),
+                                        $data->getBuilding()[$units->getUnitID('shipyard')]->getLevel(), $data->getBuilding()[$units->getUnitID('nanite_factory')]->getLevel());
 
                             $shipFinishedCnt = floor($timePassedSinceStart / $durationForOneUnit);
 

@@ -213,9 +213,14 @@ input {
     padding-right: 3px;
 }
 
-#page-content #otherPlanets .planetImage {
+#page-content #otherPlanets {
     width: 100px;
     border: 1px #1c2d42 solid;
+}
+
+.planetImage {
+    padding: 10px;
+    width: 200px;
 }
 
 .resetMarginPadding {

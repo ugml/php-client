@@ -19,7 +19,7 @@
          */
         function __construct($get, $post) {
 
-            global $data, $debug, $path;
+            global $data, $debug, $path, $config;
 
             try {
                 $this->get = $get;
@@ -50,12 +50,16 @@
 
                 // currently building?
                 if ($data->getPlanet()->getBBuildingId() > 0) {
-                    $this->lang['Data_Building'] = $data->getUnits()->getName($data->getPlanet()->getBBuildingId());
+                    $this->lang['building'] = $data->getUnits()->getName($data->getPlanet()->getBBuildingId());
                 } else {
-                    $this->lang['Data_Building'] = 'free';
+                    $this->lang['building'] = 'free';
                 }
 
-                $this->lang['planet_image'] = 'skins/Maya/planeten/' . $data->getPlanet()->getImage() . '.png';
+
+                $this->lang['moon_image'] = '<img src="'. $config['skinpath'] . '/planeten/small/s_mond.png" />';
+
+
+                $this->lang['planet_image'] = $config['skinpath'] . 'planeten/' . $data->getPlanet()->getImage() . '.png';
 
 
             } catch (Exception $e) {
