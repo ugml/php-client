@@ -45,6 +45,6 @@
             $view->assign('copyright', $config['copyright']);
             $view->assign('language', $config['language']);
 
-            die($view->loadTemplate());
+            echo $view->loadTemplate();
         }
     }

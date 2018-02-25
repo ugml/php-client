@@ -30,8 +30,8 @@
             $this->lang['userlist'] = '';
 
 
-            foreach ($users as $k => $v) {
-                $this->lang['userlist'] .= '<tr><td>' . $v->user_userID . '</td><td>' . $v->user_username . '</td><td>' . $v->user_onlinetime . '</td><td>' . $v->user_currentplanet . '</td></tr>';
+            foreach ($users as $key => $value) {
+                $this->lang['userlist'] .= '<tr><td>' . $value->user_userID . '</td><td>' . $value->user_username . '</td><td>' . $value->user_onlinetime . '</td><td>' . $value->user_currentplanet . '</td></tr>';
             }
 
         }
@@ -58,6 +58,6 @@
             $view->assign('copyright', $config['copyright']);
             $view->assign('language', $config['language']);
 
-            die($view->loadTemplate());
+            echo $view->loadTemplate();
         }
     }

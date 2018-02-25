@@ -196,9 +196,9 @@
             $view->assign('language', $config['language']);
 
             if (!empty($this->get['mode'])) {
-                die($view->loadTemplate($this->get['mode']));
+                echo $view->loadTemplate($this->get['mode']);
             } else {
-                die($view->loadTemplate());
+                echo $view->loadTemplate();
             }
         }
     }
