@@ -12,6 +12,8 @@
 
         private $skin = 'css/register.css';
 
+        private $view = null;
+
         /**
          * C_Register constructor.
          * @param $get
@@ -21,6 +23,8 @@
 
             $this->get = $get;
             $this->post = $post;
+
+            $this->view = new V_Register();
 
             if (!empty($get)) {
                 self::handleGET();
@@ -53,10 +57,10 @@
                     $validPost = false;
                 }
 
-                if (empty($_POST['planetname'])) {
-                    echo 'please enter a name for your planet. ';
-                    $validPost = false;
-                }
+//                if (empty($_POST['planetname'])) {
+//                    echo 'please enter a name for your planet. ';
+//                    $validPost = false;
+//                }
 
                 if (empty($_POST['email'])) {
                     echo 'please enter a email-address. ';
@@ -69,14 +73,19 @@
 
                 }
 
-                if (empty($_POST['agb'])) {
-                    echo 'you have to accept the T&C.';
-                    $validPost = false;
-                }
+//                if (empty($_POST['agb'])) {
+//                    echo 'you have to accept the T&C.';
+//                    $validPost = false;
+//                }
 
                 if ($validPost) {
-                    M_Register::createNewUser($_POST['username'], $_POST['planetname'], $_POST['email'],
+                    $return = M_Register::createNewUser($_POST['username'], $_POST['planetname'], $_POST['email'],
                         $_POST['password']);
+
+                    if($return == 0) {
+                        // TODO: display success-message
+                        $this->view->assign('success', true);
+                    }
                 }
             }
         }
@@ -88,14 +97,14 @@
 
             global $config;
 
-            $view = new V_Register();
 
-            $view->assign('lang', M_Register::loadLanguage());
-            $view->assign('title', $config['game_name']);
-            $view->assign('stylesheet', $this->skin);
-            $view->assign('copyright', $config['copyright']);
-            $view->assign('language', $config['language']);
 
-            echo $view->loadTemplate();
+            $this->view->assign('lang', M_Register::loadLanguage());
+            $this->view->assign('title', $config['game_name']);
+            $this->view->assign('stylesheet', $this->skin);
+            $this->view->assign('copyright', $config['copyright']);
+            $this->view->assign('language', $config['language']);
+
+            echo $this->view->loadTemplate();
         }
     }

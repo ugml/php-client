@@ -6,8 +6,10 @@
 
 
     $lang['username'] = 'Username';
-    $lang['homeplanet_name'] = 'Homeplanet Name';
     $lang['email'] = 'E-Mail';
     $lang['password'] = 'Password';
-    $lang['accept_tc'] = 'I accept the T&C';
     $lang['signup'] = 'Register';
+
+    $lang['register_success'] = "Account successfully registered";
+
+    $lang['go_to_login'] = "Click here to go back to the login";

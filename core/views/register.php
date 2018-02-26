@@ -56,7 +56,7 @@
                 // nicht gleich ausgegeben.
                 ob_start();
 
-                include $this->path . DIRECTORY_SEPARATOR . 'header.php';
+                include $this->path . DIRECTORY_SEPARATOR . 'header_login.php';
                 include $file;
                 include $this->path . DIRECTORY_SEPARATOR . 'footer.php';
 
