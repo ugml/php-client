@@ -525,43 +525,65 @@
                     $this->temp_min = rand(40, 130);
                     $this->temp_max = rand(150, 240);
                     $this->diameter = rand(9747, 14595);
+
+
+                    $images = ['wuestenplanet','trockenplanet'];
+
+                    $pimg = $images[rand(0, count($images) - 1)];
+                    $randMax = 10;
+
+                    if($pimg == 'wuestenplanet') {
+                        $randMax = 4;
+                    }
+
+                    $this->image = $pimg . sprintf("%02d", rand(1, $randMax));
+
                     break;
                 case $p <= 10:
                     $this->temp_min = rand(-10, 20);
                     $this->temp_max = rand(40, 70);
                     $this->diameter = rand(11875, 15716);
+
+                    $images = ['normaltempplanet','dschjungelplanet', 'gasplanet'];
+
+                    $this->image = $images[rand(0, count($images) - 1)] . sprintf("%02d", rand(1, 10));
+
                     break;
                 case $p <= 15:
                     $this->temp_min = rand(-150, -75);
                     $this->temp_max = rand(-55, 20);
                     $this->diameter = rand(8063, 14283);
+
+                    $images = ['eisplanet','wasserplanet'];
+
+                    $this->image = $images[rand(0, count($images) - 1)] . sprintf("%02d", rand(1, 10));
+
                     break;
             }
 
-            $this->field_max = round(($this->diameter / 1000) * ($this->diameter / 1000));
+            $this->fields_max = round(($this->diameter / 1000) * ($this->diameter / 1000));
 
             //----------------------------------------------------------------------------------------------------------
 
 
-            $db = connectToDB();
+            $db = new Database();
 
-            $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-
-            $this->planetID = rand(0, 100000);
 
             //check if ID is already taken
-            while ($db->query('SELECT ownerID FROM ' . $database['prefix'] . 'planets WHERE planetID=' . $this->planetID)
-                    ->rowCount() > 0) {
+            do {
                 $this->planetID = rand(0, 100000);
-            }
 
-            $stmt = $db->prepare('INSERT INTO ' . $database['prefix'] . 'planets (planetID, ownerID, name, galaxy, system, planet, last_update, planet_type, image, diameter, field_max, temp_min, temp_max) VALUES ' .
-                '(:planetID, :ownerID, :name, :galaxy, :system, :planet, :last_update, :planet_type, :image, :diameter, :field_max, :temp_min, :temp_max);');
+                $stmt = $db->prepare('SELECT ownerID FROM ' . $database['prefix'] . 'planets WHERE planetID = :planetID;');
 
-            $zero = 0; //helper for binding
+                $stmt->bindParam(':planetID', $this->planetID);
 
+                $stmt->execute();
+
+            } while($stmt->rowCount() > 0);
+
+
+            $stmt = $db->prepare('INSERT INTO ' . $database['prefix'] . 'planets (planetID, ownerID, name, galaxy, system, planet, last_update, planet_type, image, diameter, fields_max, temp_min, temp_max) VALUES ' .
+                '(:planetID, :ownerID, :name, :galaxy, :system, :planet, :last_update, :planet_type, :image, :diameter, :fields_max, :temp_min, :temp_max);');
 
             $stmt->bindParam(':planetID', $this->planetID);
             $stmt->bindParam(':ownerID', $this->ownerID);
@@ -569,11 +591,11 @@
             $stmt->bindParam(':galaxy', $this->galaxy);
             $stmt->bindParam(':system', $this->system);
             $stmt->bindParam(':planet', $this->planet);
-            $stmt->bindParam(':last_update', $zero);
+            $stmt->bindParam(':last_update', time());
             $stmt->bindParam(':planet_type', $type);
-            $stmt->bindParam(':image', $zero);
+            $stmt->bindParam(':image', $this->image);
             $stmt->bindParam(':diameter', $this->diameter);
-            $stmt->bindParam(':field_max', $this->field_max);
+            $stmt->bindParam(':fields_max', $this->fields_max);
             $stmt->bindParam(':temp_min', $this->temp_min);
             $stmt->bindParam(':temp_max', $this->temp_min);
 
@@ -916,6 +938,85 @@
         public function setDestroyed($destroyed) : void {
             $this->destroyed = $destroyed;
         }
+
+        /**
+         * @param mixed $planetID
+         */
+        public function setPlanetID($planetID) : void {
+            $this->planetID = $planetID;
+        }
+
+        /**
+         * @param mixed $ownerID
+         */
+        public function setOwnerID($ownerID) : void {
+            $this->ownerID = $ownerID;
+        }
+
+        /**
+         * @param mixed $galaxy
+         */
+        public function setGalaxy($galaxy) : void {
+            $this->galaxy = $galaxy;
+        }
+
+        /**
+         * @param mixed $system
+         */
+        public function setSystem($system) : void {
+            $this->system = $system;
+        }
+
+        /**
+         * @param mixed $planet
+         */
+        public function setPlanet($planet) : void {
+            $this->planet = $planet;
+        }
+
+        /**
+         * @param mixed $planet_type
+         */
+        public function setPlanetType($planet_type) : void {
+            $this->planet_type = $planet_type;
+        }
+
+        /**
+         * @param mixed $image
+         */
+        public function setImage($image) : void {
+            $this->image = $image;
+        }
+
+        /**
+         * @param mixed $diameter
+         */
+        public function setDiameter($diameter) : void {
+            $this->diameter = $diameter;
+        }
+
+        /**
+         * @param mixed $fields_max
+         */
+        public function setFieldsMax($fields_max) : void {
+            $this->fields_max = $fields_max;
+        }
+
+        /**
+         * @param mixed $temp_min
+         */
+        public function setTempMin($temp_min) : void {
+            $this->temp_min = $temp_min;
+        }
+
+        /**
+         * @param mixed $temp_max
+         */
+        public function setTempMax($temp_max) : void {
+            $this->temp_max = $temp_max;
+        }
+
+
 
         public function printPlanet() : void {
             echo '<pre>';
