@@ -21,7 +21,7 @@
          */
         function __construct($get, $post) {
 
-            global $data, $debug, $path, $config;
+            global $data, $debug, $path, $config, $units;
 
             $this->model = new M_Overview();
 
@@ -54,7 +54,9 @@
 
                 // currently building?
                 if ($data->getPlanet()->getBBuildingId() > 0) {
-                    $this->lang['building'] = $data->getUnits()->getName($data->getPlanet()->getBBuildingId());
+                    $this->lang['building'] = $units->getName($data->getPlanet()->getBBuildingId()) ." ({level} ".($data->getBuilding()[$data->getPlanet()->getBBuildingId()]->getLevel()+1) .")<br />" .
+                        "<span class='timer'></span><script>timer(\"overview\", ".($data->getPlanet()->getBBuildingEndtime() - time()) .", 'timer', ". $data->getPlanet()->getBBuildingId() .", '');</script><br />" .
+                        "<a href='?page=building&cancel=".$data->getPlanet()->getBBuildingId()."'>{cancel}</a>";
                 } else {
                     $this->lang['building'] = 'free';
                 }

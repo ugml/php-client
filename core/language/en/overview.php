@@ -13,9 +13,11 @@
     $lang['diameter'] = 'Diameter';
     $lang['fields'] = 'Fields';
     $lang['free'] = 'free';
+    $lang['level'] = 'Level';
+    $lang['cancel'] = 'Cancel';
 
     $lang['temperature'] = 'Temperature';
-    $lang['approx'] = 'ca.';
+    $lang['approx'] = 'approx.';
     $lang['to'] = 'to';
     $lang['position'] = 'Position';
     $lang['debris'] = 'Debris';

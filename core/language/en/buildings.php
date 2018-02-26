@@ -6,6 +6,7 @@
 
 
     $lang['build'] = "Build";
+    $lang['cancel'] = "Cancel";
 
     $lang['level'] = "Level";
 

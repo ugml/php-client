@@ -115,8 +115,8 @@
 
                     if ($data->getPlanet()->getBBuildingId() > 0) {
                         if ($unitID == $data->getPlanet()->getBBuildingId()) {
-                            $fields['b_build'] = '-<script>timer(' . ($data->getPlanet()
-                                        ->getBBuildingEndtime() - time()) . ', "build_' . $unitID . '", ' . $unitID . ');</script>';
+                            $fields['b_build'] = '-<script>timer("building", ' . ($data->getPlanet()
+                                        ->getBBuildingEndtime() - time()) . ', "build_' . $unitID . '", ' . $unitID . ', "{cancel}");</script>';
                         } else {
                             $fields['b_build'] = "-";
                         }

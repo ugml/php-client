@@ -233,18 +233,21 @@
                 // check if building finished
                 if ($this->b_building_id > 0 && $this->b_building_endtime > 0 && $this->b_building_endtime <= $time) {
 
-                    $methodArr = explode('_', $units->getUnit($this->b_building_id));
 
-                    $method = 'get';
+                    $level = $data->getBuilding()[$this->b_building_id]->getLevel();
 
-                    foreach ($methodArr as $a => $b) {
-                        $method .= ucfirst($b);
-                    }
-                    $level = call_user_func_array(array($data->getBuilding(), $method), array());
+//                    $methodArr = explode('_', $units->getUnit());
+//
+//                    $method = 'get';
+//
+//                    foreach ($methodArr as $a => $b) {
+//                        $method .= ucfirst($b);
+//                    }
+//                    $level = call_user_func_array(array($data->getBuilding(), $method), array());
 
                     // update the building level
                     $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'buildings SET ' . $units
-                            ->getUnit($this->b_building_id) . ' = ' . ($level + 1));
+                            ->getUnitName($this->b_building_id) . ' = ' . ($level + 1));
 
                     $stmt->execute();
 

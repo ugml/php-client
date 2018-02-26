@@ -32,6 +32,9 @@
             case "Database":
                 $p = $path['classes'] . 'db.php';
                 break;
+            case "Debug":
+                $p = $path['classes'] . 'debug.php';
+                break;
         }
 
         if (file_exists($p)) {

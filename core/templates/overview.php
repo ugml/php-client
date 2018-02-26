@@ -1,5 +1,7 @@
 <!-- content -->
 
+<script src="scripts/countdown.js"></script>
+
 <div class="row" id="page-content">
     <div class="col-md-12">
         <div class="row">
@@ -35,11 +37,6 @@
                         <div>
                             {planetlist_row}
                         </div>
-<!--                        <div id="otherPlanets">-->
-<!--                            <div class="row resetMarginPadding">-->
-<!--                                -->
-<!--                            </div>-->
-<!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -65,7 +62,7 @@
                         <div>{position}</div>
                     </div>
                     <div class="col-md-10 text-center">
-                        <div><a href="game.php?page=galaxy&g={planet_galaxy}&s={planet_system}">[{planet_galaxy}:{planet_system}:{planet_planet}]</a>
+                        <div><a href="game.php?page=galaxy&g={planet_galaxy}&s={planet_system}">{planet_galaxy}:{planet_system}:{planet_planet}</a>
                         </div>
                     </div>
                 </div>
@@ -74,7 +71,7 @@
                         <div>{points}</div>
                     </div>
                     <div class="col-md-10 text-center">
-                        <div>{user_points} ({rank} <a href="game.php?page=stats&start={u_user_rank}">{user_rank}</a> {of}
+                        <div>{user_points} ({rank} <a href="game.php?page=stats&start={user_rank}">{user_rank}</a> {of}
                             {num_users})
                         </div>
                     </div>

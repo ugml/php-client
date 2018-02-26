@@ -2,6 +2,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
+    // enable debug-mode
     define('DEBUG', false);
 
     $root = $_SERVER['DOCUMENT_ROOT'] . '/ugamela/';
@@ -27,6 +28,7 @@
         'prefix' => 'DB-PREFIX'
     ];
 
+    // base_income per hour
     $base_income = [
         'metal'     => 500,
         'crystal'   => 250,
@@ -40,6 +42,8 @@
         'models'      => $config['basepath'] . 'core/models/',
         'views'       => $config['basepath'] . 'core/views/',
         'classes'     => $config['basepath'] . 'core/classes/',
+        'data'        => $config['basepath'] . 'core/classes/data/',
+        'units'       => $config['basepath'] . 'core/classes/units/',
         'language'    => $config['basepath'] . 'core/language/',
         'templates'   => $config['basepath'] . 'core/templates/'
     ];
@@ -48,9 +52,6 @@
     $lang['game_name'] = $config['game_name'];
     $lang['language'] = $config['language'];
     $lang['copyright'] = $config['copyright'];
-
-    require_once $path['classes'] . 'debug.php';
-    require_once $path['classes'] . 'db.php';
 
     $debug = new Debug();
 
