@@ -47,8 +47,8 @@
                             break;
                     }
                 } else {
-                    $this->lang['galaxy_metal'] = number_format($data->getGalaxy()->getDebrisMetal(), 0);
-                    $this->lang['galaxy_crystal'] = number_format($data->getGalaxy()->getDebrisCrystal(), 0);
+//                    $this->lang['galaxy_metal'] = number_format($data->getGalaxy()->getDebrisMetal(), 0);
+//                    $this->lang['galaxy_crystal'] = number_format($data->getGalaxy()->getDebrisCrystal(), 0);
                     $this->lang['time'] = time();
                 }
 
