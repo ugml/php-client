@@ -4,18 +4,31 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class Data_Galaxy {
+    /**
+     * This class maps the 'galaxy'-table to an php object.
+     */
+    class D_Galaxy {
 
+        /** @var int Amount of Metal in the Debris */
         private $debris_metal;
 
+        /** @var int Amount of Crystal in the Debris */
         private $debris_crystal;
 
+        /**
+         * D_Galaxy constructor.
+         * @param int $gdebris_metal the amount of metal in the debris
+         * @param int $gdebris_crystal the amount of crystal in the debris
+         */
         public function __construct(int $gdebris_metal, int $gdebris_crystal) {
 
             $this->debris_metal = $gdebris_metal;
             $this->debris_crystal = $gdebris_crystal;
         }
 
+        /**
+         * Prints the object to the page
+         */
         public function printGalaxy() : void {
 
             echo '<pre>';
@@ -24,7 +37,7 @@
         }
 
         /**
-         * @return mixed
+         * @return int
          */
         public function getDebrisMetal() : int {
 
@@ -32,15 +45,15 @@
         }
 
         /**
-         * @param mixed $debris_metal
+         * @param int $debris_metal
          */
-        public function setDebrisMetal($debris_metal) : void {
+        public function setDebrisMetal(int $debris_metal) : void {
 
             $this->debris_metal = $debris_metal;
         }
 
         /**
-         * @return mixed
+         * @return int
          */
         public function getDebrisCrystal() : int {
 
@@ -48,9 +61,9 @@
         }
 
         /**
-         * @param mixed $debris_crystal
+         * @param int $debris_crystal
          */
-        public function setDebrisCrystal($debris_crystal) : void {
+        public function setDebrisCrystal(int $debris_crystal) : void {
 
             $this->debris_crystal = $debris_crystal;
         }

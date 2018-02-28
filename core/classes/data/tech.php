@@ -4,7 +4,10 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class Data_Tech {
+    /**
+     * This class maps the 'tech'-table to an php object.
+     */
+    class D_Tech {
 
         private $espionage_tech;
 

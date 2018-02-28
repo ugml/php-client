@@ -44,7 +44,7 @@
     $dbConnection = new Database();
 
     // load data about all units
-    $units = new Data_Units();
+    $units = new D_Units();
 
     // load the userdata
     $data = new Loader($userID);

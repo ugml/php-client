@@ -5,7 +5,10 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class Data_Planet {
+    /**
+     * This class maps the 'planet'-table to an php object.
+     */
+    class D_Planet {
 
         private $planetID;
 

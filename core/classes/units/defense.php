@@ -4,28 +4,26 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class Unit_Defense extends Unit_Unit {
+    class U_Defense extends U_Unit {
 
+        /** @var int The current amount */
         private $amount;
-
-        private $costFactor;
 
         /**
          * Unit constructor.
-         * @param $uID            - the internal unit-id
-         * @param $uAmount        - the current amount of the unit
-         * @param $uCostMetal     - the metal-cost for one unit/first level
-         * @param $uCostCrystal   - the crystal-cost for one unit/first level
-         * @param $uCostDeuterium - the deuterium-cost for one unit/first level
-         * @param $uCostEnergy    - the energy-cost for one unit/first level
-         * @param $uCostFactor    - the factor, at which the price is rising at each level
+         * @param int $uID                the internal unit-id
+         * @param int $uAmount            the current amount of the unit
+         * @param float $uCostMetal       the metal-cost for one unit/first level
+         * @param float $uCostCrystal     the crystal-cost for one unit/first level
+         * @param float $uCostDeuterium   the deuterium-cost for one unit/first level
+         * @param float $uCostEnergy      the energy-cost for one unit/first level
+         * @param float $uCostFactor      the factor, at which the price is rising at each level
          */
-        public function __construct($uID, $uAmount, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy,
+        public function __construct(int $uID, int $uAmount, float $uCostMetal, float $uCostCrystal, float $uCostDeuterium, float $uCostEnergy,
             $uCostFactor) {
             parent::__construct($uID, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor);
 
             $this->amount = $uAmount;
-            $this->costFactor = $uCostFactor;
         }
 
         public function getCostMetal() : float {

@@ -4,41 +4,60 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class Data_Building {
+    /**
+     * This class maps the 'buildings'-table to an php object and contains
+     * all necessary getters and setters.
+     */
+    class D_Building {
 
+        /** @var int Level of Metal Mine */
         private $metal_mine;
 
+        /** @var int Level of Crystal Mine */
         private $crystal_mine;
 
+        /** @var int Level of Deuterium Synthesizer */
         private $deuterium_synthesizer;
 
+        /** @var int Level of Solar Plant */
         private $solar_plant;
 
+        /** @var int Level of Fusion Reactor */
         private $fusion_reactor;
 
+        /** @var int Level of Robotic Factory */
         private $robotic_factory;
 
+        /** @var int Level of Nanite Factory */
         private $nanite_factory;
 
+        /** @var int Level of Shipyard */
         private $shipyard;
 
+        /** @var int Level of Metal Storage */
         private $metal_storage;
 
+        /** @var int Level of Crystal Storage */
         private $crystal_storage;
 
+        /** @var int Level of Deuterium Storage */
         private $deuterium_storage;
 
+        /** @var int Level of Research Lab*/
         private $research_lab;
 
+        /** @var int Level of Terraformer */
         private $terraformer;
 
+        /** @var int Level of Alliance Depot */
         private $alliance_depot;
 
+        /** @var int Level of Missile Silo */
         private $missile_silo;
 
         /**
-         * BuildingData constructor.
-         * parameters are building-levels
+         * D_Building constructor.
+         * The parameters are the level of the building
          * @param int $bmetal_mine
          * @param int $bcrystal_mine
          * @param int $bdeuterium_synthesizer
@@ -77,15 +96,18 @@
             $this->missile_silo = $bmissile_silo;
         }
 
-        public function printBuilding() : void {
-
+        /**
+         * Prints the object to the page
+         */
+        public function print() : void {
             echo '<pre>';
             print_r($this);
             echo '</pre>';
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getMetalMine() : int {
 
@@ -93,15 +115,17 @@
         }
 
         /**
-         * @param $metal_mine
+         * Sets the current level
+         * @param int $metal_mine the new level
          */
-        public function setMetalMine($metal_mine) : void {
+        public function setMetalMine(int $metal_mine) : void {
 
             $this->metal_mine = $metal_mine;
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getCrystalMine() : int {
 
@@ -109,15 +133,17 @@
         }
 
         /**
-         * @param $crystal_mine
+         * Sets the current level
+         * @param int $crystal_mine the new level
          */
-        public function setCrystalMine($crystal_mine) : void {
+        public function setCrystalMine(int $crystal_mine) : void {
 
             $this->crystal_mine = $crystal_mine;
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getDeuteriumSynthesizer() : int {
 
@@ -125,15 +151,17 @@
         }
 
         /**
-         * @param $deuterium_synthesizer
+         * Sets the current level
+         * @param int $deuterium_synthesizer the new level
          */
-        public function setDeuteriumSynthesizer($deuterium_synthesizer) : void {
+        public function setDeuteriumSynthesizer(int $deuterium_synthesizer) : void {
 
             $this->deuterium_synthesizer = $deuterium_synthesizer;
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getSolarPlant() : int {
 
@@ -141,15 +169,17 @@
         }
 
         /**
-         * @param $solar_plant
+         * Sets the current level
+         * @param int $solar_plant the new level
          */
-        public function setSolarPlant($solar_plant) : void {
+        public function setSolarPlant(int $solar_plant) : void {
 
             $this->solar_plant = $solar_plant;
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getFusionReactor() : int {
 
@@ -157,15 +187,17 @@
         }
 
         /**
-         * @param $fusion_reactor
+         * Sets the current level
+         * @param int $fusion_reactor the new level
          */
-        public function setFusionReactor($fusion_reactor) : void {
+        public function setFusionReactor(int $fusion_reactor) : void {
 
             $this->fusion_reactor = $fusion_reactor;
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getRoboticFactory() : int {
 
@@ -173,15 +205,17 @@
         }
 
         /**
-         * @param $robotic_factory
+         * Sets the current level
+         * @param int $robotic_factory the new level
          */
-        public function setRoboticFactory($robotic_factory) : void {
+        public function setRoboticFactory(int $robotic_factory) : void {
 
             $this->robotic_factory = $robotic_factory;
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getNaniteFactory() : int {
 
@@ -189,15 +223,17 @@
         }
 
         /**
-         * @param $nanite_factory
+         * Sets the current level
+         * @param int $nanite_factory the new level
          */
-        public function setNaniteFactory($nanite_factory) : void {
+        public function setNaniteFactory(int $nanite_factory) : void {
 
             $this->nanite_factory = $nanite_factory;
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getShipyard() : int {
 
@@ -205,15 +241,17 @@
         }
 
         /**
-         * @param $shipyard
+         * Sets the current level
+         * @param int $shipyard the new level
          */
-        public function setShipyard($shipyard) : void {
+        public function setShipyard(int $shipyard) : void {
 
             $this->shipyard = $shipyard;
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getMetalStorage() : int {
 
@@ -221,15 +259,17 @@
         }
 
         /**
-         * @param $metal_storage
+         * Sets the current level
+         * @param int $metal_storage the new level
          */
-        public function setMetalStorage($metal_storage) : void {
+        public function setMetalStorage(int $metal_storage) : void {
 
             $this->metal_storage = $metal_storage;
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getCrystalStorage() : int {
 
@@ -237,15 +277,17 @@
         }
 
         /**
-         * @param $crystal_storage
+         * Sets the current level
+         * @param int $crystal_storage the new level
          */
-        public function setCrystalStorage($crystal_storage) : void {
+        public function setCrystalStorage(int $crystal_storage) : void {
 
             $this->crystal_storage = $crystal_storage;
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getDeuteriumStorage() : int {
 
@@ -253,15 +295,17 @@
         }
 
         /**
-         * @param $deuterium_storage
+         * Sets the current level
+         * @param int $deuterium_storage the new level
          */
-        public function setDeuteriumStorage($deuterium_storage) : void {
+        public function setDeuteriumStorage(int $deuterium_storage) : void {
 
             $this->deuterium_storage = $deuterium_storage;
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getResearchLab() : int {
 
@@ -269,15 +313,17 @@
         }
 
         /**
-         * @param $research_lab
+         * Sets the current level
+         * @param int $research_lab the new level
          */
-        public function setResearchLab($research_lab) : void {
+        public function setResearchLab(int $research_lab) : void {
 
             $this->research_lab = $research_lab;
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getTerraformer() : int {
 
@@ -285,15 +331,17 @@
         }
 
         /**
-         * @param $terraformer
+         * Sets the current level
+         * @param int $terraformer the new level
          */
-        public function setTerraformer($terraformer) : void {
+        public function setTerraformer(int $terraformer) : void {
 
             $this->terraformer = $terraformer;
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getAllianceDepot() : int {
 
@@ -301,15 +349,17 @@
         }
 
         /**
-         * @param $alliance_depot
+         * Sets the current level
+         * @param int $alliance_depot the new level
          */
-        public function setAllianceDepot($alliance_depot) : void {
+        public function setAllianceDepot(int $alliance_depot) : void {
 
             $this->alliance_depot = $alliance_depot;
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getMissileSilo() : int {
 
@@ -317,9 +367,10 @@
         }
 
         /**
-         * @param $missile_silo
+         * Sets the current level
+         * @param int $missile_silo the new level
          */
-        public function setMissileSilo($missile_silo) : void {
+        public function setMissileSilo(int $missile_silo) : void {
 
             $this->missile_silo = $missile_silo;
         }

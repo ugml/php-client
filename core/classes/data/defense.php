@@ -4,28 +4,55 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class Data_Defense {
+    /**
+     * This class maps the 'defense'-table to an php object.
+     */
+    class D_Defense {
 
+        /** @var int Amount of Rocket Launcher */
         private $rocket_launcher;
 
+        /** @var int Amount of Light Laser */
         private $light_laser;
 
+        /** @var int Amount of Heavy laser */
         private $heavy_laser;
 
+        /** @var int Amount of Ion Cannon */
         private $ion_cannon;
 
+        /** @var int Amount of Gauss Cannon*/
         private $gauss_cannon;
 
+        /** @var int Amount of Plasma Turret */
         private $plasma_turret;
 
+        /** @var int Amount of Small Shield Dome */
         private $small_shield_dome;
 
+        /** @var int Amount of Large Shield Dome */
         private $large_shield_dome;
 
+        /** @var int Amount of Anti Ballistic Missile */
         private $anti_ballistic_missile;
 
+        /** @var int Amount of Interplanetary Missile */
         private $interplanetary_missile;
 
+        /**
+         * D_Defense constructor.
+         * The parameters are the different amounts of the defense
+         * @param int $drocket_launcher
+         * @param int $dlight_laser
+         * @param int $dheavy_laser
+         * @param int $dion_cannon
+         * @param int $dgauss_cannon
+         * @param int $dplasma_turret
+         * @param int $dsmall_shield_dome
+         * @param int $dlarge_shield_dome
+         * @param int $danti_ballistic_missile
+         * @param int $dinterplanetary_missile
+         */
         public function __construct(
             int $drocket_launcher, int $dlight_laser, int $dheavy_laser, int $dion_cannon, int $dgauss_cannon,
             int $dplasma_turret, int $dsmall_shield_dome,
@@ -44,14 +71,18 @@
             $this->interplanetary_missile = $dinterplanetary_missile;
         }
 
-        public function printDefense() : void {
+        /**
+         * Prints the object to the page
+         */
+        public function print() : void {
             echo '<pre>';
             print_r($this);
             echo '</pre>';
         }
 
         /**
-         * @return int
+         * Returns the current amount
+         * @return int the current amount
          */
         public function getRocketLauncher() : int {
 
@@ -59,15 +90,17 @@
         }
 
         /**
-         * @param $rocket_launcher
+         * Sets the current amount
+         * @param int $rocket_launcher the new amount
          */
-        public function setRocketLauncher($rocket_launcher) : void {
+        public function setRocketLauncher(int $rocket_launcher) : void {
 
             $this->rocket_launcher = $rocket_launcher;
         }
 
         /**
-         * @return int
+         * Returns the current amount
+         * @return int the current amount
          */
         public function getLightLaser() : int {
 
@@ -75,15 +108,17 @@
         }
 
         /**
-         * @param $light_laser
+         * Sets the current amount
+         * @param int $light_laser the new amount
          */
-        public function setLightLaser($light_laser) : void {
+        public function setLightLaser(int $light_laser) : void {
 
             $this->light_laser = $light_laser;
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amount
          */
         public function getHeavyLaser() : int {
 
@@ -91,15 +126,17 @@
         }
 
         /**
-         * @param $heavy_laser
+         * Sets the current amount
+         * @param int $heavy_laser the new amount
          */
-        public function setHeavyLaser($heavy_laser) : void {
+        public function setHeavyLaser(int $heavy_laser) : void {
 
             $this->heavy_laser = $heavy_laser;
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amount
          */
         public function getIonCannon() : int {
 
@@ -107,15 +144,17 @@
         }
 
         /**
-         * @param $ion_cannon
+         * Sets the current amount
+         * @param int $ion_cannon the new amount
          */
-        public function setIonCannon($ion_cannon) : void {
+        public function setIonCannon(int $ion_cannon) : void {
 
             $this->ion_cannon = $ion_cannon;
         }
 
         /**
-         * @return int
+         * Returns the current amount
+         * @return int the current amount
          */
         public function getGaussCannon() : int {
 
@@ -123,15 +162,17 @@
         }
 
         /**
-         * @param $gauss_cannon
+         * Sets the current amount
+         * @param int $gauss_cannon the new amount
          */
-        public function setGaussCannon($gauss_cannon) : void {
+        public function setGaussCannon(int $gauss_cannon) : void {
 
             $this->gauss_cannon = $gauss_cannon;
         }
 
         /**
-         * @return int
+         * Returns the current amount
+         * @return int the current amount
          */
         public function getPlasmaTurret() : int {
 
@@ -139,15 +180,17 @@
         }
 
         /**
-         * @param $plasma_turret
+         * Sets the current amount
+         * @param int $plasma_turret the new amount
          */
-        public function setPlasmaTurret($plasma_turret) : void {
+        public function setPlasmaTurret(int $plasma_turret) : void {
 
             $this->plasma_turret = $plasma_turret;
         }
 
         /**
-         * @return int
+         * Returns the current amount
+         * @return int the current amount
          */
         public function getSmallShieldDome() : int {
 
@@ -155,15 +198,17 @@
         }
 
         /**
-         * @param $small_shield_dome
+         * Sets the current amount
+         * @param int $small_shield_dome the new amount
          */
-        public function setSmallShieldDome($small_shield_dome) : void {
+        public function setSmallShieldDome(int $small_shield_dome) : void {
 
             $this->small_shield_dome = $small_shield_dome;
         }
 
         /**
-         * @return int
+         * Returns the current amount
+         * @return int the current amount
          */
         public function getLargeShieldDome() : int {
 
@@ -171,15 +216,17 @@
         }
 
         /**
-         * @param $large_shield_dome
+         * Sets the current amount
+         * @param int $large_shield_dome the new amount
          */
-        public function setLargeShieldDome($large_shield_dome) : void {
+        public function setLargeShieldDome(int $large_shield_dome) : void {
 
             $this->large_shield_dome = $large_shield_dome;
         }
 
         /**
-         * @return int
+         * Returns the current amount
+         * @return int the current amount
          */
         public function getAntiBallisticMissile() : int {
 
@@ -187,15 +234,17 @@
         }
 
         /**
-         * @param $anti_ballistic_missile
+         * Sets the current amount
+         * @param int $anti_ballistic_missile the new amount
          */
-        public function setAntiBallisticMissile($anti_ballistic_missile) : void {
+        public function setAntiBallisticMissile(int $anti_ballistic_missile) : void {
 
             $this->anti_ballistic_missile = $anti_ballistic_missile;
         }
 
         /**
-         * @return int
+         * Returns the current amount
+         * @return int the current amount
          */
         public function getInterplanetaryMissile() : int {
 
@@ -203,9 +252,10 @@
         }
 
         /**
-         * @param $interplanetary_missile
+         * Sets the current amount
+         * @param int $interplanetary_missile the new amount
          */
-        public function setInterplanetaryMissile($interplanetary_missile) : void {
+        public function setInterplanetaryMissile(int $interplanetary_missile) : void {
 
             $this->interplanetary_missile = $interplanetary_missile;
         }

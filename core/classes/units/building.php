@@ -4,67 +4,63 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class Unit_Building extends Unit_Unit {
+    class U_Building extends U_Unit {
 
+        /** @var int the current level */
         private $level;
-
-        private $costFactor;
 
         /**
          * Unit constructor.
-         * @param $uID            - the internal unit-id
-         * @param $uLevel         - the current level of the unit
-         * @param $uCostMetal     - the metal-cost for one unit/first level
-         * @param $uCostCrystal   - the crystal-cost for one unit/first level
-         * @param $uCostDeuterium - the deuterium-cost for one unit/first level
-         * @param $uCostEnergy    - the energy-cost for one unit/first level
-         * @param $uCostFactor    - the factor, at which the price is rising at each level
+         * @param int $uID                  the internal unit-id
+         * @param int $uLevel               the current level of the unit
+         * @param float $uCostMetal         the metal-cost for one unit/first level
+         * @param float $uCostCrystal       the crystal-cost for one unit/first level
+         * @param float $uCostDeuterium     the deuterium-cost for one unit/first level
+         * @param float $uCostEnergy        the energy-cost for one unit/first level
+         * @param float $uCostFactor        the factor, at which the price is rising at each level
          */
-        public function __construct($uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy,
-            $uCostFactor) {
+        public function __construct(int $uID, int $uLevel, float $uCostMetal, float $uCostCrystal, float $uCostDeuterium, float $uCostEnergy,
+            float $uCostFactor) {
             parent::__construct($uID, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor);
 
             $this->level = $uLevel;
-            $this->costFactor = $uCostFactor;
         }
 
         /**
-         * @return float the metal-costs for the given level
+         * Returns the metal-costs for the next level
+         * @return float the metal-costs for the next level
          */
         public function getCostMetal() : float {
-            return floor(parent::getCostMetal() * $this->costFactor ** $this->level);
+            return floor(parent::getCostMetal() * parent::getFactor() ** $this->level);
         }
 
         /**
-         * @return float the crystal-costs for the given level
+         * Returns the metal-costs for the next level
+         * @return float the metal-costs for the next level
          */
         public function getCostCrystal() : float {
-            return floor(parent::getCostCrystal() * pow($this->costFactor, $this->level));
+            return floor(parent::getCostCrystal() * pow(parent::getFactor(), $this->level));
         }
 
         /**
-         * @return float the deuterium-costs for the given level
+         * Returns the deuterium-costs for the next level
+         * @return float the deuterium-costs for the next level
          */
         public function getCostDeuterium() : float {
-            return floor(parent::getCostDeuterium() * pow($this->costFactor, $this->level));
+            return floor(parent::getCostDeuterium() * pow(parent::getFactor(), $this->level));
         }
 
         /**
-         * @return float the energy-costs for the given level
+         * Returns the energy-costs for the next level
+         * @return float the energy-costs for the next level
          */
         public function getCostEnergy() : float {
-            return floor(parent::getCostEnergy() * pow($this->costFactor, $this->level));
+            return floor(parent::getCostEnergy() * pow(parent::getFactor(), $this->level));
         }
 
         /**
-         * @return float
-         */
-        public function getFactor() : float {
-            return $this->costFactor;
-        }
-
-        /**
-         * @return float the energy-consumption for the given level
+         * Returns the energy-consumption
+         * @return float the energy-consumption
          */
         public function getEnergyConsumption() : float {
             global $data;
@@ -91,7 +87,8 @@
         }
 
         /**
-         * @return int
+         * Returns the current level
+         * @return int the current level
          */
         public function getLevel() : int {
             return $this->level;

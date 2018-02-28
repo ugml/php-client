@@ -47,12 +47,16 @@
                 $this->lang['config_base_income_energy'] = number_format($base_income['energy'], 0);
 
 
+
+
+
+
                 // planet storage
-                $this->lang['planet_storage_metal'] = number_format($units->getStorageCapacity($data->getBuilding()['metal_storage']),
+                $this->lang['planet_storage_metal'] = number_format($units->getStorageCapacity($data->getBuilding()[$units->getUnitID('metal_storage')]->getLevel()),
                     0);
-                $this->lang['planet_storage_crystal'] = number_format($units->getStorageCapacity($data->getBuilding()['crystal_storage']),
+                $this->lang['planet_storage_crystal'] = number_format($units->getStorageCapacity($data->getBuilding()[$units->getUnitID('crystal_storage')]->getLevel()),
                     0);
-                $this->lang['planet_storage_deuterium'] = number_format($units->getStorageCapacity($data->getBuilding()['deuterium_storage']),
+                $this->lang['planet_storage_deuterium'] = number_format($units->getStorageCapacity($data->getBuilding()[$units->getUnitID('deuterium_storage')]->getLevel()),
                     0);
 
                 // load view
@@ -61,15 +65,15 @@
                 $this->lang['resource_row'] = '';
 
                 // production
-                $prod_metal = $units->getMetalProductionPerHour($data->getBuilding()['metal_mine']);
-                $prod_crystal = $units->getCrystalProductionPerHour($data->getBuilding()['crystal_mine']);
-                $prod_deuterium = $units->getDeuteriumProductionPerHour($data->getBuilding()['deuterium_synthesizer']);
+                $prod_metal = $units->getMetalProductionPerHour($data->getBuilding()[$units->getUnitID('metal_mine')]->getLevel());
+                $prod_crystal = $units->getCrystalProductionPerHour($data->getBuilding()[$units->getUnitID('crystal_mine')]->getLevel());
+                $prod_deuterium = $units->getDeuteriumProductionPerHour($data->getBuilding()[$units->getUnitID('deuterium_synthesizer')]->getLevel());
 
                 $prod_energy_array = $units->getEnergyProduction(
-                    $data->getBuilding()['solar_plant'],
-                    $data->getBuilding()['fusion_reactor'],
-                    $data->getTech()['energy_tech'],
-                    $data->getFleet()['solar_satellite'],
+                    $data->getBuilding()[$units->getUnitID('solar_plant')]->getLevel(),
+                    $data->getBuilding()[$units->getUnitID('fusion_reactor')]->getLevel(),
+                    $data->getTech()[$units->getUnitID('energy_tech')]->getLevel(),
+                    $data->getFleet()[$units->getUnitID('solar_satellite')]->getLevel(),
                     $data->getPlanet()->getTempMax()
                 );
 

@@ -147,7 +147,7 @@
             // process data and store it in objects
             while ($data = $stmt->fetch()) {
 
-                $p = new Unit_Planet(
+                $p = new U_Planet(
                     intval($data->planet_planetID),
                     intval($userID),
                     $data->planet_name,
@@ -187,7 +187,7 @@
                 if ($data->user_currentplanet == $data->planet_planetID) {
 
                     //int $points, int $cRank, int $oRank
-                    $this->user = new Data_User(
+                    $this->user = new D_User(
                                         intval($userID),
                                         $data->user_username,
                                         $data->user_email,
@@ -270,7 +270,7 @@
 
                         //                        echo $i . " <br />";
 
-                        $this->buildingList[$i] = new Unit_Building(
+                        $this->buildingList[$i] = new U_Building(
                             $i,
                             $dBuilding[$i - 1],
                             $units->getPriceList($i)['metal'],
@@ -285,7 +285,7 @@
                     for ($i = 1; $i <= count($dResearch); $i++) {
                         //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
 
-                        $this->techList[$i + 100] = new Unit_Research(
+                        $this->techList[$i + 100] = new U_Research(
                             $i,
                             $dResearch[$i - 1],
                             $units->getPriceList($i)['metal'],
@@ -300,7 +300,7 @@
                     for ($i = 1; $i <= count($dFleet); $i++) {
                         //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
 
-                        $this->fleetList[$i + 200] = new Unit_Fleet(
+                        $this->fleetList[$i + 200] = new U_Fleet(
                             $i,
                             $dFleet[$i - 1],
                             $units->getPriceList($i)['metal'],
@@ -315,7 +315,7 @@
                     for ($i = 1; $i <= count($dDefense); $i++) {
                         //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
 
-                        $this->defenseList[$i + 300] = new Unit_Defense(
+                        $this->defenseList[$i + 300] = new U_Defense(
                             $i,
                             $dDefense[$i - 1],
                             $units->getPriceList($i)['metal'],
@@ -326,7 +326,7 @@
                         );
                     }
 
-                    $this->galaxy = new Data_Galaxy(intval($data->galaxy_debris_metal),
+                    $this->galaxy = new D_Galaxy(intval($data->galaxy_debris_metal),
                         intval($data->galaxy_debris_crystal));
 
                     $this->planet = $p;
@@ -435,38 +435,38 @@
         }
 
         /**
-         * @return Data_User
+         * @return D_User
          */
-        public function getUser() : Data_User {
+        public function getUser() : D_User {
 
             return $this->user;
         }
 
         /**
-         * @return Data_Planet
+         * @return D_Planet
          */
-        public function getPlanet() : Unit_Planet {
+        public function getPlanet() : U_Planet {
 
             return $this->planet;
         }
 
         /**
-         * @return Data_Galaxy
+         * @return D_Galaxy
          */
-        public function getGalaxy() : Data_Galaxy {
+        public function getGalaxy() : D_Galaxy {
 
             return $this->galaxy;
         }
 
         /**
-         * @return Data_Building
+         * @return D_Building
          */
         public function getBuilding() : array {
             return $this->buildingList;
         }
 
         /**
-         * @return Data_Defense
+         * @return D_Defense
          */
         public function getDefense() : array {
 
@@ -474,7 +474,7 @@
         }
 
         /**
-         * @return Data_Tech
+         * @return D_Tech
          */
         public function getTech() : array {
 
@@ -482,7 +482,7 @@
         }
 
         /**
-         * @return Data_Fleet
+         * @return D_Fleet
          */
         public function getFleet() : array {
 

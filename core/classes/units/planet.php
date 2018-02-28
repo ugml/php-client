@@ -4,7 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class Unit_Planet {
+    class U_Planet {
 
         private $planetID;
 
