@@ -60,7 +60,7 @@
         public static function build(int $planetID, array $buildingQueue, int $costMetal, int $costCrystal,
             int $costDeuterium) {
 
-            global $database, $db, $data;
+            global $dbConfig, $dbConnection, $data;
 
             if ($data->getUser()
                     ->getCurrentPlanet() != $planetID || $costMetal < 0 || $costCrystal < 0 || $costDeuterium < 0) {
@@ -91,7 +91,7 @@
                     ':planetID'            => $planetID
                 );
 
-                $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'planets SET 
+                $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'planets SET 
                                             b_hangar_start_time = :b_hangar_start_time, 
                                             b_hangar_id = :b_hangar_id, 
                                             metal = :metal, 

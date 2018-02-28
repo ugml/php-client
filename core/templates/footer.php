@@ -7,7 +7,7 @@
         echo "<br />[ DEBUG ]";
 
         $debug->printDebugLog();
-        $db->printLog();
+        $dbConnection->printLog();
 
         printf("<p>Page created in %.6f seconds.</p>", (microtime(true) - RENDERING_STARTTIME));
     }

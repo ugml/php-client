@@ -21,7 +21,7 @@
         'skinpath'   => 'skins/Maya/'
     ];
 
-    $database = [
+    $dbConfig = [
         'host'   => '172.25.0.100',
         'port'   => '3306',
         'dbname' => 'ugamela',

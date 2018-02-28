@@ -15,7 +15,7 @@
          */
         public function mergeTemplates($class, $fields) : string {
 
-            global $path, $db, $debug;
+            global $path, $dbConnection, $debug;
 
             $this->_ = $fields;
 

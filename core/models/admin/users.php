@@ -38,13 +38,13 @@
          */
         public static function loadUsers() {
 
-            global $database;
+            global $dbConfig;
 
-            $db = new PDO('mysql:host=' . $database['host'] . ';dbname=' . $database['dbname'], $database['user'],
-                $database['pass']);
+            $dbConnection = new PDO('mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['dbname'], $dbConfig['user'],
+                $dbConfig['pass']);
 
-            $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+            $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $query = 'SELECT 
                         userID AS user_userID, 
@@ -54,7 +54,7 @@
                       FROM users
                       ORDER BY user_userID;';
 
-            $stmt = $db->prepare($query);
+            $stmt = $dbConnection->prepare($query);
 
             $stmt->execute();
 

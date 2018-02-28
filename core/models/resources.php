@@ -65,7 +65,7 @@
          */
         public static function updateProductionLevels($planetID, $levels) {
 
-            global $database;
+            global $dbConfig;
 
             $query_values = '';
             foreach ($levels as $k => $v) {
@@ -78,12 +78,12 @@
             }
 
             // update the planet
-            $db = connectToDB();
+            $dbConnection = connectToDB();
 
-            $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+            $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'planets SET ' . rtrim($query_values,
+            $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'planets SET ' . rtrim($query_values,
                     ', ') . ' WHERE planetID = :planetid');
 
             $stmt->bindParam(':planetid', $planetID);

@@ -90,7 +90,7 @@
 
         public function setCurrentPlanet($cp) : void {
 
-            global $database, $db;
+            global $dbConfig, $dbConnection;
 
             if ($cp == $this->currentPlanet) {
                 return;
@@ -101,9 +101,9 @@
 
                 if ($this->planetList[$i]->getPlanetID() == $cp) {
                     // update the database
-                    $query = 'UPDATE  ' . $database['prefix'] . 'users SET currentplanet = :cp WHERE  userID = :userID;';
+                    $query = 'UPDATE  ' . $dbConfig['prefix'] . 'users SET currentplanet = :cp WHERE  userID = :userID;';
 
-                    $stmt = $db->prepare($query);
+                    $stmt = $dbConnection->prepare($query);
 
                     $stmt->bindParam(':cp', $cp);
                     $stmt->bindParam(':userID', $this->userID);

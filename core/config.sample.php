@@ -19,7 +19,7 @@
     ];
 
 
-    $database = [
+    $dbConfig = [
         'host'   => 'DB-HOST',
         'port'   => 'DB-PORT',
         'dbname' => 'DB-NAME',

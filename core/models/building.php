@@ -59,7 +59,7 @@
 
         public static function build($planetID, $buildID, $toLvl, $metal, $crystal, $deuterium) {
 
-            global $database, $config, $db, $data, $units;
+            global $dbConfig, $config, $dbConnection, $data, $units;
 
             // check if requirements are met
             $req_met = true;
@@ -111,7 +111,7 @@
                                         ':planetID'           => $planetID
                         );
 
-                        $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'planets SET b_building_id = :b_building_id, b_building_endtime = :b_building_endtime, metal = :metal, crystal = :crystal, deuterium = :deuterium WHERE planetID = :planetID;');
+                        $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'planets SET b_building_id = :b_building_id, b_building_endtime = :b_building_endtime, metal = :metal, crystal = :crystal, deuterium = :deuterium WHERE planetID = :planetID;');
 
                         $stmt->execute($params);
                     } catch (PDOException $e) {
@@ -128,7 +128,7 @@
 
         public static function cancel($planetID, $metal, $crystal, $deuterium) {
 
-            global $database, $db, $data;
+            global $dbConfig, $dbConnection, $data;
 
             if ($data->getPlanet()->getBBuildingId() > 0 && $data->getPlanet()->getBBuildingEndtime() > 0) {
                 if ($planetID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
@@ -140,7 +140,7 @@
                                         ':deuterium' => $deuterium
                         );
 
-                        $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'planets SET b_building_id = 0, b_building_endtime = 0, metal = metal+:metal, crystal = crystal+:crystal, deuterium = deuterium+:deuterium WHERE planetID = :planetID;');
+                        $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'planets SET b_building_id = 0, b_building_endtime = 0, metal = metal+:metal, crystal = crystal+:crystal, deuterium = deuterium+:deuterium WHERE planetID = :planetID;');
 
                         $stmt->execute($params);
                     } catch (PDOException $e) {

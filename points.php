@@ -8,11 +8,11 @@
     require('core/config.php');
 
     try {
-        $db = new PDO('mysql:host=' . $database['host'] . ';dbname=' . $database['dbname'], $database['user'],
-            $database['pass']);
+        $dbConnection = new PDO('mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['dbname'], $dbConfig['user'],
+            $dbConfig['pass']);
 
-        $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+        $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $query = 'SELECT 
                     user.userID AS user_userID,
@@ -71,14 +71,14 @@
                     fleet.destroyer AS fleet_destroyer,
                     fleet.battlecruiser AS fleet_battlecruiser,
                     fleet.deathstar AS fleet_deathstar
-                    FROM ' . $database['prefix'] . 'users AS user 
-                    LEFT JOIN ' . $database['prefix'] . 'planets AS planet ON planet.ownerID = user.userID
-                    LEFT JOIN ' . $database['prefix'] . 'buildings AS building ON planet.planetID = building.planetID
-                    LEFT JOIN ' . $database['prefix'] . 'defenses AS defense ON planet.planetID = defense.planetID
-                    LEFT JOIN ' . $database['prefix'] . 'techs AS tech ON user.userID = tech.userID
-                    LEFT JOIN ' . $database['prefix'] . 'fleet AS fleet ON planet.planetID = fleet.planetID;';
+                    FROM ' . $dbConfig['prefix'] . 'users AS user 
+                    LEFT JOIN ' . $dbConfig['prefix'] . 'planets AS planet ON planet.ownerID = user.userID
+                    LEFT JOIN ' . $dbConfig['prefix'] . 'buildings AS building ON planet.planetID = building.planetID
+                    LEFT JOIN ' . $dbConfig['prefix'] . 'defenses AS defense ON planet.planetID = defense.planetID
+                    LEFT JOIN ' . $dbConfig['prefix'] . 'techs AS tech ON user.userID = tech.userID
+                    LEFT JOIN ' . $dbConfig['prefix'] . 'fleet AS fleet ON planet.planetID = fleet.planetID;';
 
-        $stmt = $db->prepare($query);
+        $stmt = $dbConnection->prepare($query);
 
         $stmt->execute();
 
@@ -240,9 +240,9 @@
             }
         }
 
-        /*$query = 'UPDATE '.$database['prefix'].'statistics SET points_total = :points_total, points_buildings = :points_buildings, points_tech = :points_tech, points_fleet = :points_fleet, points_defense = :points_defense WHERE userID = :userID';
+        /*$query = 'UPDATE '.$dbConfig['prefix'].'statistics SET points_total = :points_total, points_buildings = :points_buildings, points_tech = :points_tech, points_fleet = :points_fleet, points_defense = :points_defense WHERE userID = :userID';
 
-        $stmt = $db->prepare($query);
+        $stmt = $dbConnection->prepare($query);
 
         $sum = $userPoints[$userID]['points_buildings'] + $userPoints[$userID]['points_tech'] + $userPoints[$userID]['points_fleet'] + $userPoints[$userID]['points_defense'];
 

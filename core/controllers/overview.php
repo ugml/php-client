@@ -66,6 +66,8 @@
                 $this->lang['num_users'] = number_format($this->model->getNumUsers(), 0);
 
 
+
+                // TODO: if planet has moon -> show moon
                 $this->lang['moon_image'] = '<img src="'. $config['skinpath'] . '/planeten/small/s_mond.png" />';
 
 

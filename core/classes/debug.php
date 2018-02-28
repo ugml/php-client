@@ -56,9 +56,9 @@
          */
         function saveError($class, $method, $line, $exception, $descr) {
 
-            global $database, $db;
+            global $dbConfig, $dbConnection;
 
-            $stmt = $db->prepare('INSERT INTO ' . $database['prefix'] . 'errors (id, class, method, line, exception, description, time) VALUES (NULL, :class, :method, :line, :exception, :description, \'' . date('Y-m-d H:i:s') . '\')');
+            $stmt = $dbConnection->prepare('INSERT INTO ' . $dbConfig['prefix'] . 'errors (id, class, method, line, exception, description, time) VALUES (NULL, :class, :method, :line, :exception, :description, \'' . date('Y-m-d H:i:s') . '\')');
 
             $stmt->bindParam(':class', $class);
             $stmt->bindParam(':method', $method);
@@ -68,7 +68,7 @@
 
             $stmt->execute();
 
-            //echo 'An error has occurred (error #'.$db->lastInsertId().')';
+            //echo 'An error has occurred (error #'.$dbConnection->lastInsertId().')';
 
         }
 

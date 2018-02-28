@@ -26,7 +26,7 @@
          */
         function __construct($userID) {
 
-            global $database, $db, $units;
+            global $dbConfig, $dbConnection, $units;
 
             // get all data from the database
             $query = 'SELECT 
@@ -126,17 +126,17 @@
                         fleet.destroyer AS fleet_destroyer,
                         fleet.battlecruiser AS fleet_battlecruiser,
                         fleet.deathstar AS fleet_deathstar
-                        FROM ' . $database['prefix'] . 'users AS user 
-                        LEFT JOIN ' . $database['prefix'] . 'stats AS stats ON user.userID = stats.userID  
-                        LEFT JOIN ' . $database['prefix'] . 'planets AS planet ON user.userID = planet.ownerID  
-                        LEFT JOIN ' . $database['prefix'] . 'galaxy AS galaxy ON planet.planetID = galaxy.planetID
-                        LEFT JOIN ' . $database['prefix'] . 'buildings AS building ON planet.planetID = building.planetID
-                        LEFT JOIN ' . $database['prefix'] . 'defenses AS defense ON planet.planetID = defense.planetID
-                        LEFT JOIN ' . $database['prefix'] . 'techs AS tech ON user.userID = tech.userID
-                        LEFT JOIN ' . $database['prefix'] . 'fleet AS fleet ON planet.planetID = fleet.planetID
+                        FROM ' . $dbConfig['prefix'] . 'users AS user 
+                        LEFT JOIN ' . $dbConfig['prefix'] . 'stats AS stats ON user.userID = stats.userID  
+                        LEFT JOIN ' . $dbConfig['prefix'] . 'planets AS planet ON user.userID = planet.ownerID  
+                        LEFT JOIN ' . $dbConfig['prefix'] . 'galaxy AS galaxy ON planet.planetID = galaxy.planetID
+                        LEFT JOIN ' . $dbConfig['prefix'] . 'buildings AS building ON planet.planetID = building.planetID
+                        LEFT JOIN ' . $dbConfig['prefix'] . 'defenses AS defense ON planet.planetID = defense.planetID
+                        LEFT JOIN ' . $dbConfig['prefix'] . 'techs AS tech ON user.userID = tech.userID
+                        LEFT JOIN ' . $dbConfig['prefix'] . 'fleet AS fleet ON planet.planetID = fleet.planetID
                         WHERE user.userID = :userID;';
 
-            $stmt = $db->prepare($query);
+            $stmt = $dbConnection->prepare($query);
 
             $stmt->bindParam(':userID', $userID);
 
@@ -402,9 +402,9 @@
                 $points += floor((round($metal, -3) + round($crystal , -3)+ round($deuterium, -3))/1000);
             }
 
-            $query = 'UPDATE ' . $database['prefix'] . 'stats SET points = '.$points.' WHERE userID = :userID;';
+            $query = 'UPDATE ' . $dbConfig['prefix'] . 'stats SET points = '.$points.' WHERE userID = :userID;';
 
-            $stmt = $db->prepare($query);
+            $stmt = $dbConnection->prepare($query);
 
             $stmt->bindParam(':userID', $userID);
 
@@ -412,9 +412,9 @@
 
 
             // update onlinetime
-            $query = 'UPDATE ' . $database['prefix'] . 'users SET onlinetime = '.time().' WHERE userID = :userID;';
+            $query = 'UPDATE ' . $dbConfig['prefix'] . 'users SET onlinetime = '.time().' WHERE userID = :userID;';
 
-            $stmt = $db->prepare($query);
+            $stmt = $dbConnection->prepare($query);
 
             $stmt->bindParam(':userID', $userID);
 

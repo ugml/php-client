@@ -17,17 +17,17 @@
 
         public function getUserInfo($username) {
 
-            global $database, $path, $debug;
+            global $dbConfig, $path, $debug;
 
             require_once $path['classes'] . 'db.php';
 
-            $db = new Database();
+            $dbConnection = new Database();
 
             try {
 
                 $params = array(':username' => $username);
 
-                $stmt = $db->prepare('SELECT userID, password FROM ' . $database['prefix'] . 'users WHERE username = :username;');
+                $stmt = $dbConnection->prepare('SELECT userID, password FROM ' . $dbConfig['prefix'] . 'users WHERE username = :username;');
 
                 $stmt->execute($params);
 

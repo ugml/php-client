@@ -39,7 +39,7 @@
 
         public static function build($planetID, $buildID, $toLvl, $metal, $crystal, $deuterium) {
 
-            global $database, $db, $data, $units;
+            global $dbConfig, $dbConnection, $data, $units;
 
             //echo $key . " - " . $v . "<br />";
 
@@ -96,7 +96,7 @@
                                         ':planetID'       => $planetID
                         );
 
-                        $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'planets SET b_tech_id = :b_tech_id, b_tech_endtime = :b_tech_endtime, metal = :metal, crystal = :crystal, deuterium = :deuterium WHERE planetID = :planetID;');
+                        $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'planets SET b_tech_id = :b_tech_id, b_tech_endtime = :b_tech_endtime, metal = :metal, crystal = :crystal, deuterium = :deuterium WHERE planetID = :planetID;');
 
                         $stmt->execute($params);
                     } catch (PDOException $e) {
@@ -113,7 +113,7 @@
 
         public static function cancel($planetID, $metal, $crystal, $deuterium) {
 
-            global $database, $db, $data;
+            global $dbConfig, $dbConnection, $data;
 
             if ($data->getPlanet()->getBTechID() > 0 && $data->getPlanet()->getBTechEndtime() > 0) {
                 if ($planetID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
@@ -125,7 +125,7 @@
                                         ':deuterium' => $deuterium
                         );
 
-                        $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'planets SET b_tech_id = 0, b_tech_endtime = 0, metal = metal+:metal, crystal = crystal+:crystal, deuterium = deuterium+:deuterium WHERE planetID = :planetID;');
+                        $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'planets SET b_tech_id = 0, b_tech_endtime = 0, metal = metal+:metal, crystal = crystal+:crystal, deuterium = deuterium+:deuterium WHERE planetID = :planetID;');
 
                         $stmt->execute($params);
                     } catch (PDOException $e) {

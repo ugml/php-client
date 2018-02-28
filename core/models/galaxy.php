@@ -39,7 +39,7 @@
 
         public static function loadGalaxyData($galaxy, $system) {
 
-            global $database, $db;
+            global $dbConfig, $dbConnection;
 
             try {
 
@@ -47,7 +47,7 @@
                                 ':system' => $system
                 );
 
-                $stmt = $db->prepare('SELECT p.planetID, p.name, p.image, p.planet, u.userID, u.username, u.onlinetime, 
+                $stmt = $dbConnection->prepare('SELECT p.planetID, p.name, p.image, p.planet, u.userID, u.username, u.onlinetime, 
                                              g.debris_metal, g.debris_crystal, m.planetID AS moonID FROM planets AS p 
                                              LEFT JOIN users AS u ON u.userID = p.ownerID 
                                              LEFT JOIN galaxy AS g ON g.planetID = p.planetID 

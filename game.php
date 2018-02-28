@@ -41,7 +41,7 @@
     require_once('core/config.php');
 
     // load the database-class
-    $db = new Database();
+    $dbConnection = new Database();
 
     // load data about all units
     $units = new Data_Units();

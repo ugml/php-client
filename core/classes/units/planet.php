@@ -150,9 +150,9 @@
         }
 
         public function update() {
-            global $data, $database, $db, $units, $base_income;
+            global $data, $dbConfig, $dbConnection, $units, $base_income;
 
-            $query = 'UPDATE ' . $database['prefix'] . 'planets SET last_update = :last_update, metal = :metal, crystal = :crystal, deuterium = :deuterium, energy_used = :energy_used, energy_max = :energy_max';
+            $query = 'UPDATE ' . $dbConfig['prefix'] . 'planets SET last_update = :last_update, metal = :metal, crystal = :crystal, deuterium = :deuterium, energy_used = :energy_used, energy_max = :energy_max';
 
             $time = time();
 
@@ -246,7 +246,7 @@
 //                    $level = call_user_func_array(array($data->getBuilding(), $method), array());
 
                     // update the building level
-                    $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'buildings SET ' . $units
+                    $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'buildings SET ' . $units
                             ->getUnitName($this->b_building_id) . ' = ' . ($level + 1));
 
                     $stmt->execute();
@@ -260,7 +260,7 @@
                     $level = $data->getTech()[$units->getUnit($this->b_tech_id)]->getLevel();
 
                     // update the building level
-                    $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'techs SET ' . $units
+                    $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'techs SET ' . $units
                             ->getUnit($this->b_tech_id) . ' = ' . ($level + 1));
 
                     $stmt->execute();
@@ -357,7 +357,7 @@
                                 $this->b_hangar_id = $shipQueue;
 
                                 // update the building level
-                                $stmt = $db->prepare('UPDATE ' . $database['prefix'] . 'fleet SET ' . $units
+                                $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'fleet SET ' . $units
                                         ->getUnit($unitID) . ' = ' . ($currentShipCount + $shipFinishedCnt) . ' WHERE planetId = ' . $this->planetID);
 
                                 $stmt->execute();
@@ -380,7 +380,7 @@
 
                 $query .= ' WHERE planetID = :planetID;';
 
-                $stmt = $db->prepare($query);
+                $stmt = $dbConnection->prepare($query);
 
                 // update the values of the planet-object
                 $this->last_update = $time;
@@ -477,7 +477,7 @@
          */
         public function createPlanet($type, $g = null, $s = null, $p = null) : void {
 
-            global $config, $database;
+            global $config, $dbConfig;
 
             //--- check the passed values ------------------------------------------------------------------------------
             //check if only one or two are null
@@ -542,25 +542,22 @@
 
             //----------------------------------------------------------------------------------------------------------
 
+            $dbConnection = new Database();
 
-            $db = connectToDB();
-
-            $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-
-            $this->planetID = rand(0, 100000);
 
             //check if ID is already taken
-            while ($db->query('SELECT ownerID FROM ' . $database['prefix'] . 'planets WHERE planetID=' . $this->planetID)
-                    ->rowCount() > 0) {
+            do {
                 $this->planetID = rand(0, 100000);
-            }
 
-            $stmt = $db->prepare('INSERT INTO ' . $database['prefix'] . 'planets (planetID, ownerID, name, galaxy, system, planet, last_update, planet_type, image, diameter, field_max, temp_min, temp_max) VALUES ' .
-                '(:planetID, :ownerID, :name, :galaxy, :system, :planet, :last_update, :planet_type, :image, :diameter, :field_max, :temp_min, :temp_max);');
+                $stmt = $dbConnection->prepare('SELECT ownerID FROM ' . $dbConfig['prefix'] . 'planets WHERE planetID = :planetID;');
 
-            $zero = 0; //helper for binding
+                $stmt->bindParam(':planetID', $this->planetID);
+
+                $stmt->execute();
+            } while($stmt->rowCount() > 0);
+
+            $stmt = $dbConnection->prepare('INSERT INTO ' . $dbConfig['prefix'] . 'planets (planetID, ownerID, name, galaxy, system, planet, last_update, planet_type, image, diameter, fields_max, temp_min, temp_max) VALUES ' .
+                '(:planetID, :ownerID, :name, :galaxy, :system, :planet, :last_update, :planet_type, :image, :diameter, :fields_max, :temp_min, :temp_max);');
 
 
             $stmt->bindParam(':planetID', $this->planetID);

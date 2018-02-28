@@ -2,37 +2,36 @@
 
     class Database {
 
-        private $db = null;
+        private $dbConnection = null;
 
         function __construct() {
+            global $dbConfig;
 
-            global $database;
-
-            if ($this->db != null) {
-                return $this->db;
+            if ($this->dbConnection != null) {
+                return $this->dbConnection;
             }
 
             //            if (DEBUG) {
-            //                $this->db = new LoggedPDO('mysql:host=' . $database['host'] . ';dbname=' . $database['dbname'],
-            //                    $database['user'], $database['pass']);
+            //                $this->dbConnection = new LoggedPDO('mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['dbname'],
+            //                    $dbConfig['user'], $dbConfig['pass']);
             //            } else {
-            $this->db = new PDO('mysql:host=' . $database['host'] . ';dbname=' . $database['dbname'],
-                $database['user'], $database['pass']);
+            $this->dbConnection = new PDO('mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['dbname'],
+                $dbConfig['user'], $dbConfig['pass']);
             //            }
 
-            $this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+            $this->dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            return $this->db;
+            return $this->dbConnection;
         }
 
         function prepare($query) {
-            return $this->db->prepare($query);
+            return $this->dbConnection->prepare($query);
         }
 
         function printLog() {
-            if (get_class($this->db) === "LoggedPDO") {
-                $this->db->printLog();
+            if (get_class($this->dbConnection) === "LoggedPDO") {
+                $this->dbConnection->printLog();
             }
         }
 
