@@ -61,7 +61,7 @@
 
 
             //------- create the user ----------------------------------------------------------------------------------
-            $stmt = $dbConnection->prepare('INSERT INTO ' . $dbConfig['prefix'] . 'users (userID, username, password, email, onlinetime, currentplanet) VALUES (:userID, :username, :password, :email, 0, -1);');
+            $stmt = $dbConnection->prepare('INSERT INTO ' . $dbConfig['prefix'] . 'users (userID, username, password, email, onlinetime, currentplanet) VALUES (:userID, :username, :password, :email, '.time().', -1);');
 
             $password = password_hash($password, PASSWORD_DEFAULT);
 

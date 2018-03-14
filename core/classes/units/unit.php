@@ -26,11 +26,12 @@
 
         /**
          * Unit constructor.
-         * @param int $uUnitID        - the internal unit-id
-         * @param float $uCostMetal     - the metal-cost for one unit/first level
-         * @param float $uCostCrystal   - the crystal-cost for one unit/first level
-         * @param float $uCostDeuterium - the deuterium-cost for one unit/first level
-         * @param float $uCostEnergy    - the energy-cost for one unit/first level
+         * @param int $uUnitID            the internal unit-id
+         * @param float $uCostMetal       the metal-cost for one unit/first level
+         * @param float $uCostCrystal     the crystal-cost for one unit/first level
+         * @param float $uCostDeuterium   the deuterium-cost for one unit/first level
+         * @param float $uCostEnergy      the energy-cost for one unit/first level
+         * @param float $uCostFactor      the cost-factor
          */
         public function __construct(int $uUnitID, float $uCostMetal, float $uCostCrystal, float $uCostDeuterium, float $uCostEnergy, float $uCostFactor) {
             $this->unitID = $uUnitID;

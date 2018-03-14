@@ -29,6 +29,7 @@
 
     // the user is logged in, so we allow
     // script-access within the game
+    /* @var INSIDE boolean constant, to track if the request comes from within the game */
     define('INSIDE', true);
 
     // update last activity time stamp
