@@ -94,14 +94,41 @@
             // load the individual rows for each building
             $this->lang['galaxy_list'] = $view->loadGalaxyRows($galaxyData);
 
+            // check boundaries
+            if($this->currentGalaxy <= 1) {
+                $this->currentGalaxy = 1;
+                $this->lang['galaxy_pos_g_prev'] = 1;
+            } else {
+                $this->lang['galaxy_pos_g_prev'] = $this->currentGalaxy-1;
+            }
+
+            // check boundaries
+            if($this->currentGalaxy >= $config['max_galaxy']) {
+                $this->currentGalaxy = $config['max_galaxy'];
+                $this->lang['galaxy_pos_g_next'] = $config['max_galaxy'];
+            } else {
+                $this->lang['galaxy_pos_g_next'] = $this->currentGalaxy+1;
+            }
+
+            // check boundaries
+            if($this->currentSystem <= 1) {
+                $this->currentSystem = 1;
+                $this->lang['galaxy_pos_s_prev'] = 1;
+            } else {
+                $this->lang['galaxy_pos_s_prev'] = $this->currentSystem-1;
+            }
+
+            // check boundaries
+            if($this->currentSystem >= $config['max_system']) {
+                $this->currentSystem = $config['max_system'];
+                $this->lang['galaxy_pos_s_next'] = $config['max_system'];
+            } else {
+                $this->lang['galaxy_pos_s_next'] = $this->currentSystem+1;
+            }
+
 
             $this->lang['galaxy_pos_g'] = $this->currentGalaxy;
             $this->lang['galaxy_pos_s'] = $this->currentSystem;
-
-            $this->lang['galaxy_pos_g_prev'] = $this->currentGalaxy-1;
-            $this->lang['galaxy_pos_g_next'] = $this->currentGalaxy+1;
-
-
 
             $this->lang['galaxy_num_planets'] = count($galaxyData);
 

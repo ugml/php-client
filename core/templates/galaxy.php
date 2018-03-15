@@ -1,11 +1,10 @@
 <div class="row" id="page-content">
-
-    <div class="col-md-1">&nbsp;</div>
+    <div class="col-md-1">&nbsp;</div> <!-- spacing -->
 
     <div class="col-md-4">
         <div class="row">
             <div class="col-md-12 content-header">
-                Galaxie
+                {galaxy_galaxy}
             </div>
         </div>
         <div class="row">
@@ -13,24 +12,23 @@
                 <div class="row">
                     <div class="col-md-12 text-center vertical-center">
                         <div>
-                            <form method="get">
-                                <button name="g" value="{galaxy_pos_g_prev}"><-</button>
-                                <input type="text" id="g" value="{galaxy_pos_g}" />
-                                <button name="g" value="{galaxy_pos_g_next}">-></button>
+                            <a class="button" href="?page=galaxy&g={galaxy_pos_g_prev}&s={galaxy_pos_s}">&#8592;</a>
+                            <form>
+                                <input type="text" name="g" value="{galaxy_pos_g}" disabled />
                             </form>
+                            <a class="button" href="?page=galaxy&g={galaxy_pos_g_next}&s={galaxy_pos_s}">&#8594;</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-2">&nbsp;</div> <!-- spacing -->
 
     <div class="col-md-4">
         <div class="row">
             <div class="col-md-12 content-header">
-                System
+                {galaxy_system}
             </div>
         </div>
         <div class="row">
@@ -38,11 +36,11 @@
                 <div class="row">
                     <div class="col-md-12 text-center vertical-center">
                         <div>
-                            <form method="get">
-                                <input type="submit" id="prevGalaxy" value="<-" />
-                                <input type="text" id="g" value="{galaxy_pos_s}" />
-                                <input type="submit" id="nextGalaxy" value="->" />
+                            <a href="?page=galaxy&g={galaxy_pos_g}&s={galaxy_pos_s_prev}">&#8592;</a>
+                            <form>
+                                <input type="text" name="s" value="{galaxy_pos_s}" disabled />
                             </form>
+                            <a href="?page=galaxy&g={galaxy_pos_g}&s={galaxy_pos_s_next}">&#8594;</a>
                         </div>
                     </div>
                 </div>
@@ -50,11 +48,9 @@
         </div>
     </div>
 
-    <div class="col-md-1">&nbsp;</div>
+    <div class="col-md-1">&nbsp;</div> <!-- spacing -->
 
-    <div class="row"><div class="col-md-12 content-body"><div>submit</div></div></div>
-
-    <div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row"><div class="col-md-12">&nbsp;</div></div> <!-- spacing -->
 
     <div class="col-md-12">
         <div class="row">
@@ -67,42 +63,42 @@
                 <div class="row">
                     <div class="col-md-1 text-center vertical-center">
                         <div>
-                            Pos.
+                            {galaxy_position}
                         </div>
                     </div>
                     <div class="col-md-1 text-center vertical-center">
                         <div>
-                            Planet
+                            {galaxy_planet_image}
                         </div>
                     </div>
                     <div class="col-md-2 text-center vertical-center">
                         <div>
-                            Name (Aktivit&auml;t)
+                            {galaxy_planet_name} ({galaxy_planet_activity})
                         </div>
                     </div>
                     <div class="col-md-1 text-center vertical-center">
                         <div>
-                            Mond
+                            {galaxy_moon}
                         </div>
                     </div>
                     <div class="col-md-1 text-center vertical-center">
                         <div>
-                            TF
+                            {galaxy_debris}
                         </div>
                     </div>
                     <div class="col-md-2 text-center vertical-center">
                         <div>
-                            Spieler (Status)
+                            {galaxy_player} ({galaxy_player_status})
                         </div>
                     </div>
                     <div class="col-md-1 text-center vertical-center">
                         <div>
-                            Allianz
+                            {galaxy_alliance}
                         </div>
                     </div>
                     <div class="col-md-3 text-center vertical-center">
                         <div>
-                            Aktionen
+                            {galaxy_actions}
                         </div>
                     </div>
                 </div>
