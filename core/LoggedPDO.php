@@ -6,13 +6,23 @@
      */
     class LoggedPDO extends PDO {
 
+        /** @var array the current log */
         public static $log = array();
 
+        /**
+         * LoggedPDO constructor.
+         * @param      $dsn
+         * @param null $username
+         * @param null $password
+         */
         public function __construct($dsn, $username = null, $password = null) {
 
             parent::__construct($dsn, $username, $password);
         }
 
+        /**
+         * Prints the current log
+         */
         public static function printLog() {
 
             $totalTime = 0;

@@ -37,7 +37,8 @@
         }
 
         /**
-         * @return int
+         * Returns the amount of metal in the debris
+         * @return int the current amont
          */
         public function getDebrisMetal() : int {
 
@@ -45,7 +46,8 @@
         }
 
         /**
-         * @param int $debris_metal
+         * Sets the amount of metal in the debris
+         * @param int metal in the debris
          */
         public function setDebrisMetal(int $debris_metal) : void {
 
@@ -53,7 +55,8 @@
         }
 
         /**
-         * @return int
+         * Returns the amount of crystal in the debris
+         * @return int crystal in the debris
          */
         public function getDebrisCrystal() : int {
 
@@ -61,7 +64,8 @@
         }
 
         /**
-         * @param int $debris_crystal
+         * * Sets the amount of crystal in the debris
+         * @param int crystal in the debris
          */
         public function setDebrisCrystal(int $debris_crystal) : void {
 

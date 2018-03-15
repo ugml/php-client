@@ -3,6 +3,7 @@
     defined('INSIDE') OR exit('No direct script access allowed');
 
     // enable debug-mode
+    /* @var DEBUG boolean constant which enables/disabled the debug-mode */
     define('DEBUG', false);
 
     $root = $_SERVER['DOCUMENT_ROOT'] . '/ugamela/';
@@ -20,13 +21,14 @@
 
 
     $dbConfig = [
-        'host'   => 'DB-HOST',
-        'port'   => 'DB-PORT',
-        'dbname' => 'DB-NAME',
-        'user'   => 'DB-USERNAME',
-        'pass'   => 'DB-PASSWORD',
-        'prefix' => 'DB-PREFIX'
+        'host'   => 'MYSQL_HOST',
+        'port'   => 'MYSQL_PORT',
+        'dbname' => 'MYSQL_DB_NAME',
+        'user'   => 'MYSQL_USERNAME',
+        'pass'   => 'MYSQL_PASSWORD',
+        'prefix' => 'MYSQL_TABLE_PREFIX'
     ];
+
 
     // base_income per hour
     $base_income = [

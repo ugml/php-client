@@ -103,7 +103,8 @@
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getSmallCargoShip() : int {
 
@@ -111,7 +112,8 @@
         }
 
         /**
-         * @param int $small_cargo_ship
+         * Sets the current amount
+         * @param int the current amount
          */
         public function setSmallCargoShip(int $small_cargo_ship) : void {
 
@@ -119,7 +121,8 @@
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getLargeCargoShip() : int {
 
@@ -127,7 +130,8 @@
         }
 
         /**
-         * @param int $large_cargo_ship
+         * Sets the current amount
+         * @param int the current amount
          */
         public function setLargeCargoShip(int $large_cargo_ship) : void {
 
@@ -135,7 +139,8 @@
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getLightFighter() : int {
 
@@ -143,7 +148,8 @@
         }
 
         /**
-         * @param int $light_fighter
+         * Sets the current amount
+         * @param int the current amount
          */
         public function setLightFighter(int $light_fighter) : void {
 
@@ -151,7 +157,8 @@
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getHeavyFighter() : int {
 
@@ -159,7 +166,8 @@
         }
 
         /**
-         * @param int $heavy_fighter
+         * Sets the current amount
+         * @param int the current amount
          */
         public function setHeavyFighter(int $heavy_fighter) : void {
 
@@ -167,7 +175,8 @@
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getCruiser() : int {
 
@@ -175,7 +184,8 @@
         }
 
         /**
-         * @param int $cruiser
+         * Sets the current amount
+         * @param int the current amount
          */
         public function setCruiser(int $cruiser) : void {
 
@@ -183,7 +193,8 @@
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getBattleship() : int {
 
@@ -191,7 +202,8 @@
         }
 
         /**
-         * @param int $battleship
+         * Sets the current amount
+         * @param int the current amount
          */
         public function setBattleship(int $battleship) : void {
 
@@ -199,7 +211,8 @@
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getColonyShip() : int {
 
@@ -207,7 +220,8 @@
         }
 
         /**
-         * @param int $colony_ship
+         * Sets the current amount
+         * @param int the current amount
          */
         public function setColonyShip(int $colony_ship) : void {
 
@@ -215,7 +229,8 @@
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getRecycler() : int {
 
@@ -223,7 +238,8 @@
         }
 
         /**
-         * @param int $recycler
+         * Sets the current amount
+         * @param int the current amount
          */
         public function setRecycler(int $recycler) : void {
 
@@ -231,7 +247,8 @@
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getEspionageProbe() : int {
 
@@ -239,7 +256,8 @@
         }
 
         /**
-         * @param int $espionage_probe
+         * Sets the current amount
+         * @param int the current amount
          */
         public function setEspionageProbe(int $espionage_probe) : void {
 
@@ -247,7 +265,8 @@
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getBomber() : int {
 
@@ -255,7 +274,8 @@
         }
 
         /**
-         * @param int $bomber
+         * Sets the current amount
+         * @param int the current amount
          */
         public function setBomber(int $bomber) : void {
 
@@ -263,7 +283,8 @@
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getSolarSatellite() : int {
 
@@ -271,7 +292,8 @@
         }
 
         /**
-         * @param int $solar_satellite
+         * Sets the current amount
+         * @param int the current amount
          */
         public function setSolarSatellite(int $solar_satellite) : void {
 
@@ -279,7 +301,8 @@
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getDestroyer() : int {
 
@@ -287,7 +310,8 @@
         }
 
         /**
-         * @param int $destroyer
+         * Sets the current amount
+         * @param int the current amount
          */
         public function setDestroyer(int $destroyer) : void {
 
@@ -295,7 +319,8 @@
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getBattlecruiser() : int {
 
@@ -303,7 +328,8 @@
         }
 
         /**
-         * @param int $battlecruiser
+         * Sets the current amount
+         * @param int the current amount
          */
         public function setBattlecruiser(int $battlecruiser) : void {
 
@@ -311,7 +337,8 @@
         }
 
         /**
-         * @return int
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getDeathstar() : int {
 
@@ -319,7 +346,8 @@
         }
 
         /**
-         * @param int $deathstar
+         * Sets the current amount
+         * @param int the current amount
          */
         public function setDeathstar(int $deathstar) : void {
 

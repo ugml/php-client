@@ -1,6 +1,9 @@
 <?php
 
+    declare(strict_types = 1);
+
     defined('INSIDE') OR exit('No direct script access allowed');
+
 
     class V_Building extends V_View implements I_View {
 
@@ -11,8 +14,8 @@
         /**
          * assigns the variables for the view
          *
-         * @param String $key   Schlüssel
-         * @param String $value Variable
+         * @param String $key   the key
+         * @param String $value the value
          */
         public function assign($key, $value) {
 
@@ -22,7 +25,7 @@
         /**
          * sets the name of the template which will be used
          *
-         * @param String $template Name des Templates.
+         * @param String $template name of the template
          */
         public function setTemplate($template) {
 
@@ -30,7 +33,7 @@
         }
 
         /**
-         * this loads the template file
+         * loads the template file
          *
          * @param string $mode the subtemplate (e.g. resources_row.php)
          * @return string the template
@@ -47,6 +50,15 @@
             return parent::mergeTemplates($this->template, $this->_);
         }
 
+        /**
+         * loads each individual building-row
+         *
+         * @param $buildings array the building-data of the planet
+         * @param $unitsBuilding array the data of the units
+         * @param $planet planet the planet
+         * @return string the complete list of buildingrows
+         * @throws FileNotFoundException
+         */
         public function loadBuildingRows($buildings, $unitsBuilding, $planet) {
 
             global $path, $config, $lang, $data, $units;

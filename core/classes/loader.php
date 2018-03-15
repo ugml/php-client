@@ -29,8 +29,8 @@
             global $dbConfig, $dbConnection, $units;
 
             // get all data from the database
-            $query = 'SELECT 
-                        user.userID AS user_userID, 
+            $query = 'SELECT
+                        user.userID AS user_userID,
                         user.username AS user_username,
                         user.email AS user_email,
                         user.onlinetime AS user_onlinetime,
@@ -126,9 +126,9 @@
                         fleet.destroyer AS fleet_destroyer,
                         fleet.battlecruiser AS fleet_battlecruiser,
                         fleet.deathstar AS fleet_deathstar
-                        FROM ' . $dbConfig['prefix'] . 'users AS user 
-                        LEFT JOIN ' . $dbConfig['prefix'] . 'stats AS stats ON user.userID = stats.userID  
-                        LEFT JOIN ' . $dbConfig['prefix'] . 'planets AS planet ON user.userID = planet.ownerID  
+                        FROM ' . $dbConfig['prefix'] . 'users AS user
+                        LEFT JOIN ' . $dbConfig['prefix'] . 'stats AS stats ON user.userID = stats.userID
+                        LEFT JOIN ' . $dbConfig['prefix'] . 'planets AS planet ON user.userID = planet.ownerID
                         LEFT JOIN ' . $dbConfig['prefix'] . 'galaxy AS galaxy ON planet.planetID = galaxy.planetID
                         LEFT JOIN ' . $dbConfig['prefix'] . 'buildings AS building ON planet.planetID = building.planetID
                         LEFT JOIN ' . $dbConfig['prefix'] . 'defenses AS defense ON planet.planetID = defense.planetID

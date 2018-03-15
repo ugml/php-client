@@ -4,6 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
+
     class C_Building implements I_Controller {
 
         private $get = null;
