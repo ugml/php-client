@@ -4,7 +4,11 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class Data_User {
+    /**
+     * This class maps the 'user'-table to an php object and is also responsible of keeping it up-to-date.
+     *
+     */
+    class D_User {
 
         private $userID;
 

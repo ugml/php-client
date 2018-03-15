@@ -4,7 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class Unit_Planet {
+    class U_Planet {
 
         private $planetID;
 
@@ -479,16 +479,35 @@
 
             global $config, $dbConfig;
 
+            $dbConnection = new Database();
+
             //--- check the passed values ------------------------------------------------------------------------------
-            //check if only one or two are null
+            // check if only one or two are null
             if (empty($g) + empty($s) + empty($p) < 3) {
                 throw new InvalidArgumentException("one argument was null");
             } else {
                 if (empty($g) + empty($s) + empty($p) == 3) {
-                    //create random coordinates
-                    $this->galaxy = rand(1, $config['max_galaxy']);
-                    $this->system = rand(1, $config['max_system']);
-                    $this->planet = rand(1, $config['max_planet']);
+
+
+
+                    // check if coordinates are already used
+                    do {
+                        // create random coordinates
+                        $this->galaxy = rand(1, $config['max_galaxy']);
+                        $this->system = rand(1, $config['max_system']);
+                        $this->planet = rand(1, $config['max_planet']);
+
+                        $stmt = $dbConnection->prepare('SELECT 1 FROM ' . $dbConfig['prefix'] . 'planets WHERE galaxy = :g AND system = :s AND planet = :p;');
+
+                        $stmt->bindParam(':g', $this->galaxy);
+                        $stmt->bindParam(':s', $this->system);
+                        $stmt->bindParam(':p', $this->planet);
+
+                        $stmt->execute();
+
+                    } while($stmt->rowCount() > 0);
+
+
                 } else {
                     if ($g > 1 && $g <= $config['max_galaxy']) {
                         $this->galaxy = $g;
@@ -566,7 +585,7 @@
             //----------------------------------------------------------------------------------------------------------
 
 
-            $dbConnection = new Database();
+
 
 
             //check if ID is already taken

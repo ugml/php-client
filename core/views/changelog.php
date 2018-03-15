@@ -1,5 +1,7 @@
 <?php
 
+    declare(strict_types = 1);
+
     defined('INSIDE') OR exit('No direct script access allowed');
 
     class V_Changelog extends V_View implements I_View {

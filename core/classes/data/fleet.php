@@ -4,36 +4,71 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class Data_Fleet {
+    /**
+     * This class maps the 'fleet'-table to an php object.
+     */
+    class D_Fleet {
 
+        /** @var int Amount of Small Cargo Ship */
         private $small_cargo_ship;
 
+        /** @var int Amount of Large Cargo Ship */
         private $large_cargo_ship;
 
+        /** @var int Amount of Light Fighter */
         private $light_fighter;
 
+        /** @var int Amount of Heavy Fighter */
         private $heavy_fighter;
 
+        /** @var int Amount of Cruiser */
         private $cruiser;
 
+        /** @var int Amount of Battleship */
         private $battleship;
 
+        /** @var int Amount of Colony Ship */
         private $colony_ship;
 
+        /** @var int Amount of Recycler */
         private $recycler;
 
+        /** @var int Amount of Espionage Probe */
         private $espionage_probe;
 
+        /** @var int Amount of Bomber */
         private $bomber;
 
+        /** @var int Amount of Solar Satellite */
         private $solar_satellite;
 
+        /** @var int Amount of Destroyer */
         private $destroyer;
 
+        /** @var int Amount of Battlecruiser */
         private $battlecruiser;
 
+        /** @var int Amount of Deathstar */
         private $deathstar;
 
+        /**
+         * D_Fleet constructor.
+         * The parameters are the different amounts of the fleet
+         * @param int $fsmall_cargo_ship
+         * @param int $flarge_cargo_ship
+         * @param int $flight_fighter
+         * @param int $fheavy_fighter
+         * @param int $fcruiser
+         * @param int $fbattleship
+         * @param int $fcolony_ship
+         * @param int $frecycler
+         * @param int $fespionage_probe
+         * @param int $fbomber
+         * @param int $fsolar_satellite
+         * @param int $fdestroyer
+         * @param int $fbattlecruiser
+         * @param int $fdeathstar
+         */
         public function __construct(
             int $fsmall_cargo_ship, int $flarge_cargo_ship, int $flight_fighter, int $fheavy_fighter, int $fcruiser,
             int $fbattleship, int $fcolony_ship,
@@ -57,7 +92,10 @@
             $this->deathstar = $fdeathstar;
         }
 
-        public function printFleet() : void {
+        /**
+         * Prints the object to the page
+         */
+        public function print() : void {
 
             echo '<pre>';
             print_r($this);
@@ -65,7 +103,8 @@
         }
 
         /**
-         * @return mixed
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getSmallCargoShip() : int {
 
@@ -73,15 +112,17 @@
         }
 
         /**
-         * @param mixed $small_cargo_ship
+         * Sets the current amount
+         * @param int the current amount
          */
-        public function setSmallCargoShip($small_cargo_ship) : void {
+        public function setSmallCargoShip(int $small_cargo_ship) : void {
 
             $this->small_cargo_ship = $small_cargo_ship;
         }
 
         /**
-         * @return mixed
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getLargeCargoShip() : int {
 
@@ -89,15 +130,17 @@
         }
 
         /**
-         * @param mixed $large_cargo_ship
+         * Sets the current amount
+         * @param int the current amount
          */
-        public function setLargeCargoShip($large_cargo_ship) : void {
+        public function setLargeCargoShip(int $large_cargo_ship) : void {
 
             $this->large_cargo_ship = $large_cargo_ship;
         }
 
         /**
-         * @return mixed
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getLightFighter() : int {
 
@@ -105,15 +148,17 @@
         }
 
         /**
-         * @param mixed $light_fighter
+         * Sets the current amount
+         * @param int the current amount
          */
-        public function setLightFighter($light_fighter) : void {
+        public function setLightFighter(int $light_fighter) : void {
 
             $this->light_fighter = $light_fighter;
         }
 
         /**
-         * @return mixed
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getHeavyFighter() : int {
 
@@ -121,15 +166,17 @@
         }
 
         /**
-         * @param mixed $heavy_fighter
+         * Sets the current amount
+         * @param int the current amount
          */
-        public function setHeavyFighter($heavy_fighter) : void {
+        public function setHeavyFighter(int $heavy_fighter) : void {
 
             $this->heavy_fighter = $heavy_fighter;
         }
 
         /**
-         * @return mixed
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getCruiser() : int {
 
@@ -137,15 +184,17 @@
         }
 
         /**
-         * @param mixed $cruiser
+         * Sets the current amount
+         * @param int the current amount
          */
-        public function setCruiser($cruiser) : void {
+        public function setCruiser(int $cruiser) : void {
 
             $this->cruiser = $cruiser;
         }
 
         /**
-         * @return mixed
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getBattleship() : int {
 
@@ -153,15 +202,17 @@
         }
 
         /**
-         * @param mixed $battleship
+         * Sets the current amount
+         * @param int the current amount
          */
-        public function setBattleship($battleship) : void {
+        public function setBattleship(int $battleship) : void {
 
             $this->battleship = $battleship;
         }
 
         /**
-         * @return mixed
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getColonyShip() : int {
 
@@ -169,15 +220,17 @@
         }
 
         /**
-         * @param mixed $colony_ship
+         * Sets the current amount
+         * @param int the current amount
          */
-        public function setColonyShip($colony_ship) : void {
+        public function setColonyShip(int $colony_ship) : void {
 
             $this->colony_ship = $colony_ship;
         }
 
         /**
-         * @return mixed
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getRecycler() : int {
 
@@ -185,15 +238,17 @@
         }
 
         /**
-         * @param mixed $recycler
+         * Sets the current amount
+         * @param int the current amount
          */
-        public function setRecycler($recycler) : void {
+        public function setRecycler(int $recycler) : void {
 
             $this->recycler = $recycler;
         }
 
         /**
-         * @return mixed
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getEspionageProbe() : int {
 
@@ -201,15 +256,17 @@
         }
 
         /**
-         * @param mixed $espionage_probe
+         * Sets the current amount
+         * @param int the current amount
          */
-        public function setEspionageProbe($espionage_probe) : void {
+        public function setEspionageProbe(int $espionage_probe) : void {
 
             $this->espionage_probe = $espionage_probe;
         }
 
         /**
-         * @return mixed
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getBomber() : int {
 
@@ -217,15 +274,17 @@
         }
 
         /**
-         * @param mixed $bomber
+         * Sets the current amount
+         * @param int the current amount
          */
-        public function setBomber($bomber) : void {
+        public function setBomber(int $bomber) : void {
 
             $this->bomber = $bomber;
         }
 
         /**
-         * @return mixed
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getSolarSatellite() : int {
 
@@ -233,15 +292,17 @@
         }
 
         /**
-         * @param mixed $solar_satellite
+         * Sets the current amount
+         * @param int the current amount
          */
-        public function setSolarSatellite($solar_satellite) : void {
+        public function setSolarSatellite(int $solar_satellite) : void {
 
             $this->solar_satellite = $solar_satellite;
         }
 
         /**
-         * @return mixed
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getDestroyer() : int {
 
@@ -249,15 +310,17 @@
         }
 
         /**
-         * @param mixed $destroyer
+         * Sets the current amount
+         * @param int the current amount
          */
-        public function setDestroyer($destroyer) : void {
+        public function setDestroyer(int $destroyer) : void {
 
             $this->destroyer = $destroyer;
         }
 
         /**
-         * @return mixed
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getBattlecruiser() : int {
 
@@ -265,15 +328,17 @@
         }
 
         /**
-         * @param mixed $battlecruiser
+         * Sets the current amount
+         * @param int the current amount
          */
-        public function setBattlecruiser($battlecruiser) : void {
+        public function setBattlecruiser(int $battlecruiser) : void {
 
             $this->battlecruiser = $battlecruiser;
         }
 
         /**
-         * @return mixed
+         * Returns the current amount amount
+         * @return int the current amont
          */
         public function getDeathstar() : int {
 
@@ -281,9 +346,10 @@
         }
 
         /**
-         * @param mixed $deathstar
+         * Sets the current amount
+         * @param int the current amount
          */
-        public function setDeathstar($deathstar) : void {
+        public function setDeathstar(int $deathstar) : void {
 
             $this->deathstar = $deathstar;
         }

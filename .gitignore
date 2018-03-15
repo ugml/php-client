@@ -12,3 +12,10 @@ composer.lock
 composer.phar
 
 vendor/*
+
+createDocumentation.sh
+createUsers.py
+docs/
+
+test.php
+scp

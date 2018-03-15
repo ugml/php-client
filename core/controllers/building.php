@@ -4,6 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
+
     class C_Building implements I_Controller {
 
         private $get = null;
@@ -111,7 +112,7 @@
                 //build it only, if there is not already a building in the queue
                 if ($data->getPlanet()->getBBuildingId() == 0) {
 
-                    $units = new Data_Units();
+                    $units = new D_Units();
 
                     $level = $data->getBuilding()[$buildID]->getLevel();
 
@@ -156,7 +157,7 @@
 
             if ($data->getPlanet()->getBBuildingId() == $buildID && $data->getPlanet()->getBBuildingEndtime() > time()) {
 
-                $units = new Data_Units();
+                $units = new D_Units();
 
                 $pricelist = $units->getPriceList($buildID);
 

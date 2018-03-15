@@ -16,9 +16,13 @@
     $this->lang['planet_crystal'] = $data->getPlanet()->getCrystal();
     $this->lang['planet_deuterium'] = $data->getPlanet()->getDeuterium();
 
-    $this->lang['planet_metal_max'] = $units->getStorageCapacity($data->getBuilding()['metal_storage']);
-    $this->lang['planet_crystal_max'] = $units->getStorageCapacity($data->getBuilding()['crystal_storage']);
-    $this->lang['planet_deuterium_max'] = $units->getStorageCapacity($data->getBuilding()['deuterium_storage']);
+
+
+
+    $this->lang['planet_metal_max'] = $units->getStorageCapacity($data->getBuilding()[$units->getUnitID('metal_storage')]->getLevel());
+    $this->lang['planet_crystal_max'] = $units->getStorageCapacity($data->getBuilding()[$units->getUnitID('crystal_storage')]->getLevel());
+    $this->lang['planet_deuterium_max'] = $units->getStorageCapacity($data->getBuilding()[$units->getUnitID('deuterium_storage')]->getLevel());
+
 
     $this->lang['planet_energy_used'] = number_format($data->getPlanet()->getEnergyUsed(), 0);
     $this->lang['planet_energy_max'] = number_format($data->getPlanet()->getEnergyMax(), 0);

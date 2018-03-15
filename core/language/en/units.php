@@ -65,16 +65,16 @@
     $lang['battlecruiser'] = 'Battlecruiser';
     $lang['deathstar'] = 'Deathstar';
 
-    $lang['rocket_launcher'] = '';
-    $lang['light_laser'] = '';
-    $lang['heavy_laser'] = '';
-    $lang['gauss_cannon'] = '';
-    $lang['ion_cannon'] = '';
-    $lang['plasma_turret'] = '';
-    $lang['small_shield_dome'] = '';
-    $lang['large_shield_dome'] = '';
-    $lang['anti_ballistic_missile'] = '';
-    $lang['interplanetary_missile'] = '';
+    $lang['rocket_launcher'] = 'Rocket Launcher';
+    $lang['light_laser'] = 'Light Laser';
+    $lang['heavy_laser'] = 'Heavy Laser';
+    $lang['gauss_cannon'] = 'Gauss Cannon';
+    $lang['ion_cannon'] = 'Ion Cannon';
+    $lang['plasma_turret'] = 'Plasma Turret';
+    $lang['small_shield_dome'] = 'Small Shield Dome';
+    $lang['large_shield_dome'] = 'Large Shield Dome';
+    $lang['anti_ballistic_missile'] = 'Anti Ballistic Missile';
+    $lang['interplanetary_missile'] = 'Interplanetary Missile';
 
     // planet
     $lang['metal_mine_descr'] = 'Metal is the main resource for conducting research and the construction of buildings, ships, and defensive units.';
