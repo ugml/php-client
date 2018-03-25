@@ -86,7 +86,7 @@
                             {galaxy_debris}
                         </div>
                     </div>
-                    <div class="col-md-2 text-center vertical-center">
+                    <div class="col-md-3 text-center vertical-center">
                         <div>
                             {galaxy_player} ({galaxy_player_status})
                         </div>
@@ -96,7 +96,7 @@
                             {galaxy_alliance}
                         </div>
                     </div>
-                    <div class="col-md-3 text-center vertical-center">
+                    <div class="col-md-2 text-center vertical-center">
                         <div>
                             {galaxy_actions}
                         </div>

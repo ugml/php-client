@@ -28,16 +28,28 @@
             $this->costFactor = $uCostFactor;
         }
 
+        /**
+         * Returns the metal-costs for the next level
+         * @return float the metal-costs for the next level
+         */
         public function getCostMetal() : float {
-            // TODO: Implement getCostMetal() method.
+            return floor(parent::getCostMetal() * (parent::getFactor() ** $this->level));
         }
 
+        /**
+         * Returns the metal-costs for the next level
+         * @return float the metal-costs for the next level
+         */
         public function getCostCrystal() : float {
-            // TODO: Implement getCostCrystal() method.
+            return floor(parent::getCostCrystal() * pow(parent::getFactor(), $this->level));
         }
 
+        /**
+         * Returns the deuterium-costs for the next level
+         * @return float the deuterium-costs for the next level
+         */
         public function getCostDeuterium() : float {
-            // TODO: Implement getCostDeuterium() method.
+            return floor(parent::getCostDeuterium() * pow(parent::getFactor(), $this->level));
         }
 
         public function getCostEnergy() : float {

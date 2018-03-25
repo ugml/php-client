@@ -41,4 +41,8 @@
         public function getCostEnergy() : float {
             // TODO: Implement getCostEnergy() method.
         }
+
+        public function getAmount() : int {
+            return $this->amount;
+        }
     }

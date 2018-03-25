@@ -11,6 +11,9 @@
 
         private $post = null;
 
+        private $model = null;
+        private $view = null;
+
         private $lang = null;
 
         /**
@@ -23,6 +26,10 @@
             global $data, $debug, $path;
 
             try {
+
+                $this->model = new M_Building();
+                $this->view = new V_Building();
+
                 $this->get = $get;
                 $this->post = $post;
 
@@ -131,7 +138,7 @@
 
                         $toLvl = $level + 1;
 
-                        M_Building::build($data->getPlanet()->getPlanetId(), $buildID, $toLvl, $n_metal, $n_crystal,
+                        $this->model->build($data->getPlanet()->getPlanetId(), $buildID, $toLvl, $n_metal, $n_crystal,
                             $n_deuterium);
                         header("Refresh:0");
                     }
@@ -174,7 +181,7 @@
                     $deuterium *= $pricelist['factor'];
                 }
 
-                M_Building::cancel($data->getPlanet()->getPlanetId(), $metal, $crystal, $deuterium);
+                $this->model->cancel($data->getPlanet()->getPlanetId(), $metal, $crystal, $deuterium);
             }
 
             header("Refresh:0");
@@ -196,13 +203,11 @@
 
             global $config, $data, $units;
 
-            // load view
-            $view = new V_Building();
-
-            $v_lang = M_Building::loadLanguage();
+            $v_lang = $this->model->loadLanguage();
 
             // load the individual rows for each building
-            $this->lang['building_list'] = $view->loadBuildingRows($data->getBuilding(),
+
+            $this->lang['building_list'] = $this->view->loadBuildingRows($data->getBuilding(),
                 $units->getBuildings(), $data->getPlanet());
 
             if (is_array($this->lang) && is_array($v_lang)) {
@@ -214,16 +219,16 @@
             }
 
 
-            $view->assign('lang', $this->lang);
-            $view->assign('title', $config['game_name']);
-            $view->assign('skinpath', $config['skinpath']);
-            $view->assign('copyright', $config['copyright']);
-            $view->assign('language', $config['language']);
+            $this->view->assign('lang', $this->lang);
+            $this->view->assign('title', $config['game_name']);
+            $this->view->assign('skinpath', $config['skinpath']);
+            $this->view->assign('copyright', $config['copyright']);
+            $this->view->assign('language', $config['language']);
 
             if (!empty($this->get['mode'])) {
-                echo $view->loadTemplate($this->get['mode']);
+                echo $this->view->loadTemplate($this->get['mode']);
             } else {
-                echo $view->loadTemplate();
+                echo $this->view->loadTemplate();
             }
         }
     }

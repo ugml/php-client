@@ -11,7 +11,9 @@
     // redirect to the login-page
     if (!$userID) {
         header("Location: login.php");
+        die();
     } else {
         header("Location: game.php");
+        die();
     }
 
