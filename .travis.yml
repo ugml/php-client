@@ -3,11 +3,6 @@ php:
   - '7.1'
   - '7.2'
 
-env:
-  global:
-  - 'SFTP_USER=${SFTP_USER}'
-  - 'SFTP_PASSWORD=${SFTP_PASSWORD}'
-
 script:
 #  - composer self-update
   - composer install --dev
@@ -15,7 +10,7 @@ script:
 
 after_success:
 - curl --ftp-create-dirs
-       -T filename
+       -T ./
        sftp://${SFTP_USER}:${SFTP_PASSWORD}@${SFTP_HOST}/ugamela
 
 notifications:
