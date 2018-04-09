@@ -9,9 +9,8 @@ script:
   - ./vendor/bin/phpunit
 
 after_success:
-- curl --ftp-create-dirs
-       -T ./
-       sftp://${SFTP_USER}:${SFTP_PASSWORD}@${SFTP_HOST}/ugamela
+  - chomod +x deploy.sh
+  - ./deploy.sh
 
 notifications:
   email: false
