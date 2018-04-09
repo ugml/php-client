@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/mamen/ugamela.svg?token=W9dJHsFajvdU8w61Xgun&branch=master)](https://travis-ci.com/mamen/ugamela)
 [![Discord Server](https://discordapp.com/api/guilds/339129999082913794/embed.png)](https://discord.gg/WPApmAX)
+[![License](https://poser.pugx.org/badges/poser/license.svg)](./LICENSE)
 
 # What is ugamela?
 
