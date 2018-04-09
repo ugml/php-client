@@ -1,18 +1,12 @@
-dist: trusty
 language: php
 php:
   - '7.1'
+  - '7.2'
 
 script:
 #  - composer self-update
   - composer install --dev
   - ./vendor/bin/phpunit
-
-after_success:
-  - php ./vendor/bin/phpdoc -i "css/,images/,scripts/,skins/,tests/,vendor/,core/config.php,test.php" -d ./ --template clean --title "ugamela Documentation"
-  - mv output/ docs/
-  - rm -rf ./docs/build/
-  - curl --ftp-create-dirs -T ./ sftp://${SFTP_USER}:${SFTP_PASSWORD}@${SFTP_HOST}/ugamela/$f
 
 notifications:
   email: false
