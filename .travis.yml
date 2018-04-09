@@ -9,7 +9,7 @@ script:
   - ./vendor/bin/phpunit
 
 after_success:
-  - chomod +x deploy.sh
+  - chmod +x deploy.sh
   - ./deploy.sh
 
 notifications:
