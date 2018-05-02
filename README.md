@@ -1,5 +1,6 @@
 ![N|Solid](https://mamen.at/ugamela/images/logo.png)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/be7b383f98354a579b59274e732dfe3b)](https://app.codacy.com/app/mamen/ugamela?utm_source=github.com&utm_medium=referral&utm_content=mamen/ugamela&utm_campaign=badger)
 [![Build Status](https://travis-ci.com/mamen/ugamela.svg?token=W9dJHsFajvdU8w61Xgun&branch=master)](https://travis-ci.com/mamen/ugamela)
 [![Discord Server](https://discordapp.com/api/guilds/339129999082913794/embed.png)](https://discord.gg/YDUHM3k)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](./LICENSE)
