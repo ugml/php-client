@@ -62,25 +62,22 @@
          * Returns the energy-consumption
          * @return float the energy-consumption
          */
-        public function getEnergyConsumption() : float {
-            global $data;
+        public function getEnergyConsumption($metPercent, $crystPercent, $deutPercent) : float {
+//            global $data;
 
             // metal-mine
             if (parent::getUnitId() == 1) {
-                return ceil(10 * $this->level * pow(1.1, $this->level) * ($data->getPlanet()
-                            ->getMetalMinePercent() / 100));
+                return ceil(10 * $this->level * pow(1.1, $this->level) * ($metPercent / 100));
             }
 
             // crystal-mine
             if (parent::getUnitId() == 2) {
-                return ceil(10 * $this->level * pow(1.1, $this->level) * ($data->getPlanet()
-                            ->getCrystalMinePercent() / 100));
+                return ceil(10 * $this->level * pow(1.1, $this->level) * ($crystPercent / 100));
             }
 
             // deuterium-mine
             if (parent::getUnitId() == 3) {
-                return ceil(20 * $this->level * pow(1.1, $this->level) * ($data->getPlanet()
-                            ->getDeuteriumSynthesizerPercent() / 100));
+                return ceil(20 * $this->level * pow(1.1, $this->level) * ($deutPercent / 100));
             }
 
             return 0;

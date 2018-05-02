@@ -1,9 +1,10 @@
 <?php
 
+
     define('INSIDE', true);
 
     // enable debug-mode
-    define('DEBUG', true);
+    define('DEBUG', false);
 
     $root = $_SERVER['DOCUMENT_ROOT'] . '/ugamela/';
 

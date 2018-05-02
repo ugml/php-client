@@ -5,4 +5,14 @@
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./core/</directory>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-xml" target="test/coverageData/coverage.xml" />
+    </logging>
 </phpunit>

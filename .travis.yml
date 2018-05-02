@@ -5,8 +5,11 @@ php:
 
 script:
 #  - composer self-update
-  - composer install --dev
-  - ./vendor/bin/phpunit
+  - composer install
+  - ./vendor/bin/phpunit --coverage-xml ./tests/coverageData
+
+after_script:
+  - php vendor/bin/codacycoverage phpunit ./tests/coverageData
 
 notifications:
   email: false
