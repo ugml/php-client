@@ -6,10 +6,10 @@ php:
 script:
 #  - composer self-update
   - composer install
-  - ./vendor/bin/phpunit --coverage-clover tests/coverageData
+  - ./vendor/bin/phpunit --coverage-clover ./tests/coverageData
 
 after_script:
-  - php vendor/bin/codacycoverage clover tests/coverageData
+  - php vendor/bin/codacycoverage clover ./tests/coverageData
 
 notifications:
   email: false
