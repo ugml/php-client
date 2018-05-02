@@ -293,7 +293,7 @@
                         if ($unitID > 0 && $unitCnt > 0) {
 
 
-                            $durationForOneUnit = 3600 * $units->getBuildTime($data->getFleet()[$unitID]);
+                            $durationForOneUnit = 3600 * $units->getBuildTime($data->getFleet()[$unitID], $data->getBuilding()[6]->getLevel(), $data->getBuilding()[8]->getLevel(), $data->getBuilding()[7]->getLevel());
 
                             $shipFinishedCnt = floor($timePassedSinceStart / $durationForOneUnit);
 

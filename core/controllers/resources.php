@@ -14,6 +14,8 @@
 
         private $view = null;
 
+        private $model = null;
+
         private $planetID = null;
 
         /**
@@ -47,6 +49,7 @@
                 $this->lang['config_base_income_energy'] = number_format($base_income['energy'], 0);
 
 
+                $this->model = new M_Resources();
 
 
 
@@ -73,7 +76,7 @@
                     $data->getBuilding()[$units->getUnitID('solar_plant')]->getLevel(),
                     $data->getBuilding()[$units->getUnitID('fusion_reactor')]->getLevel(),
                     $data->getTech()[$units->getUnitID('energy_tech')]->getLevel(),
-                    $data->getFleet()[$units->getUnitID('solar_satellite')]->getLevel(),
+                    $data->getFleet()[$units->getUnitID('solar_satellite')]->getAmount(),
                     $data->getPlanet()->getTempMax()
                 );
 
@@ -276,7 +279,7 @@
             global $config, $debug;
 
             try {
-                $this->lang = array_merge($this->lang, M_Resources::loadLanguage());
+                $this->lang = array_merge($this->lang, $this->model->loadLanguage());
 
                 $this->view->assign('lang', $this->lang);
                 $this->view->assign('title', $config['game_name']);

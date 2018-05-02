@@ -1,7 +1,7 @@
 ![N|Solid](https://mamen.at/ugamela/images/logo.png)
 
 [![Build Status](https://travis-ci.com/mamen/ugamela.svg?token=W9dJHsFajvdU8w61Xgun&branch=master)](https://travis-ci.com/mamen/ugamela)
-[![Discord Server](https://discordapp.com/api/guilds/339129999082913794/embed.png)](https://discord.gg/uB2w3)
+[![Discord Server](https://discordapp.com/api/guilds/339129999082913794/embed.png)](https://discord.gg/YDUHM3k)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](./LICENSE)
 
 # What is ugamela?
@@ -49,6 +49,6 @@ This open-source project is still in an alpha-state, **please do not use this in
 
 For any further questions, support or general talk, please visit our Discord by clicking on the image below or follow the link.
 
-[![N|Solid](https://t5.rbxcdn.com/18108a5641ff1becc8dfa20aed634d1f)](https://discord.gg/WPApmAX)
+[![N|Solid](https://t5.rbxcdn.com/18108a5641ff1becc8dfa20aed634d1f)](https://discord.gg/YDUHM3k)
 
 https://discord.gg/WPApmAX

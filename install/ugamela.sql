@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql:3306
--- Erstellungszeit: 25. Feb 2018 um 16:28
--- Server-Version: 10.2.12-MariaDB-10.2.12+maria~jessie
--- PHP-Version: 7.1.9
+-- Erstellungszeit: 02. Mai 2018 um 10:19
+-- Server-Version: 10.2.13-MariaDB-10.2.13+maria~jessie
+-- PHP-Version: 7.2.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `ugamela`
 --
+CREATE DATABASE IF NOT EXISTS `ugamela` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `ugamela`;
 
 -- --------------------------------------------------------
 
@@ -28,6 +30,7 @@ SET time_zone = "+00:00";
 -- Tabellenstruktur für Tabelle `buildings`
 --
 
+DROP TABLE IF EXISTS `buildings`;
 CREATE TABLE `buildings` (
   `planetID` int(11) NOT NULL,
   `metal_mine` int(11) NOT NULL DEFAULT 0,
@@ -53,6 +56,7 @@ CREATE TABLE `buildings` (
 -- Tabellenstruktur für Tabelle `defenses`
 --
 
+DROP TABLE IF EXISTS `defenses`;
 CREATE TABLE `defenses` (
   `planetID` int(11) NOT NULL,
   `rocket_launcher` int(11) NOT NULL DEFAULT 0,
@@ -73,6 +77,7 @@ CREATE TABLE `defenses` (
 -- Tabellenstruktur für Tabelle `errors`
 --
 
+DROP TABLE IF EXISTS `errors`;
 CREATE TABLE `errors` (
   `id` int(11) NOT NULL,
   `class` text NOT NULL,
@@ -89,6 +94,7 @@ CREATE TABLE `errors` (
 -- Tabellenstruktur für Tabelle `fleet`
 --
 
+DROP TABLE IF EXISTS `fleet`;
 CREATE TABLE `fleet` (
   `planetID` int(11) NOT NULL,
   `small_cargo_ship` int(11) NOT NULL DEFAULT 0,
@@ -113,22 +119,23 @@ CREATE TABLE `fleet` (
 -- Tabellenstruktur für Tabelle `flights`
 --
 
+DROP TABLE IF EXISTS `flights`;
 CREATE TABLE `flights` (
   `flightID` int(11) NOT NULL,
   `ownerID` int(11) NOT NULL,
-  `mission` int(11) NOT NULL,
-  `amount` int(11) NOT NULL,
+  `mission` tinyint(1) NOT NULL,
   `fleetlist` text NOT NULL,
   `start_id` int(11) NOT NULL,
-  `start_type` int(11) NOT NULL,
-  `starttime` int(11) NOT NULL,
+  `start_type` tinyint(1) NOT NULL,
+  `start_time` int(11) NOT NULL,
   `end_id` int(11) NOT NULL,
-  `end_type` int(11) NOT NULL,
+  `end_type` tinyint(1) NOT NULL,
   `end_time` int(11) NOT NULL,
   `loaded_metal` int(11) NOT NULL DEFAULT 0,
   `loaded_crystal` int(11) NOT NULL DEFAULT 0,
   `loaded_deuterium` int(11) NOT NULL DEFAULT 0,
-  `returntime` int(11) NOT NULL
+  `returning` tinyint(1) NOT NULL DEFAULT 0,
+  `processed` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -137,6 +144,7 @@ CREATE TABLE `flights` (
 -- Tabellenstruktur für Tabelle `galaxy`
 --
 
+DROP TABLE IF EXISTS `galaxy`;
 CREATE TABLE `galaxy` (
   `planetID` int(11) NOT NULL DEFAULT 0,
   `debris_metal` int(11) NOT NULL DEFAULT 0,
@@ -149,6 +157,7 @@ CREATE TABLE `galaxy` (
 -- Tabellenstruktur für Tabelle `messages`
 --
 
+DROP TABLE IF EXISTS `messages`;
 CREATE TABLE `messages` (
   `messageID` int(11) NOT NULL,
   `senderID` int(11) NOT NULL,
@@ -165,6 +174,7 @@ CREATE TABLE `messages` (
 -- Tabellenstruktur für Tabelle `planets`
 --
 
+DROP TABLE IF EXISTS `planets`;
 CREATE TABLE `planets` (
   `planetID` int(11) NOT NULL,
   `ownerID` int(11) NOT NULL,
@@ -176,7 +186,7 @@ CREATE TABLE `planets` (
   `planet_type` int(1) NOT NULL,
   `image` char(32) NOT NULL,
   `diameter` int(11) NOT NULL,
-  `fields_current` int(3) NOT NULL,
+  `fields_current` int(3) NOT NULL DEFAULT 0,
   `fields_max` int(3) NOT NULL,
   `temp_min` int(3) NOT NULL,
   `temp_max` int(3) NOT NULL,
@@ -196,9 +206,23 @@ CREATE TABLE `planets` (
   `b_tech_id` int(3) DEFAULT NULL,
   `b_tech_endtime` int(10) DEFAULT NULL,
   `b_hangar_id` text DEFAULT NULL,
-  `b_hangar_start_time` int(11) NOT NULL,
+  `b_hangar_start_time` int(11) NOT NULL DEFAULT 0,
   `b_hangar_plus` tinyint(1) NOT NULL DEFAULT 0,
   `destroyed` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `stats`
+--
+
+DROP TABLE IF EXISTS `stats`;
+CREATE TABLE `stats` (
+  `userID` int(11) NOT NULL,
+  `points` bigint(11) NOT NULL DEFAULT 0,
+  `old_rank` tinyint(4) NOT NULL DEFAULT 0,
+  `rank` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -207,6 +231,7 @@ CREATE TABLE `planets` (
 -- Tabellenstruktur für Tabelle `techs`
 --
 
+DROP TABLE IF EXISTS `techs`;
 CREATE TABLE `techs` (
   `userID` int(11) NOT NULL,
   `espionage_tech` tinyint(2) NOT NULL DEFAULT 0,
@@ -232,6 +257,7 @@ CREATE TABLE `techs` (
 -- Tabellenstruktur für Tabelle `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `userID` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -299,6 +325,12 @@ ALTER TABLE `planets`
   ADD KEY `fk_planet_ownerid` (`ownerID`);
 
 --
+-- Indizes für die Tabelle `stats`
+--
+ALTER TABLE `stats`
+  ADD UNIQUE KEY `userid_UNIQUE` (`userID`);
+
+--
 -- Indizes für die Tabelle `techs`
 --
 ALTER TABLE `techs`
@@ -322,13 +354,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT für Tabelle `errors`
 --
 ALTER TABLE `errors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `flights`
 --
 ALTER TABLE `flights`
-  MODIFY `flightID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `flightID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT für Tabelle `messages`
@@ -382,6 +414,12 @@ ALTER TABLE `messages`
 --
 ALTER TABLE `planets`
   ADD CONSTRAINT `fk_planet_ownerid` FOREIGN KEY (`ownerID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints der Tabelle `stats`
+--
+ALTER TABLE `stats`
+  ADD CONSTRAINT `fk_stats_userid` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints der Tabelle `techs`

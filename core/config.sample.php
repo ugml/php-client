@@ -29,7 +29,6 @@
         'prefix' => 'MYSQL_TABLE_PREFIX'
     ];
 
-
     // base_income per hour
     $base_income = [
         'metal'     => 500,
@@ -54,11 +53,10 @@
     $lang['game_name'] = $config['game_name'];
     $lang['language'] = $config['language'];
     $lang['copyright'] = $config['copyright'];
-    $lang['ugamela_version'] = "0.0.1-alpha-1";
-
-    $debug = new Debug();
+    $lang['ugamela_version'] = "0.0.1-alpha";
 
     if (DEBUG) {
+        $debug = new Debug();
         error_reporting(E_ALL & ~E_NOTICE);
         ini_set('display_errors', 1);
         require_once('LoggedPDO.php');

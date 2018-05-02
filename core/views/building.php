@@ -170,7 +170,9 @@
                         $fields['required_ressources'] .= '<img src="'.$config['skinpath'] .  '/images/energy.png"> ' . number_format($building->getCostEnergy(), 0) . ' ';
                     }
 
-                    $duration = 3600 * $units->getBuildTime($building);
+
+
+                    $duration = 3600 * $units->getBuildTime($building, $data->getBuilding()[6]->getLevel(), $data->getBuilding()[8]->getLevel(), $data->getBuilding()[7]->getLevel());
 
 
                     $weeks = floor(($duration / 604800));

@@ -4,7 +4,7 @@
 <div id='title'>
     <img src="images/logo.png"/>
     <br>
-    <span>CLOSED</span>
+    <span>PUBLIC</span>
     <span>ALPHA</span>
     <br>
     <form method="post">

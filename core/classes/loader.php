@@ -443,7 +443,7 @@
         }
 
         /**
-         * @return D_Planet
+         * @return U_Planet
          */
         public function getPlanet() : U_Planet {
 

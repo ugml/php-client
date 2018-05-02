@@ -10,15 +10,19 @@
 
         private $post = null;
 
+        private $model = null;
+
         private $lang = null;
 
         function __construct($get, $post) {
 
-            global $debug, $path;
+            global $data, $debug, $path;
 
             try {
                 $this->get = $get;
                 $this->post = $post;
+
+                $this->model = new M_Settings();
 
                 if (!empty($this->get)) {
                     self::handleGET();
@@ -58,7 +62,7 @@
             // load view
             $view = new V_Settings();
 
-            $v_lang = M_Settings::loadLanguage();
+            $v_lang = $this->model->loadLanguage();
 
             if (is_array($this->lang) && is_array($v_lang)) {
                 $this->lang = array_merge($this->lang, $v_lang);

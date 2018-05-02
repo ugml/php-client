@@ -495,7 +495,7 @@
          * @param int        $naniteLvl the level of the nanite factory
          * @return float the needed time to build in seconds
          */
-        function getBuildTime(U_Building $building, int $robotLvl, int $shipYardLvl, int $naniteLvl) : float {
+        function getBuildTime(U_Unit $building, int $robotLvl, int $shipYardLvl, int $naniteLvl) : float {
 
             $metal = $building->getCostMetal();
             $crystal = $building->getCostCrystal();
@@ -507,6 +507,8 @@
                 return ($metal + $crystal) / (2500 * (1 + $robotLvl) * (2 ** $naniteLvl));
             }
 
+            // TODO: research-lab-level and research-network level
+
             // tech
             if ($building->getUnitId() > 100 && $building->getUnitId() < 200) {
                 return ($metal * $factor + $crystal * $factor) / (2500 * (1 + $robotLvl) * pow(2, $naniteLvl));
@@ -516,8 +518,6 @@
             if ($building->getUnitId() > 200 && $building->getUnitId() < 400) {
                 return ($metal + $crystal) / (2500 * (1 + $shipYardLvl) * pow(2, $naniteLvl));
             }
-
-            // TODO: research
 
         }
 

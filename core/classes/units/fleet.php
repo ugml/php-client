@@ -50,4 +50,8 @@
         public function getAmount() : int {
             return $this->amount;
         }
+
+        public function setAmount($amt) {
+            $this->amount = $amt;
+        }
     }

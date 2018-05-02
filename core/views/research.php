@@ -158,7 +158,8 @@
                     $fields['r_crystal'] = number_format(ceil($crystal), 0);
                     $fields['r_deuterium'] = number_format(ceil($deuterium), 0);
 
-                    $duration = 3600 * $units->getBuildTime($research[$unitID]);
+                    // TODO: levels
+                    $duration = 3600 * $units->getBuildTime($research[$unitID], 1,1,1);
 
                     $hours = floor($duration / 3600);
                     $minutes = floor(($duration / 60) % 60);

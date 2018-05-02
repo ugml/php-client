@@ -78,7 +78,7 @@
 
 
             $planet->setOwnerID($playerID);
-            $planet->setName("Heimatplanet");
+            $planet->setName("Planet");
             $planet->createPlanet(1);
 
             //            $planet->printPlanet();

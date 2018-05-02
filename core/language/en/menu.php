@@ -22,6 +22,7 @@
     $lang['help'] = 'Help';
 
     $lang['bug_report'] = 'Report a Bug';
+    $lang['chat'] = 'Chat';
 
     $lang['messages'] = 'Messages';
     $lang['notes'] = 'Notes';
