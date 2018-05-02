@@ -6,7 +6,11 @@ php:
 script:
 #  - composer self-update
   - composer install --dev
-  - ./vendor/bin/phpunit
+  - export CODACY_PROJECT_TOKEN=$CODACY_TOKEN
+  - ./vendor/bin/phpunit  --coverage-clover build/coverage/xml
+
+after_script:
+  - php vendor/bin/codacycoverage clover build/coverage/xml
 
 notifications:
   email: false

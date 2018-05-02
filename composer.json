@@ -3,7 +3,8 @@
 		"phpunit/phpunit": "3.7.*",
 		"phpunit/dbunit": ">=1.2",
 		"phpunit/phpunit-selenium": ">=1.2",
-		"phpdocumentor/phpdocumentor": "2.*"
+		"phpdocumentor/phpdocumentor": "2.*",
+		"codacy/coverage": "dev-master"
 	},
 	"autoload": {
 		"psr-0": {
