@@ -1,6 +1,7 @@
 ![N|Solid](https://mamen.at/ugamela/images/logo.png)
 
-[![Build Status](https://travis-ci.com/mamen/ugamela.svg?token=W9dJHsFajvdU8w61Xgun&branch=master)](https://travis-ci.com/mamen/ugamela)
+[![Build Status](https://travis-ci.org/mamen/ugamela.svg?branch=master)](https://travis-ci.org/mamen/ugamela)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4d0fb3f129a8413e820144e6fba280e1)](https://www.codacy.com/app/mamen/ugamela?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mamen/ugamela&amp;utm_campaign=Badge_Grade)
 [![Discord Server](https://discordapp.com/api/guilds/339129999082913794/embed.png)](https://discord.gg/YDUHM3k)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](./LICENSE)
 
@@ -43,7 +44,6 @@ This open-source project is still in an alpha-state, **please do not use this in
 1.  This project uses is being developed with the (currently) latest release of PHP (Version 7.1.9) and mariaDB (Version 10.2). For a easy quick start, use the latest release of [XAMPP](https://www.apachefriends.org/de/download.html) or use [Docker](https://www.docker.com) with the necessary containers.
 2.  After setting up your environment, import the sql-file located in the install directory.
 3.  Edit the config.sample.php in the core-folder to match your server-configuration and **rename it to config.php**.
-4.  Login to the game with the  **default Username** "admin" and  **default Password** "admin"
 
 # Support / Questions
 
