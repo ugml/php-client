@@ -4,9 +4,7 @@
 
     require_once __DIR__.'/config.php';
 
-
     require_once "core/classes/data/user.php";
-
 
     use PHPUnit\Framework\TestCase;
 
