@@ -7,13 +7,12 @@
     </testsuites>
 
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
+        <whitelist>
             <directory suffix=".php">./core/</directory>
         </whitelist>
     </filter>
 
     <logging>
-        <log type="coverage-html" target="./test/coverageData/html.xml" />
-        <log type="coverage-clover" target="./test/coverageData/clover.xml" />
+        <log type="coverage-xml" target="test/coverageData/coverage.xml" />
     </logging>
 </phpunit>
