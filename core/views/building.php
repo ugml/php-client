@@ -170,10 +170,7 @@
                         $fields['required_ressources'] .= '<img src="'.$config['skinpath'] .  '/images/energy.png"> ' . number_format($building->getCostEnergy(), 0) . ' ';
                     }
 
-                    $duration = 3600 * $units->getBuildTime($building,
-                            $data->getBuilding()[$units->getUnitID('robotic_factory')]->getLevel(),
-                            $data->getBuilding()[$units->getUnitID('shipyard')]->getLevel(),
-                            $data->getBuilding()[$units->getUnitID('nanite_factory')]->getLevel());
+                    $duration = 3600 * $units->getBuildTime($building);
 
 
                     $weeks = floor(($duration / 604800));

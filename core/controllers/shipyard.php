@@ -12,11 +12,18 @@
 
         private $lang = null;
 
+        private $model = null;
+        private $view = null;
+
         function __construct($get, $post) {
 
             global $data, $debug, $path;
 
             try {
+
+                $this->model = new M_Shipyard();
+                $this->view = new V_Shipyard();
+
                 $this->get = $get;
                 $this->post = $post;
 
@@ -88,7 +95,7 @@
 
         function build(array $buildQueue) : void {
 
-            global $data;
+            global $data, $units;
 
             if ($data->getPlanet()->getBHangarPlus() > 0) {
                 throw new InvalidArgumentException("cant build while shipyard is upgrading");
@@ -163,7 +170,7 @@
 
             }
 
-            M_Shipyard::build($data->getPlanet()->getPlanetId(), $buildList, $totalMetal, $totalMetal, $totalDeuterium);
+            $this->model->build(intval($data->getPlanet()->getPlanetId()), $buildList, $totalMetal, $totalMetal, $totalDeuterium);
 
         }
 
@@ -171,13 +178,10 @@
 
             global $config, $data, $units;
 
-            // load view
-            $view = new V_Shipyard();
-
-            $v_lang = M_Shipyard::loadLanguage();
+            $v_lang = $this->model->loadLanguage();
 
             // load the individual rows for each building
-            $this->lang['shipyard_list'] = $view->loadShipyardRows($data->getFleet(), $units->getFleet(),
+            $this->lang['shipyard_list'] = $this->view->loadShipyardRows($data->getFleet(), $units->getFleet(),
                 $data->getPlanet());
 
             if (is_array($this->lang) && is_array($v_lang)) {
@@ -189,16 +193,16 @@
             }
 
 
-            $view->assign('lang', $this->lang);
-            $view->assign('title', $config['game_name']);
-            $view->assign('skinpath', $config['skinpath']);
-            $view->assign('copyright', $config['copyright']);
-            $view->assign('language', $config['language']);
+            $this->view->assign('lang', $this->lang);
+            $this->view->assign('title', $config['game_name']);
+            $this->view->assign('skinpath', $config['skinpath']);
+            $this->view->assign('copyright', $config['copyright']);
+            $this->view->assign('language', $config['language']);
 
             if (!empty($this->get['mode'])) {
-                echo $view->loadTemplate($this->get['mode']);
+                echo $this->view->loadTemplate($this->get['mode']);
             } else {
-                echo $view->loadTemplate();
+                echo $this->view->loadTemplate();
             }
         }
     }

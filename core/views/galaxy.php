@@ -46,7 +46,7 @@
         }
 
         public function loadGalaxyRows($galaxyData) {
-            global $path, $config;
+            global $path, $config, $data;
 
 //            echo "<pre>";
 //            print_r($galaxyData);
@@ -75,7 +75,11 @@
                 // if there is a planet at this position
                 if(array_key_exists($i, $galaxyData)) {
                     $fields['galaxy_planetimg'] = "<img width='32px' height='32px' src=\"".$config['skinpath'] .  "/planeten/small/s_".$galaxyData[$i]->image.".png\" />";
+
+
                     $fields['galaxy_name'] = $galaxyData[$i]->name;
+
+
 
 
                     if(intval($galaxyData[$i]->moonID) > 0) {
@@ -105,15 +109,42 @@
                         $status .= '(<span class="inactive_short">i</span>)';
                     }
 
-
-                    $fields['galaxy_player'] = $galaxyData[$i]->username . " " . $status;
+                    if(strlen($galaxyData[$i]->username) > 10) {
+                        $fields['galaxy_player'] = substr($galaxyData[$i]->username, 0, 10) . " ... " . $status;
+                    } else {
+                        $fields['galaxy_player'] = $galaxyData[$i]->username . " " . $status;
+                    }
 
                     // TODO
                     $fields['galaxy_alliance'] = "-";
 
 
+                    $fields['galaxy_actions'] = "";
 
-                    $fields['galaxy_actions'] = "-";
+                    // if it is the player himself
+                    if(intval($galaxyData[$i]->userID) === $data->getUser()->getUserID()) {
+                        $fields['galaxy_actions'] = " - ";
+                    } else {
+
+                        // if player has espionage-probes
+                        if($data->getFleet()[209]->getAmount() > 0) {
+                            // TODO: create link
+                            $fields['galaxy_actions'] .= "<img src=\"".$config['skinpath'] .  "/images/e.gif\" />&nbsp;";
+                        }
+
+                        // TODO: create link
+                        $fields['galaxy_actions'] .= "<img src=\"".$config['skinpath'] .  "/images/m.gif\" />&nbsp;";
+
+                        // TODO: if not already butty
+                        $fields['galaxy_actions'] .= "<img src=\"".$config['skinpath'] .  "/images/b.gif\" />&nbsp;";
+
+                        // TODO: if in range
+                        if($data->getDefense()[310]->getAmount() > 0) {
+                            $fields['galaxy_actions'] .= "<img src=\"" . $config['skinpath'] . "/images/r.gif\" />";
+                        }
+                    }
+
+
                 } else {
                     $fields['galaxy_planetimg'] = "";
                     $fields['galaxy_name'] = "";

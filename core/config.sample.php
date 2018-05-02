@@ -54,6 +54,7 @@
     $lang['game_name'] = $config['game_name'];
     $lang['language'] = $config['language'];
     $lang['copyright'] = $config['copyright'];
+    $lang['ugamela_version'] = "0.0.1-alpha-1";
 
     $debug = new Debug();
 

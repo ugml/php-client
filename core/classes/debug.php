@@ -2,9 +2,9 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class FileNotFoundException extends Exception {
-
-    }
+//    class FileNotFoundException extends Exception {
+//
+//    }
 
     class Debug {
 

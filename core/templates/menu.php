@@ -1,6 +1,5 @@
 <!-- left menu -->
 <div class="col-md-2">
-    <span><b>v 0.0.0-alpha-1</b></span>
     <ul id="leftmenu">
         <li><img src="<?php echo $this->_['skinpath']; ?>gfx/ogame-produktion.png" alt="ogame-produktion"/></li>
         <li><a href="game.php?page=overview">{overview}</a></li>
@@ -38,6 +37,8 @@
 
         <li><a href="game.php?page=settings">{settings}</a></li>
         <li><a href="logout.php">{logout}</a></li>
+
+        <li><a href="https://github.com/mamen/ugamela/issues">{bug_report}</a></li>
 
         <!--<li><a href="game.php?page=rules">{rules}</a></li>-->
         <!--<li><a href="game.php?page=imprint">{imprint}</a></li>-->

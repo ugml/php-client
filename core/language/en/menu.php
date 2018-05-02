@@ -21,6 +21,8 @@
     $lang['search'] = 'Search';
     $lang['help'] = 'Help';
 
+    $lang['bug_report'] = 'Report a Bug';
+
     $lang['messages'] = 'Messages';
     $lang['notes'] = 'Notes';
     $lang['buddylist'] = 'Buddylist';

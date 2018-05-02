@@ -293,9 +293,7 @@
                         if ($unitID > 0 && $unitCnt > 0) {
 
 
-                            $durationForOneUnit = 3600 * $units
-                                    ->getBuildTime($unitID, 0, $data->getBuilding()[$units->getUnitID('robotic_factory')]->getLevel(),
-                                        $data->getBuilding()[$units->getUnitID('shipyard')]->getLevel(), $data->getBuilding()[$units->getUnitID('nanite_factory')]->getLevel());
+                            $durationForOneUnit = 3600 * $units->getBuildTime($data->getFleet()[$unitID]);
 
                             $shipFinishedCnt = floor($timePassedSinceStart / $durationForOneUnit);
 
@@ -321,31 +319,22 @@
                                     $i++;
                                 }
 
-                                // get the current shipcount of this unit
-                                $methodArr = explode('_', $units->getUnit($unitID));
 
-                                $method = 'get';
+                                $currentShipCount = $data->getFleet()[$unitID]->getAmount();
 
-                                foreach ($methodArr as $a => $b) {
-                                    $method .= ucfirst($b);
-                                }
-                                $currentShipCount = call_user_func_array(array($data->getFleet(), $method), array());
+                                $newShipCount = $currentShipCount + $shipFinishedCnt;
 
-                                // add the new shipcount to this unit
-                                $methodArr = explode('_', $units->getUnit($unitID));
+                                $data->getFleet()[$unitID]->setAmount($newShipCount);
 
-                                $method = 'set';
 
-                                foreach ($methodArr as $a => $b) {
-                                    $method .= ucfirst($b);
-                                }
-                                call_user_func_array(array($data->getFleet(),
-                                                           $method
-                                ), array($currentShipCount + $shipFinishedCnt));
+
+
+
+
 
 
                                 // TODO: BUG! only first row of queue will be written to DB!
-                                print_r($shipsLeftArray);
+//                                print_r($shipsLeftArray);
 
                                 $shipQueue = "";
                                 for ($i = 0; $i < sizeof($shipsLeftArray); $i++) {
@@ -358,7 +347,7 @@
 
                                 // update the building level
                                 $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'fleet SET ' . $units
-                                        ->getUnit($unitID) . ' = ' . ($currentShipCount + $shipFinishedCnt) . ' WHERE planetId = ' . $this->planetID);
+                                        ->getUnitName($unitID) . ' = ' . ($newShipCount) . ' WHERE planetId = ' . $this->planetID);
 
                                 $stmt->execute();
 

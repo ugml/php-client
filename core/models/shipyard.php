@@ -43,7 +43,7 @@
          * @return Loader an object containing all the information
          * @throws FileNotFoundException
          */
-        public static function loadUserData($userID) {
+        public function loadUserData($userID) {
 
             global $path;
 
@@ -57,7 +57,7 @@
             return new Loader($userID);
         }
 
-        public static function build(int $planetID, array $buildingQueue, int $costMetal, int $costCrystal,
+        public function build(int $planetID, array $buildingQueue, int $costMetal, int $costCrystal,
             int $costDeuterium) {
 
             global $dbConfig, $dbConnection, $data;

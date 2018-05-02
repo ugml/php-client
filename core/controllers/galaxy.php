@@ -12,6 +12,10 @@
 
         private $lang = null;
 
+        private $model = null;
+        private $view = null;
+
+
         private $currentGalaxy;
 
         private $currentSystem;
@@ -21,6 +25,10 @@
             global $data, $debug, $path;
 
             try {
+
+                $this->model = new M_Galaxy();
+                $this->view = new V_Galaxy();
+
                 $this->get = $get;
                 $this->post = $post;
 
@@ -85,23 +93,47 @@
 
             global $config, $data;
 
-            // load view
-            $view = new V_Galaxy();
-
-            $v_lang = M_Galaxy::loadLanguage();
-            $galaxyData = M_Galaxy::loadGalaxyData($this->currentGalaxy, $this->currentSystem);
+            $v_lang = $this->model->loadLanguage();
+            $galaxyData = $this->model->loadGalaxyData($this->currentGalaxy, $this->currentSystem);
 
             // load the individual rows for each building
-            $this->lang['galaxy_list'] = $view->loadGalaxyRows($galaxyData);
+            $this->lang['galaxy_list'] = $this->view->loadGalaxyRows($galaxyData);
+
+            // check boundaries
+            if($this->currentGalaxy <= 1) {
+                $this->currentGalaxy = 1;
+                $this->lang['galaxy_pos_g_prev'] = 1;
+            } else {
+                $this->lang['galaxy_pos_g_prev'] = $this->currentGalaxy-1;
+            }
+
+            // check boundaries
+            if($this->currentGalaxy >= $config['max_galaxy']) {
+                $this->currentGalaxy = $config['max_galaxy'];
+                $this->lang['galaxy_pos_g_next'] = $config['max_galaxy'];
+            } else {
+                $this->lang['galaxy_pos_g_next'] = $this->currentGalaxy+1;
+            }
+
+            // check boundaries
+            if($this->currentSystem <= 1) {
+                $this->currentSystem = 1;
+                $this->lang['galaxy_pos_s_prev'] = 1;
+            } else {
+                $this->lang['galaxy_pos_s_prev'] = $this->currentSystem-1;
+            }
+
+            // check boundaries
+            if($this->currentSystem >= $config['max_system']) {
+                $this->currentSystem = $config['max_system'];
+                $this->lang['galaxy_pos_s_next'] = $config['max_system'];
+            } else {
+                $this->lang['galaxy_pos_s_next'] = $this->currentSystem+1;
+            }
 
 
             $this->lang['galaxy_pos_g'] = $this->currentGalaxy;
             $this->lang['galaxy_pos_s'] = $this->currentSystem;
-
-            $this->lang['galaxy_pos_g_prev'] = $this->currentGalaxy-1;
-            $this->lang['galaxy_pos_g_next'] = $this->currentGalaxy+1;
-
-
 
             $this->lang['galaxy_num_planets'] = count($galaxyData);
 
@@ -114,16 +146,16 @@
             }
 
 
-            $view->assign('lang', $this->lang);
-            $view->assign('title', $config['game_name']);
-            $view->assign('skinpath', $config['skinpath']);
-            $view->assign('copyright', $config['copyright']);
-            $view->assign('language', $config['language']);
+            $this->view->assign('lang', $this->lang);
+            $this->view->assign('title', $config['game_name']);
+            $this->view->assign('skinpath', $config['skinpath']);
+            $this->view->assign('copyright', $config['copyright']);
+            $this->view->assign('language', $config['language']);
 
             if (!empty($this->get['mode'])) {
-                echo $view->loadTemplate($this->get['mode']);
+                echo $this->view->loadTemplate($this->get['mode']);
             } else {
-                echo $view->loadTemplate();
+                echo $this->view->loadTemplate();
             }
         }
     }

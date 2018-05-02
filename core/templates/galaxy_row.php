@@ -24,7 +24,7 @@
             {galaxy_debris}
         </div>
     </div>
-    <div class="col-md-2 text-center vertical-center">
+    <div class="col-md-3 text-center vertical-center">
         <div>
             {galaxy_player}
         </div>
@@ -34,18 +34,9 @@
             {galaxy_alliance}
         </div>
     </div>
-    <div class="col-md-3 text-center vertical-center">
+    <div class="col-md-2 text-center vertical-center">
         <div>
             {galaxy_actions}
         </div>
     </div>
 </div>
-
-
-<!--Pos.-->
-<!--Name (Aktivität)-->
-<!--Mond-->
-<!--TF-->
-<!--Spieler (Status)-->
-<!--Allianz-->
-<!--Aktionen-->

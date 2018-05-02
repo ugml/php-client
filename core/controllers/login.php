@@ -7,8 +7,10 @@
     class C_Login implements I_Controller {
 
         private $get = null;
-
         private $post = null;
+
+        private $view = null;
+        private $model = null;
 
         private $skin = 'css/login.css';
 
@@ -16,6 +18,9 @@
 
             $this->get = $get;
             $this->post = $post;
+
+            $this->view = new V_Login();
+            $this->model = new M_Login();
 
             if (!empty($get)) {
                 self::handleGET();
@@ -34,7 +39,7 @@
         function handlePOST() : void {
 
             if ($_POST) {
-                $user = M_Login::getUserInfo($_POST['username']);
+                $user = $this->model->getUserInfo($_POST['username']);
                 if ($user) {
                     if (password_verify($_POST['password'], $user->password)) {
                         if (session_status() == PHP_SESSION_NONE) {
@@ -56,14 +61,12 @@
 
             global $config;
 
-            $view = new V_Login();
+            $this->view->assign('lang', $this->model->loadLanguage());
+            $this->view->assign('title', $config['game_name']);
+            $this->view->assign('skinpath', $this->skin);
+            $this->view->assign('copyright', $config['copyright']);
+            $this->view->assign('language', $config['language']);
 
-            $view->assign('lang', M_Login::loadLanguage());
-            $view->assign('title', $config['game_name']);
-            $view->assign('skinpath', $this->skin);
-            $view->assign('copyright', $config['copyright']);
-            $view->assign('language', $config['language']);
-
-            echo $view->loadTemplate();
+            echo $this->view->loadTemplate();
         }
     }

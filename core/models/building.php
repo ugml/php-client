@@ -98,9 +98,14 @@
                 if ($buildID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
                     try {
 
-                        $buildTime = time() + 3600 * $units->getBuildTime($data->getBuilding()[$buildID],
-                                $data->getBuilding()['robotic_factory'],
-                                $data->getBuilding()['shipyard'], $data->getBuilding()['nanite_factory']);
+
+
+                        $buildTime = time() + 3600 * $units->getBuildTime(
+                                $data->getBuilding()[$buildID],
+                                $data->getBuilding()[$units->getUnitID('robotic_factory')]->getLevel(),
+                                $data->getBuilding()[$units->getUnitID('shipyard')]->getLevel(),
+                                $data->getBuilding()[$units->getUnitID('nanite_factory')]->getLevel()
+                            );
 
 
                         $params = array(':b_building_id'      => $buildID,
