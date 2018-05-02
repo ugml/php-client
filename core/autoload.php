@@ -4,7 +4,7 @@
      * Automatically loads the needed classes
      * @param string $className the class, which should be included
      */
-    function __autoload(string $className) {
+    spl_autoload_register(function(string $className) {
         global $path;
 
         // classes have the naming convention [FirstLetterOfType]_Name
@@ -53,4 +53,4 @@
         }
 
 
-    }
+    });
