@@ -48,10 +48,6 @@
         }
 
         public function getAmount() : int {
-            return intval($this->amount);
-        }
-
-        public function setAmount($cnt) : void {
-            $this->amount = $cnt;
+            return $this->amount;
         }
     }

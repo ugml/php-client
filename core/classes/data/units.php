@@ -490,77 +490,35 @@
         /**
          * Calculates and returns the build-time for the next level (or one unit for fleet/defense) of the Unit
          * @param U_Building $building the unit-object of the given unit
+         * @param int        $robotLvl the level of the robotic factory
+         * @param int        $shipYardLvl the level of the shipyard factory
+         * @param int        $naniteLvl the level of the nanite factory
          * @return float the needed time to build in seconds
          */
-        function getBuildingBuildTime(U_Building $building) : float {
-            global $data, $units;
-
-
-            $roboID = $units->getUnitID('robotic_factory');
-            $naniID = $units->getUnitID('nanite_factory');
-
-            $roboLvl = $data->getBuilding()[$roboID]->getLevel();
-            $naniLvl = $data->getBuilding()[$naniID]->getLevel();
+        function getBuildTime(U_Building $building, int $robotLvl, int $shipYardLvl, int $naniteLvl) : float {
 
             $metal = $building->getCostMetal();
             $crystal = $building->getCostCrystal();
+            $factor = $building->getFactor();
 
             // building
             if ($building->getUnitId() < 100) {
-                return ($metal + $crystal) / (2500 * (1 + $roboLvl) * (2 ** $naniLvl));
+                //(39410 + 9852)/(2500 * (1+10) * 2^3)
+                return ($metal + $crystal) / (2500 * (1 + $robotLvl) * (2 ** $naniteLvl));
             }
-
-        }
-
-        function getFleetBuildTime(U_Fleet $building) : float {
-            global $data, $units;
-
-            $shipyardID = $units->getUnitID('shipyard');
-            $naniID = $units->getUnitID('nanite_factory');
-
-            $shipyardLvl = $data->getBuilding()[$shipyardID]->getLevel();
-            $naniLvl = $data->getBuilding()[$naniID]->getLevel();
-
-            $metal = $building->getCostMetal();
-            $crystal = $building->getCostCrystal();
-
-            // fleet and defense
-            if ($building->getUnitId() > 200 && $building->getUnitId() < 400) {
-                return ($metal + $crystal) / (2500 * (1 + $shipyardLvl) * pow(2, $naniLvl));
-            }
-        }
-
-        function getResearchBuildTime(U_Research $building) : float {
-            global $data, $units;
-
-            $researchLabID = $units->getUnitID('research_lab');
-            $researchLabLvl = $data->getBuilding()[$researchLabID]->getLevel();
-
-
-            $metal = $building->getCostMetal();
-            $crystal = $building->getCostCrystal();
 
             // tech
             if ($building->getUnitId() > 100 && $building->getUnitId() < 200) {
-                return ($metal + $crystal) / (1000 * (1 + $researchLabLvl));
+                return ($metal * $factor + $crystal * $factor) / (2500 * (1 + $robotLvl) * pow(2, $naniteLvl));
             }
 
-            // TODO: calculate research-network
-
-        }
-
-
-        public function __call($method, $arg) {
-            if($method == 'getBuildTime') {
-
-                if(get_class($arg[0]) === U_Building) {
-                    return call_user_func_array(array($this,'getBuildingBuildTime'), $arg);
-                } else if(get_class($arg[0]) === U_Fleet) {
-                    return call_user_func_array(array($this,'getFleetBuildTime'), $arg);
-                } else if(get_class($arg[0]) === U_Research) {
-                    return call_user_func_array(array($this,'getResearchBuildTime'), $arg);
-                }
+            // fleet and defense
+            if ($building->getUnitId() > 200 && $building->getUnitId() < 400) {
+                return ($metal + $crystal) / (2500 * (1 + $shipYardLvl) * pow(2, $naniteLvl));
             }
+
+            // TODO: research
+
         }
 
         /**
