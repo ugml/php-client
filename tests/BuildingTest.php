@@ -2,10 +2,12 @@
 
     require_once __DIR__.'/config.php';
 
-    require_once "core/classes/units/unit.php";
-    require_once "core/classes/units/building.php";
+    require_once "../core/classes/units/unit.php";
+    require_once "../core/classes/units/building.php";
 
-    class BuildingTest extends PHPUnit_Framework_TestCase {
+    use PHPUnit\Framework\TestCase;
+
+    class BuildingTest extends TestCase {
 
         public function testGetCostMetal() {
 
