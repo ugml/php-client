@@ -5,11 +5,15 @@
 
     require_once __DIR__.'/config.php';
 
-    require_once ROOT . "/core/classes/units/unit.php";
-    require_once ROOT . "/core/classes/units/building.php";
+    require_once dirname(dirname(__FILE__)) . "/core/classes/units/unit.php";
+    require_once dirname(dirname(__FILE__)) . "/core/classes/units/building.php";
 
     use PHPUnit\Framework\TestCase;
 
+    /**
+     * Class UnitBuildingTest
+     * @codeCoverageIgnore
+     */
     final class UnitBuildingTest extends TestCase {
 
         /**

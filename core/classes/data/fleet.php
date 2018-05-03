@@ -68,6 +68,7 @@
          * @param int $fdestroyer
          * @param int $fbattlecruiser
          * @param int $fdeathstar
+         * @codeCoverageIgnore
          */
         public function __construct(
             int $fsmall_cargo_ship, int $flarge_cargo_ship, int $flight_fighter, int $fheavy_fighter, int $fcruiser,
@@ -94,6 +95,7 @@
 
         /**
          * Prints the object to the page
+         * @codeCoverageIgnore
          */
         public function print() : void {
 
@@ -115,9 +117,9 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setSmallCargoShip(int $small_cargo_ship) : void {
+        public function setSmallCargoShip(int $amount) : void {
 
-            $this->small_cargo_ship = $small_cargo_ship;
+            if($amount >= 0) $this->small_cargo_ship = $amount;
         }
 
         /**
@@ -133,9 +135,9 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setLargeCargoShip(int $large_cargo_ship) : void {
+        public function setLargeCargoShip(int $amount) : void {
 
-            $this->large_cargo_ship = $large_cargo_ship;
+            if($amount >= 0) $this->large_cargo_ship = $amount;
         }
 
         /**
@@ -151,9 +153,9 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setLightFighter(int $light_fighter) : void {
+        public function setLightFighter(int $amount) : void {
 
-            $this->light_fighter = $light_fighter;
+            if($amount >= 0) $this->light_fighter = $amount;
         }
 
         /**
@@ -169,9 +171,9 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setHeavyFighter(int $heavy_fighter) : void {
+        public function setHeavyFighter(int $amount) : void {
 
-            $this->heavy_fighter = $heavy_fighter;
+            if($amount >= 0) $this->heavy_fighter = $amount;
         }
 
         /**
@@ -187,9 +189,9 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setCruiser(int $cruiser) : void {
+        public function setCruiser(int $amount) : void {
 
-            $this->cruiser = $cruiser;
+            if($amount >= 0) $this->cruiser = $amount;
         }
 
         /**
@@ -205,9 +207,9 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setBattleship(int $battleship) : void {
+        public function setBattleship(int $amount) : void {
 
-            $this->battleship = $battleship;
+            if($amount >= 0) $this->battleship = $amount;
         }
 
         /**
@@ -223,9 +225,9 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setColonyShip(int $colony_ship) : void {
+        public function setColonyShip(int $amount) : void {
 
-            $this->colony_ship = $colony_ship;
+            if($amount >= 0) $this->colony_ship = $amount;
         }
 
         /**
@@ -241,9 +243,9 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setRecycler(int $recycler) : void {
+        public function setRecycler(int $amount) : void {
 
-            $this->recycler = $recycler;
+            if($amount >= 0) $this->recycler = $amount;
         }
 
         /**
@@ -259,9 +261,9 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setEspionageProbe(int $espionage_probe) : void {
+        public function setEspionageProbe(int $amount) : void {
 
-            $this->espionage_probe = $espionage_probe;
+            if($amount >= 0) $this->espionage_probe = $amount;
         }
 
         /**
@@ -277,9 +279,9 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setBomber(int $bomber) : void {
+        public function setBomber(int $amount) : void {
 
-            $this->bomber = $bomber;
+            if($amount >= 0) $this->bomber = $amount;
         }
 
         /**
@@ -295,9 +297,9 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setSolarSatellite(int $solar_satellite) : void {
+        public function setSolarSatellite(int $amount) : void {
 
-            $this->solar_satellite = $solar_satellite;
+            if($amount >= 0) $this->solar_satellite = $amount;
         }
 
         /**
@@ -313,9 +315,9 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setDestroyer(int $destroyer) : void {
+        public function setDestroyer(int $amount) : void {
 
-            $this->destroyer = $destroyer;
+            if($amount >= 0) $this->destroyer = $amount;
         }
 
         /**
@@ -331,9 +333,9 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setBattlecruiser(int $battlecruiser) : void {
+        public function setBattlecruiser(int $amount) : void {
 
-            $this->battlecruiser = $battlecruiser;
+            if($amount >= 0) $this->battlecruiser = $amount;
         }
 
         /**
@@ -349,9 +351,9 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setDeathstar(int $deathstar) : void {
+        public function setDeathstar(int $amount) : void {
 
-            $this->deathstar = $deathstar;
+            if($amount >= 0) $this->deathstar = $amount;
         }
 
     }

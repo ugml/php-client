@@ -4,10 +4,14 @@
 
     require_once __DIR__.'/config.php';
 
-    require_once ROOT . "/core/classes/data/building.php";
+    require_once dirname(dirname(__FILE__)) . "/core/classes/data/building.php";
 
     use PHPUnit\Framework\TestCase;
 
+    /**
+     * Class DataBuildingTest
+     * @codeCoverageIgnore
+     */
     final class DataBuildingTest extends TestCase {
 
         private $buildingData;

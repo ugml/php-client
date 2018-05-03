@@ -4,10 +4,14 @@
 
     require_once __DIR__.'/config.php';
 
-    require_once ROOT . "/core/classes/data/defense.php";
+    require_once dirname(dirname(__FILE__)) . "/core/classes/data/defense.php";
 
     use PHPUnit\Framework\TestCase;
 
+    /**
+     * Class DataDefenseTest
+     * @codeCoverageIgnore
+     */
     final class DataDefenseTest extends TestCase {
 
         private $defenseData;
@@ -75,8 +79,8 @@
          * @covers D_Defense::getSmallShieldDome
          */
         public function testGetSetSmallShieldDome() : void {
-            $this->defenseData->setSmallShieldDome(5);
-            $this->assertSame(5, $this->defenseData->getSmallShieldDome());
+            $this->defenseData->setSmallShieldDome(1);
+            $this->assertSame(1, $this->defenseData->getSmallShieldDome());
         }
 
         /**
@@ -84,8 +88,8 @@
          * @covers D_Defense::getLargeShieldDome
          */
         public function testGetSetLargeShieldDome() : void {
-            $this->defenseData->setLargeShieldDome(5);
-            $this->assertSame(5, $this->defenseData->getLargeShieldDome());
+            $this->defenseData->setLargeShieldDome(1);
+            $this->assertSame(1, $this->defenseData->getLargeShieldDome());
         }
 
         /**

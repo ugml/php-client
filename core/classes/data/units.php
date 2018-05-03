@@ -28,9 +28,9 @@
         /**
          * D_Units constructor.
          * Loads all needed information about all units into the matching properties.
+         * @codeCoverageIgnore
          */
         function __construct() {
-
             global $path, $config;
 
             require $path['language'] . $config['language'] . '/units.php';

@@ -76,6 +76,43 @@
 
         private $destroyed;
 
+        /**
+         * D_Planet constructor.
+         * @param int    $pID
+         * @param int    $pownerID
+         * @param string $pname
+         * @param int    $pgala
+         * @param int    $psystem
+         * @param int    $pplanet
+         * @param int    $plast_update
+         * @param int    $pplanet_type
+         * @param string $pimage
+         * @param int    $pdiameter
+         * @param int    $pfields_current
+         * @param int    $pfields_max
+         * @param int    $ptemp_min
+         * @param int    $ptemp_max
+         * @param float  $pmetal
+         * @param float  $pcrystal
+         * @param float  $pdeuterium
+         * @param int    $penergy_used
+         * @param int    $penergy_max
+         * @param int    $pmetal_mine_percent
+         * @param int    $pcrystal_mine_percent
+         * @param int    $pdeuterium_synthesizer_percent
+         * @param int    $psolar_plant_percent
+         * @param int    $pfusion_reactor_percent
+         * @param int    $psolar_satellite_percent
+         * @param int    $pb_building_id
+         * @param int    $pb_building_endtime
+         * @param int    $pb_tech_id
+         * @param int    $pb_tech_endtime
+         * @param int    $pb_hangar_start_time
+         * @param string $pb_hangar_id
+         * @param int    $pb_hangar_plus
+         * @param bool    $pdestroyed
+         * @codeCoverageIgnore
+         */
         public function __construct(
             int $pID, int $pownerID, string $pname, int $pgala, int $psystem, int $pplanet, int $plast_update,
             int $pplanet_type, string $pimage,
@@ -84,7 +121,7 @@
             int $penergy_max, int $pmetal_mine_percent, int $pcrystal_mine_percent, int $pdeuterium_synthesizer_percent,
             int $psolar_plant_percent, int $pfusion_reactor_percent,
             int $psolar_satellite_percent, int $pb_building_id, int $pb_building_endtime, int $pb_tech_id,
-            int $pb_tech_endtime, int $pb_hangar_start_time, string $pb_hangar_id, int $pb_hangar_plus, int $pdestroyed
+            int $pb_tech_endtime, int $pb_hangar_start_time, string $pb_hangar_id, int $pb_hangar_plus, bool $pdestroyed
         ) {
 
             $this->planetID = $pID;
@@ -122,6 +159,9 @@
             $this->destroyed = $pdestroyed;
         }
 
+        /**
+         * @codeCoverageIgnore
+         */
         public function printPlanet() : void {
 
             echo '<pre>';
@@ -140,9 +180,12 @@
         /**
          * @param mixed $metal_mine_percent
          */
-        public function setMetalMinePercent($metal_mine_percent) : void {
+        public function setMetalMinePercent(int $metal_mine_percent) : void {
 
-            $this->metal_mine_percent = $metal_mine_percent;
+            if($metal_mine_percent >= 0 && $metal_mine_percent <= 100 && $metal_mine_percent % 10 == 0) {
+                $this->metal_mine_percent = $metal_mine_percent;
+            }
+
         }
 
         /**
@@ -156,9 +199,11 @@
         /**
          * @param mixed $crystal_mine_percent
          */
-        public function setCrystalMinePercent($crystal_mine_percent) : void {
+        public function setCrystalMinePercent(int $crystal_mine_percent) : void {
 
-            $this->crystal_mine_percent = $crystal_mine_percent;
+            if($crystal_mine_percent >= 0 && $crystal_mine_percent <= 100 && $crystal_mine_percent % 10 == 0) {
+                $this->crystal_mine_percent = $crystal_mine_percent;
+            }
         }
 
         /**
@@ -172,9 +217,11 @@
         /**
          * @param mixed $deuterium_synthesizer_percent
          */
-        public function setDeuteriumSynthesizerPercent($deuterium_synthesizer_percent) : void {
+        public function setDeuteriumSynthesizerPercent(int $deuterium_synthesizer_percent) : void {
 
-            $this->deuterium_synthesizer_percent = $deuterium_synthesizer_percent;
+            if($deuterium_synthesizer_percent >= 0 && $deuterium_synthesizer_percent <= 100 && $deuterium_synthesizer_percent % 10 == 0) {
+                $this->deuterium_synthesizer_percent = $deuterium_synthesizer_percent;
+            }
         }
 
         /**
@@ -188,9 +235,47 @@
         /**
          * @param mixed $fusion_reactor_percent
          */
-        public function setFusionReactorPercent($fusion_reactor_percent) : void {
+        public function setFusionReactorPercent(int $fusion_reactor_percent) : void {
 
-            $this->fusion_reactor_percent = $fusion_reactor_percent;
+            if($fusion_reactor_percent >= 0 && $fusion_reactor_percent <= 100 && $fusion_reactor_percent % 10 == 0) {
+                $this->fusion_reactor_percent = $fusion_reactor_percent;
+            }
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getSolarPlantPercent() : int {
+
+            return $this->solar_plant_percent;
+        }
+
+        /**
+         * @param mixed $solar_plant_percent
+         */
+        public function setSolarPlantPercent(int $solar_plant_percent) : void {
+
+            if($solar_plant_percent >= 0 && $solar_plant_percent <= 100 && $solar_plant_percent % 10 == 0) {
+                $this->solar_plant_percent = $solar_plant_percent;
+            }
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getSolarSatellitePercent() : int {
+
+            return $this->solar_satellite_percent;
+        }
+
+        /**
+         * @param mixed $solar_satellite_percent
+         */
+        public function setSolarSatellitePercent(int $solar_satellite_percent) : void {
+
+            if($solar_satellite_percent >= 0 && $solar_satellite_percent <= 100 && $solar_satellite_percent % 10 == 0) {
+                $this->solar_satellite_percent = $solar_satellite_percent;
+            }
         }
 
         /**
@@ -204,9 +289,9 @@
         /**
          * @param mixed $planetID
          */
-        public function setPlanetID($planetID) : void {
+        public function setPlanetID(int $planetID) : void {
 
-            $this->planetID = $planetID;
+            if($planetID > 0) $this->planetID = $planetID;
         }
 
         /**
@@ -220,9 +305,9 @@
         /**
          * @param mixed $ownerID
          */
-        public function setOwnerID($ownerID) : void {
+        public function setOwnerID(int $ownerID) : void {
 
-            $this->ownerID = $ownerID;
+            if($ownerID > 0) $this->ownerID = $ownerID;
         }
 
         /**
@@ -236,9 +321,9 @@
         /**
          * @param mixed $name
          */
-        public function setName($name) : void {
+        public function setName(string $name) : void {
 
-            $this->name = $name;
+            if(strlen($name) > 0) $this->name = $name;
         }
 
         /**
@@ -252,9 +337,12 @@
         /**
          * @param mixed $galaxy
          */
-        public function setGalaxy($galaxy) : void {
+        public function setGalaxy(int $galaxy) : void {
+            global $config;
 
-            $this->galaxy = $galaxy;
+            if($config['max_galaxy'] >= $galaxy && $galaxy > 0) {
+                $this->galaxy = $galaxy;
+            }
         }
 
         /**
@@ -268,9 +356,12 @@
         /**
          * @param mixed $system
          */
-        public function setSystem($system) : void {
+        public function setSystem(int $system) : void {
+            global $config;
 
-            $this->system = $system;
+            if($config['max_system'] >= $system && $system > 0) {
+                $this->system = $system;
+            }
         }
 
         /**
@@ -284,9 +375,12 @@
         /**
          * @param mixed $planet
          */
-        public function setPlanet($planet) : void {
+        public function setPlanet(int $planet) : void {
+            global $config;
 
-            $this->planet = $planet;
+            if($config['max_planet'] >= $planet && $planet > 0) {
+                $this->planet = $planet;
+            }
         }
 
         /**
@@ -300,9 +394,9 @@
         /**
          * @param mixed $last_update
          */
-        public function setLastUpdate($last_update) : void {
+        public function setLastUpdate(int $last_update) : void {
 
-            $this->last_update = $last_update;
+            if($last_update > time() - 15724800) $this->last_update = $last_update;
         }
 
         /**
@@ -316,9 +410,11 @@
         /**
          * @param mixed $planet_type
          */
-        public function setPlanetType($planet_type) : void {
+        public function setPlanetType(int $planet_type) : void {
 
-            $this->planet_type = $planet_type;
+            if($planet_type == 0 || $planet_type == 1) {
+                $this->planet_type = $planet_type;
+            }
         }
 
         /**
@@ -332,9 +428,9 @@
         /**
          * @param mixed $image
          */
-        public function setImage($image) : void {
+        public function setImage(string $image) : void {
 
-            $this->image = $image;
+            if(strlen($image) > 0) $this->image = $image;
         }
 
         /**
@@ -348,9 +444,9 @@
         /**
          * @param mixed $diameter
          */
-        public function setDiameter($diameter) : void {
+        public function setDiameter(int $diameter) : void {
 
-            $this->diameter = $diameter;
+            if($diameter > 0) $this->diameter = $diameter;
         }
 
         /**
@@ -364,9 +460,11 @@
         /**
          * @param mixed $fields_current
          */
-        public function setFieldsCurrent($fields_current) : void {
+        public function setFieldsCurrent(int $fields_current) : void {
 
-            $this->fields_current = $fields_current;
+            if($fields_current > 0 && $fields_current <= $this->fields_max) {
+                $this->fields_current = $fields_current;
+            }
         }
 
         /**
@@ -380,9 +478,11 @@
         /**
          * @param mixed $fields_max
          */
-        public function setFieldsMax($fields_max) : void {
+        public function setFieldsMax(int $fields_max) : void {
 
-            $this->fields_max = $fields_max;
+            if($fields_max > 0) {
+                $this->fields_max = $fields_max;
+            }
         }
 
         /**
@@ -396,7 +496,7 @@
         /**
          * @param mixed $temp_min
          */
-        public function setTempMin($temp_min) {
+        public function setTempMin(int $temp_min) {
 
             $this->temp_min = $temp_min;
         }
@@ -412,7 +512,7 @@
         /**
          * @param mixed $temp_max
          */
-        public function setTempMax($temp_max) : void {
+        public function setTempMax(int $temp_max) : void {
 
             $this->temp_max = $temp_max;
         }
@@ -428,9 +528,9 @@
         /**
          * @param mixed $metal
          */
-        public function setMetal($metal) : void {
+        public function setMetal(float $metal) : void {
 
-            $this->metal = $metal;
+            if($metal > 0) $this->metal = $metal;
         }
 
         /**
@@ -444,9 +544,9 @@
         /**
          * @param mixed $crystal
          */
-        public function setCrystal($crystal) : void {
+        public function setCrystal(float $crystal) : void {
 
-            $this->crystal = $crystal;
+            if($crystal > 0) $this->crystal = $crystal;
         }
 
         /**
@@ -460,9 +560,9 @@
         /**
          * @param mixed $deuterium
          */
-        public function setDeuterium($deuterium) : void {
+        public function setDeuterium(float $deuterium) : void {
 
-            $this->deuterium = $deuterium;
+            if($deuterium > 0) $this->deuterium = $deuterium;
         }
 
         /**
@@ -476,9 +576,9 @@
         /**
          * @param mixed $energy_used
          */
-        public function setEnergyUsed($energy_used) : void {
+        public function setEnergyUsed(int $energy_used) : void {
 
-            $this->energy_used = $energy_used;
+            if($energy_used > 0) $this->energy_used = $energy_used;
         }
 
         /**
@@ -492,41 +592,9 @@
         /**
          * @param mixed $energy_max
          */
-        public function setEnergyMax($energy_max) : void {
+        public function setEnergyMax(int $energy_max) : void {
 
-            $this->energy_max = $energy_max;
-        }
-
-        /**
-         * @return mixed
-         */
-        public function getSolarPlantPercent() : int {
-
-            return $this->solar_plant_percent;
-        }
-
-        /**
-         * @param mixed $solar_plant_percent
-         */
-        public function setSolarPlantPercent($solar_plant_percent) : void {
-
-            $this->solar_plant_percent = $solar_plant_percent;
-        }
-
-        /**
-         * @return mixed
-         */
-        public function getSolarSatellitePercent() : int {
-
-            return $this->solar_satellite_percent;
-        }
-
-        /**
-         * @param mixed $solar_satellite_percent
-         */
-        public function setSolarSatellitePercent($solar_satellite_percent) : void {
-
-            $this->solar_satellite_percent = $solar_satellite_percent;
+            if($energy_max > 0) $this->energy_max = $energy_max;
         }
 
         /**
@@ -540,9 +608,9 @@
         /**
          * @param mixed $b_building_id
          */
-        public function setBBuildingId($b_building_id) : void {
+        public function setBBuildingId(int $b_building_id) : void {
 
-            $this->b_building_id = $b_building_id;
+            if($b_building_id >= 0) $this->b_building_id = $b_building_id;
         }
 
         /**
@@ -556,9 +624,9 @@
         /**
          * @param mixed $b_building_endtime
          */
-        public function setBBuildingEndtime($b_building_endtime) : void {
+        public function setBBuildingEndtime(int $b_building_endtime) : void {
 
-            $this->b_building_endtime = $b_building_endtime;
+            if($b_building_endtime >= 0) $this->b_building_endtime = $b_building_endtime;
         }
 
         /**
@@ -572,9 +640,9 @@
         /**
          * @param mixed $b_tech_id
          */
-        public function setBTechId($b_tech_id) : void {
+        public function setBTechId(int $b_tech_id) : void {
 
-            $this->b_tech_id = $b_tech_id;
+            if($b_tech_id >= 0) $this->b_tech_id = $b_tech_id;
         }
 
         /**
@@ -588,9 +656,9 @@
         /**
          * @param mixed $b_tech_endtime
          */
-        public function setBTechEndtime($b_tech_endtime) : void {
+        public function setBTechEndtime(int $b_tech_endtime) : void {
 
-            $this->b_tech_endtime = $b_tech_endtime;
+            if($b_tech_endtime > 0) $this->b_tech_endtime = $b_tech_endtime;
         }
 
         /**
@@ -604,7 +672,7 @@
         /**
          * @param mixed $b_hangar_id
          */
-        public function setBHangarId($b_hangar_id) : void {
+        public function setBHangarId(string $b_hangar_id) : void {
 
             $this->b_hangar_id = $b_hangar_id;
         }
@@ -620,15 +688,15 @@
         /**
          * @param mixed $b_hangar_plus
          */
-        public function setBHangarPlus($b_hangar_plus) : void {
+        public function setBHangarPlus(int $b_hangar_plus) : void {
 
-            $this->b_hangar_plus = $b_hangar_plus;
+            if($b_hangar_plus > 0) $this->b_hangar_plus = $b_hangar_plus;
         }
 
         /**
          * @return mixed
          */
-        public function getDestroyed() : int {
+        public function getDestroyed() : bool {
 
             return $this->destroyed;
         }
@@ -636,9 +704,10 @@
         /**
          * @param mixed $destroyed
          */
-        public function setDestroyed($destroyed) : void {
+        public function setDestroyed(bool $destroyed) : void {
 
-            $this->destroyed = $destroyed;
+                $this->destroyed = $destroyed;
+
         }
 
     }

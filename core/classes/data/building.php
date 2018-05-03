@@ -73,6 +73,7 @@
          * @param int $bterraformer
          * @param int $balliance_depot
          * @param int $bmissile_silo
+         * @codeCoverageIgnore
          */
         public function __construct(int $bmetal_mine, int $bcrystal_mine, int $bdeuterium_synthesizer,
             int $bsolar_plant, int $bfusion_reactor, int $brobotic_factory, int $bnanite_factory,
@@ -98,6 +99,7 @@
 
         /**
          * Prints the object to the page
+         * @codeCoverageIgnore
          */
         public function print() : void {
             echo '<pre>';
@@ -110,7 +112,6 @@
          * @return int the current level
          */
         public function getMetalMine() : int {
-
             return $this->metal_mine;
         }
 
@@ -118,9 +119,12 @@
          * Sets the current level
          * @param int $metal_mine the new level
          */
-        public function setMetalMine(int $metal_mine) : void {
+        public function setMetalMine(int $level) : void {
 
-            $this->metal_mine = $metal_mine;
+            if($level >= 0) {
+                $this->metal_mine = $level;
+            }
+
         }
 
         /**
@@ -136,9 +140,10 @@
          * Sets the current level
          * @param int $crystal_mine the new level
          */
-        public function setCrystalMine(int $crystal_mine) : void {
-
-            $this->crystal_mine = $crystal_mine;
+        public function setCrystalMine(int $level) : void {
+            if($level >= 0) {
+                $this->crystal_mine = $level;
+            }
         }
 
         /**
@@ -154,9 +159,12 @@
          * Sets the current level
          * @param int $deuterium_synthesizer the new level
          */
-        public function setDeuteriumSynthesizer(int $deuterium_synthesizer) : void {
+        public function setDeuteriumSynthesizer(int $level) : void {
 
-            $this->deuterium_synthesizer = $deuterium_synthesizer;
+            if($level >= 0) {
+                $this->deuterium_synthesizer = $level;
+            }
+
         }
 
         /**
@@ -172,9 +180,11 @@
          * Sets the current level
          * @param int $solar_plant the new level
          */
-        public function setSolarPlant(int $solar_plant) : void {
+        public function setSolarPlant(int $level) : void {
 
-            $this->solar_plant = $solar_plant;
+            if($level >= 0) {
+                $this->solar_plant = $level;
+            }
         }
 
         /**
@@ -190,9 +200,11 @@
          * Sets the current level
          * @param int $fusion_reactor the new level
          */
-        public function setFusionReactor(int $fusion_reactor) : void {
+        public function setFusionReactor(int $level) : void {
 
-            $this->fusion_reactor = $fusion_reactor;
+            if($level >= 0) {
+                $this->fusion_reactor = $level;
+            }
         }
 
         /**
@@ -208,9 +220,11 @@
          * Sets the current level
          * @param int $robotic_factory the new level
          */
-        public function setRoboticFactory(int $robotic_factory) : void {
+        public function setRoboticFactory(int $level) : void {
 
-            $this->robotic_factory = $robotic_factory;
+            if($level >= 0) {
+                $this->robotic_factory = $level;
+            }
         }
 
         /**
@@ -226,9 +240,11 @@
          * Sets the current level
          * @param int $nanite_factory the new level
          */
-        public function setNaniteFactory(int $nanite_factory) : void {
+        public function setNaniteFactory(int $level) : void {
 
-            $this->nanite_factory = $nanite_factory;
+            if($level >= 0) {
+                $this->nanite_factory = $level;
+            }
         }
 
         /**
@@ -244,9 +260,11 @@
          * Sets the current level
          * @param int $shipyard the new level
          */
-        public function setShipyard(int $shipyard) : void {
+        public function setShipyard(int $level) : void {
 
-            $this->shipyard = $shipyard;
+            if($level >= 0) {
+                $this->shipyard = $level;
+            }
         }
 
         /**
@@ -262,9 +280,11 @@
          * Sets the current level
          * @param int $metal_storage the new level
          */
-        public function setMetalStorage(int $metal_storage) : void {
+        public function setMetalStorage(int $level) : void {
 
-            $this->metal_storage = $metal_storage;
+            if($level >= 0) {
+                $this->metal_storage = $level;
+            }
         }
 
         /**
@@ -280,9 +300,11 @@
          * Sets the current level
          * @param int $crystal_storage the new level
          */
-        public function setCrystalStorage(int $crystal_storage) : void {
+        public function setCrystalStorage(int $level) : void {
 
-            $this->crystal_storage = $crystal_storage;
+            if($level >= 0) {
+                $this->crystal_storage = $level;
+            }
         }
 
         /**
@@ -298,9 +320,11 @@
          * Sets the current level
          * @param int $deuterium_storage the new level
          */
-        public function setDeuteriumStorage(int $deuterium_storage) : void {
+        public function setDeuteriumStorage(int $level) : void {
 
-            $this->deuterium_storage = $deuterium_storage;
+            if($level >= 0) {
+                $this->deuterium_storage = $level;
+            }
         }
 
         /**
@@ -316,9 +340,11 @@
          * Sets the current level
          * @param int $research_lab the new level
          */
-        public function setResearchLab(int $research_lab) : void {
+        public function setResearchLab(int $level) : void {
 
-            $this->research_lab = $research_lab;
+            if($level >= 0) {
+                $this->research_lab = $level;
+            }
         }
 
         /**
@@ -334,9 +360,12 @@
          * Sets the current level
          * @param int $terraformer the new level
          */
-        public function setTerraformer(int $terraformer) : void {
+        public function setTerraformer(int $level) : void {
 
-            $this->terraformer = $terraformer;
+            if($level >= 0) {
+                $this->terraformer = $level;
+            }
+
         }
 
         /**
@@ -352,9 +381,12 @@
          * Sets the current level
          * @param int $alliance_depot the new level
          */
-        public function setAllianceDepot(int $alliance_depot) : void {
+        public function setAllianceDepot(int $level) : void {
 
-            $this->alliance_depot = $alliance_depot;
+            if($level >= 0) {
+                $this->alliance_depot = $level;
+            }
+
         }
 
         /**
@@ -370,9 +402,11 @@
          * Sets the current level
          * @param int $missile_silo the new level
          */
-        public function setMissileSilo(int $missile_silo) : void {
+        public function setMissileSilo(int $level) : void {
 
-            $this->missile_silo = $missile_silo;
+            if($level >= 0) {
+                $this->missile_silo = $level;
+            }
         }
 
     }

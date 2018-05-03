@@ -4,10 +4,14 @@
 
     require_once __DIR__.'/config.php';
 
-    require_once ROOT . "/core/classes/data/fleet.php";
+    require_once dirname(dirname(__FILE__)) . "/core/classes/data/fleet.php";
 
     use PHPUnit\Framework\TestCase;
 
+    /**
+     * Class DataFleetTest
+     * @codeCoverageIgnore
+     */
     class DataFleetTest extends TestCase {
 
         private $fleetData;
