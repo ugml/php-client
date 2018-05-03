@@ -20,7 +20,7 @@
          * @param $password
          * @return int 0 if success
          */
-        public static function createNewUser($username, $planetname, $email, $password) {
+        public function createNewUser($username, $planetname, $email, $password) {
 
             global $dbConfig, $path;
 
@@ -123,7 +123,7 @@
             return 0;
         }
 
-        public static function loadUserData($userID) {
+        public function loadUserData($userID) {
 
         }
     }

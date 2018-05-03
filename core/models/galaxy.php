@@ -39,7 +39,7 @@
 
         public static function loadGalaxyData($galaxy, $system) {
 
-            global $dbConfig, $dbConnection;
+            global $dbConfig, $dbConnection, $debug;
 
             try {
 
@@ -64,14 +64,14 @@
                     $rows[$data->planet] = $data;
                 }
 
-//                echo "<pre>";
-//                print_r($rows);
-//                echo "</pre>";
-
                 return $rows;
 
             } catch (PDOException $e) {
-                die($e);
+                if (DEBUG) {
+                    $debug->addLog(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
+                } else {
+                    $debug->saveError(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
+                }
             }
         }
 

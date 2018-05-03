@@ -14,6 +14,8 @@
 
         private $view = null;
 
+        private $model = null;
+
         /**
          * C_Register constructor.
          * @param $get
@@ -25,6 +27,7 @@
             $this->post = $post;
 
             $this->view = new V_Register();
+            $this->model = new M_Register();
 
             if (!empty($get)) {
                 self::handleGET();
@@ -48,44 +51,45 @@
          */
         function handlePOST() : void {
 
-            if ($_POST) {
+            $validPost = true;
 
-                $validPost = true;
+            $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
 
-                if (empty($_POST['username'])) {
-                    echo 'please enter a username.';
-                    $validPost = false;
-                }
+            if (strlen($username) == 0) {
+                echo 'please enter a username.';
+                $validPost = false;
+            }
 
-                //                if (empty($_POST['planetname'])) {
-                //                    echo 'please enter a name for your planet. ';
-                //                    $validPost = false;
-                //                }
+            //                if (empty($_POST['planetname'])) {
+            //                    echo 'please enter a name for your planet. ';
+            //                    $validPost = false;
+            //                }
 
-                if (empty($_POST['email'])) {
-                    echo 'please enter a email-address. ';
-                    $validPost = false;
-                }
+            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                echo 'please enter a email-address. ';
+                $validPost = false;
+            }
 
-                if (empty($_POST['password'])) {
-                    echo 'please enter a password. ';
-                    $validPost = false;
+            $email = $_POST['email'];
+            $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
 
-                }
+            if (strlen($password) == 0) {
+                echo 'please enter a password. ';
+                $validPost = false;
 
-                //                if (empty($_POST['agb'])) {
-                //                    echo 'you have to accept the T&C.';
-                //                    $validPost = false;
-                //                }
+            }
 
-                if ($validPost) {
-                    $return = M_Register::createNewUser($_POST['username'], $_POST['planetname'], $_POST['email'],
-                        $_POST['password']);
+            //                if (empty($_POST['agb'])) {
+            //                    echo 'you have to accept the T&C.';
+            //                    $validPost = false;
+            //                }
 
-                    if($return == 0) {
-                        // TODO: display success-message
-                        $this->view->assign('success', true);
-                    }
+            if ($validPost) {
+                $return = $this->model->createNewUser($username, $_POST['planetname'], $email, $password);
+
+                if($return == 0) {
+                    // TODO: display success-message
+                    $this->view->assign('success', true);
                 }
             }
         }
@@ -99,7 +103,7 @@
 
 
 
-            $this->view->assign('lang', M_Register::loadLanguage());
+            $this->view->assign('lang', $this->model->loadLanguage());
             $this->view->assign('title', $config['game_name']);
             $this->view->assign('stylesheet', $this->skin);
             $this->view->assign('copyright', $config['copyright']);
