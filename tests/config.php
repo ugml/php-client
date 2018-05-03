@@ -3,18 +3,16 @@
 
     define('INSIDE', true);
 
-    define('ROOT', dirname(dirname(__FILE__)));
-
     // enable debug-mode
     define('DEBUG', false);
 
-    $root = $_SERVER['DOCUMENT_ROOT'] . '/ugamela/';
+    $root = dirname(dirname(__FILE__));
 
     define('PRODUCTION', false);
 
 
     $config = [
-        'basepath'   => $root . '',
+        'basepath'   => $root . "/",
         'game_name'  => 'ugamela',
         'copyright'  => 'Copyright by ugamela &copy; 2017',
         'language'   => 'en',

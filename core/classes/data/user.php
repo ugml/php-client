@@ -28,6 +28,18 @@
 
         private $old_rank;
 
+        /**
+         * D_User constructor.
+         * @param int    $uID
+         * @param string $uname
+         * @param string $email
+         * @param int    $otime
+         * @param int    $currPlanet
+         * @param int    $points
+         * @param int    $cRank
+         * @param int    $oRank
+         * @codeCoverageIgnore
+         */
         public function __construct(int $uID, string $uname, string $email, int $otime, int $currPlanet, int $points, int $cRank, int $oRank) {
 
             $this->userID = $uID;
@@ -40,6 +52,9 @@
             $this->old_rank = $oRank;
         }
 
+        /**
+         * @codeCoverageIgnore
+         */
         public function printUser() : void {
 
             echo '<pre>';

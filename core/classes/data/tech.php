@@ -39,6 +39,25 @@
 
         private $graviton_tech;
 
+        /**
+         * D_Tech constructor.
+         * @param int $respionage_tech
+         * @param int $rcomputer_tech
+         * @param int $rweapon_tech
+         * @param int $rarmour_tech
+         * @param int $rshielding_tech
+         * @param int $renergy_tech
+         * @param int $rhyperspace_tech
+         * @param int $rcombustion_drive_tech
+         * @param int $rimpulse_drive_tech
+         * @param int $rhyperspace_drive_tech
+         * @param int $rlaser_tech
+         * @param int $rion_tech
+         * @param int $rplasma_tech
+         * @param int $rintergalactic_research_tech
+         * @param int $rgraviton_tech
+         * @codeCoverageIgnore
+         */
         public function __construct(
             int $respionage_tech, int $rcomputer_tech, int $rweapon_tech, int $rarmour_tech, int $rshielding_tech,
             int $renergy_tech, int $rhyperspace_tech,
@@ -64,7 +83,10 @@
             $this->graviton_tech = $rgraviton_tech;
         }
 
-        public function printTech() : void {
+        /**
+         * @codeCoverageIgnore
+         */
+        public function print() : void {
 
             echo '<pre>';
             print_r($this);
@@ -194,7 +216,7 @@
         /**
          * @param mixed $combustion_tech
          */
-        public function setCombustionTech($combustion_tech) : void {
+        public function setCombustionDriveTech($combustion_tech) : void {
 
             $this->combustion_drive_tech = $combustion_tech;
         }

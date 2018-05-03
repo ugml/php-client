@@ -4,16 +4,20 @@
 
     require_once __DIR__.'/config.php';
 
-    require_once ROOT . "/core/classes/data/user.php";
+    require_once dirname(dirname(__FILE__)) . "/core/classes/data/user.php";
 
     use PHPUnit\Framework\TestCase;
 
+    /**
+     * Class DataUserTest
+     * @codeCoverageIgnore
+     */
     final class DataUserTest extends TestCase {
 
         private $userData;
 
         protected function setUp() : void {
-            $this->userData = new D_User(123, "testname", "email@mail.at", time(), 0, 0,0,0);
+            $this->userData = new D_User(123, "testname", "email@mail.at", time(), 584, 0,0,0);
         }
 
         /**
@@ -58,7 +62,17 @@
          * @covers D_User::getCurrentPlanet
          */
         public function testGetCurrentPlanet() : void {
-            $this->assertSame(0, $this->userData->getCurrentPlanet());
+            $this->assertSame(584, $this->userData->getCurrentPlanet());
+        }
+
+        /**
+         * @covers D_User::setCurrentPlanet
+         */
+        public function testSetCurrentPlanet() : void {
+            $this->assertSame(null, $this->userData->setCurrentPlanet(584));
+
+//            $this->userData->setPlanetList([new D_Planet(12,15, "Testplanet", 4, 245, 13, time(), 1, "null", 15360, 0, 198, -12, 10, 500000, 245000, 13000, 0, 123, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, "201,50;", 1,false)]);
+//            $this->assertSame(null, $this->userData->setCurrentPlanet(12));
         }
 
         /**

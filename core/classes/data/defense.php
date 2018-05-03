@@ -52,6 +52,7 @@
          * @param int $dlarge_shield_dome
          * @param int $danti_ballistic_missile
          * @param int $dinterplanetary_missile
+         * @codeCoverageIgnore
          */
         public function __construct(
             int $drocket_launcher, int $dlight_laser, int $dheavy_laser, int $dion_cannon, int $dgauss_cannon,
@@ -73,6 +74,7 @@
 
         /**
          * Prints the object to the page
+         * @codeCoverageIgnore
          */
         public function print() : void {
             echo '<pre>';
@@ -85,7 +87,6 @@
          * @return int the current amount
          */
         public function getRocketLauncher() : int {
-
             return $this->rocket_launcher;
         }
 
@@ -95,7 +96,7 @@
          */
         public function setRocketLauncher(int $amount) : void {
 
-            $this->rocket_launcher = $amount;
+            if($amount >= 0) $this->rocket_launcher = $amount;
         }
 
         /**
@@ -113,7 +114,7 @@
          */
         public function setLightLaser(int $amount) : void {
 
-            $this->light_laser = $amount;
+            if($amount >= 0) $this->light_laser = $amount;
         }
 
         /**
@@ -131,7 +132,7 @@
          */
         public function setHeavyLaser(int $amount) : void {
 
-            $this->heavy_laser = $amount;
+            if($amount >= 0) $this->heavy_laser = $amount;
         }
 
         /**
@@ -149,7 +150,7 @@
          */
         public function setIonCannon(int $amount) : void {
 
-            $this->ion_cannon = $amount;
+            if($amount >= 0) $this->ion_cannon = $amount;
         }
 
         /**
@@ -167,7 +168,7 @@
          */
         public function setGaussCannon(int $amount) : void {
 
-            $this->gauss_cannon = $amount;
+            if($amount >= 0) $this->gauss_cannon = $amount;
         }
 
         /**
@@ -185,7 +186,7 @@
          */
         public function setPlasmaTurret(int $amount) : void {
 
-            $this->plasma_turret = $amount;
+            if($amount >= 0) $this->plasma_turret = $amount;
         }
 
         /**
@@ -203,7 +204,7 @@
          */
         public function setSmallShieldDome(int $amount) : void {
 
-            $this->small_shield_dome = $amount;
+            if($amount >= 0 && $amount <= 1) $this->small_shield_dome = $amount;
         }
 
         /**
@@ -221,7 +222,7 @@
          */
         public function setLargeShieldDome(int $amount) : void {
 
-            $this->large_shield_dome = $amount;
+            if($amount >= 0 && $amount <= 1) $this->large_shield_dome = $amount;
         }
 
         /**
@@ -239,7 +240,7 @@
          */
         public function setAntiBallisticMissile(int $amount) : void {
 
-            $this->anti_ballistic_missile = $amount;
+            if($amount >= 0) $this->anti_ballistic_missile = $amount;
         }
 
         /**
@@ -257,7 +258,7 @@
          */
         public function setInterplanetaryMissile(int $amount) : void {
 
-            $this->interplanetary_missile = $amount;
+            if($amount >= 0) $this->interplanetary_missile = $amount;
         }
 
     }
