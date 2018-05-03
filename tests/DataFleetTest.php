@@ -107,8 +107,8 @@
         }
 
         /**
-         * @covers D_Fleet::setUserID
-         * @covers D_Fleet::getUserID
+         * @covers D_Fleet::setHeavyFighter
+         * @covers D_Fleet::getHeavyFighter
          */
         public function testGetSetHeavyFighter() {
             $this->fleetData->setHeavyFighter(5);

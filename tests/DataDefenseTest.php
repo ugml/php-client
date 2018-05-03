@@ -35,7 +35,7 @@
         }
 
         /**
-         * @covers D_Defense::setHeavytLaser
+         * @covers D_Defense::setHeavyLaser
          * @covers D_Defense::getHeavyLaser
          */
         public function testGetSetHeavyLaser() : void {
@@ -81,7 +81,7 @@
 
         /**
          * @covers D_Defense::setLargeShieldDome
-         * @covers D_Defense::getLargehieldDome
+         * @covers D_Defense::getLargeShieldDome
          */
         public function testGetSetLargeShieldDome() : void {
             $this->defenseData->setLargeShieldDome(5);
