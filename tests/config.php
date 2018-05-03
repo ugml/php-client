@@ -3,6 +3,8 @@
 
     define('INSIDE', true);
 
+    define('ROOT', dirname(dirname(__FILE__)));
+
     // enable debug-mode
     define('DEBUG', false);
 

@@ -100,6 +100,7 @@
                 return;
             }
 
+            // TODO: relocate this code
             // check if the user really owns the planet
             for ($i = 0; $i < sizeof($this->planetList); $i++) {
 

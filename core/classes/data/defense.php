@@ -93,9 +93,9 @@
          * Sets the current amount
          * @param int $rocket_launcher the new amount
          */
-        public function setRocketLauncher(int $rocket_launcher) : void {
+        public function setRocketLauncher(int $amount) : void {
 
-            $this->rocket_launcher = $rocket_launcher;
+            $this->rocket_launcher = $amount;
         }
 
         /**
@@ -111,9 +111,9 @@
          * Sets the current amount
          * @param int $light_laser the new amount
          */
-        public function setLightLaser(int $light_laser) : void {
+        public function setLightLaser(int $amount) : void {
 
-            $this->light_laser = $light_laser;
+            $this->light_laser = $amount;
         }
 
         /**
@@ -129,9 +129,9 @@
          * Sets the current amount
          * @param int $heavy_laser the new amount
          */
-        public function setHeavyLaser(int $heavy_laser) : void {
+        public function setHeavyLaser(int $amount) : void {
 
-            $this->heavy_laser = $heavy_laser;
+            $this->heavy_laser = $amount;
         }
 
         /**
@@ -147,9 +147,9 @@
          * Sets the current amount
          * @param int $ion_cannon the new amount
          */
-        public function setIonCannon(int $ion_cannon) : void {
+        public function setIonCannon(int $amount) : void {
 
-            $this->ion_cannon = $ion_cannon;
+            $this->ion_cannon = $amount;
         }
 
         /**
@@ -165,9 +165,9 @@
          * Sets the current amount
          * @param int $gauss_cannon the new amount
          */
-        public function setGaussCannon(int $gauss_cannon) : void {
+        public function setGaussCannon(int $amount) : void {
 
-            $this->gauss_cannon = $gauss_cannon;
+            $this->gauss_cannon = $amount;
         }
 
         /**
@@ -183,9 +183,9 @@
          * Sets the current amount
          * @param int $plasma_turret the new amount
          */
-        public function setPlasmaTurret(int $plasma_turret) : void {
+        public function setPlasmaTurret(int $amount) : void {
 
-            $this->plasma_turret = $plasma_turret;
+            $this->plasma_turret = $amount;
         }
 
         /**
@@ -201,9 +201,9 @@
          * Sets the current amount
          * @param int $small_shield_dome the new amount
          */
-        public function setSmallShieldDome(int $small_shield_dome) : void {
+        public function setSmallShieldDome(int $amount) : void {
 
-            $this->small_shield_dome = $small_shield_dome;
+            $this->small_shield_dome = $amount;
         }
 
         /**
@@ -219,9 +219,9 @@
          * Sets the current amount
          * @param int $large_shield_dome the new amount
          */
-        public function setLargeShieldDome(int $large_shield_dome) : void {
+        public function setLargeShieldDome(int $amount) : void {
 
-            $this->large_shield_dome = $large_shield_dome;
+            $this->large_shield_dome = $amount;
         }
 
         /**
@@ -237,9 +237,9 @@
          * Sets the current amount
          * @param int $anti_ballistic_missile the new amount
          */
-        public function setAntiBallisticMissile(int $anti_ballistic_missile) : void {
+        public function setAntiBallisticMissile(int $amount) : void {
 
-            $this->anti_ballistic_missile = $anti_ballistic_missile;
+            $this->anti_ballistic_missile = $amount;
         }
 
         /**
@@ -255,9 +255,9 @@
          * Sets the current amount
          * @param int $interplanetary_missile the new amount
          */
-        public function setInterplanetaryMissile(int $interplanetary_missile) : void {
+        public function setInterplanetaryMissile(int $amount) : void {
 
-            $this->interplanetary_missile = $interplanetary_missile;
+            $this->interplanetary_missile = $amount;
         }
 
     }
