@@ -46,6 +46,20 @@ This open-source project is still in an alpha-state, **please do not use this in
 2.  After setting up your environment, import the sql-file located in the install directory.
 3.  Edit the config.sample.php in the core-folder to match your server-configuration and **rename it to config.php**.
 
+# Documentation & Demo
+
+A live-demo can be found [here](https://ugamela.mamen.at). This demo may not always contain the latest version of this repository.
+
+The credentials for the test-account are:
+
+```
+Username: test
+Password: test
+```
+
+The [documentation](https://ugamela.mamen.at/docs) is hosted on the same server as the game.
+
+
 # Support / Questions
 
 For any further questions, support or general talk, please visit our Discord by clicking on the image below or follow the link.
