@@ -2,9 +2,13 @@
 
     declare(strict_types=1);
 
-    require_once __DIR__.'/config.php';
+    if (!defined('INSIDE')) {
+        define('INSIDE', true);
+    }
 
-    require_once dirname(dirname(__FILE__)) . "/core/classes/data/planet.php";
+    require_once dirname(dirname(dirname(__FILE__))) . '/config.php';
+
+    require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/classes/data/planet.php";
 
     use PHPUnit\Framework\TestCase;
 
@@ -17,7 +21,7 @@
         private $planetData;
 
         protected function setUp() : void {
-            $this->planetData = new D_Planet(1,15, "Testplanet", 4, 245, 13, time(), 1, "null", 15360, 0, 198, -12, 10, 500000, 245000, 13000, 0, 123, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, "201,50;", 1,false);
+            $this->planetData = new D_Planet(1,15, "Testplanet", 4, 245, 13, time(), 1, "null", 15360, 0, 198, -12, 10, 500000, 245000, 13000, 0, 123, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, "201,50;", false,false);
         }
 
         /**
@@ -296,8 +300,8 @@
          * @covers D_Planet::getBHangarPlus
          */
         public function testGetSetBHangarPlus() : void {
-            $this->planetData->setBHangarPlus(10);
-            $this->assertSame(10, $this->planetData->getBHangarPlus());
+            $this->planetData->setBHangarPlus(true);
+            $this->assertSame(true, $this->planetData->getBHangarPlus());
         }
 
         /**

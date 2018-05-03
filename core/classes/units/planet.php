@@ -149,6 +149,87 @@
             $this->destroyed = $destroyed;
         }
 
+        private function getTotalEnergyProduction($baseIncome) : float {
+            global $units, $data;
+
+            return array_sum($units->getEnergyProduction(
+                    $data->getBuilding()[$units->getUnitID('solar_plant')]->getLevel(),
+                    $data->getBuilding()[$units->getUnitID('fusion_reactor')]->getLevel(),
+                    $data->getTech()[$units->getUnitID('energy_tech')]->getLevel(),
+                    $data->getFleet()[$units->getUnitID('solar_satellite')]->getAmount(),
+                    $this->temp_max
+                )
+                ) + $baseIncome;
+        }
+
+        private function getTotalEnergyConsumption($lvl_metal, $lvl_crystal, $lvl_deuterium, $lvl_fusion) : float {
+            global $units;
+
+            return $this->getMetalMinePercent() / 100 * $units->getEnergyConsumption($lvl_metal) +
+                $this->getCrystalMinePercent() / 100 * $units->getEnergyConsumption($lvl_crystal) +
+                $this->getDeuteriumSynthesizerPercent() / 100 * $units->getEnergyConsumption($lvl_deuterium) +
+                $this->getFusionReactorPercent() / 100 * $units->getEnergyConsumption($lvl_fusion);
+        }
+
+        private function calculateMetalProduction($metalLvl, $storageCapacity, $prodFactor, $timeDiff, $baseIncome) : float {
+            global $units;
+
+            // do not produce more then there is storage!
+            if ($this->metal < $storageCapacity) {
+                $prod_metal = $prodFactor * $this->getMetalMinePercent() * ($units->getMetalProductionPerHour($metalLvl) / 3600) * $timeDiff + ($baseIncome/3600 * $timeDiff);
+
+                if ($this->metal + $prod_metal > $storageCapacity) {
+                    $prod_metal = $this->metal + ($storageCapacity - $this->metal);
+                } else {
+                    $prod_metal += $this->metal;
+                }
+            } else {
+                $prod_metal = $this->metal;
+            }
+
+            return $prod_metal;
+        }
+
+
+
+        private function calculateCrystalProduction($lvl_crystal, $storageCapacity, $prod_factor, $time_diff, $baseIncome) : float {
+            global $units;
+
+            // do not produce more then there is storage!
+            if ($this->crystal < $storageCapacity) {
+                $prod_crystal = $prod_factor * $this->getCrystalMinePercent() * ($units
+                            ->getCrystalProductionPerHour($lvl_crystal) / 3600) * $time_diff + ($baseIncome/3600*$time_diff);
+                if ($this->crystal + $prod_crystal > $storageCapacity) {
+                    $prod_crystal = $this->crystal + ($storageCapacity - $this->crystal);
+                } else {
+                    $prod_crystal += $this->crystal;
+                }
+            } else {
+                $prod_crystal = $this->crystal;
+            }
+
+            return $prod_crystal;
+        }
+
+        private function calculateDeuteriumProduction($lvl_deuterium, $storageCapacity, $prod_factor, $time_diff, $baseIncome) : float {
+            global $units;
+
+            // do not produce more then there is storage!
+            if ($this->crystal < $storageCapacity) {
+                $prod_crystal = $prod_factor * $this->getCrystalMinePercent() * ($units
+                            ->getCrystalProductionPerHour($lvl_deuterium) / 3600) * $time_diff + ($baseIncome/3600*$time_diff);
+                if ($this->crystal + $prod_crystal > $storageCapacity) {
+                    $prod_crystal = $this->crystal + ($storageCapacity - $this->crystal);
+                } else {
+                    $prod_crystal += $this->crystal;
+                }
+            } else {
+                $prod_crystal = $this->crystal;
+            }
+
+            return $prod_crystal;
+        }
+
         public function update() {
             global $data, $dbConfig, $dbConnection, $units, $base_income;
 
@@ -165,19 +246,8 @@
                 $lvl_deuterium = $data->getBuilding()[$units->getUnitID('deuterium_synthesizer')]->getLevel();
                 $lvl_fusion = $data->getBuilding()[$units->getUnitID('fusion_reactor')]->getLevel();
 
-                $prod_energy = array_sum($units->getEnergyProduction(
-                    $data->getBuilding()[$units->getUnitID('solar_plant')]->getLevel(),
-                    $data->getBuilding()[$units->getUnitID('fusion_reactor')]->getLevel(),
-                    $data->getTech()[$units->getUnitID('energy_tech')]->getLevel(),
-                    $data->getFleet()[$units->getUnitID('solar_satellite')]->getAmount(),
-                    $this->temp_max
-                )
-                ) + $base_income['energy'];
-
-                $cons_energy = $this->getMetalMinePercent() / 100 * $units->getEnergyConsumption($lvl_metal) +
-                    $this->getCrystalMinePercent() / 100 * $units->getEnergyConsumption($lvl_crystal) +
-                    $this->getDeuteriumSynthesizerPercent() / 100 * $units->getEnergyConsumption($lvl_deuterium) +
-                    $this->getFusionReactorPercent() / 100 * $units->getEnergyConsumption($lvl_fusion);
+                $prod_energy = $this->getTotalEnergyProduction($base_income['energy']);
+                $cons_energy = $this->getTotalEnergyConsumption($lvl_metal, $lvl_crystal, $lvl_deuterium, $lvl_fusion);
 
                 $prod_factor = 1;
 
@@ -191,59 +261,25 @@
                     'deuterium' => $units->getStorageCapacity($data->getBuilding()[$units->getUnitID('deuterium_storage')]->getLevel())
                 );
 
-                // do not produce more then there is storage!
-                if ($this->metal < $storage['metal']) {
-                    $prod_metal = $prod_factor * $this->getMetalMinePercent() * ($units->getMetalProductionPerHour($lvl_metal) / 3600) * $time_diff + ($base_income['metal']/3600*$time_diff);
+                //($metalLvl, $storageCapacity, $prodFactor, $timeDiff, $baseIncome) {
 
-                    if ($this->metal + $prod_metal > $storage['metal']) {
-                        $prod_metal = $this->metal + ($storage['metal'] - $this->metal);
-                    } else {
-                        $prod_metal += $this->metal;
-                    }
-                } else {
-                    $prod_metal = $this->metal;
-                }
-
-                // do not produce more then there is storage!
-                if ($this->crystal < $storage['crystal']) {
-                    $prod_crystal = $prod_factor * $this->getCrystalMinePercent() * ($units
-                                ->getCrystalProductionPerHour($lvl_crystal) / 3600) * $time_diff + ($base_income['crystal']/3600*$time_diff);
-                    if ($this->crystal + $prod_crystal > $storage['crystal']) {
-                        $prod_crystal = $this->crystal + ($storage['crystal'] - $this->crystal);
-                    } else {
-                        $prod_crystal += $this->crystal;
-                    }
-                } else {
-                    $prod_crystal = $this->crystal;
-                }
-
-                // do not produce more then there is storage!
-                if ($this->deuterium < $storage['deuterium']) {
-                    $prod_deuterium = $prod_factor * $this->getDeuteriumSynthesizerPercent() * ($units
-                                ->getDeuteriumProductionPerHour($lvl_deuterium) / 3600) * $time_diff + ($base_income['deuterium']/3600*$time_diff);
-                    if ($this->deuterium + $prod_deuterium > $storage['deuterium']) {
-                        $prod_crystal = $this->deuterium + ($storage['deuterium'] - $this->deuterium);
-                    } else {
-                        $prod_deuterium += $this->deuterium;
-                    }
-                } else {
-                    $prod_deuterium = $this->deuterium;
-                }
+                $prod_metal = $this->calculateMetalProduction($lvl_metal, $storage['metal'], $prod_factor, $time_diff, $base_income['metal']);
+                $prod_crystal = $this->calculateCrystalProduction($lvl_crystal, $storage['crystal'], $prod_factor, $time_diff, $base_income['crystal']);
+                $prod_deuterium = $this->calculateDeuteriumProduction($lvl_deuterium, $storage['deuterium'], $prod_factor, $time_diff, $base_income['deuterium']);
 
                 // check if building finished
                 if ($this->b_building_id > 0 && $this->b_building_endtime > 0 && $this->b_building_endtime <= $time) {
 
-
                     $level = $data->getBuilding()[$this->b_building_id]->getLevel();
 
-//                    $methodArr = explode('_', $units->getUnit());
-//
-//                    $method = 'get';
-//
-//                    foreach ($methodArr as $a => $b) {
-//                        $method .= ucfirst($b);
-//                    }
-//                    $level = call_user_func_array(array($data->getBuilding(), $method), array());
+                    //                    $methodArr = explode('_', $units->getUnit());
+                    //
+                    //                    $method = 'get';
+                    //
+                    //                    foreach ($methodArr as $a => $b) {
+                    //                        $method .= ucfirst($b);
+                    //                    }
+                    //                    $level = call_user_func_array(array($data->getBuilding(), $method), array());
 
                     // update the building level
                     $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'buildings SET ' . $units
@@ -334,7 +370,7 @@
 
 
                                 // TODO: BUG! only first row of queue will be written to DB!
-//                                print_r($shipsLeftArray);
+                                //                                print_r($shipsLeftArray);
 
                                 $shipQueue = "";
                                 for ($i = 0; $i < sizeof($shipsLeftArray); $i++) {

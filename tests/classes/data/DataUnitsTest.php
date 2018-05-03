@@ -2,9 +2,13 @@
 
     declare(strict_types=1);
 
-    require_once __DIR__.'/config.php';
+    if (!defined('INSIDE')) {
+        define('INSIDE', true);
+    }
 
-    require_once dirname(dirname(__FILE__)) . "/core/classes/data/units.php";
+    require_once dirname(dirname(dirname(__FILE__))) . '/config.php';
+
+    require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/classes/data/units.php";
 
     use PHPUnit\Framework\TestCase;
 
@@ -299,6 +303,7 @@
             $level = 5;
 
             $this->assertSame(100000 + 50000 * (ceil(pow(1.5, $level)) - 1), $this->units->getStorageCapacity($level));
+
         }
 
         /**

@@ -147,7 +147,7 @@
             // process data and store it in objects
             while ($data = $stmt->fetch()) {
 
-                $p = new U_Planet(
+                $planet = new U_Planet(
                     intval($data->planet_planetID),
                     intval($userID),
                     $data->planet_name,
@@ -188,15 +188,15 @@
 
                     //int $points, int $cRank, int $oRank
                     $this->user = new D_User(
-                                        intval($userID),
-                                        $data->user_username,
-                                        $data->user_email,
-                                        intval($data->user_onlinetime),
-                                        intval($data->user_currentplanet),
-                                        intval($data->user_points),
-                                        intval($data->user_rank),
-                                        intval($data->user_rank_old)
-                                    );
+                        intval($userID),
+                        $data->user_username,
+                        $data->user_email,
+                        intval($data->user_onlinetime),
+                        intval($data->user_currentplanet),
+                        intval($data->user_points),
+                        intval($data->user_rank),
+                        intval($data->user_rank_old)
+                    );
 
 
                     // data about all building-levels from the database
@@ -329,12 +329,12 @@
                     $this->galaxy = new D_Galaxy(intval($data->galaxy_debris_metal),
                         intval($data->galaxy_debris_crystal));
 
-                    $this->planet = $p;
+                    $this->planet = $planet;
 
                 }
 
 
-                array_push($planetList, $p);
+                array_push($planetList, $planet);
 
             }
 
@@ -421,10 +421,10 @@
             $stmt->execute();
 
 
-//            $functions = spl_autoload_functions();
-//            foreach ($functions as $function) {
-//                spl_autoload_unregister($function);
-//            }
+            //            $functions = spl_autoload_functions();
+            //            foreach ($functions as $function) {
+            //                spl_autoload_unregister($function);
+            //            }
         }
 
         public function printData() : void {

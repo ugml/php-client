@@ -2,11 +2,14 @@
 
     declare(strict_types=1);
 
+    if (!defined('INSIDE')) {
+        define('INSIDE', true);
+    }
 
-    require_once __DIR__.'/config.php';
+//    require_once dirname(dirname(dirname(__FILE__))) . '/config.php';
 
-    require_once dirname(dirname(__FILE__)) . "/core/classes/units/unit.php";
-    require_once dirname(dirname(__FILE__)) . "/core/classes/units/building.php";
+    require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/classes/units/unit.php";
+    require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/classes/units/building.php";
 
     use PHPUnit\Framework\TestCase;
 

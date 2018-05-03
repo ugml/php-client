@@ -1,7 +1,9 @@
 <?php
 
 
-    define('INSIDE', true);
+    if (!defined('INSIDE')) {
+        define('INSIDE', true);
+    }
 
     // enable debug-mode
     define('DEBUG', false);

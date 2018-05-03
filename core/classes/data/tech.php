@@ -104,7 +104,7 @@
         /**
          * @param mixed $espionage_tech
          */
-        public function setEspionageTech($espionage_tech) : void {
+        public function setEspionageTech(int $espionage_tech) : void {
 
             $this->espionage_tech = $espionage_tech;
         }
@@ -120,7 +120,7 @@
         /**
          * @param mixed $computer_tech
          */
-        public function setComputerTech($computer_tech) : void {
+        public function setComputerTech(int $computer_tech) : void {
 
             $this->computer_tech = $computer_tech;
         }
@@ -136,7 +136,7 @@
         /**
          * @param mixed $weapon_tech
          */
-        public function setWeaponTech($weapon_tech) : void {
+        public function setWeaponTech(int $weapon_tech) : void {
 
             $this->weapon_tech = $weapon_tech;
         }
@@ -152,7 +152,7 @@
         /**
          * @param mixed $armour_tech
          */
-        public function setArmourTech($armour_tech) : void {
+        public function setArmourTech(int $armour_tech) : void {
 
             $this->armour_tech = $armour_tech;
         }
@@ -168,7 +168,7 @@
         /**
          * @param mixed $shielding_tech
          */
-        public function setShieldingTech($shielding_tech) : void {
+        public function setShieldingTech(int $shielding_tech) : void {
 
             $this->shielding_tech = $shielding_tech;
         }
@@ -184,7 +184,7 @@
         /**
          * @param mixed $energy_tech
          */
-        public function setEnergyTech($energy_tech) : void {
+        public function setEnergyTech(int $energy_tech) : void {
 
             $this->energy_tech = $energy_tech;
         }
@@ -200,7 +200,7 @@
         /**
          * @param mixed $hyperspace_tech
          */
-        public function setHyperspaceTech($hyperspace_tech) : void {
+        public function setHyperspaceTech(int $hyperspace_tech) : void {
 
             $this->hyperspace_tech = $hyperspace_tech;
         }
@@ -216,7 +216,7 @@
         /**
          * @param mixed $combustion_tech
          */
-        public function setCombustionDriveTech($combustion_tech) : void {
+        public function setCombustionDriveTech(int $combustion_tech) : void {
 
             $this->combustion_drive_tech = $combustion_tech;
         }
@@ -232,7 +232,7 @@
         /**
          * @param mixed $impulse_drive_tech
          */
-        public function setImpulseDriveTech($impulse_drive_tech) : void {
+        public function setImpulseDriveTech(int $impulse_drive_tech) : void {
 
             $this->impulse_drive_tech = $impulse_drive_tech;
         }
@@ -248,7 +248,7 @@
         /**
          * @param mixed $hyperspace_drive_tech
          */
-        public function setHyperspaceDriveTech($hyperspace_drive_tech) : void {
+        public function setHyperspaceDriveTech(int $hyperspace_drive_tech) : void {
 
             $this->hyperspace_drive_tech = $hyperspace_drive_tech;
         }
@@ -264,7 +264,7 @@
         /**
          * @param mixed $laser_tech
          */
-        public function setLaserTech($laser_tech) : void {
+        public function setLaserTech(int $laser_tech) : void {
 
             $this->laser_tech = $laser_tech;
         }
@@ -280,7 +280,7 @@
         /**
          * @param mixed $ion_tech
          */
-        public function setIonTech($ion_tech) : void {
+        public function setIonTech(int $ion_tech) : void {
 
             $this->ion_tech = $ion_tech;
         }
@@ -296,7 +296,7 @@
         /**
          * @param mixed $plasma_tech
          */
-        public function setPlasmaTech($plasma_tech) : void {
+        public function setPlasmaTech(int $plasma_tech) : void {
 
             $this->plasma_tech = $plasma_tech;
         }
@@ -312,7 +312,7 @@
         /**
          * @param mixed $intergalactic_research_tech
          */
-        public function setIntergalacticResearchTech($intergalactic_research_tech) : void {
+        public function setIntergalacticResearchTech(int $intergalactic_research_tech) : void {
 
             $this->intergalactic_research_tech = $intergalactic_research_tech;
         }
@@ -328,7 +328,7 @@
         /**
          * @param mixed $graviton_tech
          */
-        public function setGravitonTech($graviton_tech) : void {
+        public function setGravitonTech(int $graviton_tech) : void {
 
             $this->graviton_tech = $graviton_tech;
         }

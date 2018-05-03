@@ -117,7 +117,7 @@
 
         /**
          * Sets the current level
-         * @param int $metal_mine the new level
+         * @param int $level the new level
          */
         public function setMetalMine(int $level) : void {
 
@@ -138,7 +138,7 @@
 
         /**
          * Sets the current level
-         * @param int $crystal_mine the new level
+         * @param int $level the new level
          */
         public function setCrystalMine(int $level) : void {
             if($level >= 0) {
@@ -157,7 +157,7 @@
 
         /**
          * Sets the current level
-         * @param int $deuterium_synthesizer the new level
+         * @param int $level the new level
          */
         public function setDeuteriumSynthesizer(int $level) : void {
 
@@ -178,7 +178,7 @@
 
         /**
          * Sets the current level
-         * @param int $solar_plant the new level
+         * @param int $level the new level
          */
         public function setSolarPlant(int $level) : void {
 
@@ -198,7 +198,7 @@
 
         /**
          * Sets the current level
-         * @param int $fusion_reactor the new level
+         * @param int $level the new level
          */
         public function setFusionReactor(int $level) : void {
 
@@ -218,7 +218,7 @@
 
         /**
          * Sets the current level
-         * @param int $robotic_factory the new level
+         * @param int $level the new level
          */
         public function setRoboticFactory(int $level) : void {
 
@@ -238,7 +238,7 @@
 
         /**
          * Sets the current level
-         * @param int $nanite_factory the new level
+         * @param int $level the new level
          */
         public function setNaniteFactory(int $level) : void {
 
@@ -258,7 +258,7 @@
 
         /**
          * Sets the current level
-         * @param int $shipyard the new level
+         * @param int $level the new level
          */
         public function setShipyard(int $level) : void {
 
@@ -278,7 +278,7 @@
 
         /**
          * Sets the current level
-         * @param int $metal_storage the new level
+         * @param int $level the new level
          */
         public function setMetalStorage(int $level) : void {
 
@@ -298,7 +298,7 @@
 
         /**
          * Sets the current level
-         * @param int $crystal_storage the new level
+         * @param int $level the new level
          */
         public function setCrystalStorage(int $level) : void {
 
@@ -318,7 +318,7 @@
 
         /**
          * Sets the current level
-         * @param int $deuterium_storage the new level
+         * @param int $level the new level
          */
         public function setDeuteriumStorage(int $level) : void {
 
@@ -338,7 +338,7 @@
 
         /**
          * Sets the current level
-         * @param int $research_lab the new level
+         * @param int $level the new level
          */
         public function setResearchLab(int $level) : void {
 
@@ -358,7 +358,7 @@
 
         /**
          * Sets the current level
-         * @param int $terraformer the new level
+         * @param int $level the new level
          */
         public function setTerraformer(int $level) : void {
 
@@ -379,7 +379,7 @@
 
         /**
          * Sets the current level
-         * @param int $alliance_depot the new level
+         * @param int $level the new level
          */
         public function setAllianceDepot(int $level) : void {
 
@@ -400,7 +400,7 @@
 
         /**
          * Sets the current level
-         * @param int $missile_silo the new level
+         * @param int $level the new level
          */
         public function setMissileSilo(int $level) : void {
 

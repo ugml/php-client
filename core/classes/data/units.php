@@ -407,7 +407,9 @@
          * @return string the unit-string-ID
          */
         function getUnitName(int $id) : string {
-            return $this->units[$id];
+            if(isset($this->units[$id])) {
+                return $this->units[$id];
+            }
         }
 
         /**
@@ -448,8 +450,9 @@
          * @return string the name of the unit, according to the current language-file
          */
         function getName(int $id) : string {
-
-            return $this->names[$id];
+            if(isset($this->names[$id])) {
+                return $this->names[$id];
+            }
         }
 
         /**
@@ -459,7 +462,9 @@
          */
         function getDescription(int $id) : string {
 
-            return $this->descriptions[$id];
+            if(isset($this->descriptions[$id])) {
+                return $this->descriptions[$id];
+            }
         }
 
         /**
@@ -469,7 +474,11 @@
          */
         function getPriceList(int $id) : array {
 
-            return $this->pricelist[$id];
+            if(isset($this->pricelist[$id])) {
+                return $this->pricelist[$id];
+            } else {
+                return [];
+            }
         }
 
         /**
@@ -528,8 +537,11 @@
          */
         function getStorageCapacity(int $storage_level) : float {
 
-            // Source: http://ogame.wikia.com/wiki/Metal_Storage
-            return 100000 + 50000 * (ceil(pow(1.5, $storage_level)) - 1);
+            if($storage_level >= 0) {
+                // Source: http://ogame.wikia.com/wiki/Metal_Storage
+                return 100000 + 50000 * (ceil(pow(1.5, $storage_level)) - 1);
+            }
+
         }
 
         /**
@@ -538,8 +550,9 @@
          * @return float the metal-production per hour
          */
         function getMetalProductionPerHour(int $level) : float {
-
-            return 10 * $level * pow(1.1, $level);
+            if($level >= 0) {
+                return 10 * $level * pow(1.1, $level);
+            }
         }
 
         /**
@@ -548,8 +561,9 @@
          * @return float the metal-production per hour
          */
         function getCrystalProductionPerHour(int $level) : float {
-
-            return 10 * $level * pow(1.1, $level);
+            if($level >= 0) {
+                return 10 * $level * pow(1.1, $level);
+            }
         }
 
         /**
@@ -558,8 +572,9 @@
          * @return float the metal-production per hour
          */
         function getDeuteriumProductionPerHour(int $level) : float {
-
-            return 10 * $level * pow(1.1, $level);
+            if($level >= 0) {
+                return 10 * $level * pow(1.1, $level);
+            }
         }
 
         /**
@@ -573,12 +588,13 @@
          */
         function getEnergyProduction(int $solarLevel, int $fusionLevel, int $energytech, int $numSolarSats, int $planetMaxTemp) : array {
 
-
-            return [
-                $this->units[4]   => 20 * $solarLevel * pow(1.1, $solarLevel),
-                $this->units[5]   => 30 * $fusionLevel * pow((1.05 + $energytech + 0.01), $fusionLevel),
-                $this->units[211] => (($planetMaxTemp / 4) + 20) * $numSolarSats
-            ];
+            if($solarLevel >= 0 && $fusionLevel >= 0 && $energytech >= 0 && $numSolarSats >= 0) {
+                return [
+                    $this->units[4]   => 20 * $solarLevel * pow(1.1, $solarLevel),
+                    $this->units[5]   => 30 * $fusionLevel * pow((1.05 + $energytech + 0.01), $fusionLevel),
+                    $this->units[211] => (($planetMaxTemp / 4) + 20) * $numSolarSats
+                ];
+            }
 
         }
 
@@ -588,8 +604,9 @@
          * @return float the energy consumption
          */
         function getEnergyConsumption(int $level) : float {
-
             //TODO: check if a energy-consuming unit or not
-            return 10 * $level * pow(1.1, $level);
+            if($level >= 0) {
+                return 10 * $level * pow(1.1, $level);
+            }
         }
     }

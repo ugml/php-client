@@ -322,7 +322,7 @@
 
         /**
          * Returns the current amount amount
-         * @return int the current amont
+         * @return int the current amount
          */
         public function getBattlecruiser() : int {
 
