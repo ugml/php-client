@@ -8,7 +8,14 @@
 
     <filter>
         <whitelist>
-            <directory suffix=".php">./core/</directory>
+            <directory suffix=".php">./</directory>
+            <exclude>
+                <directory>./images/</directory>
+                <directory>./scripts/</directory>
+                <directory>./skins/</directory>
+                <directory>./tests/</directory>
+                <directory>./vendor/</directory>
+            </exclude>
         </whitelist>
     </filter>
 
