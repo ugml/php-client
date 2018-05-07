@@ -21,6 +21,9 @@
          */
         public function __construct(int $uID, int $uAmount, float $uCostMetal, float $uCostCrystal, float $uCostDeuterium, float $uCostEnergy,
             $uCostFactor) {
+
+            //TODO: check if 300 < unitID < 400
+
             parent::__construct($uID, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor);
 
             $this->amount = $uAmount;
@@ -28,18 +31,22 @@
 
         public function getCostMetal() : float {
             // TODO: Implement getCostMetal() method.
+            return 0.0;
         }
 
         public function getCostCrystal() : float {
             // TODO: Implement getCostCrystal() method.
+            return 0.0;
         }
 
         public function getCostDeuterium() : float {
             // TODO: Implement getCostDeuterium() method.
+            return 0.0;
         }
 
         public function getCostEnergy() : float {
             // TODO: Implement getCostEnergy() method.
+            return 0.0;
         }
 
         public function getAmount() : int {

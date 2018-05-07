@@ -21,6 +21,9 @@
          */
         public function __construct(int $uID, int $uLevel, float $uCostMetal, float $uCostCrystal, float $uCostDeuterium, float $uCostEnergy,
             float $uCostFactor) {
+
+            // TODO: check unitID < 100
+
             parent::__construct($uID, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor);
 
             $this->level = $uLevel;

@@ -14,6 +14,7 @@
 
     /**
      * Class DataPlanetTest
+     * @covers D_Units::__construct
      * @codeCoverageIgnore
      */
     final class DataUnitsTest extends TestCase {

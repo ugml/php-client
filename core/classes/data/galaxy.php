@@ -19,7 +19,6 @@
          * D_Galaxy constructor.
          * @param int $gdebris_metal the amount of metal in the debris
          * @param int $gdebris_crystal the amount of crystal in the debris
-         * @codeCoverageIgnore
          */
         public function __construct(int $gdebris_metal, int $gdebris_crystal) {
             $this->debris_metal = $gdebris_metal;
@@ -30,7 +29,7 @@
          * Prints the object to the page
          * @codeCoverageIgnore
          */
-        public function printGalaxy() : void {
+        public function print() : void {
             echo '<pre>';
             print_r($this);
             echo '</pre>';

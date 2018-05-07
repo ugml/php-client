@@ -144,7 +144,6 @@
          * @param string $pb_hangar_id
          * @param bool    $pb_hangar_plus
          * @param bool    $pdestroyed
-         * @codeCoverageIgnore
          */
         public function __construct(
             int $pID, int $pownerID, string $pname, int $pgala, int $psystem, int $pplanet, int $plast_update,

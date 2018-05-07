@@ -73,7 +73,6 @@
          * @param int $bterraformer
          * @param int $balliance_depot
          * @param int $bmissile_silo
-         * @codeCoverageIgnore
          */
         public function __construct(int $bmetal_mine, int $bcrystal_mine, int $bdeuterium_synthesizer,
             int $bsolar_plant, int $bfusion_reactor, int $brobotic_factory, int $bnanite_factory,

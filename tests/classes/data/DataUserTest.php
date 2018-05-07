@@ -14,6 +14,7 @@
 
     /**
      * Class DataUserTest
+     * @covers D_User::__construct
      * @codeCoverageIgnore
      */
     final class DataUserTest extends TestCase {

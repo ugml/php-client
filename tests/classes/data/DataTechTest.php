@@ -14,6 +14,7 @@
 
     /**
      * Class DataPlanetTest
+     * @covers D_Tech::__construct
      * @codeCoverageIgnore
      */
     final class DataTechTest extends TestCase {

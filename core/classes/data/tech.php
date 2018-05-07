@@ -56,7 +56,6 @@
          * @param int $rplasma_tech
          * @param int $rintergalactic_research_tech
          * @param int $rgraviton_tech
-         * @codeCoverageIgnore
          */
         public function __construct(
             int $respionage_tech, int $rcomputer_tech, int $rweapon_tech, int $rarmour_tech, int $rshielding_tech,

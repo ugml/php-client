@@ -14,6 +14,7 @@
 
     /**
      * Class DataBuildingTest
+     * @covers D_Building::__construct
      * @codeCoverageIgnore
      */
     final class DataBuildingTest extends TestCase {

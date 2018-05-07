@@ -14,6 +14,7 @@
 
     /**
      * Class DataDefenseTest
+     * @covers D_Defense::__construct
      * @codeCoverageIgnore
      */
     final class DataDefenseTest extends TestCase {

@@ -73,47 +73,47 @@
         private $destroyed;
 
         /**
-         * Planet constructor.
-         * @param $planetID
-         * @param $ownerID
-         * @param $name
-         * @param $galaxy
-         * @param $system
-         * @param $planet
-         * @param $last_update
-         * @param $planet_type
-         * @param $image
-         * @param $diameter
-         * @param $fields_current
-         * @param $fields_max
-         * @param $temp_min
-         * @param $temp_max
-         * @param $metal
-         * @param $crystal
-         * @param $deuterium
-         * @param $energy_used
-         * @param $energy_max
-         * @param $metal_mine_percent
-         * @param $crystal_mine_percent
-         * @param $deuterium_synthesizer_percent
-         * @param $solar_plant_percent
-         * @param $fusion_reactor_percent
-         * @param $solar_satellite_percent
-         * @param $b_building_id
-         * @param $b_building_endtime
-         * @param $b_tech_id
-         * @param $b_hangar_start_time
-         * @param $b_tech_endtime
-         * @param $b_hangar_id
-         * @param $b_hangar_plus
-         * @param $destroyed
+         * U_Planet constructor.
+         * @param int    $planetID
+         * @param int    $ownerID
+         * @param string $name
+         * @param int    $galaxy
+         * @param int    $system
+         * @param int    $planet
+         * @param int    $last_update
+         * @param int    $planet_type
+         * @param string $image
+         * @param int    $diameter
+         * @param int    $fields_current
+         * @param int    $fields_max
+         * @param int    $temp_min
+         * @param int    $temp_max
+         * @param float  $metal
+         * @param float  $crystal
+         * @param float  $deuterium
+         * @param int    $energy_used
+         * @param int    $energy_max
+         * @param int    $metal_mine_percent
+         * @param int    $crystal_mine_percent
+         * @param int    $deuterium_synthesizer_percent
+         * @param int    $solar_plant_percent
+         * @param int    $fusion_reactor_percent
+         * @param int    $solar_satellite_percent
+         * @param int    $b_building_id
+         * @param int    $b_building_endtime
+         * @param int    $b_tech_id
+         * @param int    $b_tech_endtime
+         * @param int    $b_hangar_start_time
+         * @param string $b_hangar_id
+         * @param bool   $b_hangar_plus
+         * @param bool   $destroyed
          */
-        public function __construct($planetID, $ownerID, $name, $galaxy, $system, $planet, $last_update, $planet_type,
-            $image, $diameter, $fields_current, $fields_max, $temp_min, $temp_max, $metal, $crystal, $deuterium,
-            $energy_used, $energy_max, $metal_mine_percent, $crystal_mine_percent, $deuterium_synthesizer_percent,
-            $solar_plant_percent, $fusion_reactor_percent, $solar_satellite_percent, $b_building_id,
-            $b_building_endtime, $b_tech_id, $b_tech_endtime, $b_hangar_start_time, $b_hangar_id, $b_hangar_plus,
-            $destroyed) {
+        public function __construct(int $planetID, int $ownerID, string $name, int $galaxy, int $system, int $planet, int $last_update, int $planet_type,
+            string $image, int $diameter, int $fields_current, int $fields_max, int $temp_min, int $temp_max, float $metal, float $crystal, float $deuterium,
+            int $energy_used, int $energy_max, int $metal_mine_percent, int $crystal_mine_percent, int $deuterium_synthesizer_percent,
+            int $solar_plant_percent, int $fusion_reactor_percent, int $solar_satellite_percent, int $b_building_id,
+            int $b_building_endtime, int $b_tech_id, int $b_tech_endtime, int $b_hangar_start_time, string $b_hangar_id, bool $b_hangar_plus,
+            bool $destroyed) {
             $this->planetID = $planetID;
             $this->ownerID = $ownerID;
             $this->name = $name;
@@ -189,8 +189,6 @@
 
             return $prod_metal;
         }
-
-
 
         private function calculateCrystalProduction($lvl_crystal, $storageCapacity, $prod_factor, $time_diff, $baseIncome) : float {
             global $units;
@@ -1060,9 +1058,10 @@
             $this->temp_max = $temp_max;
         }
 
-
-
-        public function printPlanet() : void {
+        /**
+         * @codeCoverageIgnore
+         */
+        public function print() : void {
             echo '<pre>';
             print_r($this);
             echo '</pre>';

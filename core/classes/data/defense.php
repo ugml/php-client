@@ -52,7 +52,6 @@
          * @param int $dlarge_shield_dome
          * @param int $danti_ballistic_missile
          * @param int $dinterplanetary_missile
-         * @codeCoverageIgnore
          */
         public function __construct(
             int $drocket_launcher, int $dlight_laser, int $dheavy_laser, int $dion_cannon, int $dgauss_cannon,

@@ -38,7 +38,6 @@
          * @param int    $points
          * @param int    $cRank
          * @param int    $oRank
-         * @codeCoverageIgnore
          */
         public function __construct(int $uID, string $uname, string $email, int $otime, int $currPlanet, int $points, int $cRank, int $oRank) {
 
@@ -55,7 +54,7 @@
         /**
          * @codeCoverageIgnore
          */
-        public function printUser() : void {
+        public function print() : void {
 
             echo '<pre>';
             print_r($this);

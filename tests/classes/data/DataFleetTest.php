@@ -14,6 +14,7 @@
 
     /**
      * Class DataFleetTest
+     * @covers D_Fleet::__construct
      * @codeCoverageIgnore
      */
     class DataFleetTest extends TestCase {

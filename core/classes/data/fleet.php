@@ -68,7 +68,6 @@
          * @param int $fdestroyer
          * @param int $fbattlecruiser
          * @param int $fdeathstar
-         * @codeCoverageIgnore
          */
         public function __construct(
             int $fsmall_cargo_ship, int $flarge_cargo_ship, int $flight_fighter, int $fheavy_fighter, int $fcruiser,

@@ -54,6 +54,7 @@
 
         public function getCostEnergy() : float {
             // TODO: Implement getCostEnergy() method.
+            return 0.0;
         }
 
         /**

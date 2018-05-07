@@ -13,6 +13,7 @@
 
     /**
      * Class DataGalaxyTest
+     * @covers D_Galaxy::__construct
      * @codeCoverageIgnore
      */
     final class DataGalaxyTest extends TestCase {
