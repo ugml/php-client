@@ -5,7 +5,7 @@
     class V_Login implements I_View {
 
         // Pfad zum Template
-        private $path = 'core/templates';
+        private Config::$pathConfig = 'core/templates';
 
         // Name des Templates, in dem Fall das Standardtemplate.
         private $template = 'login';

@@ -11,23 +11,23 @@
          */
         public function loadLanguage() {
 
-            global $path, $config, $lang;
+            global $lang;
 
-            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/resources.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/resources.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/units.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/menu.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/menu.php';
             if (file_exists($file)) {
                 require $file;
             } else {
@@ -45,9 +45,9 @@
          */
         public static function loadUserData($userID) {
 
-            global $path;
 
-            $file = $path['classes'] . 'loader.php';
+
+            $file = Config::$pathConfig['classes'] . 'loader.php';
             if (file_exists($file)) {
                 require $file;
             } else {

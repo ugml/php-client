@@ -46,7 +46,7 @@
         }
 
         public function loadGalaxyRows($galaxyData) {
-            global $path, $config, $data;
+            global $data;
 
 //            echo "<pre>";
 //            print_r($galaxyData);
@@ -54,7 +54,7 @@
 
             ob_start();
 
-            $file = $path['templates'] . $this->template . '_row.php';
+            $file = Config::$pathConfig['templates'] . $this->template . '_row.php';
             if (file_exists($file)) {
                 include $file;
             } else {
@@ -74,7 +74,7 @@
 
                 // if there is a planet at this position
                 if(array_key_exists($i, $galaxyData)) {
-                    $fields['galaxy_planetimg'] = "<img width='32px' height='32px' src=\"".$config['skinpath'] .  "/planeten/small/s_".$galaxyData[$i]->image.".png\" />";
+                    $fields['galaxy_planetimg'] = "<img width='32px' height='32px' src=\"".Config::$gameConfig['skinpath'] .  "/planeten/small/s_".$galaxyData[$i]->image.".png\" />";
 
 
                     $fields['galaxy_name'] = $galaxyData[$i]->name;
@@ -83,7 +83,7 @@
 
 
                     if(intval($galaxyData[$i]->moonID) > 0) {
-                        $fields['galaxy_moon'] = "<img width='32px' height='32px' src=\"".$config['skinpath'] .  "/planeten/mond.png\" />";
+                        $fields['galaxy_moon'] = "<img width='32px' height='32px' src=\"".Config::$gameConfig['skinpath'] .  "/planeten/mond.png\" />";
                     } else {
                         $fields['galaxy_moon'] = "";
                     }
@@ -91,7 +91,7 @@
 
                     // TODO: mouse-over for more details
                     if($galaxyData[$i]->debris_metal > 0 || $galaxyData[$i]->debris_crystal > 0) {
-                        $fields['galaxy_debris'] = "<img src=\"".$config['skinpath'] .  "/images/debris.png\" />";
+                        $fields['galaxy_debris'] = "<img src=\"".Config::$gameConfig['skinpath'] .  "/images/debris.png\" />";
                     } else {
                         $fields['galaxy_debris'] = "-";
                     }
@@ -129,18 +129,18 @@
                         // if player has espionage-probes
                         if($data->getFleet()[209]->getAmount() > 0) {
                             // TODO: create link
-                            $fields['galaxy_actions'] .= "<img src=\"".$config['skinpath'] .  "/images/e.gif\" />&nbsp;";
+                            $fields['galaxy_actions'] .= "<img src=\"".Config::$gameConfig['skinpath'] .  "/images/e.gif\" />&nbsp;";
                         }
 
                         // TODO: create link
-                        $fields['galaxy_actions'] .= "<img src=\"".$config['skinpath'] .  "/images/m.gif\" />&nbsp;";
+                        $fields['galaxy_actions'] .= "<img src=\"".Config::$gameConfig['skinpath'] .  "/images/m.gif\" />&nbsp;";
 
                         // TODO: if not already butty
-                        $fields['galaxy_actions'] .= "<img src=\"".$config['skinpath'] .  "/images/b.gif\" />&nbsp;";
+                        $fields['galaxy_actions'] .= "<img src=\"".Config::$gameConfig['skinpath'] .  "/images/b.gif\" />&nbsp;";
 
                         // TODO: if in range
                         if($data->getDefense()[310]->getAmount() > 0) {
-                            $fields['galaxy_actions'] .= "<img src=\"" . $config['skinpath'] . "/images/r.gif\" />";
+                            $fields['galaxy_actions'] .= "<img src=\"" . Config::$gameConfig['skinpath'] . "/images/r.gif\" />";
                         }
                     }
 

@@ -38,7 +38,7 @@
          */
         public function loadTemplate($mode = null) {
 
-            global $path;
+
 
             if ($mode != null) {
                 $this->template .= '_' . $mode;
@@ -47,35 +47,35 @@
             // write the output into a buffer
             ob_start();
 
-            $file = $path['templates'] . 'header.php';
+            $file = Config::$pathConfig['templates'] . 'header.php';
             if (file_exists($file)) {
                 include $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['templates'] . 'admin/topbar.php';
+            $file = Config::$pathConfig['templates'] . 'admin/topbar.php';
             if (file_exists($file)) {
                 include $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['templates'] . 'admin/menu.php';
+            $file = Config::$pathConfig['templates'] . 'admin/menu.php';
             if (file_exists($file)) {
                 include $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['templates'] . 'admin/' . $this->template . '.php';
+            $file = Config::$pathConfig['templates'] . 'admin/' . $this->template . '.php';
             if (file_exists($file)) {
                 include $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['templates'] . 'footer.php';
+            $file = Config::$pathConfig['templates'] . 'footer.php';
             if (file_exists($file)) {
                 include $file;
             } else {

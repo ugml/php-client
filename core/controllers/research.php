@@ -17,7 +17,7 @@
 
         function __construct($get, $post) {
 
-            global $data, $debug, $path;
+            global $data, $units, $debug;
 
             try {
 
@@ -35,7 +35,7 @@
                     self::handlePOST();
                 }
 
-                require_once($path['classes'] . "topbar.php");
+                require_once(Config::$pathConfig['classes'] . "topbar.php");
 
 
             } catch (Exception $e) {
@@ -108,7 +108,7 @@
 
                     $pricelist = $units->getPriceList($buildID);
 
-                    $level = ($data->getTech()[$buildID])->getLevel();
+                    $level = ($data->getTechList()[$buildID])->getLevel();
 
                     $metal = $pricelist['metal'];
                     $crystal = $pricelist['crystal'];
@@ -157,7 +157,7 @@
 
                 $pricelist = $units->getPriceList($buildID);
 
-                $level = ($data->getTech()[$buildID])->getLevel();
+                $level = ($data->getTechList()[$buildID])->getLevel();
 
                 $metal = $pricelist['metal'];
                 $crystal = $pricelist['crystal'];
@@ -183,13 +183,13 @@
 
         function display() : void {
 
-            global $config, $data, $units;
+            global $data, $units;
 
             $v_lang = $this->model->loadLanguage();;
 
             // load the individual rows for each building
             $this->lang['research_list'] = $this->view->loadResearchRows(
-                $data->getTech(),
+                $data->getTechList(),
                 $units->getTechnologies(),
                 $data->getPlanet()
             );
@@ -204,9 +204,9 @@
 
 
             $this->view->assign('lang', $this->lang);
-            $this->view->assign('title', $config['game_name']);
-            $this->view->assign('skinpath', $config['skinpath']);
-            $this->view->assign('copyright', $config['copyright']);
+            $this->view->assign('title', Config::$gameConfig['game_name']);
+            $this->view->assign('skinpath',Config::$gameConfig['skinpath']);
+            $this->view->assign('copyright', Config::$gameConfig['copyright']);
             $this->view->assign('language', Config::$pathConfig['language']);
 
             if (!empty($this->get['mode'])) {

@@ -17,7 +17,7 @@
 
         function __construct($get, $post) {
 
-            global $data, $debug, $path;
+            global $data, $units, $debug;
 
             try {
 
@@ -35,7 +35,7 @@
                     self::handlePOST();
                 }
 
-                require_once($path['classes'] . "topbar.php");
+                require_once(Config::$pathConfig['classes'] . "topbar.php");
 
 
             } catch (Exception $e) {
@@ -176,12 +176,12 @@
 
         function display() : void {
 
-            global $config, $data, $units;
+            global $data, $units;
 
             $v_lang = $this->model->loadLanguage();
 
             // load the individual rows for each building
-            $this->lang['shipyard_list'] = $this->view->loadShipyardRows($data->getFleet(), $units->getFleet(),
+            $this->lang['shipyard_list'] = $this->view->loadShipyardRows($data->getFleetList(), $units->getFleet(),
                 $data->getPlanet());
 
             if (is_array($this->lang) && is_array($v_lang)) {
@@ -194,10 +194,10 @@
 
 
             $this->view->assign('lang', $this->lang);
-            $this->view->assign('title', $config['game_name']);
-            $this->view->assign('skinpath', $config['skinpath']);
-            $this->view->assign('copyright', $config['copyright']);
-            $this->view->assign('language', Config::$pathConfig['language']);
+            $this->view->assign('title', Config::$gameConfig['game_name']);
+            $this->view->assign('skinpath',Config::$gameConfig['skinpath']);
+            $this->view->assign('copyright', Config::$gameConfig['copyright']);
+            $this->view->assign('language', Config::$gameConfig['language']);
 
             if (!empty($this->get['mode'])) {
                 echo $this->view->loadTemplate($this->get['mode']);

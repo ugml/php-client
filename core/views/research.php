@@ -38,7 +38,7 @@
          */
         public function loadTemplate($mode = null) {
 
-            global $path, $data;
+            global $data;
 
             if ($mode != null) {
                 $this->template .= '_' . $mode;
@@ -49,7 +49,7 @@
 
         public function loadResearchRows($research, $unitsResearch, $planet) {
 
-            global $path, $config, $lang, $data, $units;
+            global $lang, $data, $units;
 
             $output = '';
 
@@ -74,12 +74,12 @@
 
                         // if requirement is a building
                         if ($bID < 100) {
-                            $level = ($data->getBuilding()[$bID])->getLevel();
+                            $level = ($data->getBuildingList()[$bID])->getLevel();
                         }
 
                         // if requirement is a research
                         if ($bID > 100 && $bID < 200) {
-                            $level = ($data->getTech()[$bID])->getLevel();
+                            $level = ($data->getTechList()[$bID])->getLevel();
                         }
 
                         if ($level < $lvl) {
@@ -94,7 +94,7 @@
 
                     $unitID = $units->getUnitID($v);
 
-                    $level = ($data->getTech()[$unitID])->getLevel();
+                    $level = ($data->getTechList()[$unitID])->getLevel();
 
                     $pricelist = $units->getPriceList($unitID);
 
@@ -153,7 +153,7 @@
                         }
                     }
 
-                    $fields['r_image'] = $config['skinpath'] . 'gebaeude/' . $unitID . '.png';
+                    $fields['r_image'] = Config::$gameConfig['skinpath'] . 'gebaeude/' . $unitID . '.png';
                     $fields['r_metal'] = number_format(ceil($metal), 0);
                     $fields['r_crystal'] = number_format(ceil($crystal), 0);
                     $fields['r_deuterium'] = number_format(ceil($deuterium), 0);
@@ -182,7 +182,7 @@
 
                     ob_start();
 
-                    $file = $path['templates'] . $this->template . '_row.php';
+                    $file = Config::$pathConfig['templates'] . $this->template . '_row.php';
                     if (file_exists($file)) {
                         include $file;
                     } else {

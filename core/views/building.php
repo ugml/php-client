@@ -41,7 +41,7 @@
          */
         public function loadTemplate($mode = null) {
 
-            global $path, $data;
+            global $data;
 
             if ($mode != null) {
                 $this->template .= '_' . $mode;
@@ -61,7 +61,7 @@
          */
         public function loadBuildingRows($buildings, $unitsBuilding, $planet) {
 
-            global $path, $config, $lang, $data, $units;
+            global $lang, $data, $units;
 
             $output = '';
 
@@ -85,11 +85,11 @@
 
                         // if requirement is a building
                         if ($bID < 100) {
-                            $level = ($data->getBuilding()[$bID])->getLevel();
+                            $level = ($data->getBuildingList()[$bID])->getLevel();
                         }
                         // if requirement is a research
                         if ($bID > 100 && $bID < 200) {
-                            $level = ($data->getTech()[$bID])->getLevel();
+                            $level = ($data->getTechList()[$bID])->getLevel();
                         }
 
                         if ($level < $lvl) {
@@ -104,7 +104,7 @@
 
                     $unitID = $units->getUnitID($v);
 
-                    $building = $data->getBuilding()[$unitID];
+                    $building = $data->getBuildingList()[$unitID];
 
                     $level = $building->getLevel();
 
@@ -150,29 +150,29 @@
                         }
                     }
 
-                    $fields['b_image'] = $config['skinpath'] . 'gebaeude/' . $unitID . '.png';
+                    $fields['b_image'] = Config::$gameConfig['skinpath'] . 'gebaeude/' . $unitID . '.png';
 
                     $fields['required_ressources'] = '';
 
                     if($building->getCostMetal() > 0) {
-                        $fields['required_ressources'] .= '<img src="'.$config['skinpath'] .  '/images/metal.png"> ' . number_format($building->getCostMetal(), 0) . ' ';
+                        $fields['required_ressources'] .= '<img src="'.Config::$gameConfig['skinpath'] .  '/images/metal.png"> ' . number_format($building->getCostMetal(), 0) . ' ';
                     }
 
                     if($building->getCostCrystal() > 0) {
-                        $fields['required_ressources'] .= '<img src="'.$config['skinpath'] .  '/images/crystal.png"> ' . number_format($building->getCostCrystal(), 0) . ' ';
+                        $fields['required_ressources'] .= '<img src="'.Config::$gameConfig['skinpath'] .  '/images/crystal.png"> ' . number_format($building->getCostCrystal(), 0) . ' ';
                     }
 
                     if($building->getCostDeuterium() > 0) {
-                        $fields['required_ressources'] .= '<img src="'.$config['skinpath'] .  '/images/deuterium.png"> ' . number_format($building->getCostDeuterium(), 0) . ' ';
+                        $fields['required_ressources'] .= '<img src="'.Config::$gameConfig['skinpath'] .  '/images/deuterium.png"> ' . number_format($building->getCostDeuterium(), 0) . ' ';
                     }
 
                     if($building->getCostEnergy() > 0) {
-                        $fields['required_ressources'] .= '<img src="'.$config['skinpath'] .  '/images/energy.png"> ' . number_format($building->getCostEnergy(), 0) . ' ';
+                        $fields['required_ressources'] .= '<img src="'.Config::$gameConfig['skinpath'] .  '/images/energy.png"> ' . number_format($building->getCostEnergy(), 0) . ' ';
                     }
 
 
 
-                    $duration = 3600 * $units->getBuildTime($building, $data->getBuilding()[6]->getLevel(), $data->getBuilding()[8]->getLevel(), $data->getBuilding()[7]->getLevel());
+                    $duration = 3600 * $units->getBuildTime($building, $data->getBuildingList()[6]->getLevel(), $data->getBuildingList()[8]->getLevel(), $data->getBuildingList()[7]->getLevel());
 
 
                     $weeks = floor(($duration / 604800));
@@ -206,7 +206,7 @@
 
                     ob_start();
 
-                    $file = $path['templates'] . $this->template . '_row.php';
+                    $file = Config::$pathConfig['templates'] . $this->template . '_row.php';
                     if (file_exists($file)) {
                         include $file;
                     } else {

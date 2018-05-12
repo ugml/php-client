@@ -23,7 +23,7 @@
          */
         function __construct($get, $post) {
 
-            global $data, $debug, $path;
+            global $data, $units, $debug;
 
             try {
 
@@ -41,7 +41,7 @@
                     self::handlePOST();
                 }
 
-                require_once($path['classes'] . "topbar.php");
+                require_once(Config::$pathConfig['classes'] . "topbar.php");
 
             } catch (Exception $e) {
                 if (DEBUG) {
@@ -121,11 +121,11 @@
 
                     $units = new D_Units();
 
-                    $level = $data->getBuilding()[$buildID]->getLevel();
+                    $level = $data->getBuildingList()[$buildID]->getLevel();
 
-                    $metal = $data->getBuilding()[$buildID]->getCostMetal();
-                    $crystal = $data->getBuilding()[$buildID]->getCostCrystal();
-                    $deuterium = $data->getBuilding()[$buildID]->getCostDeuterium();
+                    $metal = $data->getBuildingList()[$buildID]->getCostMetal();
+                    $crystal = $data->getBuildingList()[$buildID]->getCostCrystal();
+                    $deuterium = $data->getBuildingList()[$buildID]->getCostDeuterium();
 
 
                     if ($data->getPlanet()->getMetal() >= $metal &&
@@ -168,7 +168,7 @@
 
                 $pricelist = $units->getPriceList($buildID);
 
-                $level = $data->getBuilding()[$buildID]->getLevel();
+                $level = $data->getBuildingList()[$buildID]->getLevel();
 
                 $metal = $pricelist['metal'];
                 $crystal = $pricelist['crystal'];
@@ -201,14 +201,13 @@
          */
         function display() : void {
 
-            global $config, $data, $units;
+            global $data, $units;
 
             $v_lang = $this->model->loadLanguage();
 
             // load the individual rows for each building
 
-            $this->lang['building_list'] = $this->view->loadBuildingRows($data->getBuilding(),
-                $units->getBuildings(), $data->getPlanet());
+            $this->lang['building_list'] = $this->view->loadBuildingRows($data->getBuildingList(), $units->getBuildings(), $data->getPlanet());
 
             if (is_array($this->lang) && is_array($v_lang)) {
                 $this->lang = array_merge($this->lang, $v_lang);
@@ -220,10 +219,10 @@
 
 
             $this->view->assign('lang', $this->lang);
-            $this->view->assign('title', $config['game_name']);
-            $this->view->assign('skinpath', $config['skinpath']);
-            $this->view->assign('copyright', $config['copyright']);
-            $this->view->assign('language', Config::$pathConfig['language']);
+            $this->view->assign('title', Config::$gameConfig['game_name']);
+            $this->view->assign('skinpath',Config::$gameConfig['skinpath']);
+            $this->view->assign('copyright', Config::$gameConfig['copyright']);
+            $this->view->assign('language', Config::$gameConfig['language']);
 
             if (!empty($this->get['mode'])) {
                 echo $this->view->loadTemplate($this->get['mode']);

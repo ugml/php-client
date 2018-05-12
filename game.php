@@ -17,7 +17,7 @@
         $userID = $_SESSION['userID'];
     } else {
         header('Location: login.php');
-        //        die(header('Location: login.php'));
+        die();
     }
 
     if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
@@ -61,7 +61,7 @@
 
     // check if a page was requested and if there is
     // a controller to the request
-    if (isset($_GET['page']) && file_exists($path['controllers'] . $_GET['page'] . '.php')) {
+    if (isset($_GET['page']) && file_exists(Config::$pathConfig['controllers'] . $_GET['page'] . '.php')) {
         $page = $_GET['page'];
 
         // delete the element, because the controller
@@ -69,7 +69,7 @@
         unset($_GET['page']);
     } else {
         // file does not exist -> redirect to overview
-        if (isset($_GET['page']) && !file_exists($path['controllers'] . $_GET['page'] . '.php')) {
+        if (isset($_GET['page']) && !file_exists(Config::$pathConfig['controllers'] . $_GET['page'] . '.php')) {
             $page = 'overview';
         }
     }
@@ -108,6 +108,8 @@
     // get coords for galaxy menu-link
     $lang["g"] = $data->getPlanet()->getGalaxy();
     $lang["s"] = $data->getPlanet()->getSystem();
+
+    $lang["ugamela_version"] = Config::$gameConfig['ugamela_version'];
 
     // display the page
     $controller->display();

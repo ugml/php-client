@@ -6,7 +6,9 @@
         define('INSIDE', true);
     }
 
-//    require_once dirname(dirname(dirname(__FILE__))) . '/config.php';
+    require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/core/config.sample.php';
+
+    Config::init();
 
     require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/classes/data/defense.php";
 

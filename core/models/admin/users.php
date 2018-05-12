@@ -11,16 +11,16 @@
          */
         public function loadLanguage() {
 
-            global $path, $config, $lang;
+            global $lang;
 
-            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/admin/dashboard.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/admin/dashboard.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/menu.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/menu.php';
             if (file_exists($file)) {
                 require $file;
             } else {

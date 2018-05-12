@@ -19,7 +19,7 @@
          */
         function __construct($get, $post) {
 
-            global $data, $debug, $path;
+            global $data, $debug;
 
             try {
                 $this->get = $get;
@@ -33,7 +33,7 @@
                     self::handlePOST();
                 }
 
-                require_once($path['classes'] . "topbar.php");
+                require_once(Config::$pathConfig['classes'] . "topbar.php");
 
             } catch (Exception $e) {
                 if (DEBUG) {
@@ -68,7 +68,7 @@
          */
         function display() : void {
 
-            global $config;
+
 
             // load view
             $view = new V_Changelog();
@@ -79,9 +79,9 @@
 
 
             $view->assign('lang', $this->lang);
-            $view->assign('title', $config['game_name']);
-            $view->assign('skinpath', $config['skinpath']);
-            $view->assign('copyright', $config['copyright']);
+            $view->assign('title', Config::$gameConfig['game_name']);
+            $view->assign('skinpath', Config::$gameConfig['skinpath']);
+            $view->assign('copyright', Config::$gameConfig['copyright']);
             $view->assign('language', Config::$pathConfig['language']);
 
             if (!empty($this->get['mode'])) {

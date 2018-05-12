@@ -11,23 +11,23 @@
          */
         public function loadLanguage() {
 
-            global $path, $config, $lang;
+            global $lang;
 
-            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/research.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/research.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/units.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/menu.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/menu.php';
             if (file_exists($file)) {
                 require $file;
             } else {
@@ -59,12 +59,12 @@
 
                     // if requirement is a building
                     if ($bID < 100) {
-                        $level = ($data->getBuilding()[$bID])->getLevel();
+                        $level = ($data->getBuildingList()[$bID])->getLevel();
                     }
 
                     // if requirement is a research
                     if ($bID > 100 && $bID < 200) {
-                        $level = $data->getTech()[$bID]->getLevel();
+                        $level = $data->getTechList()[$bID]->getLevel();
                     }
 
                     if ($level < $lvl) {
@@ -86,7 +86,7 @@
 
                         $buildTime = time() + ($price["metal"] * pow($price["factor"],
                                     $toLvl - 1) + $price["crystal"] * pow($price["factor"],
-                                    $toLvl - 1)) / (1000 * (1 + $data->getBuilding()['research_lab'])) * 3600;
+                                    $toLvl - 1)) / (1000 * (1 + $data->getBuildingList()['research_lab'])) * 3600;
 
                         $params = array(':b_tech_id'      => $buildID,
                                         ':b_tech_endtime' => $buildTime,

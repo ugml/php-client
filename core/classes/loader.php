@@ -292,7 +292,7 @@
                     for ($i = 1; $i <= count($dResearch); $i++) {
                         //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
 
-                        //TODO set techData
+                        $this->techData->setTechByID($i + 100, $dResearch[$i - 1]);
 
                         $this->techList[$i + 100] = new U_Research(
                             $i,
@@ -305,9 +305,13 @@
                         );
                     }
 
+                    $this->fleetData = new D_Fleet(0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+
                     // create a fleet-object for each defense
                     for ($i = 1; $i <= count($dFleet); $i++) {
                         //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
+
+                        $this->fleetData->setFleetByID($i + 200, $dFleet[$i - 1]);
 
                         $this->fleetList[$i + 200] = new U_Fleet(
                             $i,
@@ -320,9 +324,13 @@
                         );
                     }
 
+                    $this->defenseData = new D_Defense(0,0,0,0,0,0,0,0,0,0);
+
                     // create a fleet-object for each defense
                     for ($i = 1; $i <= count($dDefense); $i++) {
                         //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
+
+                        $this->defenseData->setDefenseByID($i + 300, $dDefense[$i - 1]);
 
                         $this->defenseList[$i + 300] = new U_Defense(
                             $i,

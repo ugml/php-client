@@ -332,4 +332,116 @@
             $this->graviton_tech = $graviton_tech;
         }
 
+        /**
+         * Return the level of the tech, given its id
+         * @param int $id the tech id
+         * @return int the level of the tech
+         */
+        public function getTechByID(int $id) : int {
+
+            switch($id) {
+                case 101:
+                    return $this->getEspionageTech();
+                    break;
+                case 102:
+                    return $this->getComputerTech();
+                    break;
+                case 103:
+                    return $this->getWeaponTech();
+                    break;
+                case 104:
+                    return $this->getArmourTech();
+                    break;
+                case 105:
+                    return $this->getShieldingTech();
+                    break;
+                case 106:
+                    return $this->getEnergyTech();
+                    break;
+                case 107:
+                    return $this->getHyperspaceTech();
+                    break;
+                case 108:
+                    return $this->getCombustionDriveTech();
+                    break;
+                case 109:
+                    return $this->getImpulseDriveTech();
+                    break;
+                case 110:
+                    return $this->getHyperspaceDriveTech();
+                    break;
+                case 111:
+                    return $this->getLaserTech();
+                    break;
+                case 112:
+                    return $this->getIonTech();
+                    break;
+                case 113:
+                    return $this->getPlasmaTech();
+                    break;
+                case 114:
+                    return $this->getIntergalacticResearchTech();
+                    break;
+                case 115:
+                    return $this->getGravitonTech();
+                    break;
+            }
+        }
+
+        /**
+         * Sets the level of the tech, given its id and new level
+         * @param int $id the id of the tech
+         * @param int $level the new level of the tech
+         */
+        public function setTechByID(int $id, int $level) {
+
+            switch($id) {
+                case 101:
+                    $this->setEspionageTech($level);
+                    break;
+                case 102:
+                    $this->setComputerTech($level);
+                    break;
+                case 103:
+                    $this->setWeaponTech($level);
+                    break;
+                case 104:
+                    $this->setArmourTech($level);
+                    break;
+                case 105:
+                    $this->setShieldingTech($level);
+                    break;
+                case 106:
+                    $this->setEnergyTech($level);
+                    break;
+                case 107:
+                    $this->setHyperspaceTech($level);
+                    break;
+                case 108:
+                    $this->setCombustionDriveTech($level);
+                    break;
+                case 109:
+                    $this->setImpulseDriveTech($level);
+                    break;
+                case 110:
+                    $this->setHyperspaceDriveTech($level);
+                    break;
+                case 111:
+                    $this->setLaserTech($level);
+                    break;
+                case 112:
+                    $this->setIonTech($level);
+                    break;
+                case 113:
+                    $this->setPlasmaTech($level);
+                    break;
+                case 114:
+                    $this->setIntergalacticResearchTech($level);
+                    break;
+                case 115:
+                    $this->setGravitonTech($level);
+                    break;
+            }
+        }
+
     }

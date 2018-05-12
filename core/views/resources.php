@@ -52,11 +52,11 @@
          */
         public function loadResourceRow() {
 
-            global $path;
+
 
             ob_start();
 
-            $file = $path['templates'] . $this->template . '_row.php';
+            $file = Config::$pathConfig['templates'] . $this->template . '_row.php';
             if (file_exists($file)) {
                 include $file;
             } else {

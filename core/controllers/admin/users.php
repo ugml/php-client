@@ -46,16 +46,16 @@
 
         function display() {
 
-            global $config;
+
 
             $view = new V_Users();
 
             $this->lang = array_merge($this->lang, M_Users::loadLanguage());
 
             $view->assign('lang', $this->lang);
-            $view->assign('title', $config['game_name']);
+            $view->assign('title', Config::$gameConfig['game_name']);
             $view->assign('skinpath', $this->skin);
-            $view->assign('copyright', $config['copyright']);
+            $view->assign('copyright', Config::$gameConfig['copyright']);
             $view->assign('language', Config::$pathConfig['language']);
 
             echo $view->loadTemplate();

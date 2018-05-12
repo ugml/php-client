@@ -15,44 +15,44 @@
          */
         public function mergeTemplates($class, $fields) : string {
 
-            global $path, $dbConnection, $debug;
+            global $dbConnection, $debug;
 
             $this->_ = $fields;
 
             // write the output into a buffer
             ob_start();
 
-            $file = $path['templates'] . 'header.php';
+            $file = Config::$pathConfig['templates'] . 'header.php';
             if (file_exists($file)) {
-                include $file;
+                require_once $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['templates'] . 'menu.php';
+            $file = Config::$pathConfig['templates'] . 'menu.php';
             if (file_exists($file)) {
-                include $file;
+                require_once $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['templates'] . 'topbar.php';
+            $file = Config::$pathConfig['templates'] . 'topbar.php';
             if (file_exists($file)) {
-                include $file;
+                require_once $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['templates'] . $class . '.php';
+            $file = Config::$pathConfig['templates'] . $class . '.php';
             if (file_exists($file)) {
-                include $file;
+                require_once $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['templates'] . 'footer.php';
+            $file = Config::$pathConfig['templates'] . 'footer.php';
             if (file_exists($file)) {
-                include $file;
+                require_once $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }

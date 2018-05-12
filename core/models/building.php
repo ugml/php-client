@@ -11,23 +11,23 @@
          */
         public function loadLanguage() {
 
-            global $path, $config, $lang;
+            global $lang;
 
-            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/buildings.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/buildings.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/units.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/menu.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/menu.php';
             if (file_exists($file)) {
                 require $file;
             } else {
@@ -45,9 +45,9 @@
          */
         public static function loadUserData($userID) {
 
-            global $path;
 
-            $file = $path['classes'] . 'loader.php';
+
+            $file = Config::$pathConfig['classes'] . 'loader.php';
             if (file_exists($file)) {
                 require $file;
             } else {
@@ -59,7 +59,7 @@
 
         public static function build($planetID, $buildID, $toLvl, $metal, $crystal, $deuterium) {
 
-            global $dbConfig, $config, $dbConnection, $data, $units;
+            global $dbConfig, $dbConnection, $data, $units;
 
             // check if requirements are met
             $req_met = true;
@@ -78,12 +78,12 @@
 
                     // if requirement is a building
                     if ($bID < 100) {
-                        $level = $data->getBuilding()[$buildID]->getLevel();
+                        $level = $data->getBuildingList()[$buildID]->getLevel();
                     }
 
                     // if requirement is a research
                     if ($bID > 100 && $bID < 200) {
-                        $level = $data->getTech()[$buildID]->getLevel();
+                        $level = $data->getTechList()[$buildID]->getLevel();
                     }
 
                     if ($level < $lvl) {
@@ -101,10 +101,10 @@
 
 
                         $buildTime = time() + 3600 * $units->getBuildTime(
-                                $data->getBuilding()[$buildID],
-                                $data->getBuilding()[$units->getUnitID('robotic_factory')]->getLevel(),
-                                $data->getBuilding()[$units->getUnitID('shipyard')]->getLevel(),
-                                $data->getBuilding()[$units->getUnitID('nanite_factory')]->getLevel()
+                                $data->getBuildingList()[$buildID],
+                                $data->getBuildingList()[$units->getUnitID('robotic_factory')]->getLevel(),
+                                $data->getBuildingList()[$units->getUnitID('shipyard')]->getLevel(),
+                                $data->getBuildingList()[$units->getUnitID('nanite_factory')]->getLevel()
                             );
 
 

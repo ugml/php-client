@@ -21,7 +21,7 @@
          */
         function __construct($get, $post) {
 
-            global $data, $debug, $path, $config, $units;
+            global $data, $debug, $units;
 
             $this->model = new M_Overview();
 
@@ -37,7 +37,7 @@
                     self::handlePOST();
                 }
 
-                require_once($path['classes'] . "topbar.php");
+                require_once(Config::$pathConfig['classes'] . "topbar.php");
 
 
                 if (!empty($this->get['mode'])) {
@@ -54,7 +54,7 @@
 
                 // currently building?
                 if ($data->getPlanet()->getBBuildingId() > 0) {
-                    $this->lang['building'] = $units->getName($data->getPlanet()->getBBuildingId()) ." ({level} ".($data->getBuilding()[$data->getPlanet()->getBBuildingId()]->getLevel()+1) .")<br />" .
+                    $this->lang['building'] = $units->getName($data->getPlanet()->getBBuildingId()) ." ({level} ".($data->getBuildingList()[$data->getPlanet()->getBBuildingId()]->getLevel()+1) .")<br />" .
                         "<span class='timer'></span><script>timer(\"overview\", ".($data->getPlanet()->getBBuildingEndtime() - time()) .", 'timer', ". $data->getPlanet()->getBBuildingId() .", '');</script><br />" .
                         "<a href='?page=building&cancel=".$data->getPlanet()->getBBuildingId()."'>{cancel}</a>";
                 } else {
@@ -68,10 +68,10 @@
 
 
                 // TODO: if planet has moon -> show moon
-                $this->lang['moon_image'] = '<img src="'. $config['skinpath'] . '/planeten/small/s_mond.png" />';
+                $this->lang['moon_image'] = '<img src="'. Config::$gameConfig['skinpath'] . '/planeten/small/s_mond.png" />';
 
 
-                $this->lang['planet_image'] = $config['skinpath'] . 'planeten/' . $data->getPlanet()->getImage() . '.png';
+                $this->lang['planet_image'] = Config::$gameConfig['skinpath'] . 'planeten/' . $data->getPlanet()->getImage() . '.png';
 
 
             } catch (Exception $e) {
@@ -122,17 +122,15 @@
          */
         function display() : void {
 
-            global $config;
-
             $view = new V_Overview();
 
             $this->lang = array_merge($this->lang, $this->model->loadLanguage());
 
             $view->assign('lang', $this->lang);
-            $view->assign('title', $config['game_name']);
-            $view->assign('skinpath', $config['skinpath']);
+            $view->assign('title', Config::$gameConfig['game_name']);
+            $view->assign('skinpath', Config::$gameConfig['skinpath']);
 
-            $view->assign('copyright', $config['copyright']);
+            $view->assign('copyright', Config::$gameConfig['copyright']);
             $view->assign('language', Config::$pathConfig['language']);
 
             if (!empty($this->get['mode'])) {

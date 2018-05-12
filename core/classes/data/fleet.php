@@ -356,83 +356,107 @@
         }
 
         /**
-         * Return the level of the defense, given its id
-         * @param int $id the defense id
-         * @return int the level of the defense
+         * Return the level of the fleet, given its id
+         * @param int $id the fleet id
+         * @return int the level of the fleet
          */
-        public function getDefenseByID(int $id) : int {
-
+        public function getFleetByID(int $id) : int {
+            
             switch($id) {
-                case 301:
-                    $this->getRocketLauncher();
+                case 201:
+                    return $this->getSmallCargoShip();
                     break;
-                case 302:
-                    $this->getLightLaser();
+                case 202:
+                    return $this->getLargeCargoShip();
                     break;
-                case 303:
-                    $this->getHeavyLaser();
+                case 203:
+                    return $this->getLightFighter();
                     break;
-                case 304:
-                    $this->getGaussCannon();
+                case 204:
+                    return $this->getHeavyFighter();
                     break;
-                case 305:
-                    $this->getIonCannon();
+                case 205:
+                    return $this->getCruiser();
                     break;
-                case 306:
-                    $this->getPlasmaTurret();
+                case 206:
+                    return $this->getBattleship();
                     break;
-                case 307:
-                    $this->getSmallShieldDome();
+                case 207:
+                    return $this->getColonyShip();
                     break;
-                case 308:
-                    $this->getLargeShieldDome();
+                case 208:
+                    return $this->getRecycler();
                     break;
-                case 309:
-                    $this->getAntiBallisticMissile();
+                case 209:
+                    return $this->getEspionageProbe();
                     break;
-                case 310:
-                    $this->getInterplanetaryMissile();
+                case 210:
+                    return $this->getBomber();
+                    break;
+                case 211:
+                    return $this->getSolarSatellite();
+                    break;
+                case 212:
+                    return $this->getDestroyer();
+                    break;
+                case 213:
+                    return $this->getBattlecruiser();
+                    break;
+                case 214:
+                    return $this->getDeathstar();
                     break;
             }
         }
 
         /**
-         * Sets the level of the defense, given its id and new level
-         * @param int $id the id of the defense
-         * @param int $level the new level of the defense
+         * Sets the level of the fleet, given its id and new level
+         * @param int $id the id of the fleet
+         * @param int $level the new level of the fleet
          */
-        public function setDefenseByID(int $id, int $level) {
+        public function setFleetByID(int $id, int $level) {
 
             switch($id) {
-                case 301:
-                    $this->setRocketLauncher($level);
+                case 201:
+                    $this->setSmallCargoShip($level);
                     break;
-                case 302:
-                    $this->setLightLaser($level);
+                case 202:
+                    $this->setLargeCargoShip($level);
                     break;
-                case 303:
-                    $this->setHeavyLaser($level);
+                case 203:
+                    $this->setLightFighter($level);
                     break;
-                case 304:
-                    $this->setGaussCannon($level);
+                case 204:
+                    $this->setHeavyFighter($level);
                     break;
-                case 305:
-                    $this->setIonCannon($level);
+                case 205:
+                    $this->setCruiser($level);
                     break;
-                case 306:
-                    $this->setPlasmaTurret($level);
+                case 206:
+                    $this->setBattleship($level);
                     break;
-                case 307:
-                    $this->setSmallShieldDome($level);
+                case 207:
+                    $this->setColonyShip($level);
                     break;
-                case 308:
-                    $this->setLargeShieldDome($level);
+                case 208:
+                    $this->setRecycler($level);
                     break;
-                case 309:
-                    $this->setAntiBallisticMissile($level);
+                case 209:
+                    $this->setEspionageProbe($level);
                     break;
-                case 310:
-                    $this->setInterplanetaryMissile($level);
+                case 210:
+                    $this->setBomber($level);
+                    break;
+                case 211:
+                    $this->setSolarSatellite($level);
+                    break;
+                case 212:
+                    $this->setDestroyer($level);
+                    break;
+                case 213:
+                    $this->setBattlecruiser($level);
+                    break;
+                case 214:
+                    $this->setDeathstar($level);
                     break;
             }
         }

@@ -369,9 +369,8 @@
          * @param int $galaxy
          */
         public function setGalaxy(int $galaxy) : void {
-            global $config;
 
-            if($config['max_galaxy'] >= $galaxy && $galaxy > 0) {
+            if(Config::$gameConfig['max_galaxy'] >= $galaxy && $galaxy > 0) {
                 $this->galaxy = $galaxy;
             }
         }
@@ -388,9 +387,9 @@
          * @param int $system
          */
         public function setSystem(int $system) : void {
-            global $config;
 
-            if($config['max_system'] >= $system && $system > 0) {
+
+            if(Config::$gameConfig['max_system'] >= $system && $system > 0) {
                 $this->system = $system;
             }
         }
@@ -407,9 +406,8 @@
          * @param int $planet
          */
         public function setPlanet(int $planet) : void {
-            global $config;
 
-            if($config['max_planet'] >= $planet && $planet > 0) {
+            if(Config::$gameConfig['max_planet'] >= $planet && $planet > 0) {
                 $this->planet = $planet;
             }
         }

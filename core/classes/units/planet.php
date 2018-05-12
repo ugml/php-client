@@ -281,7 +281,7 @@
                 // check if building finished
                 if ($this->b_building_id > 0 && $this->b_building_endtime > 0 && $this->b_building_endtime <= $time) {
 
-                    $level = $data->getBuilding()[$this->b_building_id]->getLevel();
+                    $level = $data->getBuildingList()[$this->b_building_id]->getLevel();
 
                     //                    $methodArr = explode('_', $units->getUnit());
                     //
@@ -290,7 +290,7 @@
                     //                    foreach ($methodArr as $a => $b) {
                     //                        $method .= ucfirst($b);
                     //                    }
-                    //                    $level = call_user_func_array(array($data->getBuilding(), $method), array());
+                    //                    $level = call_user_func_array(array($data->getBuildingList(), $method), array());
 
                     // update the building level
                     $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'buildings SET ' . $units
@@ -304,7 +304,7 @@
                 // check if research finished
                 if ($this->b_tech_id > 0 && $this->b_tech_endtime > 0 && $this->b_tech_endtime <= $time) {
 
-                    $level = $data->getTech()[$units->getUnit($this->b_tech_id)]->getLevel();
+                    $level = $data->getTechList()[$units->getUnit($this->b_tech_id)]->getLevel();
 
                     // update the building level
                     $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'techs SET ' . $units
@@ -340,7 +340,7 @@
                         if ($unitID > 0 && $unitCnt > 0) {
 
 
-                            $durationForOneUnit = 3600 * $units->getBuildTime($data->getFleet()[$unitID], $data->getBuilding()[6]->getLevel(), $data->getBuilding()[8]->getLevel(), $data->getBuilding()[7]->getLevel());
+                            $durationForOneUnit = 3600 * $units->getBuildTime($data->getFleet()[$unitID], $data->getBuildingList()[6]->getLevel(), $data->getBuildingList()[8]->getLevel(), $data->getBuildingList()[7]->getLevel());
 
                             $shipFinishedCnt = floor($timePassedSinceStart / $durationForOneUnit);
 
@@ -513,7 +513,7 @@
          */
         public function createPlanet($type, $g = null, $s = null, $p = null) : void {
 
-            global $config, $dbConfig;
+            global $dbConfig;
 
             $dbConnection = new Database();
 
@@ -529,9 +529,9 @@
                     // check if coordinates are already used
                     do {
                         // create random coordinates
-                        $this->galaxy = rand(1, $config['max_galaxy']);
-                        $this->system = rand(1, $config['max_system']);
-                        $this->planet = rand(1, $config['max_planet']);
+                        $this->galaxy = rand(1, Config::$gameConfig['max_galaxy']);
+                        $this->system = rand(1, Config::$gameConfig['max_system']);
+                        $this->planet = rand(1, Config::$gameConfig['max_planet']);
 
                         $stmt = $dbConnection->prepare('SELECT 1 FROM ' . $dbConfig['prefix'] . 'planets WHERE galaxy = :g AND system = :s AND planet = :p;');
 
@@ -545,19 +545,19 @@
 
 
                 } else {
-                    if ($g > 1 && $g <= $config['max_galaxy']) {
+                    if ($g > 1 && $g <= Config::$gameConfig['max_galaxy']) {
                         $this->galaxy = $g;
                     } else {
                         throw new InvalidArgumentException("galaxy out of range");
                     }
 
-                    if ($s > 1 && $s <= $config['max_system']) {
+                    if ($s > 1 && $s <= Config::$gameConfig['max_system']) {
                         $this->system = $p;
                     } else {
                         throw new InvalidArgumentException("system out of range");
                     }
 
-                    if ($p > 1 && $p <= $config['max_planet']) {
+                    if ($p > 1 && $p <= Config::$gameConfig['max_planet']) {
                         $this->planet = $p;
                     } else {
                         throw new InvalidArgumentException("planet out of range");

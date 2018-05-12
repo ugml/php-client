@@ -6,7 +6,7 @@
         define('INSIDE', true);
     }
 
-//    require_once dirname(dirname(dirname(__FILE__))) . '/config.php';
+//    require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/core/config.sample.php';
 
 //    require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/classes/data/units.php";
     require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/classes/units/unit.php";

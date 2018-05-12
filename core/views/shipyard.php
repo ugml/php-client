@@ -56,7 +56,7 @@
 
         public function loadShipyardRows($buildings, $unitsBuilding, $planet) {
 
-            global $path, $config, $lang, $data, $units;
+            global $lang, $data, $units;
 
             $output = '';
 
@@ -81,12 +81,12 @@
 
                         // if requirement is a building
                         if ($bID < 100) {
-                            $level = ($data->getBuilding()[$bID])->getLevel();
+                            $level = ($data->getBuildingList()[$bID])->getLevel();
                         }
 
                         // if requirement is a research
                         if ($bID > 100 && $bID < 200) {
-                            $level = ($data->getTech()[$bID])->getLevel();
+                            $level = ($data->getTechList()[$bID])->getLevel();
                         }
 
                         if ($level < $lvl) {
@@ -129,19 +129,19 @@
                         $fields['s_disabled'] = 'disabled';
                     }
 
-                    $fields['s_image'] = $config['skinpath'] . 'gebaeude/' . $unitID . '.png';
+                    $fields['s_image'] = Config::$gameConfig['skinpath'] . 'gebaeude/' . $unitID . '.png';
                     $fields['s_metal'] = number_format(ceil($metal), 0);
                     $fields['s_crystal'] = number_format(ceil($crystal), 0);
                     $fields['s_deuterium'] = number_format(ceil($deuterium), 0);
 
 
                     $duration = 3600 * $units->getBuildTime($fleet, 0,
-                            $data->getBuilding()[$units->getUnitID('shipyard')]->getLevel(),
-                            $data->getBuilding()[$units->getUnitID('nanite_factory')]->getLevel());
+                            $data->getBuildingList()[$units->getUnitID('shipyard')]->getLevel(),
+                            $data->getBuildingList()[$units->getUnitID('nanite_factory')]->getLevel());
 
                     //                $duration = 3600 * $units
-                    //                        ->getBuildTime($unitID, 0, $data->getBuilding()->getRoboticFactory(),
-                    //                            $data->getBuilding()->getShipyard(), $data->getBuilding()->getNaniteFactory());
+                    //                        ->getBuildTime($unitID, 0, $data->getBuildingList()->getRoboticFactory(),
+                    //                            $data->getBuildingList()->getShipyard(), $data->getBuildingList()->getNaniteFactory());
 
                     $hours = floor($duration / 3600);
                     $minutes = floor(($duration / 60) % 60);
@@ -165,7 +165,7 @@
 
                     ob_start();
 
-                    $file = $path['templates'] . $this->template . '_row.php';
+                    $file = Config::$pathConfig['templates'] . $this->template . '_row.php';
                     if (file_exists($file)) {
                         include $file;
                     } else {

@@ -5,10 +5,13 @@
     define('INSIDE', true);
 
 
+    require_once 'core/config.php';
+
+    // load the server-configuration
+    Config::init();
+
     // register autoloader
     require_once 'core/autoload.php';
-
-    require('core/config.php');
 
 
 
