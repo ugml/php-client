@@ -36,7 +36,6 @@
         function display() {
 
 
-
             $view = new V_Dashboard();
 
             $view->assign('lang', M_Dashboard::loadLanguage());

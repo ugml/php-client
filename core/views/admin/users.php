@@ -39,7 +39,6 @@
         public function loadTemplate($mode = null) {
 
 
-
             if ($mode != null) {
                 $this->template .= '_' . $mode;
             }

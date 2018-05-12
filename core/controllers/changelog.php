@@ -69,7 +69,6 @@
         function display() : void {
 
 
-
             // load view
             $view = new V_Changelog();
 

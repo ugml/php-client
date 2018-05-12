@@ -4,7 +4,6 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-
     class V_Building extends V_View implements I_View {
 
         private $template = 'buildings';
@@ -53,9 +52,9 @@
         /**
          * loads each individual building-row
          *
-         * @param $buildings array the building-data of the planet
+         * @param $buildings     array the building-data of the planet
          * @param $unitsBuilding array the data of the units
-         * @param $planet planet the planet
+         * @param $planet        planet the planet
          * @return string the complete list of buildingrows
          * @throws FileNotFoundException
          */
@@ -73,9 +72,9 @@
                 $req_met = true;
 
                 // check requirements
-                if ($units->getRequirements($key) !== []) {
+                if (D_Units::getRequirements($key) !== []) {
 
-                    $req = $units->getRequirements($key);
+                    $req = D_Units::getRequirements($key);
 
                     foreach ($req as $bID => $lvl) {
 
@@ -102,15 +101,15 @@
 
                 if ($req_met) {
 
-                    $unitID = $units->getUnitID($v);
+                    $unitID = D_Units::getUnitID($v);
 
                     $building = $data->getBuildingList()[$unitID];
 
                     $level = $building->getLevel();
 
-                    $fields['b_name'] = $units->getName($unitID);
+                    $fields['b_name'] = D_Units::getName($unitID);
                     $fields['b_level'] = $level;
-                    $fields['b_description'] = $units->getDescription($unitID);
+                    $fields['b_description'] = D_Units::getDescription($unitID);
 
                     $buildable = false;
 
@@ -154,25 +153,29 @@
 
                     $fields['required_ressources'] = '';
 
-                    if($building->getCostMetal() > 0) {
-                        $fields['required_ressources'] .= '<img src="'.Config::$gameConfig['skinpath'] .  '/images/metal.png"> ' . number_format($building->getCostMetal(), 0) . ' ';
+                    if ($building->getCostMetal() > 0) {
+                        $fields['required_ressources'] .= '<img src="' . Config::$gameConfig['skinpath'] . '/images/metal.png"> ' . number_format($building->getCostMetal(),
+                                0) . ' ';
                     }
 
-                    if($building->getCostCrystal() > 0) {
-                        $fields['required_ressources'] .= '<img src="'.Config::$gameConfig['skinpath'] .  '/images/crystal.png"> ' . number_format($building->getCostCrystal(), 0) . ' ';
+                    if ($building->getCostCrystal() > 0) {
+                        $fields['required_ressources'] .= '<img src="' . Config::$gameConfig['skinpath'] . '/images/crystal.png"> ' . number_format($building->getCostCrystal(),
+                                0) . ' ';
                     }
 
-                    if($building->getCostDeuterium() > 0) {
-                        $fields['required_ressources'] .= '<img src="'.Config::$gameConfig['skinpath'] .  '/images/deuterium.png"> ' . number_format($building->getCostDeuterium(), 0) . ' ';
+                    if ($building->getCostDeuterium() > 0) {
+                        $fields['required_ressources'] .= '<img src="' . Config::$gameConfig['skinpath'] . '/images/deuterium.png"> ' . number_format($building->getCostDeuterium(),
+                                0) . ' ';
                     }
 
-                    if($building->getCostEnergy() > 0) {
-                        $fields['required_ressources'] .= '<img src="'.Config::$gameConfig['skinpath'] .  '/images/energy.png"> ' . number_format($building->getCostEnergy(), 0) . ' ';
+                    if ($building->getCostEnergy() > 0) {
+                        $fields['required_ressources'] .= '<img src="' . Config::$gameConfig['skinpath'] . '/images/energy.png"> ' . number_format($building->getCostEnergy(),
+                                0) . ' ';
                     }
 
 
-
-                    $duration = 3600 * $units->getBuildTime($building, $data->getBuildingList()[6]->getLevel(), $data->getBuildingList()[8]->getLevel(), $data->getBuildingList()[7]->getLevel());
+                    $duration = 3600 * D_Units::getBuildTime($building, $data->getBuildingList()[6]->getLevel(),
+                            $data->getBuildingList()[8]->getLevel(), $data->getBuildingList()[7]->getLevel());
 
 
                     $weeks = floor(($duration / 604800));

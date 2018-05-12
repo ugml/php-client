@@ -47,7 +47,6 @@
         function display() {
 
 
-
             $view = new V_Users();
 
             $this->lang = array_merge($this->lang, M_Users::loadLanguage());

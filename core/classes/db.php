@@ -5,7 +5,7 @@
      */
     class Database {
 
-        /** @var null|PDO the database connection object  */
+        /** @var null|PDO the database connection object */
         private $dbConnection = null;
 
         /**
@@ -19,13 +19,8 @@
                 return $this->dbConnection;
             }
 
-            //            if (DEBUG) {
-            //                $this->dbConnection = new LoggedPDO('mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['dbname'],
-            //                    $dbConfig['user'], $dbConfig['pass']);
-            //            } else {
             $this->dbConnection = new PDO('mysql:host=' . Config::$dbConfig['host'] . ';dbname=' . Config::$dbConfig['dbname'],
                 Config::$dbConfig['user'], Config::$dbConfig['pass']);
-            //            }
 
             $this->dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
             $this->dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

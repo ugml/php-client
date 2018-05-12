@@ -14,14 +14,15 @@
     $this->lang['planet_crystal'] = $data->getPlanet()->getCrystal();
     $this->lang['planet_deuterium'] = $data->getPlanet()->getDeuterium();
 
-    $this->lang['planet_metal_max'] = $units->getStorageCapacity($data->getBuildingData()->getMetalStorage());
-    $this->lang['planet_crystal_max'] = $units->getStorageCapacity($data->getBuildingData()->getCrystalStorage());
-    $this->lang['planet_deuterium_max'] = $units->getStorageCapacity($data->getBuildingData()->getDeuteriumStorage());
+    $this->lang['planet_metal_max'] = D_Units::getStorageCapacity($data->getBuildingData()->getMetalStorage());
+    $this->lang['planet_crystal_max'] = D_Units::getStorageCapacity($data->getBuildingData()->getCrystalStorage());
+    $this->lang['planet_deuterium_max'] = D_Units::getStorageCapacity($data->getBuildingData()->getDeuteriumStorage());
 
 
     $this->lang['planet_energy_used'] = number_format($data->getPlanet()->getEnergyUsed(), 0);
     $this->lang['planet_energy_max'] = number_format($data->getPlanet()->getEnergyMax(), 0);
-    $this->lang['planet_image_small'] = Config::$gameConfig['skinpath'] . 'planeten/small/s_' . $data->getPlanet()->getImage() . '.png';
+    $this->lang['planet_image_small'] = Config::$gameConfig['skinpath'] . 'planeten/small/s_' . $data->getPlanet()
+            ->getImage() . '.png';
     $this->lang['icon_metal'] = Config::$gameConfig['skinpath'] . 'images/metal.gif';
     $this->lang['icon_crystal'] = Config::$gameConfig['skinpath'] . 'images/crystal.gif';
     $this->lang['icon_deuterium'] = Config::$gameConfig['skinpath'] . 'images/deuterium.gif';

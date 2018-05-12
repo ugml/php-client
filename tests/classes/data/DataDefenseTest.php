@@ -1,6 +1,6 @@
 <?php
 
-    declare(strict_types=1);
+    declare(strict_types = 1);
 
     if (!defined('INSIDE')) {
         define('INSIDE', true);
@@ -24,7 +24,7 @@
         private $defenseData;
 
         protected function setUp() : void {
-            $this->defenseData = new D_Defense(1,1,1,1,1,1,1,1,1,1);
+            $this->defenseData = new D_Defense(1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
         }
 
         /**

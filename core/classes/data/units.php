@@ -11,29 +11,28 @@
     class D_Units {
 
         /** @var array Mapping of Unit-ID to Unit-String-ID */
-        private $units;
+        private static $units;
 
         /** @var array Mapping of Unit-ID to the name in the currently loaded language */
-        private $names;
+        private static $names;
 
         /** @var array Mapping of Unit-ID to the description, according to the current language-file */
-        private $descriptions;
+        private static $descriptions;
 
         /** @var array Mapping of Unit-ID to the price for the unit */
-        private $pricelist;
+        private static $pricelist;
 
         /** @var array Mapping of Unit-ID to the requirements for the unit */
-        private $requeriments;
+        private static $requeriments;
 
         /**
          * D_Units constructor.
          * Loads all needed information about all units into the matching properties.
          */
-        function __construct() {
-
+        static function init() {
             require Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
 
-            $this->units = [
+            self::$units = [
                 1  => 'metal_mine',
                 2  => 'crystal_mine',
                 3  => 'deuterium_synthesizer',
@@ -93,7 +92,7 @@
                 310 => 'interplanetary_missile'
             ];
 
-            $this->names = [
+            self::$names = [
                 1  => $lang["metal_mine"],
                 2  => $lang["crystal_mine"],
                 3  => $lang["deuterium_synthesizer"],
@@ -153,7 +152,7 @@
                 310 => $lang["interplanetary_missile"]
             ];
 
-            $this->descriptions = [
+            self::$descriptions = [
                 1  => $lang["metal_mine_descr"],
                 2  => $lang["crystal_mine_descr"],
                 3  => $lang["deuterium_synthesizer_descr"],
@@ -203,7 +202,7 @@
                 214 => $lang["deathstar_descr"]
             ];
 
-            $this->pricelist = [
+            self::$pricelist = [
                 // Buildings
                 1   => ['metal' => 60, 'crystal' => 15, 'deuterium' => 0, 'energy' => 0, 'factor' => 1.5],
                 2   => ['metal' => 48, 'crystal' => 24, 'deuterium' => 0, 'energy' => 0, 'factor' => 1.6],
@@ -347,7 +346,7 @@
                 310 => ['metal' => 12500, 'crystal' => 2500, 'deuterium' => 10000, 'energy' => 0, 'factor' => 1]
             ];
 
-            $this->requeriments = [
+            self::$requeriments = [
                 // buildings
                 5   => [3 => 5, 106 => 3],
                 7   => [6 => 10, 102 => 10],
@@ -395,8 +394,8 @@
          * @param string $unitName the unit-string-ID
          * @return int the unitID
          */
-        function getUnitID(string $unitName) : int {
-            return array_keys($this->units, $unitName)[0];
+        static function getUnitID(string $unitName) : int {
+            return array_keys(self::$units, $unitName)[0];
         }
 
         /**
@@ -404,9 +403,9 @@
          * @param int $id the unitID
          * @return string the unit-string-ID
          */
-        function getUnitName(int $id) : string {
-            if(isset($this->units[$id])) {
-                return $this->units[$id];
+        static function getUnitName(int $id) : string {
+            if (isset(self::$units[$id])) {
+                return self::$units[$id];
             }
         }
 
@@ -414,32 +413,32 @@
          * Returns an array, containing all buildings with the unitID as the key and the unit-string-ID as the value
          * @return array all buildings with the unitID as the key and the unit-string-ID as the value
          */
-        function getBuildings() : array {
-            return array_slice($this->units, 0, 15, true);
+        static function getBuildings() : array {
+            return array_slice(self::$units, 0, 15, true);
         }
 
         /**
          * Returns an array, containing all technologies with the unitID as the key and the unit-string-ID as the value
          * @return array all technologies with the unitID as the key and the unit-string-ID as the value
          */
-        function getTechnologies() : array {
-            return array_slice($this->units, 15, 15, true);
+        static function getTechnologies() : array {
+            return array_slice(self::$units, 15, 15, true);
         }
 
         /**
          * Returns an array, containing all fleets with the unitID as the key and the unit-string-ID as the value
          * @return array all fleets with the unitID as the key and the unit-string-ID as the value
          */
-        function getFleet() : array {
-            return array_slice($this->units, 30, 14, true);
+        static function getFleet() : array {
+            return array_slice(self::$units, 30, 14, true);
         }
 
         /**
          * Returns an array, containing all defenses with the unitID as the key and the unit-string-ID as the value
          * @return array all defenses with the unitID as the key and the unit-string-ID as the value
          */
-        function getDefense() : array {
-            return array_slice($this->units, 44, 10, true);
+        static function getDefense() : array {
+            return array_slice(self::$units, 44, 10, true);
         }
 
         /**
@@ -447,9 +446,9 @@
          * @param int $id the unitID
          * @return string the name of the unit, according to the current language-file
          */
-        function getName(int $id) : string {
-            if(isset($this->names[$id])) {
-                return $this->names[$id];
+        static function getName(int $id) : string {
+            if (isset(self::$names[$id])) {
+                return self::$names[$id];
             }
         }
 
@@ -458,10 +457,10 @@
          * @param int $id the unitID
          * @return string the description of the unit, according to the current language-file
          */
-        function getDescription(int $id) : string {
+        static function getDescription(int $id) : string {
 
-            if(isset($this->descriptions[$id])) {
-                return $this->descriptions[$id];
+            if (isset(self::$descriptions[$id])) {
+                return self::$descriptions[$id];
             }
         }
 
@@ -470,10 +469,10 @@
          * @param int $id the unitID
          * @return array the pricelist for the unit
          */
-        function getPriceList(int $id) : array {
+        static function getPriceList(int $id) : array {
 
-            if(isset($this->pricelist[$id])) {
-                return $this->pricelist[$id];
+            if (isset(self::$pricelist[$id])) {
+                return self::$pricelist[$id];
             } else {
                 return [];
             }
@@ -485,10 +484,10 @@
          * @param int $id the unitID
          * @return array the requirements for the unit
          */
-        function getRequirements(int $id) : array {
+        static function getRequirements(int $id) : array {
 
-            if (isset($this->requeriments[$id])) {
-                return $this->requeriments[$id];
+            if (isset(self::$requeriments[$id])) {
+                return self::$requeriments[$id];
             } else {
                 return [];
             }
@@ -496,13 +495,13 @@
 
         /**
          * Calculates and returns the build-time for the next level (or one unit for fleet/defense) of the Unit
-         * @param U_Building $building the unit-object of the given unit
-         * @param int        $robotLvl the level of the robotic factory
+         * @param U_Building $building    the unit-object of the given unit
+         * @param int        $robotLvl    the level of the robotic factory
          * @param int        $shipYardLvl the level of the shipyard factory
-         * @param int        $naniteLvl the level of the nanite factory
+         * @param int        $naniteLvl   the level of the nanite factory
          * @return float the needed time to build in seconds
          */
-        function getBuildTime(U_Unit $building, int $robotLvl, int $shipYardLvl, int $naniteLvl) : float {
+        static function getBuildTime(U_Unit $building, int $robotLvl, int $shipYardLvl, int $naniteLvl) : float {
 
             $metal = $building->getCostMetal();
             $crystal = $building->getCostCrystal();
@@ -533,9 +532,9 @@
          * @param int $storage_level the storage level
          * @return float the storage capacity
          */
-        function getStorageCapacity(int $storage_level) : float {
+        static function getStorageCapacity(int $storage_level) : float {
 
-            if($storage_level >= 0) {
+            if ($storage_level >= 0) {
                 // Source: http://ogame.wikia.com/wiki/Metal_Storage
                 return 100000 + 50000 * (ceil(pow(1.5, $storage_level)) - 1);
             }
@@ -547,8 +546,8 @@
          * @param int $level the level of the metal-mine
          * @return float the metal-production per hour
          */
-        function getMetalProductionPerHour(int $level) : float {
-            if($level >= 0) {
+        static function getMetalProductionPerHour(int $level) : float {
+            if ($level >= 0) {
                 return 10 * $level * pow(1.1, $level);
             }
         }
@@ -558,8 +557,8 @@
          * @param int $level the level of the metal-mine
          * @return float the metal-production per hour
          */
-        function getCrystalProductionPerHour(int $level) : float {
-            if($level >= 0) {
+        static function getCrystalProductionPerHour(int $level) : float {
+            if ($level >= 0) {
                 return 10 * $level * pow(1.1, $level);
             }
         }
@@ -569,28 +568,29 @@
          * @param int $level the level of the metal-mine
          * @return float the metal-production per hour
          */
-        function getDeuteriumProductionPerHour(int $level) : float {
-            if($level >= 0) {
+        static function getDeuteriumProductionPerHour(int $level) : float {
+            if ($level >= 0) {
                 return 10 * $level * pow(1.1, $level);
             }
         }
 
         /**
          * Returns the energy-production for each energy-producing unit
-         * @param int $solarLevel the level of the Solar Plant
-         * @param int $fusionLevel the level of the Fusion Reactor
-         * @param int $energytech the level of the Energy Technology
-         * @param int $numSolarSats the amount of the Solar Satellites
+         * @param int $solarLevel    the level of the Solar Plant
+         * @param int $fusionLevel   the level of the Fusion Reactor
+         * @param int $energytech    the level of the Energy Technology
+         * @param int $numSolarSats  the amount of the Solar Satellites
          * @param int $planetMaxTemp the maximum temperature of the current planet
          * @return array the energy-production of each energy-producing unit
          */
-        function getEnergyProduction(int $solarLevel, int $fusionLevel, int $energytech, int $numSolarSats, int $planetMaxTemp) : array {
+        static function getEnergyProduction(int $solarLevel, int $fusionLevel, int $energytech, int $numSolarSats,
+            int $planetMaxTemp) : array {
 
-            if($solarLevel >= 0 && $fusionLevel >= 0 && $energytech >= 0 && $numSolarSats >= 0) {
+            if ($solarLevel >= 0 && $fusionLevel >= 0 && $energytech >= 0 && $numSolarSats >= 0) {
                 return [
-                    $this->units[4]   => 20 * $solarLevel * pow(1.1, $solarLevel),
-                    $this->units[5]   => 30 * $fusionLevel * pow((1.05 + $energytech + 0.01), $fusionLevel),
-                    $this->units[211] => (($planetMaxTemp / 4) + 20) * $numSolarSats
+                    self::$units[4]   => 20 * $solarLevel * pow(1.1, $solarLevel),
+                    self::$units[5]   => 30 * $fusionLevel * pow((1.05 + $energytech + 0.01), $fusionLevel),
+                    self::$units[211] => (($planetMaxTemp / 4) + 20) * $numSolarSats
                 ];
             }
 
@@ -601,9 +601,9 @@
          * @param int $level the level of the unit
          * @return float the energy consumption
          */
-        function getEnergyConsumption(int $level) : float {
+        static function getEnergyConsumption(int $level) : float {
             //TODO: check if a energy-consuming unit or not
-            if($level >= 0) {
+            if ($level >= 0) {
                 return 10 * $level * pow(1.1, $level);
             }
         }

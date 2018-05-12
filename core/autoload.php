@@ -4,7 +4,7 @@
      * Automatically loads the needed classes
      * @param string $className the class, which should be included
      */
-    spl_autoload_register(function(string $className) {
+    spl_autoload_register(function (string $className) {
         // classes have the naming convention [FirstLetterOfType]_Name
         // e.g. the Data-class of a planet would be D_Planet
         //

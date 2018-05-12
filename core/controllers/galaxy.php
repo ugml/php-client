@@ -13,8 +13,8 @@
         private $lang = null;
 
         private $model = null;
-        private $view = null;
 
+        private $view = null;
 
         private $currentGalaxy;
 
@@ -100,35 +100,35 @@
             $this->lang['galaxy_list'] = $this->view->loadGalaxyRows($galaxyData);
 
             // check boundaries
-            if($this->currentGalaxy <= 1) {
+            if ($this->currentGalaxy <= 1) {
                 $this->currentGalaxy = 1;
                 $this->lang['galaxy_pos_g_prev'] = 1;
             } else {
-                $this->lang['galaxy_pos_g_prev'] = $this->currentGalaxy-1;
+                $this->lang['galaxy_pos_g_prev'] = $this->currentGalaxy - 1;
             }
 
             // check boundaries
-            if($this->currentGalaxy >= Config::$gameConfig['max_galaxy']) {
+            if ($this->currentGalaxy >= Config::$gameConfig['max_galaxy']) {
                 $this->currentGalaxy = Config::$gameConfig['max_galaxy'];
                 $this->lang['galaxy_pos_g_next'] = Config::$gameConfig['max_galaxy'];
             } else {
-                $this->lang['galaxy_pos_g_next'] = $this->currentGalaxy+1;
+                $this->lang['galaxy_pos_g_next'] = $this->currentGalaxy + 1;
             }
 
             // check boundaries
-            if($this->currentSystem <= 1) {
+            if ($this->currentSystem <= 1) {
                 $this->currentSystem = 1;
                 $this->lang['galaxy_pos_s_prev'] = 1;
             } else {
-                $this->lang['galaxy_pos_s_prev'] = $this->currentSystem-1;
+                $this->lang['galaxy_pos_s_prev'] = $this->currentSystem - 1;
             }
 
             // check boundaries
-            if($this->currentSystem >= Config::$gameConfig['max_system']) {
+            if ($this->currentSystem >= Config::$gameConfig['max_system']) {
                 $this->currentSystem = Config::$gameConfig['max_system'];
                 $this->lang['galaxy_pos_s_next'] = Config::$gameConfig['max_system'];
             } else {
-                $this->lang['galaxy_pos_s_next'] = $this->currentSystem+1;
+                $this->lang['galaxy_pos_s_next'] = $this->currentSystem + 1;
             }
 
 
@@ -148,7 +148,7 @@
 
             $this->view->assign('lang', $this->lang);
             $this->view->assign('title', Config::$gameConfig['game_name']);
-            $this->view->assign('skinpath',Config::$gameConfig['skinpath']);
+            $this->view->assign('skinpath', Config::$gameConfig['skinpath']);
             $this->view->assign('copyright', Config::$gameConfig['copyright']);
             $this->view->assign('language', Config::$pathConfig['language']);
 

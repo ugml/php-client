@@ -6,31 +6,35 @@
 
     class Loader {
 
-        private $user = null;
+        private static $user = null;
 
-        private $planet = null;
+        private static $planet = null;
 
-        private $galaxy = null;
+        private static $galaxy = null;
 
-        private $buildingData;
-        private $buildingList = [];
+        private static $buildingData;
 
-        private $defenseData;
-        private $defenseList = [];
+        private static $buildingList = [];
 
-        private $techData;
-        private $techList = [];
+        private static $defenseData;
 
-        private $fleetData;
-        private $fleetList = [];
+        private static $defenseList = [];
+
+        private static $techData;
+
+        private static $techList = [];
+
+        private static $fleetData;
+
+        private static $fleetList = [];
 
         /**
          * Loader constructor.
          * @param $userID
          */
-        function __construct($userID) {
+        static function init($userID) {
 
-            global $dbConfig, $dbConnection, $units;
+            $dbConnection = new Database();
 
             // get all data from the database
             $query = 'SELECT
@@ -130,14 +134,14 @@
                         fleet.destroyer AS fleet_destroyer,
                         fleet.battlecruiser AS fleet_battlecruiser,
                         fleet.deathstar AS fleet_deathstar
-                        FROM ' . $dbConfig['prefix'] . 'users AS user
-                        LEFT JOIN ' . $dbConfig['prefix'] . 'stats AS stats ON user.userID = stats.userID
-                        LEFT JOIN ' . $dbConfig['prefix'] . 'planets AS planet ON user.userID = planet.ownerID
-                        LEFT JOIN ' . $dbConfig['prefix'] . 'galaxy AS galaxy ON planet.planetID = galaxy.planetID
-                        LEFT JOIN ' . $dbConfig['prefix'] . 'buildings AS building ON planet.planetID = building.planetID
-                        LEFT JOIN ' . $dbConfig['prefix'] . 'defenses AS defense ON planet.planetID = defense.planetID
-                        LEFT JOIN ' . $dbConfig['prefix'] . 'techs AS tech ON user.userID = tech.userID
-                        LEFT JOIN ' . $dbConfig['prefix'] . 'fleet AS fleet ON planet.planetID = fleet.planetID
+                        FROM ' . Config::$dbConfig['prefix'] . 'users AS user
+                        LEFT JOIN ' . Config::$dbConfig['prefix'] . 'stats AS stats ON user.userID = stats.userID
+                        LEFT JOIN ' . Config::$dbConfig['prefix'] . 'planets AS planet ON user.userID = planet.ownerID
+                        LEFT JOIN ' . Config::$dbConfig['prefix'] . 'galaxy AS galaxy ON planet.planetID = galaxy.planetID
+                        LEFT JOIN ' . Config::$dbConfig['prefix'] . 'buildings AS building ON planet.planetID = building.planetID
+                        LEFT JOIN ' . Config::$dbConfig['prefix'] . 'defenses AS defense ON planet.planetID = defense.planetID
+                        LEFT JOIN ' . Config::$dbConfig['prefix'] . 'techs AS tech ON user.userID = tech.userID
+                        LEFT JOIN ' . Config::$dbConfig['prefix'] . 'fleet AS fleet ON planet.planetID = fleet.planetID
                         WHERE user.userID = :userID;';
 
             $stmt = $dbConnection->prepare($query);
@@ -191,7 +195,7 @@
                 if ($data->user_currentplanet == $data->planet_planetID) {
 
                     //int $points, int $cRank, int $oRank
-                    $this->user = new D_User(
+                    self::$user = new D_User(
                         intval($userID),
                         $data->user_username,
                         $data->user_email,
@@ -268,85 +272,85 @@
                     ];
 
 
-                    $this->buildingData = new D_Building(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+                    self::$buildingData = new D_Building(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
                     // create a building-object for each building
                     for ($i = 1; $i <= count($dBuilding); $i++) {
 
-                        $this->buildingData->setBuildingByID($i, $dBuilding[$i - 1]);
+                        self::$buildingData->setBuildingByID($i, $dBuilding[$i - 1]);
 
-                        $this->buildingList[$i] = new U_Building(
+                        self::$buildingList[$i] = new U_Building(
                             $i,
                             $dBuilding[$i - 1],
-                            $units->getPriceList($i)['metal'],
-                            $units->getPriceList($i)['crystal'],
-                            $units->getPriceList($i)['deuterium'],
-                            $units->getPriceList($i)['energy'],
-                            $units->getPriceList($i)['factor']
+                            D_Units::getPriceList($i)['metal'],
+                            D_Units::getPriceList($i)['crystal'],
+                            D_Units::getPriceList($i)['deuterium'],
+                            D_Units::getPriceList($i)['energy'],
+                            D_Units::getPriceList($i)['factor']
                         );
                     }
 
-                    $this->techData = new D_Tech(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+                    self::$techData = new D_Tech(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
                     // create a research-object for each defense
                     for ($i = 1; $i <= count($dResearch); $i++) {
                         //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
 
-                        $this->techData->setTechByID($i + 100, $dResearch[$i - 1]);
+                        self::$techData->setTechByID($i + 100, $dResearch[$i - 1]);
 
-                        $this->techList[$i + 100] = new U_Research(
+                        self::$techList[$i + 100] = new U_Research(
                             $i,
                             $dResearch[$i - 1],
-                            $units->getPriceList($i)['metal'],
-                            $units->getPriceList($i)['crystal'],
-                            $units->getPriceList($i)['deuterium'],
-                            $units->getPriceList($i)['energy'],
-                            $units->getPriceList($i)['factor']
+                            D_Units::getPriceList($i)['metal'],
+                            D_Units::getPriceList($i)['crystal'],
+                            D_Units::getPriceList($i)['deuterium'],
+                            D_Units::getPriceList($i)['energy'],
+                            D_Units::getPriceList($i)['factor']
                         );
                     }
 
-                    $this->fleetData = new D_Fleet(0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+                    self::$fleetData = new D_Fleet(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
                     // create a fleet-object for each defense
                     for ($i = 1; $i <= count($dFleet); $i++) {
                         //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
 
-                        $this->fleetData->setFleetByID($i + 200, $dFleet[$i - 1]);
+                        self::$fleetData->setFleetByID($i + 200, $dFleet[$i - 1]);
 
-                        $this->fleetList[$i + 200] = new U_Fleet(
+                        self::$fleetList[$i + 200] = new U_Fleet(
                             $i,
                             $dFleet[$i - 1],
-                            $units->getPriceList($i)['metal'],
-                            $units->getPriceList($i)['crystal'],
-                            $units->getPriceList($i)['deuterium'],
-                            $units->getPriceList($i)['energy'],
-                            $units->getPriceList($i)['factor']
+                            D_Units::getPriceList($i)['metal'],
+                            D_Units::getPriceList($i)['crystal'],
+                            D_Units::getPriceList($i)['deuterium'],
+                            D_Units::getPriceList($i)['energy'],
+                            D_Units::getPriceList($i)['factor']
                         );
                     }
 
-                    $this->defenseData = new D_Defense(0,0,0,0,0,0,0,0,0,0);
+                    self::$defenseData = new D_Defense(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
                     // create a fleet-object for each defense
                     for ($i = 1; $i <= count($dDefense); $i++) {
                         //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
 
-                        $this->defenseData->setDefenseByID($i + 300, $dDefense[$i - 1]);
+                        self::$defenseData->setDefenseByID($i + 300, $dDefense[$i - 1]);
 
-                        $this->defenseList[$i + 300] = new U_Defense(
+                        self::$defenseList[$i + 300] = new U_Defense(
                             $i,
                             $dDefense[$i - 1],
-                            $units->getPriceList($i)['metal'],
-                            $units->getPriceList($i)['crystal'],
-                            $units->getPriceList($i)['deuterium'],
-                            $units->getPriceList($i)['energy'],
-                            $units->getPriceList($i)['factor']
+                            D_Units::getPriceList($i)['metal'],
+                            D_Units::getPriceList($i)['crystal'],
+                            D_Units::getPriceList($i)['deuterium'],
+                            D_Units::getPriceList($i)['energy'],
+                            D_Units::getPriceList($i)['factor']
                         );
                     }
 
-                    $this->galaxy = new D_Galaxy(intval($data->galaxy_debris_metal),
+                    self::$galaxy = new D_Galaxy(intval($data->galaxy_debris_metal),
                         intval($data->galaxy_debris_crystal));
 
-                    $this->planet = $planet;
+                    self::$planet = $planet;
 
                 }
 
@@ -356,14 +360,14 @@
             }
 
 
-            $this->user->setPlanetList($planetList);
+            self::$user->setPlanetList($planetList);
 
             // update points
             $points = 0;
 
             // buildings
-            foreach($dBuilding as $key => $level) {
-                $pricelist = $units->getPriceList($key+1);
+            foreach ($dBuilding as $key => $level) {
+                $pricelist = D_Units::getPriceList($key + 1);
 
                 //120 * (1,5 ^ X - 1,5 ^ Y)
 
@@ -371,55 +375,55 @@
                 $crystal = 0;
                 $deuterium = 0;
 
-                for($i = 0; $i < $level; $i++) {
+                for ($i = 0; $i < $level; $i++) {
                     $metal += $pricelist['metal'] * ($pricelist['factor'] ** $i);
                     $crystal += $pricelist['crystal'] * ($pricelist['factor'] ** $i);
                     $deuterium += $pricelist['deuterium'] * ($pricelist['factor'] ** $i);
                 }
 
-                $points += floor((round($metal, -3) + round($crystal , -3)+ round($deuterium, -3))/1000);
+                $points += floor((round($metal, -3) + round($crystal, -3) + round($deuterium, -3)) / 1000);
             }
 
             // tech
-            foreach($dResearch as $key => $level) {
-                $pricelist = $units->getPriceList($key+101);
+            foreach ($dResearch as $key => $level) {
+                $pricelist = D_Units::getPriceList($key + 101);
                 $metal = 0;
                 $crystal = 0;
                 $deuterium = 0;
 
-                for($i = 0; $i < $level; $i++) {
+                for ($i = 0; $i < $level; $i++) {
                     $metal += $pricelist['metal'] * ($pricelist['factor'] ** $i);
                     $crystal += $pricelist['crystal'] * ($pricelist['factor'] ** $i);
                     $deuterium += $pricelist['deuterium'] * ($pricelist['factor'] ** $i);
                 }
 
-                $points += floor((round($metal, -3) + round($crystal , -3)+ round($deuterium, -3))/1000);
+                $points += floor((round($metal, -3) + round($crystal, -3) + round($deuterium, -3)) / 1000);
             }
 
             // fleet
-            foreach($dFleet as $key => $level) {
-                $pricelist = $units->getPriceList($key+201);
+            foreach ($dFleet as $key => $level) {
+                $pricelist = D_Units::getPriceList($key + 201);
 
                 $metal = $pricelist['metal'] * $level;
                 $crystal = $pricelist['crystal'] * $level;
                 $deuterium = $pricelist['deuterium'] * $level;
 
 
-                $points += floor((round($metal, -3) + round($crystal , -3)+ round($deuterium, -3))/1000);
+                $points += floor((round($metal, -3) + round($crystal, -3) + round($deuterium, -3)) / 1000);
             }
 
             // defense
-            foreach($dDefense as $key => $level) {
-                $pricelist = $units->getPriceList($key+301);
+            foreach ($dDefense as $key => $level) {
+                $pricelist = D_Units::getPriceList($key + 301);
 
                 $metal = $pricelist['metal'] * $level;
                 $crystal = $pricelist['crystal'] * $level;
                 $deuterium = $pricelist['deuterium'] * $level;
 
-                $points += floor((round($metal, -3) + round($crystal , -3)+ round($deuterium, -3))/1000);
+                $points += floor((round($metal, -3) + round($crystal, -3) + round($deuterium, -3)) / 1000);
             }
 
-            $query = 'UPDATE ' . $dbConfig['prefix'] . 'stats SET points = '.$points.' WHERE userID = :userID;';
+            $query = 'UPDATE ' . Config::$dbConfig['prefix'] . 'stats SET points = ' . $points . ' WHERE userID = :userID;';
 
             $stmt = $dbConnection->prepare($query);
 
@@ -429,7 +433,7 @@
 
 
             // update onlinetime
-            $query = 'UPDATE ' . $dbConfig['prefix'] . 'users SET onlinetime = '.time().' WHERE userID = :userID;';
+            $query = 'UPDATE ' . Config::$dbConfig['prefix'] . 'users SET onlinetime = ' . time() . ' WHERE userID = :userID;';
 
             $stmt = $dbConnection->prepare($query);
 
@@ -444,95 +448,94 @@
             //            }
         }
 
-        public function printData() : void {
+        public static function printData() : void {
 
             echo '<pre>';
-            print_r($this);
+            print_r(self);
             echo '</pre>';
         }
 
         /**
          * @return D_User
          */
-        public function getUser() : D_User {
+        public static function getUser() : D_User {
 
-            return $this->user;
+            return self::$user;
         }
 
         /**
          * @return U_Planet
          */
-        public function getPlanet() : U_Planet {
+        public static function getPlanet() : U_Planet {
 
-            return $this->planet;
+            return self::$planet;
         }
 
         /**
          * @return D_Galaxy
          */
-        public function getGalaxy() : D_Galaxy {
+        public static function getGalaxy() : D_Galaxy {
 
-            return $this->galaxy;
+            return self::$galaxy;
         }
 
         /**
          * @return D_Building
          */
-        public function getBuildingList() : array {
-            return $this->buildingList;
+        public static function getBuildingList() : array {
+            return self::$buildingList;
         }
 
         /**
          * @return D_Defense
          */
-        public function getDefenseList() : array {
+        public static function getDefenseList() : array {
 
-            return $this->defenseList;
+            return self::$defenseList;
         }
 
         /**
          * @return D_Tech
          */
-        public function getTechList() : array {
+        public static function getTechList() : array {
 
-            return $this->techList;
+            return self::$techList;
         }
 
         /**
          * @return D_Fleet
          */
-        public function getFleetList() : array {
+        public static function getFleetList() : array {
 
-            return $this->fleetList;
+            return self::$fleetList;
         }
 
         /**
          * @return D_Building
          */
-        public function getBuildingData() : D_Building {
-            return $this->buildingData;
+        public static function getBuildingData() : D_Building {
+            return self::$buildingData;
         }
 
         /**
          * @return mixed
          */
-        public function getDefenseData() : D_Defense {
-            return $this->defenseData;
+        public static function getDefenseData() : D_Defense {
+            return self::$defenseData;
         }
 
         /**
          * @return D_Tech
          */
-        public function getTechData() : D_Tech {
-            return $this->techData;
+        public static function getTechData() : D_Tech {
+            return self::$techData;
         }
 
         /**
          * @return mixed
          */
-        public function getFleetData() : D_Fleet {
-            return $this->fleetData;
+        public static function getFleetData() : D_Fleet {
+            return self::$fleetData;
         }
-
 
     }

@@ -47,16 +47,20 @@
                             break;
                     }
                 } else {
-//                    $this->lang['galaxy_metal'] = number_format($data->getGalaxy()->getDebrisMetal(), 0);
-//                    $this->lang['galaxy_crystal'] = number_format($data->getGalaxy()->getDebrisCrystal(), 0);
+                    //                    $this->lang['galaxy_metal'] = number_format($data->getGalaxy()->getDebrisMetal(), 0);
+                    //                    $this->lang['galaxy_crystal'] = number_format($data->getGalaxy()->getDebrisCrystal(), 0);
                     $this->lang['time'] = time();
                 }
 
                 // currently building?
                 if ($data->getPlanet()->getBBuildingId() > 0) {
-                    $this->lang['building'] = $units->getName($data->getPlanet()->getBBuildingId()) ." ({level} ".($data->getBuildingList()[$data->getPlanet()->getBBuildingId()]->getLevel()+1) .")<br />" .
-                        "<span class='timer'></span><script>timer(\"overview\", ".($data->getPlanet()->getBBuildingEndtime() - time()) .", 'timer', ". $data->getPlanet()->getBBuildingId() .", '');</script><br />" .
-                        "<a href='?page=building&cancel=".$data->getPlanet()->getBBuildingId()."'>{cancel}</a>";
+                    $this->lang['building'] = D_Units::getName($data->getPlanet()
+                            ->getBBuildingId()) . " ({level} " . ($data->getBuildingList()[$data->getPlanet()
+                                ->getBBuildingId()]->getLevel() + 1) . ")<br />" .
+                        "<span class='timer'></span><script>timer(\"overview\", " . ($data->getPlanet()
+                                ->getBBuildingEndtime() - time()) . ", 'timer', " . $data->getPlanet()
+                            ->getBBuildingId() . ", '');</script><br />" .
+                        "<a href='?page=building&cancel=" . $data->getPlanet()->getBBuildingId() . "'>{cancel}</a>";
                 } else {
                     $this->lang['building'] = 'free';
                 }
@@ -66,12 +70,12 @@
                 $this->lang['num_users'] = number_format($this->model->getNumUsers(), 0);
 
 
-
                 // TODO: if planet has moon -> show moon
-                $this->lang['moon_image'] = '<img src="'. Config::$gameConfig['skinpath'] . '/planeten/small/s_mond.png" />';
+                $this->lang['moon_image'] = '<img src="' . Config::$gameConfig['skinpath'] . '/planeten/small/s_mond.png" />';
 
 
-                $this->lang['planet_image'] = Config::$gameConfig['skinpath'] . 'planeten/' . $data->getPlanet()->getImage() . '.png';
+                $this->lang['planet_image'] = Config::$gameConfig['skinpath'] . 'planeten/' . $data->getPlanet()
+                        ->getImage() . '.png';
 
 
             } catch (Exception $e) {

@@ -1,13 +1,13 @@
 {
-	"require-dev": {
-        "phpunit/phpunit": "^7",
-		"phpunit/dbunit": "^4",
-		"phpdocumentor/phpdocumentor": "2.*",
-		"codacy/coverage": "dev-master"
-	},
-	"autoload": {
-		"psr-0": {
-			"ugamela": "./"
-		}
-	}
+  "require-dev": {
+    "phpunit/phpunit": "^7",
+    "phpunit/dbunit": "^4",
+    "phpdocumentor/phpdocumentor": "2.*",
+    "codacy/coverage": "dev-master"
+  },
+  "autoload": {
+    "psr-0": {
+      "ugamela": "./"
+    }
+  }
 }

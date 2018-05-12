@@ -55,7 +55,6 @@
                                              WHERE p.galaxy = :galaxy AND p.system = :system AND p.planet_type = 1 ORDER BY p.planet ASC');
 
 
-
                 $stmt->execute($params);
 
                 $rows = [];
@@ -82,7 +81,6 @@
          * @throws FileNotFoundException
          */
         public static function loadUserData($userID) {
-
 
 
             $file = Config::$pathConfig['classes'] . 'loader.php';

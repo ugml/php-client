@@ -43,7 +43,7 @@
         /** @var int Level of Deuterium Storage */
         private $deuterium_storage;
 
-        /** @var int Level of Research Lab*/
+        /** @var int Level of Research Lab */
         private $research_lab;
 
         /** @var int Level of Terraformer */
@@ -120,7 +120,7 @@
          */
         public function setMetalMine(int $level) : void {
 
-            if($level >= 0) {
+            if ($level >= 0) {
                 $this->metal_mine = $level;
             }
 
@@ -140,7 +140,7 @@
          * @param int $level the new level
          */
         public function setCrystalMine(int $level) : void {
-            if($level >= 0) {
+            if ($level >= 0) {
                 $this->crystal_mine = $level;
             }
         }
@@ -160,7 +160,7 @@
          */
         public function setDeuteriumSynthesizer(int $level) : void {
 
-            if($level >= 0) {
+            if ($level >= 0) {
                 $this->deuterium_synthesizer = $level;
             }
 
@@ -181,7 +181,7 @@
          */
         public function setSolarPlant(int $level) : void {
 
-            if($level >= 0) {
+            if ($level >= 0) {
                 $this->solar_plant = $level;
             }
         }
@@ -201,7 +201,7 @@
          */
         public function setFusionReactor(int $level) : void {
 
-            if($level >= 0) {
+            if ($level >= 0) {
                 $this->fusion_reactor = $level;
             }
         }
@@ -221,7 +221,7 @@
          */
         public function setRoboticFactory(int $level) : void {
 
-            if($level >= 0) {
+            if ($level >= 0) {
                 $this->robotic_factory = $level;
             }
         }
@@ -241,7 +241,7 @@
          */
         public function setNaniteFactory(int $level) : void {
 
-            if($level >= 0) {
+            if ($level >= 0) {
                 $this->nanite_factory = $level;
             }
         }
@@ -261,7 +261,7 @@
          */
         public function setShipyard(int $level) : void {
 
-            if($level >= 0) {
+            if ($level >= 0) {
                 $this->shipyard = $level;
             }
         }
@@ -281,7 +281,7 @@
          */
         public function setMetalStorage(int $level) : void {
 
-            if($level >= 0) {
+            if ($level >= 0) {
                 $this->metal_storage = $level;
             }
         }
@@ -301,7 +301,7 @@
          */
         public function setCrystalStorage(int $level) : void {
 
-            if($level >= 0) {
+            if ($level >= 0) {
                 $this->crystal_storage = $level;
             }
         }
@@ -321,7 +321,7 @@
          */
         public function setDeuteriumStorage(int $level) : void {
 
-            if($level >= 0) {
+            if ($level >= 0) {
                 $this->deuterium_storage = $level;
             }
         }
@@ -341,7 +341,7 @@
          */
         public function setResearchLab(int $level) : void {
 
-            if($level >= 0) {
+            if ($level >= 0) {
                 $this->research_lab = $level;
             }
         }
@@ -361,7 +361,7 @@
          */
         public function setTerraformer(int $level) : void {
 
-            if($level >= 0) {
+            if ($level >= 0) {
                 $this->terraformer = $level;
             }
 
@@ -382,7 +382,7 @@
          */
         public function setAllianceDepot(int $level) : void {
 
-            if($level >= 0) {
+            if ($level >= 0) {
                 $this->alliance_depot = $level;
             }
 
@@ -403,7 +403,7 @@
          */
         public function setMissileSilo(int $level) : void {
 
-            if($level >= 0) {
+            if ($level >= 0) {
                 $this->missile_silo = $level;
             }
         }
@@ -415,7 +415,7 @@
          */
         public function getBuildingByID(int $id) : int {
 
-            switch($id) {
+            switch ($id) {
                 case 1:
                     return $this->getMetalMine();
                     break;
@@ -462,15 +462,17 @@
                     return $this->getMissileSilo();
                     break;
             }
+
+            return -1;
         }
 
         /**
          * Sets the level of the building, given its id and new level
-         * @param int $id the id of the building
+         * @param int $id    the id of the building
          * @param int $level the new level of the building
          */
-        public function setBuildingByID(int $id, int $level) {
-            switch($id) {
+        public function setBuildingByID(int $id, int $level) : void {
+            switch ($id) {
                 case 1:
                     $this->setMetalMine($level);
                     break;

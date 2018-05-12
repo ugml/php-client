@@ -1,6 +1,6 @@
 <?php
 
-    declare(strict_types=1);
+    declare(strict_types = 1);
 
     if (!defined('INSIDE')) {
         define('INSIDE', true);
@@ -24,7 +24,7 @@
         private $userData;
 
         protected function setUp() : void {
-            $this->userData = new D_User(123, "testname", "email@mail.at", time(), 584, 0,0,0);
+            $this->userData = new D_User(123, "testname", "email@mail.at", time(), 584, 0, 0, 0);
         }
 
         /**
@@ -78,8 +78,8 @@
         public function testSetCurrentPlanet() : void {
             $this->assertSame(null, $this->userData->setCurrentPlanet(584));
 
-//            $this->userData->setPlanetList([new D_Planet(12,15, "Testplanet", 4, 245, 13, time(), 1, "null", 15360, 0, 198, -12, 10, 500000, 245000, 13000, 0, 123, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, "201,50;", 1,false)]);
-//            $this->assertSame(null, $this->userData->setCurrentPlanet(12));
+            //            $this->userData->setPlanetList([new D_Planet(12,15, "Testplanet", 4, 245, 13, time(), 1, "null", 15360, 0, 198, -12, 10, 500000, 245000, 13000, 0, 123, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, "201,50;", 1,false)]);
+            //            $this->assertSame(null, $this->userData->setCurrentPlanet(12));
         }
 
         /**

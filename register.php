@@ -14,7 +14,6 @@
     require_once 'core/autoload.php';
 
 
-
     $controller = new C_Register($_GET, $_POST);
 
 

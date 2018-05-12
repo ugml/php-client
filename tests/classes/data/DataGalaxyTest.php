@@ -1,6 +1,6 @@
 <?php
 
-    declare(strict_types=1);
+    declare(strict_types = 1);
 
     if (!defined('INSIDE')) {
         define('INSIDE', true);
@@ -23,7 +23,7 @@
         private $galaxyData;
 
         protected function setUp() : void {
-            $this->galaxyData = new D_Galaxy(1,1);
+            $this->galaxyData = new D_Galaxy(1, 1);
         }
 
         /**

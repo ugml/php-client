@@ -118,7 +118,9 @@
          */
         public function setSmallCargoShip(int $amount) : void {
 
-            if($amount >= 0) $this->small_cargo_ship = $amount;
+            if ($amount >= 0) {
+                $this->small_cargo_ship = $amount;
+            }
         }
 
         /**
@@ -136,7 +138,9 @@
          */
         public function setLargeCargoShip(int $amount) : void {
 
-            if($amount >= 0) $this->large_cargo_ship = $amount;
+            if ($amount >= 0) {
+                $this->large_cargo_ship = $amount;
+            }
         }
 
         /**
@@ -154,7 +158,9 @@
          */
         public function setLightFighter(int $amount) : void {
 
-            if($amount >= 0) $this->light_fighter = $amount;
+            if ($amount >= 0) {
+                $this->light_fighter = $amount;
+            }
         }
 
         /**
@@ -172,7 +178,9 @@
          */
         public function setHeavyFighter(int $amount) : void {
 
-            if($amount >= 0) $this->heavy_fighter = $amount;
+            if ($amount >= 0) {
+                $this->heavy_fighter = $amount;
+            }
         }
 
         /**
@@ -190,7 +198,9 @@
          */
         public function setCruiser(int $amount) : void {
 
-            if($amount >= 0) $this->cruiser = $amount;
+            if ($amount >= 0) {
+                $this->cruiser = $amount;
+            }
         }
 
         /**
@@ -208,7 +218,9 @@
          */
         public function setBattleship(int $amount) : void {
 
-            if($amount >= 0) $this->battleship = $amount;
+            if ($amount >= 0) {
+                $this->battleship = $amount;
+            }
         }
 
         /**
@@ -226,7 +238,9 @@
          */
         public function setColonyShip(int $amount) : void {
 
-            if($amount >= 0) $this->colony_ship = $amount;
+            if ($amount >= 0) {
+                $this->colony_ship = $amount;
+            }
         }
 
         /**
@@ -244,7 +258,9 @@
          */
         public function setRecycler(int $amount) : void {
 
-            if($amount >= 0) $this->recycler = $amount;
+            if ($amount >= 0) {
+                $this->recycler = $amount;
+            }
         }
 
         /**
@@ -262,7 +278,9 @@
          */
         public function setEspionageProbe(int $amount) : void {
 
-            if($amount >= 0) $this->espionage_probe = $amount;
+            if ($amount >= 0) {
+                $this->espionage_probe = $amount;
+            }
         }
 
         /**
@@ -280,7 +298,9 @@
          */
         public function setBomber(int $amount) : void {
 
-            if($amount >= 0) $this->bomber = $amount;
+            if ($amount >= 0) {
+                $this->bomber = $amount;
+            }
         }
 
         /**
@@ -298,7 +318,9 @@
          */
         public function setSolarSatellite(int $amount) : void {
 
-            if($amount >= 0) $this->solar_satellite = $amount;
+            if ($amount >= 0) {
+                $this->solar_satellite = $amount;
+            }
         }
 
         /**
@@ -316,7 +338,9 @@
          */
         public function setDestroyer(int $amount) : void {
 
-            if($amount >= 0) $this->destroyer = $amount;
+            if ($amount >= 0) {
+                $this->destroyer = $amount;
+            }
         }
 
         /**
@@ -334,7 +358,9 @@
          */
         public function setBattlecruiser(int $amount) : void {
 
-            if($amount >= 0) $this->battlecruiser = $amount;
+            if ($amount >= 0) {
+                $this->battlecruiser = $amount;
+            }
         }
 
         /**
@@ -352,7 +378,9 @@
          */
         public function setDeathstar(int $amount) : void {
 
-            if($amount >= 0) $this->deathstar = $amount;
+            if ($amount >= 0) {
+                $this->deathstar = $amount;
+            }
         }
 
         /**
@@ -361,8 +389,8 @@
          * @return int the level of the fleet
          */
         public function getFleetByID(int $id) : int {
-            
-            switch($id) {
+
+            switch ($id) {
                 case 201:
                     return $this->getSmallCargoShip();
                     break;
@@ -410,12 +438,12 @@
 
         /**
          * Sets the level of the fleet, given its id and new level
-         * @param int $id the id of the fleet
+         * @param int $id    the id of the fleet
          * @param int $level the new level of the fleet
          */
         public function setFleetByID(int $id, int $level) {
 
-            switch($id) {
+            switch ($id) {
                 case 201:
                     $this->setSmallCargoShip($level);
                     break;

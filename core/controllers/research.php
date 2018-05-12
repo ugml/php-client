@@ -13,6 +13,7 @@
         private $lang = null;
 
         private $model = null;
+
         private $view = null;
 
         function __construct($get, $post) {
@@ -99,14 +100,14 @@
 
             try {
                 if ($buildID < 100 || $buildID > 199 || !array_key_exists($buildID,
-                        $units->getTechnologies())) {
+                        D_Units::getTechnologies())) {
                     throw new InvalidArgumentException("ID out of range");
                 }
 
                 //build it only, if there is not already a building in the queue
                 if ($data->getPlanet()->getBTechId() == 0) {
 
-                    $pricelist = $units->getPriceList($buildID);
+                    $pricelist = D_Units::getPriceList($buildID);
 
                     $level = ($data->getTechList()[$buildID])->getLevel();
 
@@ -155,7 +156,7 @@
 
             if ($data->getPlanet()->getBTechId() == $buildID && $data->getPlanet()->getBTechEndtime() > time()) {
 
-                $pricelist = $units->getPriceList($buildID);
+                $pricelist = D_Units::getPriceList($buildID);
 
                 $level = ($data->getTechList()[$buildID])->getLevel();
 
@@ -190,7 +191,7 @@
             // load the individual rows for each building
             $this->lang['research_list'] = $this->view->loadResearchRows(
                 $data->getTechList(),
-                $units->getTechnologies(),
+                D_Units::getTechnologies(),
                 $data->getPlanet()
             );
 
@@ -205,7 +206,7 @@
 
             $this->view->assign('lang', $this->lang);
             $this->view->assign('title', Config::$gameConfig['game_name']);
-            $this->view->assign('skinpath',Config::$gameConfig['skinpath']);
+            $this->view->assign('skinpath', Config::$gameConfig['skinpath']);
             $this->view->assign('copyright', Config::$gameConfig['copyright']);
             $this->view->assign('language', Config::$pathConfig['language']);
 

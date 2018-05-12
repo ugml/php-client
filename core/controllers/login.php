@@ -7,9 +7,11 @@
     class C_Login implements I_Controller {
 
         private $get = null;
+
         private $post = null;
 
         private $view = null;
+
         private $model = null;
 
         private $skin = 'css/login.css';
@@ -58,7 +60,6 @@
         }
 
         function display() : void {
-
 
 
             $this->view->assign('lang', $this->model->loadLanguage());

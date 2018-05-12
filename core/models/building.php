@@ -46,7 +46,6 @@
         public static function loadUserData($userID) {
 
 
-
             $file = Config::$pathConfig['classes'] . 'loader.php';
             if (file_exists($file)) {
                 require $file;
@@ -65,10 +64,10 @@
             $req_met = true;
 
             // check requirements
-            if ($units->getRequirements($buildID) !== []) {
+            if (D_Units::getRequirements($buildID) !== []) {
 
 
-                $req = $units->getRequirements($buildID);
+                $req = D_Units::getRequirements($buildID);
 
                 foreach ($req as $bID => $lvl) {
 
@@ -99,12 +98,11 @@
                     try {
 
 
-
-                        $buildTime = time() + 3600 * $units->getBuildTime(
+                        $buildTime = time() + 3600 * D_Units::getBuildTime(
                                 $data->getBuildingList()[$buildID],
-                                $data->getBuildingList()[$units->getUnitID('robotic_factory')]->getLevel(),
-                                $data->getBuildingList()[$units->getUnitID('shipyard')]->getLevel(),
-                                $data->getBuildingList()[$units->getUnitID('nanite_factory')]->getLevel()
+                                $data->getBuildingList()[D_Units::getUnitID('robotic_factory')]->getLevel(),
+                                $data->getBuildingList()[D_Units::getUnitID('shipyard')]->getLevel(),
+                                $data->getBuildingList()[D_Units::getUnitID('nanite_factory')]->getLevel()
                             );
 
 

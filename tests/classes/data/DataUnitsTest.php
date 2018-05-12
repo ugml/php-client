@@ -1,6 +1,6 @@
 <?php
 
-    declare(strict_types=1);
+    declare(strict_types = 1);
 
     if (!defined('INSIDE')) {
         define('INSIDE', true);
@@ -95,7 +95,7 @@
             $this->assertSame("crystal_mine", $this->units->getUnitName(2));
             $this->assertSame("deuterium_synthesizer", $this->units->getUnitName(3));
             $this->assertSame("solar_plant", $this->units->getUnitName(4));
-            $this->assertSame("fusion_reactor", $this->units->getUnitName(5 ));
+            $this->assertSame("fusion_reactor", $this->units->getUnitName(5));
             $this->assertSame("robotic_factory", $this->units->getUnitName(6));
             $this->assertSame("nanite_factory", $this->units->getUnitName(7));
             $this->assertSame("shipyard", $this->units->getUnitName(8));
@@ -112,7 +112,7 @@
             $this->assertSame("armour_tech", $this->units->getUnitName(104));
             $this->assertSame("shielding_tech", $this->units->getUnitName(105));
             $this->assertSame("energy_tech", $this->units->getUnitName(106));
-            $this->assertSame("hyperspace_tech", $this->units->getUnitName(107 ));
+            $this->assertSame("hyperspace_tech", $this->units->getUnitName(107));
             $this->assertSame("combustion_drive_tech", $this->units->getUnitName(108));
             $this->assertSame("impulse_drive_tech", $this->units->getUnitName(109));
             $this->assertSame("hyperspace_drive_tech", $this->units->getUnitName(110));
@@ -166,7 +166,8 @@
                          12 => 'research_lab',
                          13 => 'terraformer',
                          14 => 'alliance_depot',
-                         15 => 'missile_silo'];
+                         15 => 'missile_silo'
+            ];
 
             $this->assertSame($expected, $this->units->getBuildings());
         }
@@ -190,7 +191,8 @@
                          112 => 'ion_tech',
                          113 => 'plasma_tech',
                          114 => 'intergalactic_research_tech',
-                         115 => 'graviton_tech'];
+                         115 => 'graviton_tech'
+            ];
 
             $this->assertSame($expected, $this->units->getTechnologies());
         }
@@ -213,7 +215,8 @@
                          211 => 'solar_satellite',
                          212 => 'destroyer',
                          213 => 'battlecruiser',
-                         214 => 'deathstar'];
+                         214 => 'deathstar'
+            ];
 
             $this->assertSame($expected, $this->units->getFleet());
         }
@@ -232,7 +235,8 @@
                          307 => 'small_shield_dome',
                          308 => 'large_shield_dome',
                          309 => 'anti_ballistic_missile',
-                         310 => 'interplanetary_missile'];
+                         310 => 'interplanetary_missile'
+            ];
 
             $this->assertSame($expected, $this->units->getDefense());
         }
@@ -248,14 +252,16 @@
          * @covers D_Units::getDescription
          */
         public function testGetDescription() : void {
-            $this->assertSame("Metal is the main resource for conducting research and the construction of buildings, ships, and defensive units.", $this->units->getDescription(1));
+            $this->assertSame("Metal is the main resource for conducting research and the construction of buildings, ships, and defensive units.",
+                $this->units->getDescription(1));
         }
 
         /**
          * @covers D_Units::getPriceList
          */
         public function testGetPricelist() : void {
-            $this->assertSame(['metal' => 60, 'crystal' => 15, 'deuterium' => 0, 'energy' => 0, 'factor' => 1.5], $this->units->getPriceList(1));
+            $this->assertSame(['metal' => 60, 'crystal' => 15, 'deuterium' => 0, 'energy' => 0, 'factor' => 1.5],
+                $this->units->getPriceList(1));
         }
 
         /**
@@ -271,7 +277,7 @@
          */
         public function testGetBuildTimeBuilding() : void {
 
-            $building = new U_Building(1,0, 60, 15, 0, 0, 1.5);
+            $building = new U_Building(1, 0, 60, 15, 0, 0, 1.5);
 
 
             $this->assertSame(108.0, $this->units->getBuildTime($building, 0, 0, 0) * 3600);
@@ -282,7 +288,7 @@
          */
         public function testGetBuildTimeTech() : void {
 
-            $research = new U_Research(101,0, 200, 100, 200, 0, 2);
+            $research = new U_Research(101, 0, 200, 100, 200, 0, 2);
 
 
             $this->assertSame(864.0, $this->units->getBuildTime($research, 0, 0, 0) * 3600);
@@ -293,7 +299,7 @@
          */
         public function testGetBuildTimeFleetOrDefense() : void {
 
-            $fleet = new U_Fleet(201,0, 2000, 2000, 0, 0, 1);
+            $fleet = new U_Fleet(201, 0, 2000, 2000, 0, 0, 1);
 
             $this->assertSame(5760.0, $this->units->getBuildTime($fleet, 0, 0, 0) * 3600);
         }
@@ -344,9 +350,10 @@
          */
         public function testGetEnergyProduction() : void {
 
-            $this->assertSame(['solar_plant' => 22.0,
-                                'fusion_reactor' => 61.79999999999999,
-                                'solar_satellite' => 20.25], $this->units->getEnergyProduction(1,1,1,1,1));
+            $this->assertSame(['solar_plant'     => 22.0,
+                               'fusion_reactor'  => 61.79999999999999,
+                               'solar_satellite' => 20.25
+            ], $this->units->getEnergyProduction(1, 1, 1, 1, 1));
         }
 
         /**

@@ -53,7 +53,6 @@
         public function loadResourceRow() {
 
 
-
             ob_start();
 
             $file = Config::$pathConfig['templates'] . $this->template . '_row.php';

@@ -11,15 +11,16 @@
 
         /**
          * Unit constructor.
-         * @param int $uID                the internal unit-id
-         * @param int $uAmount            the current amount of the unit
-         * @param float $uCostMetal       the metal-cost for one unit/first level
-         * @param float $uCostCrystal     the crystal-cost for one unit/first level
-         * @param float $uCostDeuterium   the deuterium-cost for one unit/first level
-         * @param float $uCostEnergy      the energy-cost for one unit/first level
-         * @param float $uCostFactor      the factor, at which the price is rising at each level
+         * @param int   $uID            the internal unit-id
+         * @param int   $uAmount        the current amount of the unit
+         * @param float $uCostMetal     the metal-cost for one unit/first level
+         * @param float $uCostCrystal   the crystal-cost for one unit/first level
+         * @param float $uCostDeuterium the deuterium-cost for one unit/first level
+         * @param float $uCostEnergy    the energy-cost for one unit/first level
+         * @param float $uCostFactor    the factor, at which the price is rising at each level
          */
-        public function __construct(int $uID, int $uAmount, float $uCostMetal, float $uCostCrystal, float $uCostDeuterium, float $uCostEnergy,
+        public function __construct(int $uID, int $uAmount, float $uCostMetal, float $uCostCrystal,
+            float $uCostDeuterium, float $uCostEnergy,
             $uCostFactor) {
 
             //TODO: check if 300 < unitID < 400

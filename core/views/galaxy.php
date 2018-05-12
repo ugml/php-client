@@ -48,9 +48,9 @@
         public function loadGalaxyRows($galaxyData) {
             global $data;
 
-//            echo "<pre>";
-//            print_r($galaxyData);
-//            echo "</pre>";
+            //            echo "<pre>";
+            //            print_r($galaxyData);
+            //            echo "</pre>";
 
             ob_start();
 
@@ -65,33 +65,30 @@
             ob_end_clean();
 
 
-
             $output = "";
 
-            for($i = 1; $i <= 15; $i++){
+            for ($i = 1; $i <= 15; $i++) {
 
                 $fields['galaxy_pos'] = $i;
 
                 // if there is a planet at this position
-                if(array_key_exists($i, $galaxyData)) {
-                    $fields['galaxy_planetimg'] = "<img width='32px' height='32px' src=\"".Config::$gameConfig['skinpath'] .  "/planeten/small/s_".$galaxyData[$i]->image.".png\" />";
+                if (array_key_exists($i, $galaxyData)) {
+                    $fields['galaxy_planetimg'] = "<img width='32px' height='32px' src=\"" . Config::$gameConfig['skinpath'] . "/planeten/small/s_" . $galaxyData[$i]->image . ".png\" />";
 
 
                     $fields['galaxy_name'] = $galaxyData[$i]->name;
 
 
-
-
-                    if(intval($galaxyData[$i]->moonID) > 0) {
-                        $fields['galaxy_moon'] = "<img width='32px' height='32px' src=\"".Config::$gameConfig['skinpath'] .  "/planeten/mond.png\" />";
+                    if (intval($galaxyData[$i]->moonID) > 0) {
+                        $fields['galaxy_moon'] = "<img width='32px' height='32px' src=\"" . Config::$gameConfig['skinpath'] . "/planeten/mond.png\" />";
                     } else {
                         $fields['galaxy_moon'] = "";
                     }
 
 
                     // TODO: mouse-over for more details
-                    if($galaxyData[$i]->debris_metal > 0 || $galaxyData[$i]->debris_crystal > 0) {
-                        $fields['galaxy_debris'] = "<img src=\"".Config::$gameConfig['skinpath'] .  "/images/debris.png\" />";
+                    if ($galaxyData[$i]->debris_metal > 0 || $galaxyData[$i]->debris_crystal > 0) {
+                        $fields['galaxy_debris'] = "<img src=\"" . Config::$gameConfig['skinpath'] . "/images/debris.png\" />";
                     } else {
                         $fields['galaxy_debris'] = "-";
                     }
@@ -103,13 +100,15 @@
 
                     // TODO: vacation / banned
                     // 2 weeks or 1 week inactive?
-                    if($inactiveSince > 604800) {
+                    if ($inactiveSince > 604800) {
                         $status .= '(<span class="inactive_long">I</span>)';
-                    } else if($inactiveSince > 302400) {
-                        $status .= '(<span class="inactive_short">i</span>)';
+                    } else {
+                        if ($inactiveSince > 302400) {
+                            $status .= '(<span class="inactive_short">i</span>)';
+                        }
                     }
 
-                    if(strlen($galaxyData[$i]->username) > 10) {
+                    if (strlen($galaxyData[$i]->username) > 10) {
                         $fields['galaxy_player'] = substr($galaxyData[$i]->username, 0, 10) . " ... " . $status;
                     } else {
                         $fields['galaxy_player'] = $galaxyData[$i]->username . " " . $status;
@@ -122,24 +121,24 @@
                     $fields['galaxy_actions'] = "";
 
                     // if it is the player himself
-                    if(intval($galaxyData[$i]->userID) === $data->getUser()->getUserID()) {
+                    if (intval($galaxyData[$i]->userID) === $data->getUser()->getUserID()) {
                         $fields['galaxy_actions'] = " - ";
                     } else {
 
                         // if player has espionage-probes
-                        if($data->getFleet()[209]->getAmount() > 0) {
+                        if ($data->getFleet()[209]->getAmount() > 0) {
                             // TODO: create link
-                            $fields['galaxy_actions'] .= "<img src=\"".Config::$gameConfig['skinpath'] .  "/images/e.gif\" />&nbsp;";
+                            $fields['galaxy_actions'] .= "<img src=\"" . Config::$gameConfig['skinpath'] . "/images/e.gif\" />&nbsp;";
                         }
 
                         // TODO: create link
-                        $fields['galaxy_actions'] .= "<img src=\"".Config::$gameConfig['skinpath'] .  "/images/m.gif\" />&nbsp;";
+                        $fields['galaxy_actions'] .= "<img src=\"" . Config::$gameConfig['skinpath'] . "/images/m.gif\" />&nbsp;";
 
                         // TODO: if not already butty
-                        $fields['galaxy_actions'] .= "<img src=\"".Config::$gameConfig['skinpath'] .  "/images/b.gif\" />&nbsp;";
+                        $fields['galaxy_actions'] .= "<img src=\"" . Config::$gameConfig['skinpath'] . "/images/b.gif\" />&nbsp;";
 
                         // TODO: if in range
-                        if($data->getDefense()[310]->getAmount() > 0) {
+                        if ($data->getDefense()[310]->getAmount() > 0) {
                             $fields['galaxy_actions'] .= "<img src=\"" . Config::$gameConfig['skinpath'] . "/images/r.gif\" />";
                         }
                     }
@@ -159,7 +158,7 @@
 
                 foreach ($fields as $a => $b) {
 
-//                    echo $a . " => " . $b . "<br />";
+                    //                    echo $a . " => " . $b . "<br />";
 
                     $temp = str_replace("{{$a}}", $b, $temp);
                 }

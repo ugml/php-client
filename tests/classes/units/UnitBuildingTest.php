@@ -1,6 +1,6 @@
 <?php
 
-    declare(strict_types=1);
+    declare(strict_types = 1);
 
     if (!defined('INSIDE')) {
         define('INSIDE', true);
@@ -29,9 +29,9 @@
         public function testGetCostMetal() : void {
             $data = new D_Units();
 
-            for($i = 1; $i <= 15; $i ++) {
+            for ($i = 1; $i <= 15; $i++) {
                 $unitID = $i;
-                $level = rand(1,30);
+                $level = rand(1, 30);
                 $priceList = $data->getPriceList($unitID);
                 $building = new U_Building($unitID, $level, $priceList['metal'], $priceList['crystal'],
                     $priceList['deuterium'], $priceList['energy'], $priceList['factor']);
@@ -49,9 +49,9 @@
         public function testGetCostCrystal() : void {
             $data = new D_Units();
 
-            for($i = 1; $i <= 15; $i ++) {
+            for ($i = 1; $i <= 15; $i++) {
                 $unitID = $i;
-                $level = rand(1,30);
+                $level = rand(1, 30);
                 $priceList = $data->getPriceList($unitID);
                 $building = new U_Building($unitID, $level, $priceList['metal'], $priceList['crystal'],
                     $priceList['deuterium'], $priceList['energy'], $priceList['factor']);
@@ -68,13 +68,15 @@
         public function testGetCostDeuterium() : void {
             $data = new D_Units();
 
-            for($i = 1; $i <= 15; $i ++) {
+            for ($i = 1; $i <= 15; $i++) {
                 $unitID = $i;
-                $level = rand(1,30);
+                $level = rand(1, 30);
                 $priceList = $data->getPriceList($unitID);
-                $building = new U_Building($unitID, $level, $priceList['metal'], $priceList['crystal'], $priceList['deuterium'], $priceList['energy'], $priceList['factor']);
+                $building = new U_Building($unitID, $level, $priceList['metal'], $priceList['crystal'],
+                    $priceList['deuterium'], $priceList['energy'], $priceList['factor']);
 
-                $this->assertSame(floor($priceList['deuterium'] * pow($priceList['factor'], $level)), $building->getCostDeuterium());
+                $this->assertSame(floor($priceList['deuterium'] * pow($priceList['factor'], $level)),
+                    $building->getCostDeuterium());
             }
 
 
@@ -87,9 +89,9 @@
         public function testGetCostEnergy() : void {
             $data = new D_Units();
 
-            for($i = 1; $i <= 15; $i ++) {
+            for ($i = 1; $i <= 15; $i++) {
                 $unitID = $i;
-                $level = rand(1,30);
+                $level = rand(1, 30);
                 $priceList = $data->getPriceList($unitID);
                 $building = new U_Building($unitID, $level, $priceList['metal'], $priceList['crystal'],
                     $priceList['deuterium'], $priceList['energy'], $priceList['factor']);
@@ -108,22 +110,26 @@
 
             $unitID = 1;
             $priceList = $data->getPriceList($unitID);
-            $building = new U_Building($unitID, 8, $priceList['metal'], $priceList['crystal'], $priceList['deuterium'], $priceList['energy'], $priceList['factor']);
-            $this->assertSame(172.0, $building->getEnergyConsumption(100,100,100));
+            $building = new U_Building($unitID, 8, $priceList['metal'], $priceList['crystal'], $priceList['deuterium'],
+                $priceList['energy'], $priceList['factor']);
+            $this->assertSame(172.0, $building->getEnergyConsumption(100, 100, 100));
 
             $unitID = 2;
             $priceList = $data->getPriceList($unitID);
-            $building = new U_Building($unitID, 11, $priceList['metal'], $priceList['crystal'], $priceList['deuterium'], $priceList['energy'], $priceList['factor']);
-            $this->assertSame(314.0, $building->getEnergyConsumption(100,100,100));
+            $building = new U_Building($unitID, 11, $priceList['metal'], $priceList['crystal'], $priceList['deuterium'],
+                $priceList['energy'], $priceList['factor']);
+            $this->assertSame(314.0, $building->getEnergyConsumption(100, 100, 100));
 
             $unitID = 3;
             $priceList = $data->getPriceList($unitID);
-            $building = new U_Building($unitID, 15, $priceList['metal'], $priceList['crystal'], $priceList['deuterium'], $priceList['energy'], $priceList['factor']);
-            $this->assertSame(1254.0, $building->getEnergyConsumption(100,100,100));
+            $building = new U_Building($unitID, 15, $priceList['metal'], $priceList['crystal'], $priceList['deuterium'],
+                $priceList['energy'], $priceList['factor']);
+            $this->assertSame(1254.0, $building->getEnergyConsumption(100, 100, 100));
 
             $unitID = 15;
-            $building = new U_Building($unitID, 15, $priceList['metal'], $priceList['crystal'], $priceList['deuterium'], $priceList['energy'], $priceList['factor']);
-            $this->assertSame(0.0, $building->getEnergyConsumption(100,100,100));
+            $building = new U_Building($unitID, 15, $priceList['metal'], $priceList['crystal'], $priceList['deuterium'],
+                $priceList['energy'], $priceList['factor']);
+            $this->assertSame(0.0, $building->getEnergyConsumption(100, 100, 100));
 
         }
 
@@ -134,6 +140,5 @@
             $building = new U_Building(1, 36, 60, 40, 0, 0, 1.5);
             $this->assertSame(36, $building->getLevel());
         }
-
 
     }

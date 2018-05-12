@@ -17,6 +17,6 @@
     </filter>
 
     <logging>
-        <log type="coverage-xml" target="build/coverageData/coverage.xml" />
+        <log type="coverage-xml" target="build/coverageData/coverage.xml"/>
     </logging>
 </phpunit>

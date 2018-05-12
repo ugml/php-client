@@ -1,6 +1,6 @@
 <?php
 
-    declare(strict_types=1);
+    declare(strict_types = 1);
 
     if (!defined('INSIDE')) {
         define('INSIDE', true);
@@ -24,7 +24,7 @@
         private $buildingData;
 
         protected function setUp() : void {
-            $this->buildingData = new D_Building(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);
+            $this->buildingData = new D_Building(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
         }
 
         /**

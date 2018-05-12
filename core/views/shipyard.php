@@ -63,14 +63,14 @@
             foreach ($unitsBuilding as $k => $v) {
 
                 // the key of the current research
-                $key = $units->getUnitID($v);
+                $key = D_Units::getUnitID($v);
 
                 $req_met = true;
 
                 // check requirements
-                if ($units->getRequirements($key) !== []) {
+                if (D_Units::getRequirements($key) !== []) {
 
-                    $req = $units->getRequirements($key);
+                    $req = D_Units::getRequirements($key);
 
                     foreach ($req as $bID => $lvl) {
 
@@ -99,18 +99,18 @@
                 if ($req_met) {
 
 
-                    $unitID = $units->getUnitID($v);
+                    $unitID = D_Units::getUnitID($v);
 
                     $fleet = $data->getFleet()[$unitID];
 
                     $level = $fleet->getAmount();
 
 
-                    $pricelist = $units->getPriceList($unitID);
+                    $pricelist = D_Units::getPriceList($unitID);
 
-                    $fields['s_name'] = $units->getName($unitID);
+                    $fields['s_name'] = D_Units::getName($unitID);
                     $fields['s_level'] = $level;
-                    $fields['s_description'] = $units->getDescription($unitID);
+                    $fields['s_description'] = D_Units::getDescription($unitID);
 
 
                     // get the price
@@ -135,9 +135,9 @@
                     $fields['s_deuterium'] = number_format(ceil($deuterium), 0);
 
 
-                    $duration = 3600 * $units->getBuildTime($fleet, 0,
-                            $data->getBuildingList()[$units->getUnitID('shipyard')]->getLevel(),
-                            $data->getBuildingList()[$units->getUnitID('nanite_factory')]->getLevel());
+                    $duration = 3600 * D_Units::getBuildTime($fleet, 0,
+                            $data->getBuildingList()[D_Units::getUnitID('shipyard')]->getLevel(),
+                            $data->getBuildingList()[D_Units::getUnitID('nanite_factory')]->getLevel());
 
                     //                $duration = 3600 * $units
                     //                        ->getBuildTime($unitID, 0, $data->getBuildingList()->getRoboticFactory(),
@@ -183,8 +183,8 @@
                 }
             }
 
-            if($output === '') {
-                $output .= '<div class="row"><div class="col-md-12"><div>'.$lang['no_fleet_available'].'</div></div></div>';
+            if ($output === '') {
+                $output .= '<div class="row"><div class="col-md-12"><div>' . $lang['no_fleet_available'] . '</div></div></div>';
             }
 
             return $output;

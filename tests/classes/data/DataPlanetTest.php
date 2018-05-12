@@ -1,6 +1,6 @@
 <?php
 
-    declare(strict_types=1);
+    declare(strict_types = 1);
 
     if (!defined('INSIDE')) {
         define('INSIDE', true);
@@ -24,7 +24,8 @@
         private $planetData;
 
         protected function setUp() : void {
-            $this->planetData = new D_Planet(1,15, "Testplanet", 4, 245, 13, time(), 1, "null", 15360, 0, 198, -12, 10, 500000, 245000, 13000, 0, 123, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, "201,50;", false,false);
+            $this->planetData = new D_Planet(1, 15, "Testplanet", 4, 245, 13, time(), 1, "null", 15360, 0, 198, -12, 10,
+                500000, 245000, 13000, 0, 123, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, "201,50;", false, false);
         }
 
         /**
@@ -80,7 +81,7 @@
             $this->planetData->setOwnerID(40);
             $this->assertSame(40, $this->planetData->getOwnerID());
         }
-        
+
         /**
          * @covers D_Planet::setName
          * @covers D_Planet::getName
@@ -245,7 +246,7 @@
             $this->planetData->setSolarSatellitePercent(10);
             $this->assertSame(10, $this->planetData->getSolarSatellitePercent());
         }
-        
+
         /**
          * @covers D_Planet::setSolarPlantPercent
          * @covers D_Planet::getSolarPlantPercent

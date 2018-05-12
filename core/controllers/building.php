@@ -4,7 +4,6 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-
     class C_Building implements I_Controller {
 
         private $get = null;
@@ -12,6 +11,7 @@
         private $post = null;
 
         private $model = null;
+
         private $view = null;
 
         private $lang = null;
@@ -112,7 +112,7 @@
             global $data, $debug, $units;
 
             try {
-                if ($buildID < 1 || $buildID > 99 || !array_key_exists($buildID, $units->getBuildings())) {
+                if ($buildID < 1 || $buildID > 99 || !array_key_exists($buildID, D_Units::getBuildings())) {
                     throw new InvalidArgumentException("ID out of range");
                 }
 
@@ -162,11 +162,12 @@
 
             global $data;
 
-            if ($data->getPlanet()->getBBuildingId() == $buildID && $data->getPlanet()->getBBuildingEndtime() > time()) {
+            if ($data->getPlanet()->getBBuildingId() == $buildID && $data->getPlanet()
+                    ->getBBuildingEndtime() > time()) {
 
                 $units = new D_Units();
 
-                $pricelist = $units->getPriceList($buildID);
+                $pricelist = D_Units::getPriceList($buildID);
 
                 $level = $data->getBuildingList()[$buildID]->getLevel();
 
@@ -207,7 +208,8 @@
 
             // load the individual rows for each building
 
-            $this->lang['building_list'] = $this->view->loadBuildingRows($data->getBuildingList(), $units->getBuildings(), $data->getPlanet());
+            $this->lang['building_list'] = $this->view->loadBuildingRows($data->getBuildingList(),
+                D_Units::getBuildings(), $data->getPlanet());
 
             if (is_array($this->lang) && is_array($v_lang)) {
                 $this->lang = array_merge($this->lang, $v_lang);
@@ -220,7 +222,7 @@
 
             $this->view->assign('lang', $this->lang);
             $this->view->assign('title', Config::$gameConfig['game_name']);
-            $this->view->assign('skinpath',Config::$gameConfig['skinpath']);
+            $this->view->assign('skinpath', Config::$gameConfig['skinpath']);
             $this->view->assign('copyright', Config::$gameConfig['copyright']);
             $this->view->assign('language', Config::$gameConfig['language']);
 

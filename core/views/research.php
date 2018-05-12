@@ -56,14 +56,14 @@
             foreach ($unitsResearch as $k => $v) {
 
                 // the key of the current research
-                $key = $units->getUnitID($v);
+                $key = D_Units::getUnitID($v);
 
                 $req_met = true;
 
                 // check requirements
-                if ($units->getRequirements($key) !== []) {
+                if (D_Units::getRequirements($key) !== []) {
 
-                    $req = $units->getRequirements($key);
+                    $req = D_Units::getRequirements($key);
 
                     foreach ($req as $bID => $lvl) {
 
@@ -92,15 +92,15 @@
 
                 if ($req_met) {
 
-                    $unitID = $units->getUnitID($v);
+                    $unitID = D_Units::getUnitID($v);
 
                     $level = ($data->getTechList()[$unitID])->getLevel();
 
-                    $pricelist = $units->getPriceList($unitID);
+                    $pricelist = D_Units::getPriceList($unitID);
 
-                    $fields['r_name'] = $units->getName($unitID);
+                    $fields['r_name'] = D_Units::getName($unitID);
                     $fields['r_level'] = $level;
-                    $fields['r_description'] = $units->getDescription($unitID);
+                    $fields['r_description'] = D_Units::getDescription($unitID);
 
 
                     // get the baseprice
@@ -159,7 +159,7 @@
                     $fields['r_deuterium'] = number_format(ceil($deuterium), 0);
 
                     // TODO: levels
-                    $duration = 3600 * $units->getBuildTime($research[$unitID], 1,1,1);
+                    $duration = 3600 * D_Units::getBuildTime($research[$unitID], 1, 1, 1);
 
                     $hours = floor($duration / 3600);
                     $minutes = floor(($duration / 60) % 60);
@@ -200,8 +200,8 @@
                 }
             }
 
-            if($output === '') {
-                $output .= '<div class="row"><div class="col-md-12"><div>'.$lang['no_research_available'].'</div></div></div>';
+            if ($output === '') {
+                $output .= '<div class="row"><div class="col-md-12"><div>' . $lang['no_research_available'] . '</div></div></div>';
             }
 
             return $output;

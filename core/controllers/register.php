@@ -87,7 +87,7 @@
             if ($validPost) {
                 $return = $this->model->createNewUser($username, $_POST['planetname'], $email, $password);
 
-                if($return == 0) {
+                if ($return == 0) {
                     // TODO: display success-message
                     $this->view->assign('success', true);
                 }
@@ -98,9 +98,6 @@
          * display the page
          */
         function display() : void {
-
-
-
 
 
             $this->view->assign('lang', $this->model->loadLanguage());

@@ -46,10 +46,10 @@
             $req_met = true;
 
             // check requirements
-            if ($units->getRequirements($buildID) !== []) {
+            if (D_Units::getRequirements($buildID) !== []) {
 
 
-                $req = $units->getRequirements($buildID);
+                $req = D_Units::getRequirements($buildID);
 
                 foreach ($req as $bID => $lvl) {
 
@@ -79,7 +79,7 @@
                 if ($buildID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
                     try {
 
-                        $price = $units->getPriceList($buildID);
+                        $price = D_Units::getPriceList($buildID);
 
 
                         // preis * faktor ^ level

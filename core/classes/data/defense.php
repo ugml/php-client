@@ -21,7 +21,7 @@
         /** @var int Amount of Ion Cannon */
         private $ion_cannon;
 
-        /** @var int Amount of Gauss Cannon*/
+        /** @var int Amount of Gauss Cannon */
         private $gauss_cannon;
 
         /** @var int Amount of Plasma Turret */
@@ -95,7 +95,9 @@
          */
         public function setRocketLauncher(int $amount) : void {
 
-            if($amount >= 0) $this->rocket_launcher = $amount;
+            if ($amount >= 0) {
+                $this->rocket_launcher = $amount;
+            }
         }
 
         /**
@@ -113,7 +115,9 @@
          */
         public function setLightLaser(int $amount) : void {
 
-            if($amount >= 0) $this->light_laser = $amount;
+            if ($amount >= 0) {
+                $this->light_laser = $amount;
+            }
         }
 
         /**
@@ -131,7 +135,9 @@
          */
         public function setHeavyLaser(int $amount) : void {
 
-            if($amount >= 0) $this->heavy_laser = $amount;
+            if ($amount >= 0) {
+                $this->heavy_laser = $amount;
+            }
         }
 
         /**
@@ -149,7 +155,9 @@
          */
         public function setIonCannon(int $amount) : void {
 
-            if($amount >= 0) $this->ion_cannon = $amount;
+            if ($amount >= 0) {
+                $this->ion_cannon = $amount;
+            }
         }
 
         /**
@@ -167,7 +175,9 @@
          */
         public function setGaussCannon(int $amount) : void {
 
-            if($amount >= 0) $this->gauss_cannon = $amount;
+            if ($amount >= 0) {
+                $this->gauss_cannon = $amount;
+            }
         }
 
         /**
@@ -185,7 +195,9 @@
          */
         public function setPlasmaTurret(int $amount) : void {
 
-            if($amount >= 0) $this->plasma_turret = $amount;
+            if ($amount >= 0) {
+                $this->plasma_turret = $amount;
+            }
         }
 
         /**
@@ -203,7 +215,9 @@
          */
         public function setSmallShieldDome(int $amount) : void {
 
-            if($amount >= 0 && $amount <= 1) $this->small_shield_dome = $amount;
+            if ($amount >= 0 && $amount <= 1) {
+                $this->small_shield_dome = $amount;
+            }
         }
 
         /**
@@ -221,7 +235,9 @@
          */
         public function setLargeShieldDome(int $amount) : void {
 
-            if($amount >= 0 && $amount <= 1) $this->large_shield_dome = $amount;
+            if ($amount >= 0 && $amount <= 1) {
+                $this->large_shield_dome = $amount;
+            }
         }
 
         /**
@@ -239,7 +255,9 @@
          */
         public function setAntiBallisticMissile(int $amount) : void {
 
-            if($amount >= 0) $this->anti_ballistic_missile = $amount;
+            if ($amount >= 0) {
+                $this->anti_ballistic_missile = $amount;
+            }
         }
 
         /**
@@ -257,7 +275,9 @@
          */
         public function setInterplanetaryMissile(int $amount) : void {
 
-            if($amount >= 0) $this->interplanetary_missile = $amount;
+            if ($amount >= 0) {
+                $this->interplanetary_missile = $amount;
+            }
         }
 
         /**
@@ -267,7 +287,7 @@
          */
         public function getDefenseByID(int $id) : int {
 
-            switch($id) {
+            switch ($id) {
                 case 301:
                     $this->getRocketLauncher();
                     break;
@@ -303,12 +323,12 @@
 
         /**
          * Sets the level of the defense, given its id and new level
-         * @param int $id the id of the defense
+         * @param int $id    the id of the defense
          * @param int $level the new level of the defense
          */
         public function setDefenseByID(int $id, int $level) {
 
-            switch($id) {
+            switch ($id) {
                 case 301:
                     $this->setRocketLauncher($level);
                     break;

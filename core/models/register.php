@@ -53,11 +53,11 @@
 
                 $stmt->execute();
 
-            } while($stmt->rowCount() > 0);
+            } while ($stmt->rowCount() > 0);
 
 
             //------- create the user ----------------------------------------------------------------------------------
-            $stmt = $dbConnection->prepare('INSERT INTO ' . Config::$dbConfig['prefix'] . 'users (userID, username, password, email, onlinetime, currentplanet) VALUES (:userID, :username, :password, :email, '.time().', -1);');
+            $stmt = $dbConnection->prepare('INSERT INTO ' . Config::$dbConfig['prefix'] . 'users (userID, username, password, email, onlinetime, currentplanet) VALUES (:userID, :username, :password, :email, ' . time() . ', -1);');
 
             $password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -70,7 +70,8 @@
 
 
             //------- create a planet ----------------------------------------------------------------------------------
-            $planet = new U_Planet(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+            $planet = new U_Planet(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0);
 
 
             $planet->setOwnerID($playerID);
@@ -112,8 +113,6 @@
             $stmt = $dbConnection->prepare('INSERT INTO ' . Config::$dbConfig['prefix'] . 'techs (`userID`, `espionage_tech`, `computer_tech`, `weapon_tech`, `armour_tech`, `shielding_tech`, `energy_tech`, `hyperspace_tech`, `combustion_drive_tech`, `impulse_drive_tech`, `hyperspace_drive_tech`, `laser_tech`, `ion_tech`, `plasma_tech`, `intergalactic_research_tech`, `graviton_tech`) VALUES (:userID, \'0\', \'0\', \'0\', \'0\', \'0\', \'0\', \'0\', \'0\', \'0\', \'0\', \'0\', \'0\', \'0\', \'0\', \'0\')');
             $stmt->bindParam(':userID', $playerID);
             $stmt->execute();
-
-
 
 
             return 0;

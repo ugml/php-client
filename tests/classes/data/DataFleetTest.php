@@ -1,6 +1,6 @@
 <?php
 
-    declare(strict_types=1);
+    declare(strict_types = 1);
 
     if (!defined('INSIDE')) {
         define('INSIDE', true);
@@ -24,7 +24,7 @@
         private $fleetData;
 
         protected function setUp() : void {
-            $this->fleetData = new D_Fleet(1,1,1,1,1,1,1,1,1,1,1,1,1,1);
+            $this->fleetData = new D_Fleet(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
         }
 
         /**

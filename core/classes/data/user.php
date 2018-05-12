@@ -39,7 +39,8 @@
          * @param int    $cRank
          * @param int    $oRank
          */
-        public function __construct(int $uID, string $uname, string $email, int $otime, int $currPlanet, int $points, int $cRank, int $oRank) {
+        public function __construct(int $uID, string $uname, string $email, int $otime, int $currPlanet, int $points,
+            int $cRank, int $oRank) {
 
             $this->userID = $uID;
             $this->username = $uname;
@@ -108,8 +109,6 @@
 
         public function setCurrentPlanet($cp) : void {
 
-            global $dbConfig, $dbConnection;
-
             if ($cp == $this->currentPlanet) {
                 return;
             }
@@ -120,7 +119,9 @@
 
                 if ($this->planetList[$i]->getPlanetID() == $cp) {
                     // update the database
-                    $query = 'UPDATE  ' . $dbConfig['prefix'] . 'users SET currentplanet = :cp WHERE  userID = :userID;';
+                    $query = 'UPDATE  ' . Config::$dbConfig['prefix'] . 'users SET currentplanet = :cp WHERE  userID = :userID;';
+
+                    $dbConnection = new Database();
 
                     $stmt = $dbConnection->prepare($query);
 
@@ -188,7 +189,5 @@
         public function setOldRank($old_rank) : void {
             $this->old_rank = $old_rank;
         }
-
-
 
     }

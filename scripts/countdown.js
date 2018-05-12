@@ -7,7 +7,7 @@ function timer(page, duration, containerClass, buildingID, langCancel) {
 
         var container;
 
-        if(page === "overview") {
+        if (page === "overview") {
             container = document.getElementsByClassName(containerClass)[0];
         } else {
             container = document.getElementsByClassName(containerClass)[0].querySelector('div');
@@ -33,7 +33,7 @@ function timer(page, duration, containerClass, buildingID, langCancel) {
             pageLink = "building";
         }
 
-        if(page === "overview") {
+        if (page === "overview") {
             container.innerHTML = hours + ":" + minutes + ":" + seconds;
         } else {
             container.innerHTML = "<div class='row'><div class='col-md-12'>" + hours + ":" + minutes + ":" + seconds + "</div><div class='col-md-12'><a href=\"game.php?page=" + pageLink + "&cancel=" + buildingID + "\">" + langCancel + "</a></div></div>";

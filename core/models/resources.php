@@ -46,7 +46,6 @@
         public static function loadUserData($userID) {
 
 
-
             $file = Config::$pathConfig['classes'] . 'loader.php';
             if (file_exists($file)) {
                 require $file;

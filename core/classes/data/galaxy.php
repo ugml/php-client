@@ -17,7 +17,7 @@
 
         /**
          * D_Galaxy constructor.
-         * @param int $gdebris_metal the amount of metal in the debris
+         * @param int $gdebris_metal   the amount of metal in the debris
          * @param int $gdebris_crystal the amount of crystal in the debris
          */
         public function __construct(int $gdebris_metal, int $gdebris_crystal) {
@@ -50,7 +50,9 @@
          */
         public function setDebrisMetal(int $debris_metal) : void {
 
-            if($debris_metal >= 0) $this->debris_metal = $debris_metal;
+            if ($debris_metal >= 0) {
+                $this->debris_metal = $debris_metal;
+            }
         }
 
         /**
@@ -68,7 +70,9 @@
          */
         public function setDebrisCrystal(int $debris_crystal) : void {
 
-            if($debris_crystal >= 0) $this->debris_crystal = $debris_crystal;
+            if ($debris_crystal >= 0) {
+                $this->debris_crystal = $debris_crystal;
+            }
         }
 
     }

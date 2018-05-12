@@ -339,7 +339,7 @@
          */
         public function getTechByID(int $id) : int {
 
-            switch($id) {
+            switch ($id) {
                 case 101:
                     return $this->getEspionageTech();
                     break;
@@ -390,12 +390,12 @@
 
         /**
          * Sets the level of the tech, given its id and new level
-         * @param int $id the id of the tech
+         * @param int $id    the id of the tech
          * @param int $level the new level of the tech
          */
         public function setTechByID(int $id, int $level) {
 
-            switch($id) {
+            switch ($id) {
                 case 101:
                     $this->setEspionageTech($level);
                     break;

@@ -217,7 +217,7 @@ input {
     width: 100%;
     padding-left: 5px;
     padding-right: 3px;
-    padding-bottom:5px;
+    padding-bottom: 5px;
 }
 
 #page-content #otherPlanets {
@@ -256,8 +256,6 @@ input {
     color: rgb(230, 10, 10);
 }
 
-
-
 /* GALAXY */
 .inactive_long {
     color: #474747;
@@ -268,8 +266,6 @@ input {
     color: #707070;
     font-weight: bold;
 }
-
-
 
 .vertical-center div {
     display: flex;
@@ -306,11 +302,9 @@ input {
     padding-right: 3px;
 }
 
-
 .galaxy_row div {
     padding: 5px 0px;
 }
-
 
 .footer {
     position: absolute;

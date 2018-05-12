@@ -13,6 +13,7 @@
         private $lang = null;
 
         private $model = null;
+
         private $view = null;
 
         function __construct($get, $post) {
@@ -114,7 +115,7 @@
                     $shipID = key($v);
                     $shipCnt = $v[$shipID];
 
-                    $pricelist = $units->getPriceList($shipID);
+                    $pricelist = D_Units::getPriceList($shipID);
 
                     $maxBuildable = 0;
 
@@ -170,7 +171,8 @@
 
             }
 
-            $this->model->build(intval($data->getPlanet()->getPlanetId()), $buildList, $totalMetal, $totalMetal, $totalDeuterium);
+            $this->model->build(intval($data->getPlanet()->getPlanetId()), $buildList, $totalMetal, $totalMetal,
+                $totalDeuterium);
 
         }
 
@@ -181,7 +183,7 @@
             $v_lang = $this->model->loadLanguage();
 
             // load the individual rows for each building
-            $this->lang['shipyard_list'] = $this->view->loadShipyardRows($data->getFleetList(), $units->getFleet(),
+            $this->lang['shipyard_list'] = $this->view->loadShipyardRows($data->getFleetList(), D_Units::getFleet(),
                 $data->getPlanet());
 
             if (is_array($this->lang) && is_array($v_lang)) {
@@ -195,7 +197,7 @@
 
             $this->view->assign('lang', $this->lang);
             $this->view->assign('title', Config::$gameConfig['game_name']);
-            $this->view->assign('skinpath',Config::$gameConfig['skinpath']);
+            $this->view->assign('skinpath', Config::$gameConfig['skinpath']);
             $this->view->assign('copyright', Config::$gameConfig['copyright']);
             $this->view->assign('language', Config::$gameConfig['language']);
 

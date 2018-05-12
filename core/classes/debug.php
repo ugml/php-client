@@ -2,9 +2,9 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-//    class FileNotFoundException extends Exception {
-//
-//    }
+    //    class FileNotFoundException extends Exception {
+    //
+    //    }
 
     class Debug {
 
@@ -56,9 +56,9 @@
          */
         function saveError($class, $method, $line, $exception, $descr) {
 
-            global $dbConfig, $dbConnection;
+            $dbConnection = new Database();
 
-            $stmt = $dbConnection->prepare('INSERT INTO ' . $dbConfig['prefix'] . 'errors (id, class, method, line, exception, description, time) VALUES (NULL, :class, :method, :line, :exception, :description, \'' . date('Y-m-d H:i:s') . '\')');
+            $stmt = $dbConnection->prepare('INSERT INTO ' . Config::$dbConfig['prefix'] . 'errors (id, class, method, line, exception, description, time) VALUES (NULL, :class, :method, :line, :exception, :description, \'' . date('Y-m-d H:i:s') . '\')');
 
             $stmt->bindParam(':class', $class);
             $stmt->bindParam(':method', $method);

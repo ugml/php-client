@@ -142,8 +142,8 @@
          * @param int    $pb_tech_endtime
          * @param int    $pb_hangar_start_time
          * @param string $pb_hangar_id
-         * @param bool    $pb_hangar_plus
-         * @param bool    $pdestroyed
+         * @param bool   $pb_hangar_plus
+         * @param bool   $pdestroyed
          */
         public function __construct(
             int $pID, int $pownerID, string $pname, int $pgala, int $psystem, int $pplanet, int $plast_update,
@@ -153,7 +153,8 @@
             int $penergy_max, int $pmetal_mine_percent, int $pcrystal_mine_percent, int $pdeuterium_synthesizer_percent,
             int $psolar_plant_percent, int $pfusion_reactor_percent,
             int $psolar_satellite_percent, int $pb_building_id, int $pb_building_endtime, int $pb_tech_id,
-            int $pb_tech_endtime, int $pb_hangar_start_time, string $pb_hangar_id, bool $pb_hangar_plus, bool $pdestroyed
+            int $pb_tech_endtime, int $pb_hangar_start_time, string $pb_hangar_id, bool $pb_hangar_plus,
+            bool $pdestroyed
         ) {
 
             $this->planetID = $pID;
@@ -213,7 +214,7 @@
          */
         public function setMetalMinePercent(int $metal_mine_percent) : void {
 
-            if($metal_mine_percent >= 0 && $metal_mine_percent <= 100 && $metal_mine_percent % 10 == 0) {
+            if ($metal_mine_percent >= 0 && $metal_mine_percent <= 100 && $metal_mine_percent % 10 == 0) {
                 $this->metal_mine_percent = $metal_mine_percent;
             }
 
@@ -232,7 +233,7 @@
          */
         public function setCrystalMinePercent(int $crystal_mine_percent) : void {
 
-            if($crystal_mine_percent >= 0 && $crystal_mine_percent <= 100 && $crystal_mine_percent % 10 == 0) {
+            if ($crystal_mine_percent >= 0 && $crystal_mine_percent <= 100 && $crystal_mine_percent % 10 == 0) {
                 $this->crystal_mine_percent = $crystal_mine_percent;
             }
         }
@@ -250,7 +251,7 @@
          */
         public function setDeuteriumSynthesizerPercent(int $deuterium_synthesizer_percent) : void {
 
-            if($deuterium_synthesizer_percent >= 0 && $deuterium_synthesizer_percent <= 100 && $deuterium_synthesizer_percent % 10 == 0) {
+            if ($deuterium_synthesizer_percent >= 0 && $deuterium_synthesizer_percent <= 100 && $deuterium_synthesizer_percent % 10 == 0) {
                 $this->deuterium_synthesizer_percent = $deuterium_synthesizer_percent;
             }
         }
@@ -268,7 +269,7 @@
          */
         public function setFusionReactorPercent(int $fusion_reactor_percent) : void {
 
-            if($fusion_reactor_percent >= 0 && $fusion_reactor_percent <= 100 && $fusion_reactor_percent % 10 == 0) {
+            if ($fusion_reactor_percent >= 0 && $fusion_reactor_percent <= 100 && $fusion_reactor_percent % 10 == 0) {
                 $this->fusion_reactor_percent = $fusion_reactor_percent;
             }
         }
@@ -286,7 +287,7 @@
          */
         public function setSolarPlantPercent(int $solar_plant_percent) : void {
 
-            if($solar_plant_percent >= 0 && $solar_plant_percent <= 100 && $solar_plant_percent % 10 == 0) {
+            if ($solar_plant_percent >= 0 && $solar_plant_percent <= 100 && $solar_plant_percent % 10 == 0) {
                 $this->solar_plant_percent = $solar_plant_percent;
             }
         }
@@ -304,7 +305,7 @@
          */
         public function setSolarSatellitePercent(int $solar_satellite_percent) : void {
 
-            if($solar_satellite_percent >= 0 && $solar_satellite_percent <= 100 && $solar_satellite_percent % 10 == 0) {
+            if ($solar_satellite_percent >= 0 && $solar_satellite_percent <= 100 && $solar_satellite_percent % 10 == 0) {
                 $this->solar_satellite_percent = $solar_satellite_percent;
             }
         }
@@ -322,7 +323,9 @@
          */
         public function setPlanetID(int $planetID) : void {
 
-            if($planetID > 0) $this->planetID = $planetID;
+            if ($planetID > 0) {
+                $this->planetID = $planetID;
+            }
         }
 
         /**
@@ -338,7 +341,9 @@
          */
         public function setOwnerID(int $ownerID) : void {
 
-            if($ownerID > 0) $this->ownerID = $ownerID;
+            if ($ownerID > 0) {
+                $this->ownerID = $ownerID;
+            }
         }
 
         /**
@@ -354,7 +359,9 @@
          */
         public function setName(string $name) : void {
 
-            if(strlen($name) > 0) $this->name = $name;
+            if (strlen($name) > 0) {
+                $this->name = $name;
+            }
         }
 
         /**
@@ -370,7 +377,7 @@
          */
         public function setGalaxy(int $galaxy) : void {
 
-            if(Config::$gameConfig['max_galaxy'] >= $galaxy && $galaxy > 0) {
+            if (Config::$gameConfig['max_galaxy'] >= $galaxy && $galaxy > 0) {
                 $this->galaxy = $galaxy;
             }
         }
@@ -389,7 +396,7 @@
         public function setSystem(int $system) : void {
 
 
-            if(Config::$gameConfig['max_system'] >= $system && $system > 0) {
+            if (Config::$gameConfig['max_system'] >= $system && $system > 0) {
                 $this->system = $system;
             }
         }
@@ -407,7 +414,7 @@
          */
         public function setPlanet(int $planet) : void {
 
-            if(Config::$gameConfig['max_planet'] >= $planet && $planet > 0) {
+            if (Config::$gameConfig['max_planet'] >= $planet && $planet > 0) {
                 $this->planet = $planet;
             }
         }
@@ -425,7 +432,9 @@
          */
         public function setLastUpdate(int $last_update) : void {
 
-            if($last_update > time() - 15724800) $this->last_update = $last_update;
+            if ($last_update > time() - 15724800) {
+                $this->last_update = $last_update;
+            }
         }
 
         /**
@@ -441,7 +450,7 @@
          */
         public function setPlanetType(int $planet_type) : void {
 
-            if($planet_type == 0 || $planet_type == 1) {
+            if ($planet_type == 0 || $planet_type == 1) {
                 $this->planet_type = $planet_type;
             }
         }
@@ -459,7 +468,9 @@
          */
         public function setImage(string $image) : void {
 
-            if(strlen($image) > 0) $this->image = $image;
+            if (strlen($image) > 0) {
+                $this->image = $image;
+            }
         }
 
         /**
@@ -475,7 +486,9 @@
          */
         public function setDiameter(int $diameter) : void {
 
-            if($diameter > 0) $this->diameter = $diameter;
+            if ($diameter > 0) {
+                $this->diameter = $diameter;
+            }
         }
 
         /**
@@ -491,7 +504,7 @@
          */
         public function setFieldsCurrent(int $fields_current) : void {
 
-            if($fields_current > 0 && $fields_current <= $this->fields_max) {
+            if ($fields_current > 0 && $fields_current <= $this->fields_max) {
                 $this->fields_current = $fields_current;
             }
         }
@@ -509,7 +522,7 @@
          */
         public function setFieldsMax(int $fields_max) : void {
 
-            if($fields_max > 0) {
+            if ($fields_max > 0) {
                 $this->fields_max = $fields_max;
             }
         }
@@ -559,7 +572,9 @@
          */
         public function setMetal(float $metal) : void {
 
-            if($metal > 0) $this->metal = $metal;
+            if ($metal > 0) {
+                $this->metal = $metal;
+            }
         }
 
         /**
@@ -575,7 +590,9 @@
          */
         public function setCrystal(float $crystal) : void {
 
-            if($crystal > 0) $this->crystal = $crystal;
+            if ($crystal > 0) {
+                $this->crystal = $crystal;
+            }
         }
 
         /**
@@ -591,7 +608,9 @@
          */
         public function setDeuterium(float $deuterium) : void {
 
-            if($deuterium > 0) $this->deuterium = $deuterium;
+            if ($deuterium > 0) {
+                $this->deuterium = $deuterium;
+            }
         }
 
         /**
@@ -607,7 +626,9 @@
          */
         public function setEnergyUsed(int $energy_used) : void {
 
-            if($energy_used > 0) $this->energy_used = $energy_used;
+            if ($energy_used > 0) {
+                $this->energy_used = $energy_used;
+            }
         }
 
         /**
@@ -623,7 +644,9 @@
          */
         public function setEnergyMax(int $energy_max) : void {
 
-            if($energy_max > 0) $this->energy_max = $energy_max;
+            if ($energy_max > 0) {
+                $this->energy_max = $energy_max;
+            }
         }
 
         /**
@@ -639,7 +662,9 @@
          */
         public function setBBuildingId(int $b_building_id) : void {
 
-            if($b_building_id >= 0) $this->b_building_id = $b_building_id;
+            if ($b_building_id >= 0) {
+                $this->b_building_id = $b_building_id;
+            }
         }
 
         /**
@@ -655,7 +680,9 @@
          */
         public function setBBuildingEndtime(int $b_building_endtime) : void {
 
-            if($b_building_endtime >= 0) $this->b_building_endtime = $b_building_endtime;
+            if ($b_building_endtime >= 0) {
+                $this->b_building_endtime = $b_building_endtime;
+            }
         }
 
         /**
@@ -671,7 +698,9 @@
          */
         public function setBTechId(int $b_tech_id) : void {
 
-            if($b_tech_id >= 0) $this->b_tech_id = $b_tech_id;
+            if ($b_tech_id >= 0) {
+                $this->b_tech_id = $b_tech_id;
+            }
         }
 
         /**
@@ -687,7 +716,9 @@
          */
         public function setBTechEndtime(int $b_tech_endtime) : void {
 
-            if($b_tech_endtime > 0) $this->b_tech_endtime = $b_tech_endtime;
+            if ($b_tech_endtime > 0) {
+                $this->b_tech_endtime = $b_tech_endtime;
+            }
         }
 
         /**
@@ -719,7 +750,9 @@
          */
         public function setBHangarPlus(bool $b_hangar_plus) : void {
 
-            if($b_hangar_plus > 0) $this->b_hangar_plus = $b_hangar_plus;
+            if ($b_hangar_plus > 0) {
+                $this->b_hangar_plus = $b_hangar_plus;
+            }
         }
 
         /**
@@ -735,7 +768,7 @@
          */
         public function setDestroyed(bool $destroyed) : void {
 
-                $this->destroyed = $destroyed;
+            $this->destroyed = $destroyed;
 
         }
 
