@@ -13,21 +13,21 @@
 
             global $path, $config, $lang;
 
-            $file = $path['language'] . $config['language'] . '/shipyard.php';
+            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/shipyard.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['language'] . $config['language'] . '/units.php';
+            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/units.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['language'] . $config['language'] . '/menu.php';
+            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/menu.php';
             if (file_exists($file)) {
                 require $file;
             } else {

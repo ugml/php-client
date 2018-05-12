@@ -408,4 +408,115 @@
             }
         }
 
+        /**
+         * Return the level of the building, given its id
+         * @param int $id the building id
+         * @return int the level of the building
+         */
+        public function getBuildingByID(int $id) : int {
+
+            switch($id) {
+                case 1:
+                    return $this->getMetalMine();
+                    break;
+                case 2:
+                    return $this->getCrystalMine();
+                    break;
+                case 3:
+                    return $this->getDeuteriumSynthesizer();
+                    break;
+                case 4:
+                    return $this->getSolarPlant();
+                    break;
+                case 5:
+                    return $this->getFusionReactor();
+                    break;
+                case 6:
+                    return $this->getRoboticFactory();
+                    break;
+                case 7:
+                    return $this->getNaniteFactory();
+                    break;
+                case 8:
+                    return $this->getShipyard();
+                    break;
+                case 9:
+                    return $this->getMetalStorage();
+                    break;
+                case 10:
+                    return $this->getCrystalStorage();
+                    break;
+                case 11:
+                    return $this->getDeuteriumStorage();
+                    break;
+                case 12:
+                    return $this->getResearchLab();
+                    break;
+                case 13:
+                    return $this->getTerraformer();
+                    break;
+                case 14:
+                    return $this->getAllianceDepot();
+                    break;
+                case 15:
+                    return $this->getMissileSilo();
+                    break;
+            }
+        }
+
+        /**
+         * Sets the level of the building, given its id and new level
+         * @param int $id the id of the building
+         * @param int $level the new level of the building
+         */
+        public function setBuildingByID(int $id, int $level) {
+            switch($id) {
+                case 1:
+                    $this->setMetalMine($level);
+                    break;
+                case 2:
+                    $this->setCrystalMine($level);
+                    break;
+                case 3:
+                    $this->setDeuteriumSynthesizer($level);
+                    break;
+                case 4:
+                    $this->setSolarPlant($level);
+                    break;
+                case 5:
+                    $this->setFusionReactor($level);
+                    break;
+                case 6:
+                    $this->setRoboticFactory($level);
+                    break;
+                case 7:
+                    $this->setNaniteFactory($level);
+                    break;
+                case 8:
+                    $this->setShipyard($level);
+                    break;
+                case 9:
+                    $this->setMetalStorage($level);
+                    break;
+                case 10:
+                    $this->setCrystalStorage($level);
+                    break;
+                case 11:
+                    $this->setDeuteriumStorage($level);
+                    break;
+                case 12:
+                    $this->setResearchLab($level);
+                    break;
+                case 13:
+                    $this->setTerraformer($level);
+                    break;
+                case 14:
+                    $this->setAllianceDepot($level);
+                    break;
+                case 15:
+                    $this->setMissileSilo($level);
+                    break;
+            }
+        }
+
     }

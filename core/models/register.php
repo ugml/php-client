@@ -8,7 +8,7 @@
 
             global $path, $lang, $config;
 
-            require $path['language'] . $config['language'] . '/register.php';
+            require Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/register.php';
 
             return $lang;
         }

@@ -223,7 +223,7 @@
             $this->view->assign('title', $config['game_name']);
             $this->view->assign('skinpath', $config['skinpath']);
             $this->view->assign('copyright', $config['copyright']);
-            $this->view->assign('language', $config['language']);
+            $this->view->assign('language', Config::$pathConfig['language']);
 
             if (!empty($this->get['mode'])) {
                 echo $this->view->loadTemplate($this->get['mode']);

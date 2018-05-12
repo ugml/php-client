@@ -2,24 +2,21 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require_once $path['interfaces'] . 'model.php';
+    require_once Config::$pathConfig['interfaces'] . 'model.php';
 
     class M_Login implements I_Model {
 
         public function loadLanguage() {
-
-            global $path, $lang, $config;
-
-            require_once $path['language'] . $config['language'] . '/login.php';
+            require_once Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/login.php';
 
             return $lang;
+
         }
 
         public function getUserInfo($username) {
+            global $debug;
 
-            global $dbConfig, $path, $debug;
-
-            require_once $path['classes'] . 'db.php';
+            require_once Config::$pathConfig['classes'] . 'db.php';
 
             $dbConnection = new Database();
 
@@ -27,7 +24,7 @@
 
                 $params = array(':username' => $username);
 
-                $stmt = $dbConnection->prepare('SELECT userID, password FROM ' . $dbConfig['prefix'] . 'users WHERE username = :username;');
+                $stmt = $dbConnection->prepare('SELECT userID, password FROM ' . Config::$dbConfig['prefix'] . 'users WHERE username = :username;');
 
                 $stmt->execute($params);
 

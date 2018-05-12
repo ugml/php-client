@@ -133,7 +133,7 @@
             $view->assign('skinpath', $config['skinpath']);
 
             $view->assign('copyright', $config['copyright']);
-            $view->assign('language', $config['language']);
+            $view->assign('language', Config::$pathConfig['language']);
 
             if (!empty($this->get['mode'])) {
                 echo $view->loadTemplate($this->get['mode']);

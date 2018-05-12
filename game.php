@@ -37,11 +37,12 @@
     // update last activity time stamp
     $_SESSION['LAST_ACTIVITY'] = time();
 
+    // load the server-configuration
+    require_once 'core/config.php';
+    Config::init();
+
     // register autoloader
     require_once 'core/autoload.php';
-
-    // load the server-configuration
-    require_once('core/config.php');
 
     // load the database-class
     $dbConnection = new Database();
@@ -53,7 +54,7 @@
     $data = new Loader($userID);
 
     // update the planet (ressources etc.)
-    $data->getPlanet()->update();
+    $data->getPlanet()->update($data->getBuildingData(), $data->getTechData(), $data->getFleetData());
 
     // default value
     $page = 'overview';

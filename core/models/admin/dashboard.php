@@ -13,14 +13,14 @@
 
             global $path, $config, $lang;
 
-            $file = $path['language'] . $config['language'] . '/admin/dashboard.php';
+            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/admin/dashboard.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['language'] . $config['language'] . '/menu.php';
+            $file = Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/menu.php';
             if (file_exists($file)) {
                 require $file;
             } else {

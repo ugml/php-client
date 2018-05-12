@@ -65,7 +65,7 @@
             $this->view->assign('title', $config['game_name']);
             $this->view->assign('skinpath', $this->skin);
             $this->view->assign('copyright', $config['copyright']);
-            $this->view->assign('language', $config['language']);
+            $this->view->assign('language', Config::$pathConfig['language']);
 
             echo $this->view->loadTemplate();
         }

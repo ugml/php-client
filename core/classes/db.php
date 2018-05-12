@@ -13,7 +13,6 @@
          * Connects to the MySQL-Database and creates a database-object
          */
         function __construct() {
-            global $dbConfig;
 
             // if the connection was already made, return the connection-object
             if ($this->dbConnection != null) {
@@ -24,8 +23,8 @@
             //                $this->dbConnection = new LoggedPDO('mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['dbname'],
             //                    $dbConfig['user'], $dbConfig['pass']);
             //            } else {
-            $this->dbConnection = new PDO('mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['dbname'],
-                $dbConfig['user'], $dbConfig['pass']);
+            $this->dbConnection = new PDO('mysql:host=' . Config::$dbConfig['host'] . ';dbname=' . Config::$dbConfig['dbname'],
+                Config::$dbConfig['user'], Config::$dbConfig['pass']);
             //            }
 
             $this->dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);

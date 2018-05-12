@@ -55,7 +55,7 @@
 
 
     $lang['game_name'] = $config['game_name'];
-    $lang['language'] = $config['language'];
+    $lang['language'] = Config::$pathConfig['language'];
     $lang['copyright'] = $config['copyright'];
 
 //    require_once $path['classes'] . 'debug.php';

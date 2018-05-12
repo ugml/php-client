@@ -149,17 +149,17 @@
             $this->destroyed = $destroyed;
         }
 
-        private function getTotalEnergyProduction($baseIncome) : float {
-            global $units, $data;
+        private function getTotalEnergyProduction($baseIncome, $lvlSolarplant, $lvlFusionReactor, $lvlEnergyTech, $solarSatellites) : float {
+            global $units;
 
             return array_sum($units->getEnergyProduction(
-                    $data->getBuilding()[$units->getUnitID('solar_plant')]->getLevel(),
-                    $data->getBuilding()[$units->getUnitID('fusion_reactor')]->getLevel(),
-                    $data->getTech()[$units->getUnitID('energy_tech')]->getLevel(),
-                    $data->getFleet()[$units->getUnitID('solar_satellite')]->getAmount(),
-                    $this->temp_max
-                )
-                ) + $baseIncome;
+                                        $lvlSolarplant,
+                                        $lvlFusionReactor,
+                                        $lvlEnergyTech,
+                                        $solarSatellites,
+                                        $this->temp_max
+                                    )
+                            ) + $baseIncome;
         }
 
         private function getTotalEnergyConsumption($lvl_metal, $lvl_crystal, $lvl_deuterium, $lvl_fusion) : float {
@@ -228,8 +228,15 @@
             return $prod_crystal;
         }
 
-        public function update() {
-            global $data, $dbConfig, $dbConnection, $units, $base_income;
+        private function checkBuildingCompletion(int $time) {
+            if ($this->b_building_id > 0 && $this->b_building_endtime > 0 && $this->b_building_endtime <= $time) {
+
+            }
+        }
+
+
+        public function update(D_Building $buildings, D_Tech $technologies, D_Fleet $fleet) {
+            global $dbConfig, $dbConnection, $units, $base_income;
 
             $query = 'UPDATE ' . $dbConfig['prefix'] . 'planets SET last_update = :last_update, metal = :metal, crystal = :crystal, deuterium = :deuterium, energy_used = :energy_used, energy_max = :energy_max';
 
@@ -239,24 +246,26 @@
 
                 $time_diff = $time - $this->last_update;
 
-                $lvl_metal = $data->getBuilding()[$units->getUnitID('metal_mine')]->getLevel();
-                $lvl_crystal = $data->getBuilding()[$units->getUnitID('crystal_mine')]->getLevel();
-                $lvl_deuterium = $data->getBuilding()[$units->getUnitID('deuterium_synthesizer')]->getLevel();
-                $lvl_fusion = $data->getBuilding()[$units->getUnitID('fusion_reactor')]->getLevel();
+                $lvl_metal = $buildings->getMetalMine();
+                $lvl_crystal = $buildings->getCrystalMine();
+                $lvl_deuterium = $buildings->getDeuteriumSynthesizer();
+                $lvl_fusion = $buildings->getFusionReactor();
 
-                $prod_energy = $this->getTotalEnergyProduction($base_income['energy']);
+                $prod_energy = $this->getTotalEnergyProduction($base_income['energy'], $buildings->getSolarPlant(), $buildings->getFusionReactor(), $technologies->getEnergyTech(), $fleet->getSolarSatellite());
                 $cons_energy = $this->getTotalEnergyConsumption($lvl_metal, $lvl_crystal, $lvl_deuterium, $lvl_fusion);
 
+                // default factor
                 $prod_factor = 1;
 
+                // if there is more energy-usage than production
                 if ($cons_energy > $prod_energy) {
                     $prod_factor = 0.5;
                 }
 
                 $storage = array(
-                    'metal'     => $units->getStorageCapacity($data->getBuilding()[$units->getUnitID('metal_storage')]->getLevel()),
-                    'crystal'   => $units->getStorageCapacity($data->getBuilding()[$units->getUnitID('crystal_storage')]->getLevel()),
-                    'deuterium' => $units->getStorageCapacity($data->getBuilding()[$units->getUnitID('deuterium_storage')]->getLevel())
+                    'metal'     => $units->getStorageCapacity($buildings->getMetalStorage()),
+                    'crystal'   => $units->getStorageCapacity($buildings->getCrystalStorage()),
+                    'deuterium' => $units->getStorageCapacity($buildings->getDeuteriumStorage())
                 );
 
                 //($metalLvl, $storageCapacity, $prodFactor, $timeDiff, $baseIncome) {
@@ -264,6 +273,10 @@
                 $prod_metal = $this->calculateMetalProduction($lvl_metal, $storage['metal'], $prod_factor, $time_diff, $base_income['metal']);
                 $prod_crystal = $this->calculateCrystalProduction($lvl_crystal, $storage['crystal'], $prod_factor, $time_diff, $base_income['crystal']);
                 $prod_deuterium = $this->calculateDeuteriumProduction($lvl_deuterium, $storage['deuterium'], $prod_factor, $time_diff, $base_income['deuterium']);
+
+                $this->checkBuildingCompletion($time);
+
+
 
                 // check if building finished
                 if ($this->b_building_id > 0 && $this->b_building_endtime > 0 && $this->b_building_endtime <= $time) {

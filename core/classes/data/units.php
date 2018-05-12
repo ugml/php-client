@@ -30,9 +30,8 @@
          * Loads all needed information about all units into the matching properties.
          */
         function __construct() {
-            global $path, $config;
 
-            require $path['language'] . $config['language'] . '/units.php';
+            require Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
 
             $this->units = [
                 1  => 'metal_mine',

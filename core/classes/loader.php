@@ -12,12 +12,16 @@
 
         private $galaxy = null;
 
+        private $buildingData;
         private $buildingList = [];
 
+        private $defenseData;
         private $defenseList = [];
 
+        private $techData;
         private $techList = [];
 
+        private $fleetData;
         private $fleetList = [];
 
         /**
@@ -179,8 +183,8 @@
                     intval($data->planet_b_tech_endtime),
                     intval($data->planet_b_hangar_start_time),
                     (isset($data->planet_b_hangar_id) ? $data->planet_b_hangar_id : ""),
-                    intval($data->planet_b_hangar_plus),
-                    intval($data->planet_destroyed)
+                    boolval($data->planet_b_hangar_plus),
+                    boolval($data->planet_destroyed)
                 );
 
                 // current planet -> get buildings / tech / fleet / defense
@@ -264,11 +268,12 @@
                     ];
 
 
+                    $this->buildingData = new D_Building(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+
                     // create a building-object for each building
                     for ($i = 1; $i <= count($dBuilding); $i++) {
-                        //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
 
-                        //                        echo $i . " <br />";
+                        $this->buildingData->setBuildingByID($i, $dBuilding[$i - 1]);
 
                         $this->buildingList[$i] = new U_Building(
                             $i,
@@ -281,9 +286,13 @@
                         );
                     }
 
+                    $this->techData = new D_Tech(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+
                     // create a research-object for each defense
                     for ($i = 1; $i <= count($dResearch); $i++) {
                         //$uID, $uLevel, $uCostMetal, $uCostCrystal, $uCostDeuterium, $uCostEnergy, $uCostFactor
+
+                        //TODO set techData
 
                         $this->techList[$i + 100] = new U_Research(
                             $i,
@@ -461,14 +470,14 @@
         /**
          * @return D_Building
          */
-        public function getBuilding() : array {
+        public function getBuildingList() : array {
             return $this->buildingList;
         }
 
         /**
          * @return D_Defense
          */
-        public function getDefense() : array {
+        public function getDefenseList() : array {
 
             return $this->defenseList;
         }
@@ -476,7 +485,7 @@
         /**
          * @return D_Tech
          */
-        public function getTech() : array {
+        public function getTechList() : array {
 
             return $this->techList;
         }
@@ -484,8 +493,38 @@
         /**
          * @return D_Fleet
          */
-        public function getFleet() : array {
+        public function getFleetList() : array {
 
             return $this->fleetList;
         }
+
+        /**
+         * @return D_Building
+         */
+        public function getBuildingData() : D_Building {
+            return $this->buildingData;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getDefenseData() : D_Defense {
+            return $this->defenseData;
+        }
+
+        /**
+         * @return D_Tech
+         */
+        public function getTechData() : D_Tech {
+            return $this->techData;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getFleetData() : D_Fleet {
+            return $this->fleetData;
+        }
+
+
     }

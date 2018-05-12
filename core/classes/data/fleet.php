@@ -355,4 +355,86 @@
             if($amount >= 0) $this->deathstar = $amount;
         }
 
+        /**
+         * Return the level of the defense, given its id
+         * @param int $id the defense id
+         * @return int the level of the defense
+         */
+        public function getDefenseByID(int $id) : int {
+
+            switch($id) {
+                case 301:
+                    $this->getRocketLauncher();
+                    break;
+                case 302:
+                    $this->getLightLaser();
+                    break;
+                case 303:
+                    $this->getHeavyLaser();
+                    break;
+                case 304:
+                    $this->getGaussCannon();
+                    break;
+                case 305:
+                    $this->getIonCannon();
+                    break;
+                case 306:
+                    $this->getPlasmaTurret();
+                    break;
+                case 307:
+                    $this->getSmallShieldDome();
+                    break;
+                case 308:
+                    $this->getLargeShieldDome();
+                    break;
+                case 309:
+                    $this->getAntiBallisticMissile();
+                    break;
+                case 310:
+                    $this->getInterplanetaryMissile();
+                    break;
+            }
+        }
+
+        /**
+         * Sets the level of the defense, given its id and new level
+         * @param int $id the id of the defense
+         * @param int $level the new level of the defense
+         */
+        public function setDefenseByID(int $id, int $level) {
+
+            switch($id) {
+                case 301:
+                    $this->setRocketLauncher($level);
+                    break;
+                case 302:
+                    $this->setLightLaser($level);
+                    break;
+                case 303:
+                    $this->setHeavyLaser($level);
+                    break;
+                case 304:
+                    $this->setGaussCannon($level);
+                    break;
+                case 305:
+                    $this->setIonCannon($level);
+                    break;
+                case 306:
+                    $this->setPlasmaTurret($level);
+                    break;
+                case 307:
+                    $this->setSmallShieldDome($level);
+                    break;
+                case 308:
+                    $this->setLargeShieldDome($level);
+                    break;
+                case 309:
+                    $this->setAntiBallisticMissile($level);
+                    break;
+                case 310:
+                    $this->setInterplanetaryMissile($level);
+                    break;
+            }
+        }
+
     }

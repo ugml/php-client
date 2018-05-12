@@ -8,7 +8,7 @@
 
             global $path, $lang, $config;
 
-            require $path['language'] . $config['language'] . '/changelog.php';
+            require Config::$gameConfig['language'] . Config::$pathConfig['language'] . '/changelog.php';
 
             return $lang;
         }
