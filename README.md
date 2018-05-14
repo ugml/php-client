@@ -20,24 +20,25 @@ This open-source project is still in an alpha-state, **please do not use this in
 
 ```shell
 ┌─── core/                       # → contains all necessary classes
-│   └── classes/                 # → classes for the ORM-Mapping and parent-classes
-│       └── data                 # → classes, which map database-values to objects
-│       └── units                # → classes for various ingame-units
-│   └── controllers/             # → all needed controller-classes
-│   └── interfaces/              # → interfaces the classes
-│   └── language/                # → contains all translations in subfolders named after their ISO 639-1 language-code
-│   └── models/                  # → all needed model-classes
-│   └── templates/               # → template for each site (HTML)
+│   │── classes/                 # → classes for the ORM-Mapping and parent-classes
+│   │   │── data                 # → classes, which map database-values to objects
+│   │   └── units                # → classes for various ingame-units
+│   ├── controllers/             # → all needed controller-classes
+│   ├── interfaces/              # → interfaces the classes
+│   ├── language/                # → contains all translations in subfolders named after their ISO 639-1 language-code
+│   ├── models/                  # → all needed model-classes
+│   ├── templates/               # → template for each site (HTML)
 │   └── views/                   # → all needed view-classes
 ├── css/                         # → css for all pages outside of the game
 ├── images/                      # → images for all pages outside of the game
 ├── install/                     # → contains the necessary files for a first-time setup
-├── scripts/                     # → javascripts
+├── scripts/                     # → javascript-files
 ├── skins/                       # → skins, which are useable ingame (all images and css for the game must go here)
 ├── game.php                     # → the main php-file, which dynamically loads the needed pages
 ├── index.php                    # → redirects to the game.php if logged in, else to the login-page
 ├── login.php                    # → login-form for the user
-└── logout.php                   # → user-logout
+├── logout.php                   # → user-logout
+└── register.php                 # → registration
 ```
 
 # Quick Start
@@ -66,4 +67,4 @@ For any further questions, support or general talk, please visit our Discord by 
 
 [![N|Solid](https://t5.rbxcdn.com/18108a5641ff1becc8dfa20aed634d1f)](https://discord.gg/YDUHM3k)
 
-https://discord.gg/WPApmAX
+https://discord.gg/YDUHM3k
