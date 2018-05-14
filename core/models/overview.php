@@ -41,10 +41,10 @@
          * @return int the number of registered users
          */
         public function getNumUsers() : int {
-            global $dbConnection, $dbConfig;
 
+            $dbConnection = new Database();
 
-            $query = 'SELECT COUNT(userID) FROM ' . $dbConfig['prefix'] . 'users;';
+            $query = 'SELECT COUNT(userID) FROM ' . Config::$dbConfig['prefix'] . 'users;';
 
             $stmt = $dbConnection->prepare($query);
 

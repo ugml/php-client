@@ -16,7 +16,7 @@
 
         function __construct($get, $post) {
 
-            global $data, $debug;
+            global $debug;
 
             try {
                 $this->get = $get;
@@ -45,9 +45,8 @@
 
         function handleGET() : void {
 
-            global $data;
             if (!empty($this->get['cp'])) {
-                $data->getUser()->setCurrentPlanet(intval($this->get['cp']));
+                Loader::getUser()->setCurrentPlanet(intval($this->get['cp']));
             }
         }
 

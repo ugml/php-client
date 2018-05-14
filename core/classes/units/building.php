@@ -67,7 +67,6 @@
          * @return float the energy-consumption
          */
         public function getEnergyConsumption($metPercent, $crystPercent, $deutPercent) : float {
-            //            global $data;
 
             // metal-mine
             if (parent::getUnitId() == 1) {

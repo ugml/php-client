@@ -46,7 +46,6 @@
         }
 
         public function loadGalaxyRows($galaxyData) {
-            global $data;
 
             //            echo "<pre>";
             //            print_r($galaxyData);
@@ -121,12 +120,12 @@
                     $fields['galaxy_actions'] = "";
 
                     // if it is the player himself
-                    if (intval($galaxyData[$i]->userID) === $data->getUser()->getUserID()) {
+                    if (intval($galaxyData[$i]->userID) === Loader::getUser()->getUserID()) {
                         $fields['galaxy_actions'] = " - ";
                     } else {
 
                         // if player has espionage-probes
-                        if ($data->getFleet()[209]->getAmount() > 0) {
+                        if (Loader::getFleetList()[209]->getAmount() > 0) {
                             // TODO: create link
                             $fields['galaxy_actions'] .= "<img src=\"" . Config::$gameConfig['skinpath'] . "/images/e.gif\" />&nbsp;";
                         }
@@ -138,7 +137,7 @@
                         $fields['galaxy_actions'] .= "<img src=\"" . Config::$gameConfig['skinpath'] . "/images/b.gif\" />&nbsp;";
 
                         // TODO: if in range
-                        if ($data->getDefense()[310]->getAmount() > 0) {
+                        if (Loader::getDefenseList()[310]->getAmount() > 0) {
                             $fields['galaxy_actions'] .= "<img src=\"" . Config::$gameConfig['skinpath'] . "/images/r.gif\" />";
                         }
                     }

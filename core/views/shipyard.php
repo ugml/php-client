@@ -37,12 +37,10 @@
          * @throws FileNotFoundException
          */
         public function loadTemplate($mode = null) {
-
-            global $data;
-
-            // if($data->getPlanet()->getBBuildingId() > 0) {
+            
+            // if(Loader::getPlanet()->getBBuildingId() > 0) {
             //     //duration, container, buildingID
-            //     $this->_['lang']['cnt_script'] = '<script>(function() {timer('. ($data->getPlanet()->getBBuildingEndtime()-time()) .', document.getElementById("s_'. $data->getPlanet()->getBBuildingId() .'"),'. $data->getPlanet()->getBBuildingId() .');})();</script>';
+            //     $this->_['lang']['cnt_script'] = '<script>(function() {timer('. (Loader::getPlanet()->getBBuildingEndtime()-time()) .', document.getElementById("s_'. Loader::getPlanet()->getBBuildingId() .'"),'. Loader::getPlanet()->getBBuildingId() .');})();</script>';
             // } else {
             //     $fields['cnt_script'] = '';
             // }
@@ -56,7 +54,7 @@
 
         public function loadShipyardRows($buildings, $unitsBuilding, $planet) {
 
-            global $lang, $data, $units;
+            global $lang;
 
             $output = '';
 
@@ -81,12 +79,12 @@
 
                         // if requirement is a building
                         if ($bID < 100) {
-                            $level = ($data->getBuildingList()[$bID])->getLevel();
+                            $level = (Loader::getBuildingList()[$bID])->getLevel();
                         }
 
                         // if requirement is a research
                         if ($bID > 100 && $bID < 200) {
-                            $level = ($data->getTechList()[$bID])->getLevel();
+                            $level = (Loader::getTechList()[$bID])->getLevel();
                         }
 
                         if ($level < $lvl) {
@@ -101,7 +99,7 @@
 
                     $unitID = D_Units::getUnitID($v);
 
-                    $fleet = $data->getFleet()[$unitID];
+                    $fleet = Loader::getFleet()[$unitID];
 
                     $level = $fleet->getAmount();
 
@@ -136,12 +134,12 @@
 
 
                     $duration = 3600 * D_Units::getBuildTime($fleet, 0,
-                            $data->getBuildingList()[D_Units::getUnitID('shipyard')]->getLevel(),
-                            $data->getBuildingList()[D_Units::getUnitID('nanite_factory')]->getLevel());
+                            Loader::getBuildingList()[D_Units::getUnitID('shipyard')]->getLevel(),
+                            Loader::getBuildingList()[D_Units::getUnitID('nanite_factory')]->getLevel());
 
                     //                $duration = 3600 * $units
-                    //                        ->getBuildTime($unitID, 0, $data->getBuildingList()->getRoboticFactory(),
-                    //                            $data->getBuildingList()->getShipyard(), $data->getBuildingList()->getNaniteFactory());
+                    //                        ->getBuildTime($unitID, 0, Loader::getBuildingList()->getRoboticFactory(),
+                    //                            Loader::getBuildingList()->getShipyard(), Loader::getBuildingList()->getNaniteFactory());
 
                     $hours = floor($duration / 3600);
                     $minutes = floor(($duration / 60) % 60);

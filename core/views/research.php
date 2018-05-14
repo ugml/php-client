@@ -38,8 +38,6 @@
          */
         public function loadTemplate($mode = null) {
 
-            global $data;
-
             if ($mode != null) {
                 $this->template .= '_' . $mode;
             }
@@ -48,8 +46,7 @@
         }
 
         public function loadResearchRows($research, $unitsResearch, $planet) {
-
-            global $lang, $data, $units;
+            global $lang;
 
             $output = '';
 
@@ -74,12 +71,12 @@
 
                         // if requirement is a building
                         if ($bID < 100) {
-                            $level = ($data->getBuildingList()[$bID])->getLevel();
+                            $level = (Loader::getBuildingList()[$bID])->getLevel();
                         }
 
                         // if requirement is a research
                         if ($bID > 100 && $bID < 200) {
-                            $level = ($data->getTechList()[$bID])->getLevel();
+                            $level = (Loader::getTechList()[$bID])->getLevel();
                         }
 
                         if ($level < $lvl) {
@@ -94,7 +91,7 @@
 
                     $unitID = D_Units::getUnitID($v);
 
-                    $level = ($data->getTechList()[$unitID])->getLevel();
+                    $level = (Loader::getTechList()[$unitID])->getLevel();
 
                     $pricelist = D_Units::getPriceList($unitID);
 
@@ -128,9 +125,9 @@
                         $fields['r_build_class'] = 'notBuildable';
                     }
 
-                    if ($data->getPlanet()->getBTechId() > 0) {
-                        if ($unitID == $data->getPlanet()->getBTechId()) {
-                            $fields['r_build'] = '-<script>timer(' . ($data->getPlanet()
+                    if (Loader::getPlanet()->getBTechId() > 0) {
+                        if ($unitID == Loader::getPlanet()->getBTechId()) {
+                            $fields['r_build'] = '-<script>timer(' . (Loader::getPlanet()
                                         ->getBTechEndtime() - time()) . ', "build_' . $unitID . '", ' . $unitID . ');</script>';
                         } else {
                             $fields['r_build'] = "-";

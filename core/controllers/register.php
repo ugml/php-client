@@ -71,6 +71,8 @@
             }
 
             $email = $_POST['email'];
+
+
             $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
 
             if (strlen($password) == 0) {

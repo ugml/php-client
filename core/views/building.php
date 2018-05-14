@@ -40,8 +40,6 @@
          */
         public function loadTemplate($mode = null) {
 
-            global $data;
-
             if ($mode != null) {
                 $this->template .= '_' . $mode;
             }
@@ -60,7 +58,7 @@
          */
         public function loadBuildingRows($buildings, $unitsBuilding, $planet) {
 
-            global $lang, $data, $units;
+            global $lang;
 
             $output = '';
 
@@ -84,11 +82,11 @@
 
                         // if requirement is a building
                         if ($bID < 100) {
-                            $level = ($data->getBuildingList()[$bID])->getLevel();
+                            $level = (Loader::getBuildingList()[$bID])->getLevel();
                         }
                         // if requirement is a research
                         if ($bID > 100 && $bID < 200) {
-                            $level = ($data->getTechList()[$bID])->getLevel();
+                            $level = (Loader::getTechList()[$bID])->getLevel();
                         }
 
                         if ($level < $lvl) {
@@ -103,7 +101,7 @@
 
                     $unitID = D_Units::getUnitID($v);
 
-                    $building = $data->getBuildingList()[$unitID];
+                    $building = Loader::getBuildingList()[$unitID];
 
                     $level = $building->getLevel();
 
@@ -124,9 +122,9 @@
                         $fields['b_build_class'] = 'notBuildable';
                     }
 
-                    if ($data->getPlanet()->getBBuildingId() > 0) {
-                        if ($unitID == $data->getPlanet()->getBBuildingId()) {
-                            $fields['b_build'] = '-<script>timer("building", ' . ($data->getPlanet()
+                    if (Loader::getPlanet()->getBBuildingId() > 0) {
+                        if ($unitID == Loader::getPlanet()->getBBuildingId()) {
+                            $fields['b_build'] = '-<script>timer("building", ' . (Loader::getPlanet()
                                         ->getBBuildingEndtime() - time()) . ', "build_' . $unitID . '", ' . $unitID . ', "{cancel}");</script>';
                         } else {
                             $fields['b_build'] = "-";
@@ -174,8 +172,8 @@
                     }
 
 
-                    $duration = 3600 * D_Units::getBuildTime($building, $data->getBuildingList()[6]->getLevel(),
-                            $data->getBuildingList()[8]->getLevel(), $data->getBuildingList()[7]->getLevel());
+                    $duration = 3600 * D_Units::getBuildTime($building, Loader::getBuildingList()[6]->getLevel(),
+                            Loader::getBuildingList()[8]->getLevel(), Loader::getBuildingList()[7]->getLevel());
 
 
                     $weeks = floor(($duration / 604800));

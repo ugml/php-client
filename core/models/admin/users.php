@@ -38,11 +38,9 @@
          */
         public static function loadUsers() {
 
-            global $dbConfig;
-
-            $dbConnection = new PDO('mysql:host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['dbname'],
-                $dbConfig['user'],
-                $dbConfig['pass']);
+            $dbConnection = new PDO('mysql:host=' . Config::$dbConfig['host'] . ';dbname=' . Config::$dbConfig['dbname'],
+                Config::$dbConfig['user'],
+                Config::$dbConfig['pass']);
 
             $dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
             $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

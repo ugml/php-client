@@ -39,9 +39,11 @@
 
         public static function loadGalaxyData($galaxy, $system) {
 
-            global $dbConfig, $dbConnection, $debug;
+            global $debug;
 
             try {
+
+                $dbConnection = new Database();
 
                 $params = array(':galaxy' => $galaxy,
                                 ':system' => $system

@@ -64,8 +64,6 @@
          */
         public static function updateProductionLevels($planetID, $levels) {
 
-            global $dbConfig;
-
             $query_values = '';
             foreach ($levels as $k => $v) {
                 // illegal values
@@ -82,7 +80,7 @@
             $dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
             $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'planets SET ' . rtrim($query_values,
+            $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET ' . rtrim($query_values,
                     ', ') . ' WHERE planetID = :planetid');
 
             $stmt->bindParam(':planetid', $planetID);

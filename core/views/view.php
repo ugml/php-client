@@ -15,8 +15,6 @@
          */
         public function mergeTemplates($class, $fields) : string {
 
-            global $dbConnection, $debug;
-
             $this->_ = $fields;
 
             // write the output into a buffer

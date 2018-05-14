@@ -23,7 +23,7 @@
          */
         function __construct($get, $post) {
 
-            global $data, $units, $debug;
+            global $debug;
 
             try {
 
@@ -57,11 +57,9 @@
          */
         function handleGET() : void {
 
-            global $data;
-
             // change current planet
             if (!empty($this->get['cp'])) {
-                $data->getUser()->setCurrentPlanet(intval($this->get['cp']));
+                Loader::getUser()->setCurrentPlanet(intval($this->get['cp']));
             }
 
             if (isset($this->get['build'])) {
@@ -80,7 +78,7 @@
                 }
             }
 
-            if (isset($this->get['cancel']) && $data->getPlanet()->getBBuildingID() > 0) {
+            if (isset($this->get['cancel']) && Loader::getPlanet()->getBBuildingID() > 0) {
 
                 $id = intval(filter_input(INPUT_GET, 'cancel', FILTER_VALIDATE_INT));
 
@@ -88,7 +86,7 @@
                 if (isset($id) && $id != null) {
                     if ($id > 0) {
 
-                        if ($data->getPlanet()->getBBuildingID() == $id) {
+                        if (Loader::getPlanet()->getBBuildingID() == $id) {
                             $this->cancel($id);
                         } else {
                             throw new InvalidArgumentException("cancelID does not match currently building id");
@@ -109,7 +107,7 @@
          */
         function build($buildID) : void {
 
-            global $data, $debug, $units;
+            global $debug;
 
             try {
                 if ($buildID < 1 || $buildID > 99 || !array_key_exists($buildID, D_Units::getBuildings())) {
@@ -117,28 +115,26 @@
                 }
 
                 //build it only, if there is not already a building in the queue
-                if ($data->getPlanet()->getBBuildingId() == 0) {
+                if (Loader::getPlanet()->getBBuildingId() == 0) {
 
-                    $units = new D_Units();
+                    $level = Loader::getBuildingList()[$buildID]->getLevel();
 
-                    $level = $data->getBuildingList()[$buildID]->getLevel();
-
-                    $metal = $data->getBuildingList()[$buildID]->getCostMetal();
-                    $crystal = $data->getBuildingList()[$buildID]->getCostCrystal();
-                    $deuterium = $data->getBuildingList()[$buildID]->getCostDeuterium();
+                    $metal = Loader::getBuildingList()[$buildID]->getCostMetal();
+                    $crystal = Loader::getBuildingList()[$buildID]->getCostCrystal();
+                    $deuterium = Loader::getBuildingList()[$buildID]->getCostDeuterium();
 
 
-                    if ($data->getPlanet()->getMetal() >= $metal &&
-                        $data->getPlanet()->getCrystal() >= $crystal &&
-                        $data->getPlanet()->getDeuterium() >= $deuterium) {
+                    if (Loader::getPlanet()->getMetal() >= $metal &&
+                        Loader::getPlanet()->getCrystal() >= $crystal &&
+                        Loader::getPlanet()->getDeuterium() >= $deuterium) {
 
-                        $n_metal = $data->getPlanet()->getMetal() - $metal;
-                        $n_crystal = $data->getPlanet()->getCrystal() - $crystal;
-                        $n_deuterium = $data->getPlanet()->getDeuterium() - $deuterium;
+                        $n_metal = Loader::getPlanet()->getMetal() - $metal;
+                        $n_crystal = Loader::getPlanet()->getCrystal() - $crystal;
+                        $n_deuterium = Loader::getPlanet()->getDeuterium() - $deuterium;
 
                         $toLvl = $level + 1;
 
-                        $this->model->build($data->getPlanet()->getPlanetId(), $buildID, $toLvl, $n_metal, $n_crystal,
+                        $this->model->build(Loader::getPlanet()->getPlanetId(), $buildID, $toLvl, $n_metal, $n_crystal,
                             $n_deuterium);
                         header("Refresh:0");
                     }
@@ -160,16 +156,14 @@
          */
         function cancel($buildID) : void {
 
-            global $data;
-
-            if ($data->getPlanet()->getBBuildingId() == $buildID && $data->getPlanet()
+            if (Loader::getPlanet()->getBBuildingId() == $buildID && Loader::getPlanet()
                     ->getBBuildingEndtime() > time()) {
 
                 $units = new D_Units();
 
                 $pricelist = D_Units::getPriceList($buildID);
 
-                $level = $data->getBuildingList()[$buildID]->getLevel();
+                $level = Loader::getBuildingList()[$buildID]->getLevel();
 
                 $metal = $pricelist['metal'];
                 $crystal = $pricelist['crystal'];
@@ -182,7 +176,7 @@
                     $deuterium *= $pricelist['factor'];
                 }
 
-                $this->model->cancel($data->getPlanet()->getPlanetId(), $metal, $crystal, $deuterium);
+                $this->model->cancel(Loader::getPlanet()->getPlanetId(), $metal, $crystal, $deuterium);
             }
 
             header("Refresh:0");
@@ -202,14 +196,12 @@
          */
         function display() : void {
 
-            global $data, $units;
-
             $v_lang = $this->model->loadLanguage();
 
             // load the individual rows for each building
 
-            $this->lang['building_list'] = $this->view->loadBuildingRows($data->getBuildingList(),
-                D_Units::getBuildings(), $data->getPlanet());
+            $this->lang['building_list'] = $this->view->loadBuildingRows(Loader::getBuildingList(),
+                D_Units::getBuildings(), Loader::getPlanet());
 
             if (is_array($this->lang) && is_array($v_lang)) {
                 $this->lang = array_merge($this->lang, $v_lang);

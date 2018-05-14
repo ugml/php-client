@@ -10,11 +10,8 @@ function timer(page, duration, containerClass, buildingID, langCancel) {
         if (page === "overview") {
             container = document.getElementsByClassName(containerClass)[0];
         } else {
-            container = document.getElementsByClassName(containerClass)[0].querySelector('div');
+            container = document.getElementsByClassName(containerClass)[0].querySelector("div");
         }
-
-
-        // console.log(timer);
 
         hours = parseInt(timer / 3600, 10);
         minutes = parseInt(timer / 60, 10) - (60 * hours);

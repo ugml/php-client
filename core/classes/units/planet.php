@@ -343,9 +343,9 @@
                         if ($unitID > 0 && $unitCnt > 0) {
 
 
-                            $durationForOneUnit = 3600 * D_Units::getBuildTime($data->getFleet()[$unitID],
-                                    $data->getBuildingList()[6]->getLevel(), $data->getBuildingList()[8]->getLevel(),
-                                    $data->getBuildingList()[7]->getLevel());
+                            $durationForOneUnit = 3600 * D_Units::getBuildTime(Loader::getFleetList()[$unitID],
+                                    Loader::getBuildingList()[6]->getLevel(), Loader::getBuildingList()[8]->getLevel(),
+                                    Loader::getBuildingList()[7]->getLevel());
 
                             $shipFinishedCnt = floor($timePassedSinceStart / $durationForOneUnit);
 
@@ -372,11 +372,11 @@
                                 }
 
 
-                                $currentShipCount = $data->getFleet()[$unitID]->getAmount();
+                                $currentShipCount = Loader::getFleetList()[$unitID]->getAmount();
 
                                 $newShipCount = $currentShipCount + $shipFinishedCnt;
 
-                                $data->getFleet()[$unitID]->setAmount($newShipCount);
+                                Loader::getFleetList()[$unitID]->setAmount($newShipCount);
 
 
                                 // TODO: BUG! only first row of queue will be written to DB!
@@ -511,8 +511,6 @@
          */
         public function createPlanet($type, $g = null, $s = null, $p = null) : void {
 
-            global $dbConfig;
-
             $dbConnection = new Database();
 
             //--- check the passed values ------------------------------------------------------------------------------
@@ -530,7 +528,7 @@
                         $this->system = rand(1, Config::$gameConfig['max_system']);
                         $this->planet = rand(1, Config::$gameConfig['max_planet']);
 
-                        $stmt = $dbConnection->prepare('SELECT 1 FROM ' . $dbConfig['prefix'] . 'planets WHERE galaxy = :g AND system = :s AND planet = :p;');
+                        $stmt = $dbConnection->prepare('SELECT 1 FROM ' . Config::$dbConfig['prefix'] . 'planets WHERE galaxy = :g AND system = :s AND planet = :p;');
 
                         $stmt->bindParam(':g', $this->galaxy);
                         $stmt->bindParam(':s', $this->system);
@@ -622,7 +620,7 @@
             do {
                 $this->planetID = rand(0, 100000);
 
-                $stmt = $dbConnection->prepare('SELECT ownerID FROM ' . $dbConfig['prefix'] . 'planets WHERE planetID = :planetID;');
+                $stmt = $dbConnection->prepare('SELECT ownerID FROM ' . Config::$dbConfig['prefix'] . 'planets WHERE planetID = :planetID;');
 
                 $stmt->bindParam(':planetID', $this->planetID);
 
@@ -631,7 +629,7 @@
             } while ($stmt->rowCount() > 0);
 
 
-            $stmt = $dbConnection->prepare('INSERT INTO ' . $dbConfig['prefix'] . 'planets (planetID, ownerID, name, galaxy, system, planet, last_update, planet_type, image, diameter, fields_max, temp_min, temp_max) VALUES ' .
+            $stmt = $dbConnection->prepare('INSERT INTO ' . Config::$dbConfig['prefix'] . 'planets (planetID, ownerID, name, galaxy, system, planet, last_update, planet_type, image, diameter, fields_max, temp_min, temp_max) VALUES ' .
                 '(:planetID, :ownerID, :name, :galaxy, :system, :planet, :last_update, :planet_type, :image, :diameter, :fields_max, :temp_min, :temp_max);');
 
             $stmt->bindParam(':planetID', $this->planetID);

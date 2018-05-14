@@ -38,8 +38,9 @@
         }
 
         public static function build($planetID, $buildID, $toLvl, $metal, $crystal, $deuterium) {
+            global $debug;
 
-            global $dbConfig, $dbConnection, $data, $units;
+            $dbConnection = new Database();
 
             //echo $key . " - " . $v . "<br />";
 
@@ -59,12 +60,12 @@
 
                     // if requirement is a building
                     if ($bID < 100) {
-                        $level = ($data->getBuildingList()[$bID])->getLevel();
+                        $level = (Loader::getBuildingList()[$bID])->getLevel();
                     }
 
                     // if requirement is a research
                     if ($bID > 100 && $bID < 200) {
-                        $level = $data->getTechList()[$bID]->getLevel();
+                        $level = Loader::getTechList()[$bID]->getLevel();
                     }
 
                     if ($level < $lvl) {
@@ -75,7 +76,7 @@
                 }
             }
 
-            if ($data->getPlanet()->getBTechID() == 0 && $data->getPlanet()->getBTechEndtime() == 0) {
+            if (Loader::getPlanet()->getBTechID() == 0 && Loader::getPlanet()->getBTechEndtime() == 0) {
                 if ($buildID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
                     try {
 
@@ -86,7 +87,7 @@
 
                         $buildTime = time() + ($price["metal"] * pow($price["factor"],
                                     $toLvl - 1) + $price["crystal"] * pow($price["factor"],
-                                    $toLvl - 1)) / (1000 * (1 + $data->getBuildingList()['research_lab'])) * 3600;
+                                    $toLvl - 1)) / (1000 * (1 + Loader::getBuildingList()['research_lab'])) * 3600;
 
                         $params = array(':b_tech_id'      => $buildID,
                                         ':b_tech_endtime' => $buildTime,
@@ -96,11 +97,15 @@
                                         ':planetID'       => $planetID
                         );
 
-                        $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'planets SET b_tech_id = :b_tech_id, b_tech_endtime = :b_tech_endtime, metal = :metal, crystal = :crystal, deuterium = :deuterium WHERE planetID = :planetID;');
+                        $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET b_tech_id = :b_tech_id, b_tech_endtime = :b_tech_endtime, metal = :metal, crystal = :crystal, deuterium = :deuterium WHERE planetID = :planetID;');
 
                         $stmt->execute($params);
                     } catch (PDOException $e) {
-                        die($e);
+                        if (DEBUG) {
+                            $debug->addLog(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
+                        } else {
+                            $debug->saveError(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
+                        }
                     }
                 } else {
                     throw new InvalidArgumentException('Passed arguments are not valid');
@@ -112,10 +117,11 @@
         }
 
         public static function cancel($planetID, $metal, $crystal, $deuterium) {
+            global $debug;
 
-            global $dbConfig, $dbConnection, $data;
+            $dbConnection = new Database();
 
-            if ($data->getPlanet()->getBTechID() > 0 && $data->getPlanet()->getBTechEndtime() > 0) {
+            if (Loader::getPlanet()->getBTechID() > 0 && Loader::getPlanet()->getBTechEndtime() > 0) {
                 if ($planetID > 0 && $metal >= 0 && $crystal >= 0 && $deuterium >= 0) {
                     try {
 
@@ -125,11 +131,15 @@
                                         ':deuterium' => $deuterium
                         );
 
-                        $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'planets SET b_tech_id = 0, b_tech_endtime = 0, metal = metal+:metal, crystal = crystal+:crystal, deuterium = deuterium+:deuterium WHERE planetID = :planetID;');
+                        $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET b_tech_id = 0, b_tech_endtime = 0, metal = metal+:metal, crystal = crystal+:crystal, deuterium = deuterium+:deuterium WHERE planetID = :planetID;');
 
                         $stmt->execute($params);
                     } catch (PDOException $e) {
-                        die($e);
+                        if (DEBUG) {
+                            $debug->addLog(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
+                        } else {
+                            $debug->saveError(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
+                        }
                     }
                 } else {
                     throw new InvalidArgumentException('Passed arguments are not valid');

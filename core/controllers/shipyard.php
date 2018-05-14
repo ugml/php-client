@@ -17,8 +17,7 @@
         private $view = null;
 
         function __construct($get, $post) {
-
-            global $data, $units, $debug;
+            global $debug;
 
             try {
 
@@ -50,9 +49,8 @@
 
         function handleGET() : void {
 
-            global $data;
             if (!empty($this->get['cp'])) {
-                $data->getUser()->setCurrentPlanet(intval($this->get['cp']));
+                Loader::getUser()->setCurrentPlanet(intval($this->get['cp']));
             }
 
             if (isset($this->get['cancel'])) {
@@ -62,7 +60,7 @@
                 // if the passed value was of type integer, the $id should be set and not null
                 if (isset($id) && $id != null) {
                     if ($id > 0) {
-                        if ($data->getPlanet()->getBBuildingID() == $id) {
+                        if (Loader::getPlanet()->getBBuildingID() == $id) {
                             $this->cancel($id);
                         } else {
                             throw new InvalidArgumentException("cancelID does not match currently building id");
@@ -96,9 +94,7 @@
 
         function build(array $buildQueue) : void {
 
-            global $data, $units;
-
-            if ($data->getPlanet()->getBHangarPlus() > 0) {
+            if (Loader::getPlanet()->getBHangarPlus() > 0) {
                 throw new InvalidArgumentException("cant build while shipyard is upgrading");
             }
 
@@ -119,9 +115,9 @@
 
                     $maxBuildable = 0;
 
-                    $currentMetal = $data->getPlanet()->getMetal() - $totalMetal;
-                    $currentCrystal = $data->getPlanet()->getCrystal() - $totalCrystal;
-                    $currentDeuterium = $data->getPlanet()->getDeuterium() - $totalDeuterium;
+                    $currentMetal = Loader::getPlanet()->getMetal() - $totalMetal;
+                    $currentCrystal = Loader::getPlanet()->getCrystal() - $totalCrystal;
+                    $currentDeuterium = Loader::getPlanet()->getDeuterium() - $totalDeuterium;
 
                     // not enough ressources for all ships
                     if ($currentMetal < ($pricelist['metal'] * $shipCnt) ||
@@ -171,20 +167,18 @@
 
             }
 
-            $this->model->build(intval($data->getPlanet()->getPlanetId()), $buildList, $totalMetal, $totalMetal,
+            $this->model->build(intval(Loader::getPlanet()->getPlanetId()), $buildList, $totalMetal, $totalMetal,
                 $totalDeuterium);
 
         }
 
         function display() : void {
 
-            global $data, $units;
-
             $v_lang = $this->model->loadLanguage();
 
             // load the individual rows for each building
-            $this->lang['shipyard_list'] = $this->view->loadShipyardRows($data->getFleetList(), D_Units::getFleet(),
-                $data->getPlanet());
+            $this->lang['shipyard_list'] = $this->view->loadShipyardRows(Loader::getFleetList(), D_Units::getFleet(),
+                Loader::getPlanet());
 
             if (is_array($this->lang) && is_array($v_lang)) {
                 $this->lang = array_merge($this->lang, $v_lang);

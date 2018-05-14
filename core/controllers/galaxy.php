@@ -22,7 +22,7 @@
 
         function __construct($get, $post) {
 
-            global $data, $units, $debug;
+            global $debug;
 
             try {
 
@@ -54,10 +54,8 @@
 
         function handleGET() : void {
 
-
-            global $data;
             if (!empty($this->get['cp'])) {
-                $data->getUser()->setCurrentPlanet(intval($this->get['cp']));
+                Loader::getUser()->setCurrentPlanet(intval($this->get['cp']));
             }
 
             if (isset($this->get['g'])) {
@@ -90,8 +88,6 @@
         }
 
         function display() : void {
-
-            global $data;
 
             $v_lang = $this->model->loadLanguage();
             $galaxyData = $this->model->loadGalaxyData($this->currentGalaxy, $this->currentSystem);
