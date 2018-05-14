@@ -2,16 +2,6 @@
 
     declare(strict_types = 1);
 
-    if (!defined('INSIDE')) {
-        define('INSIDE', true);
-    }
-
-    require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/core/config.sample.php';
-
-    Config::init();
-
-    require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/classes/data/planet.php";
-
     use PHPUnit\Framework\TestCase;
 
     /**
@@ -96,8 +86,6 @@
          * @covers D_Planet::getGalaxy
          */
         public function testGetSetGalaxy() : void {
-
-
             $this->planetData->setGalaxy(3);
             $this->assertSame(3, $this->planetData->getGalaxy());
         }

@@ -2,21 +2,11 @@
 
     declare(strict_types = 1);
 
-    if (!defined('INSIDE')) {
-        define('INSIDE', true);
-    }
-
-    require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/core/config.sample.php';
-
-    Config::init();
-
-    require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/classes/data/units.php";
-
     use PHPUnit\Framework\TestCase;
 
     /**
      * Class DataPlanetTest
-     * @covers D_Units::__construct
+     * @covers D_Units::init()
      * @codeCoverageIgnore
      */
     final class DataUnitsTest extends TestCase {
@@ -31,6 +21,7 @@
          * @covers D_Units::getUnitID
          */
         public function testGetUnitID() : void {
+
             $this->assertSame(1, $this->units->getUnitID("metal_mine"));
             $this->assertSame(2, $this->units->getUnitID("crystal_mine"));
             $this->assertSame(3, $this->units->getUnitID("deuterium_synthesizer"));

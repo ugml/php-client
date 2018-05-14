@@ -2,16 +2,6 @@
 
     declare(strict_types = 1);
 
-    if (!defined('INSIDE')) {
-        define('INSIDE', true);
-    }
-
-    //    require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/core/config.sample.php';
-
-    //    require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/classes/data/units.php";
-    require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/classes/units/unit.php";
-    require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/classes/units/research.php";
-
     use PHPUnit\Framework\TestCase;
 
     /**

@@ -24,12 +24,14 @@
             $this->view = new V_Login();
             $this->model = new M_Login();
 
+
+
             if (!empty($get)) {
-                self::handleGET();
+                $this->handleGET();
             }
 
             if (!empty($post)) {
-                self::handlePOST();
+                $this->handlePOST();
             }
 
         }
@@ -60,6 +62,7 @@
         }
 
         function display() : void {
+
 
 
             $this->view->assign('lang', $this->model->loadLanguage());

@@ -2,15 +2,6 @@
 
     declare(strict_types = 1);
 
-    if (!defined('INSIDE')) {
-        define('INSIDE', true);
-    }
-    require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/core/config.sample.php';
-
-    Config::init();
-
-    require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/classes/data/galaxy.php";
-
     use PHPUnit\Framework\TestCase;
 
     /**

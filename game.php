@@ -37,20 +37,16 @@
     // update last activity time stamp
     $_SESSION['LAST_ACTIVITY'] = time();
 
-    // load the server-configuration
-    require_once 'core/config.php';
-    Config::init();
-
     // register autoloader
     require_once 'core/autoload.php';
 
-    // load the database-class
-    $dbConnection = new Database();
-
-    // load data about all units
+    // initialize static objects
+    Config::init();
     D_Units::init();
 
-    Loader::init($userID);
+
+    // load the database-class
+    $dbConnection = new Database();
 
     // load the userdata
     $data = new Loader($userID);
@@ -112,6 +108,7 @@
     $lang["s"] = $data->getPlanet()->getSystem();
 
     $lang["ugamela_version"] = Config::$gameConfig['ugamela_version'];
+    $lang["game_name"] = Config::$gameConfig['game_name'];
 
     // display the page
     $controller->display();

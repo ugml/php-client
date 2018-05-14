@@ -5,7 +5,7 @@
 
     define('DEBUG', true);
 
-    class Config_sample {
+    class Config {
 
         public static $gameConfig;
         public static $dbConfig;
@@ -29,27 +29,28 @@
 
 
             self::$gameConfig = [
-                'game_name'             => 'ugamela',
-                'ugamela_version'       => "0.0.1-alpha",
-                'copyright'             => 'Copyright by ugamela &copy; 2017',
-                'language'              => 'en',
-                'max_galaxy'            => 9,
-                'max_system'            => 100,
-                'max_planet'            => 15,
+                'game_name'  => 'ugamela',
+                'copyright'  => 'Copyright by ugamela &copy; 2017',
+                'language'   => 'en',
+                'max_galaxy' => 9,
+                'max_system' => 100,
+                'max_planet' => 15,
                 'base_income_metal'     => 500,
                 'base_income_crystal'   => 250,
                 'base_income_deuterium' => 0,
                 'base_income_energy'    => 0,
-                'skinpath'              => 'skins/Maya/'
+                'skinpath'   => 'skins/Maya/'
             ];
 
             self::$dbConfig = [
-                'host'   => '172.25.0.100',
+                'host'   => 'localhost',
                 'port'   => '3306',
                 'dbname' => 'ugamela',
                 'user'   => 'root',
-                'pass'   => 'root'
+                'pass'   => ''
             ];
+
+
 
             self::$pathConfig = [
                 'core'        => self::$basepath . 'core/',
@@ -63,7 +64,6 @@
                 'language'    => self::$basepath . 'core/language/',
                 'templates'   => self::$basepath . 'core/templates/'
             ];
-
 
         }
     }

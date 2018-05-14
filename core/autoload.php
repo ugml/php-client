@@ -42,11 +42,13 @@
             case "Debug":
                 $p = Config::$pathConfig['classes'] . 'debug.php';
                 break;
+            case "Config":
+                $p = 'core/config.php';
+                break;
         }
 
         // if the file exists
         if (file_exists($p)) {
-
             // require it
             require_once $p;
         }

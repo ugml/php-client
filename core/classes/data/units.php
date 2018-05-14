@@ -25,11 +25,21 @@
         /** @var array Mapping of Unit-ID to the requirements for the unit */
         private static $requeriments;
 
+        private static $initialized = false;
+
         /**
-         * D_Units constructor.
-         * Loads all needed information about all units into the matching properties.
+         *
          */
         static function init() {
+
+            // check, if already initialized
+            if(self::$initialized) {
+                return;
+            }
+
+            self::$initialized = true;
+
+
             require Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
 
             self::$units = [
