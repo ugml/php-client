@@ -43,12 +43,15 @@
             ];
 
             self::$dbConfig = [
-                'host'   => 'localhost',
+                'host'   => '127.0.0.1',
                 'port'   => '3306',
-                'dbname' => 'ugamela',
+                'dbname' => 'ugamela_testing',
                 'user'   => 'root',
-                'pass'   => ''
+                'pass'   => '',
+                'prefix' => ''
             ];
+
+            //
 
 
 

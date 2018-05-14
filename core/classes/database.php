@@ -19,7 +19,7 @@
                 return $this->dbConnection;
             }
 
-            $this->dbConnection = new PDO('mysql:host=' . Config::$dbConfig['host'] . ';dbname=' . Config::$dbConfig['dbname'],
+            $this->dbConnection = new PDO('mysql:host=' . Config::$dbConfig['host'] . ':'.Config::$dbConfig['port'].';dbname=' . Config::$dbConfig['dbname'],
                 Config::$dbConfig['user'], Config::$dbConfig['pass']);
 
             $this->dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
@@ -39,6 +39,7 @@
 
         /**
          * prints the debug-log
+         * @codeCoverageIgnore
          */
         function printLog() {
             if (get_class($this->dbConnection) === "LoggedPDO") {

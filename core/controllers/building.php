@@ -41,6 +41,8 @@
                     self::handlePOST();
                 }
 
+                $this->lang['planet_dropdown'] = "";
+
                 require_once(Config::$pathConfig['classes'] . "topbar.php");
 
             } catch (Exception $e) {

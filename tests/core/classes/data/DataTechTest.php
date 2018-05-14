@@ -14,7 +14,7 @@
         private $techData;
 
         protected function setUp() : void {
-            $this->techData = new D_Tech(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            $this->techData = new D_Tech(101,102,103,104,105,106,107,108,109,110,111,112,113,114,115);
         }
 
         /**
@@ -150,6 +150,82 @@
         public function testGetSetGravitonTech() : void {
             $this->techData->setGravitonTech(5);
             $this->assertSame(5, $this->techData->getGravitonTech());
+        }
+
+        /**
+         * @covers D_Tech::getTechByID
+         */
+        public function testGetTechByID() : void {
+
+            $this->assertSame(-1, $this->techData->getTechByID(0));
+            $this->assertSame(101, $this->techData->getTechByID(101));
+            $this->assertSame(102, $this->techData->getTechByID(102));
+            $this->assertSame(103, $this->techData->getTechByID(103));
+            $this->assertSame(104, $this->techData->getTechByID(104));
+            $this->assertSame(105, $this->techData->getTechByID(105));
+            $this->assertSame(106, $this->techData->getTechByID(106));
+            $this->assertSame(107, $this->techData->getTechByID(107));
+            $this->assertSame(108, $this->techData->getTechByID(108));
+            $this->assertSame(109, $this->techData->getTechByID(109));
+            $this->assertSame(110, $this->techData->getTechByID(110));
+            $this->assertSame(111, $this->techData->getTechByID(111));
+            $this->assertSame(112, $this->techData->getTechByID(112));
+            $this->assertSame(113, $this->techData->getTechByID(113));
+            $this->assertSame(114, $this->techData->getTechByID(114));
+            $this->assertSame(115, $this->techData->getTechByID(115));
+            $this->assertSame(-1, $this->techData->getTechByID(116));
+        }
+
+        /**
+         * @covers D_Tech::getTechByID
+         * @covers D_Tech::setTechByID
+         */
+        public function testSetTechByID() : void {
+
+            $this->techData->setTechByID(101,101);
+            $this->assertSame(101, $this->techData->getEspionageTech());
+
+            $this->techData->setTechByID(102,102);
+            $this->assertSame(102, $this->techData->getComputerTech());
+
+            $this->techData->setTechByID(103,103);
+            $this->assertSame(103, $this->techData->getWeaponTech());
+
+            $this->techData->setTechByID(104,104);
+            $this->assertSame(104, $this->techData->getArmourTech());
+
+            $this->techData->setTechByID(105,105);
+            $this->assertSame(105, $this->techData->getShieldingTech());
+
+            $this->techData->setTechByID(106,106);
+            $this->assertSame(106, $this->techData->getEnergyTech());
+
+            $this->techData->setTechByID(107,107);
+            $this->assertSame(107, $this->techData->getHyperspaceTech());
+
+            $this->techData->setTechByID(108,108);
+            $this->assertSame(108, $this->techData->getCombustionDriveTech());
+
+            $this->techData->setTechByID(109,109);
+            $this->assertSame(109, $this->techData->getImpulseDriveTech());
+
+            $this->techData->setTechByID(110,110);
+            $this->assertSame(110, $this->techData->getHyperspaceDriveTech());
+
+            $this->techData->setTechByID(111,111);
+            $this->assertSame(111, $this->techData->getLaserTech());
+
+            $this->techData->setTechByID(112,112);
+            $this->assertSame(112, $this->techData->getIonTech());
+
+            $this->techData->setTechByID(113,113);
+            $this->assertSame(113, $this->techData->getPlasmaTech());
+
+            $this->techData->setTechByID(114,114);
+            $this->assertSame(114, $this->techData->getIntergalacticResearchTech());
+
+            $this->techData->setTechByID(115,115);
+            $this->assertSame(115, $this->techData->getGravitonTech());
         }
 
     }

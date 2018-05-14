@@ -6,26 +6,60 @@
 
     require_once 'config.php';
 
-    require_once dirname(dirname(__FILE__)) . '/core/classes/data/units.php';
-    require_once dirname(dirname(__FILE__)) . '/core/classes/data/building.php';
-    require_once dirname(dirname(__FILE__)) . "/core/classes/data/user.php";
-    require_once dirname(dirname(__FILE__)) . "/core/classes/data/units.php";
-    require_once dirname(dirname(__FILE__)) . "/core/classes/data/tech.php";
-    require_once dirname(dirname(__FILE__)) . "/core/classes/data/planet.php";
-    require_once dirname(dirname(__FILE__)) . "/core/classes/data/galaxy.php";
-    require_once dirname(dirname(__FILE__)) . "/core/classes/data/fleet.php";
-    require_once dirname(dirname(__FILE__)) . "/core/classes/data/defense.php";
-    require_once dirname(dirname(__FILE__)) . "/core/classes/data/building.php";
+    spl_autoload_register(function (string $className) {
+        // classes have the naming convention [FirstLetterOfType]_Name
+        // e.g. the Data-class of a planet would be D_Planet
+        //
+        // split the given class name
+        $s = explode("_", $className);
 
-    require_once dirname(dirname(__FILE__)) . "/core/classes/units/unit.php";
-    require_once dirname(dirname(__FILE__)) . "/core/classes/units/research.php";
-    require_once dirname(dirname(__FILE__)) . "/core/classes/units/building.php";
-    require_once dirname(dirname(__FILE__)) . "/core/classes/units/defense.php";
-    require_once dirname(dirname(__FILE__)) . "/core/classes/units/fleet.php";
+        $p = "";
+
+        // switch the first part of the class name
+        switch ($s[0]) {
+            case "D":
+                $p = Config::$pathConfig['data'] . strtolower($s[1]) . '.php';
+                break;
+            case "U":
+                $p = Config::$pathConfig['units'] . strtolower($s[1]) . '.php';
+                break;
+            case "C":
+                $p = Config::$pathConfig['controllers'] . strtolower($s[1]) . '.php';
+                break;
+            case "I":
+                $p = Config::$pathConfig['interfaces'] . strtolower($s[1]) . '.php';
+                break;
+            case "V":
+                $p = Config::$pathConfig['views'] . strtolower($s[1]) . '.php';
+                break;
+            case "M":
+                $p = Config::$pathConfig['models'] . strtolower($s[1]) . '.php';
+                break;
+            case "Loader":
+                $p = Config::$pathConfig['classes'] . strtolower($s[0]) . '.php';
+                break;
+            case "Database":
+                $p = Config::$pathConfig['classes'] . 'database.php';
+                break;
+            case "Debug":
+                $p = Config::$pathConfig['classes'] . 'debug.php';
+                break;
+            case "Config":
+                $p = 'test/config.php';
+                break;
+        }
+
+        // if the file exists
+        if (file_exists($p)) {
+            // require it
+            require_once $p;
+        }
 
 
-    // initialize static objects
+    });
+
+
+    // initialize config
     Config::init();
-    D_Units::init();
 
 

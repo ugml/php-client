@@ -2,9 +2,6 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    //    class FileNotFoundException extends Exception {
-    //
-    //    }
 
     class Debug {
 
@@ -12,8 +9,7 @@
 
         private $count = 0;
 
-        function __construct() {
-
+        public function __construct() {
 
             $this->count = 0;
             $this->log = '                <div class="row"><div class="col-md-12">
@@ -30,6 +26,11 @@
                             <th>Description</th>
                             <th>Time</th>
                         </tr>';
+
+        }
+
+        function getCount() : int {
+            return $this->count;
         }
 
         /**
@@ -68,12 +69,11 @@
 
             $stmt->execute();
 
-            //echo 'An error has occurred (error #'.$dbConnection->lastInsertId().')';
-
         }
 
         /**
          * prints the debug-log on the current page
+         * @codeCoverageIgnore
          */
         function printDebugLog() {
 
