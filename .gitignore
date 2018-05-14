@@ -1,8 +1,12 @@
 .idea/
+build/
+vendor/
 
 core/config.php
-./test*.php
+test*.php
 *todo.*
+
+robots.txt
 
 *.phar
 
