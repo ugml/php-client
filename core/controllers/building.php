@@ -159,8 +159,6 @@
             if (Loader::getPlanet()->getBBuildingId() == $buildID && Loader::getPlanet()
                     ->getBBuildingEndtime() > time()) {
 
-                $units = new D_Units();
-
                 $pricelist = D_Units::getPriceList($buildID);
 
                 $level = Loader::getBuildingList()[$buildID]->getLevel();

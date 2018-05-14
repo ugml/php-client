@@ -103,9 +103,6 @@
 
                     $level = $fleet->getAmount();
 
-
-                    $pricelist = D_Units::getPriceList($unitID);
-
                     $fields['s_name'] = D_Units::getName($unitID);
                     $fields['s_level'] = $level;
                     $fields['s_description'] = D_Units::getDescription($unitID);
