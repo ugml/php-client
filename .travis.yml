@@ -8,7 +8,7 @@ addons:
 
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS ugamela_testing;'
-  - mysql -u root --default-character-set=utf8 ugamela_testing < tests/database.sql
+  - mysql -u root --default-character-set=utf8 ugamela_testing < ./tests/database.sql
 
 script:
 #  - composer self-update
