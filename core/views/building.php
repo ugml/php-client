@@ -4,7 +4,6 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-
     class V_Building extends V_View implements I_View {
 
         private $template = 'buildings';
@@ -41,8 +40,6 @@
          */
         public function loadTemplate($mode = null) {
 
-            global $path, $data;
-
             if ($mode != null) {
                 $this->template .= '_' . $mode;
             }
@@ -53,15 +50,15 @@
         /**
          * loads each individual building-row
          *
-         * @param $buildings array the building-data of the planet
+         * @param $buildings     array the building-data of the planet
          * @param $unitsBuilding array the data of the units
-         * @param $planet planet the planet
+         * @param $planet        planet the planet
          * @return string the complete list of buildingrows
          * @throws FileNotFoundException
          */
         public function loadBuildingRows($buildings, $unitsBuilding, $planet) {
 
-            global $path, $config, $lang, $data, $units;
+            global $lang;
 
             $output = '';
 
@@ -73,9 +70,9 @@
                 $req_met = true;
 
                 // check requirements
-                if ($units->getRequirements($key) !== []) {
+                if (D_Units::getRequirements($key) !== []) {
 
-                    $req = $units->getRequirements($key);
+                    $req = D_Units::getRequirements($key);
 
                     foreach ($req as $bID => $lvl) {
 
@@ -85,11 +82,11 @@
 
                         // if requirement is a building
                         if ($bID < 100) {
-                            $level = ($data->getBuilding()[$bID])->getLevel();
+                            $level = (Loader::getBuildingList()[$bID])->getLevel();
                         }
                         // if requirement is a research
                         if ($bID > 100 && $bID < 200) {
-                            $level = ($data->getTech()[$bID])->getLevel();
+                            $level = (Loader::getTechList()[$bID])->getLevel();
                         }
 
                         if ($level < $lvl) {
@@ -102,15 +99,15 @@
 
                 if ($req_met) {
 
-                    $unitID = $units->getUnitID($v);
+                    $unitID = D_Units::getUnitID($v);
 
-                    $building = $data->getBuilding()[$unitID];
+                    $building = Loader::getBuildingList()[$unitID];
 
                     $level = $building->getLevel();
 
-                    $fields['b_name'] = $units->getName($unitID);
+                    $fields['b_name'] = D_Units::getName($unitID);
                     $fields['b_level'] = $level;
-                    $fields['b_description'] = $units->getDescription($unitID);
+                    $fields['b_description'] = D_Units::getDescription($unitID);
 
                     $buildable = false;
 
@@ -125,9 +122,9 @@
                         $fields['b_build_class'] = 'notBuildable';
                     }
 
-                    if ($data->getPlanet()->getBBuildingId() > 0) {
-                        if ($unitID == $data->getPlanet()->getBBuildingId()) {
-                            $fields['b_build'] = '-<script>timer("building", ' . ($data->getPlanet()
+                    if (Loader::getPlanet()->getBBuildingId() > 0) {
+                        if ($unitID == Loader::getPlanet()->getBBuildingId()) {
+                            $fields['b_build'] = '-<script>timer("building", ' . (Loader::getPlanet()
                                         ->getBBuildingEndtime() - time()) . ', "build_' . $unitID . '", ' . $unitID . ', "{cancel}");</script>';
                         } else {
                             $fields['b_build'] = "-";
@@ -150,29 +147,33 @@
                         }
                     }
 
-                    $fields['b_image'] = $config['skinpath'] . 'gebaeude/' . $unitID . '.png';
+                    $fields['b_image'] = Config::$gameConfig['skinpath'] . 'gebaeude/' . $unitID . '.png';
 
                     $fields['required_ressources'] = '';
 
-                    if($building->getCostMetal() > 0) {
-                        $fields['required_ressources'] .= '<img src="'.$config['skinpath'] .  '/images/metal.png"> ' . number_format($building->getCostMetal(), 0) . ' ';
+                    if ($building->getCostMetal() > 0) {
+                        $fields['required_ressources'] .= '<img src="' . Config::$gameConfig['skinpath'] . '/images/metal.png"> ' . number_format($building->getCostMetal(),
+                                0) . ' ';
                     }
 
-                    if($building->getCostCrystal() > 0) {
-                        $fields['required_ressources'] .= '<img src="'.$config['skinpath'] .  '/images/crystal.png"> ' . number_format($building->getCostCrystal(), 0) . ' ';
+                    if ($building->getCostCrystal() > 0) {
+                        $fields['required_ressources'] .= '<img src="' . Config::$gameConfig['skinpath'] . '/images/crystal.png"> ' . number_format($building->getCostCrystal(),
+                                0) . ' ';
                     }
 
-                    if($building->getCostDeuterium() > 0) {
-                        $fields['required_ressources'] .= '<img src="'.$config['skinpath'] .  '/images/deuterium.png"> ' . number_format($building->getCostDeuterium(), 0) . ' ';
+                    if ($building->getCostDeuterium() > 0) {
+                        $fields['required_ressources'] .= '<img src="' . Config::$gameConfig['skinpath'] . '/images/deuterium.png"> ' . number_format($building->getCostDeuterium(),
+                                0) . ' ';
                     }
 
-                    if($building->getCostEnergy() > 0) {
-                        $fields['required_ressources'] .= '<img src="'.$config['skinpath'] .  '/images/energy.png"> ' . number_format($building->getCostEnergy(), 0) . ' ';
+                    if ($building->getCostEnergy() > 0) {
+                        $fields['required_ressources'] .= '<img src="' . Config::$gameConfig['skinpath'] . '/images/energy.png"> ' . number_format($building->getCostEnergy(),
+                                0) . ' ';
                     }
 
 
-
-                    $duration = 3600 * $units->getBuildTime($building, $data->getBuilding()[6]->getLevel(), $data->getBuilding()[8]->getLevel(), $data->getBuilding()[7]->getLevel());
+                    $duration = 3600 * D_Units::getBuildTime($building, Loader::getBuildingList()[6]->getLevel(),
+                            Loader::getBuildingList()[8]->getLevel(), Loader::getBuildingList()[7]->getLevel());
 
 
                     $weeks = floor(($duration / 604800));
@@ -206,7 +207,7 @@
 
                     ob_start();
 
-                    $file = $path['templates'] . $this->template . '_row.php';
+                    $file = Config::$pathConfig['templates'] . $this->template . '_row.php';
                     if (file_exists($file)) {
                         include $file;
                     } else {

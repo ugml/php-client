@@ -17,12 +17,12 @@
         $userID = $_SESSION['userID'];
     } else {
         header('Location: login.php');
-        //        die(header('Location: login.php'));
+        die();
     }
 
     if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
         // last request was more than 30 minutes ago
-        session_unset();     // unset $_SESSION variable for the run-time 
+        session_unset();     // unset $_SESSION variable for the run-time
         session_destroy();   // destroy session data in storage
     }
 
@@ -40,27 +40,26 @@
     // register autoloader
     require_once 'core/autoload.php';
 
-    // load the server-configuration
-    require_once('core/config.php');
+    // initialize static objects
+    Config::init();
+    D_Units::init();
+
 
     // load the database-class
     $dbConnection = new Database();
-
-    // load data about all units
-    $units = new D_Units();
 
     // load the userdata
     $data = new Loader($userID);
 
     // update the planet (ressources etc.)
-    $data->getPlanet()->update();
+    $data->getPlanet()->update($data->getBuildingData(), $data->getTechData(), $data->getFleetData());
 
     // default value
     $page = 'overview';
 
     // check if a page was requested and if there is
     // a controller to the request
-    if (isset($_GET['page']) && file_exists($path['controllers'] . $_GET['page'] . '.php')) {
+    if (isset($_GET['page']) && file_exists(Config::$pathConfig['controllers'] . $_GET['page'] . '.php')) {
         $page = $_GET['page'];
 
         // delete the element, because the controller
@@ -68,7 +67,7 @@
         unset($_GET['page']);
     } else {
         // file does not exist -> redirect to overview
-        if (isset($_GET['page']) && !file_exists($path['controllers'] . $_GET['page'] . '.php')) {
+        if (isset($_GET['page']) && !file_exists(Config::$pathConfig['controllers'] . $_GET['page'] . '.php')) {
             $page = 'overview';
         }
     }
@@ -107,6 +106,9 @@
     // get coords for galaxy menu-link
     $lang["g"] = $data->getPlanet()->getGalaxy();
     $lang["s"] = $data->getPlanet()->getSystem();
+
+    $lang["ugamela_version"] = Config::$gameConfig['ugamela_version'];
+    $lang["game_name"] = Config::$gameConfig['game_name'];
 
     // display the page
     $controller->display();

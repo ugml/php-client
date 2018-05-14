@@ -3,10 +3,7 @@
     defined('INSIDE') OR exit('No direct script access allowed');
 
     class V_Register implements I_View {
-
-        // Pfad zum Template
-        private $path = 'core/templates';
-
+        
         // Name des Templates, in dem Fall das Standardtemplate.
         private $template = 'register';
 
@@ -47,7 +44,7 @@
         public function loadTemplate($mode = null) {
 
             // Pfad zum Template erstellen & überprüfen ob das Template existiert.
-            $file = $this->path . DIRECTORY_SEPARATOR . $this->template . '.php';
+            $file = Config::$pathConfig['templates'] . DIRECTORY_SEPARATOR . $this->template . '.php';
 
             $exists = file_exists($file);
 
@@ -56,9 +53,9 @@
                 // nicht gleich ausgegeben.
                 ob_start();
 
-                include $this->path . DIRECTORY_SEPARATOR . 'header_login.php';
+                include Config::$pathConfig['templates'] . DIRECTORY_SEPARATOR . 'header_login.php';
                 include $file;
-                include $this->path . DIRECTORY_SEPARATOR . 'footer.php';
+                include Config::$pathConfig['templates'] . DIRECTORY_SEPARATOR . 'footer.php';
 
                 $output = ob_get_contents();
 

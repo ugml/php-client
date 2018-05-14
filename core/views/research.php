@@ -38,8 +38,6 @@
          */
         public function loadTemplate($mode = null) {
 
-            global $path, $data;
-
             if ($mode != null) {
                 $this->template .= '_' . $mode;
             }
@@ -48,22 +46,21 @@
         }
 
         public function loadResearchRows($research, $unitsResearch, $planet) {
-
-            global $path, $config, $lang, $data, $units;
+            global $lang;
 
             $output = '';
 
             foreach ($unitsResearch as $k => $v) {
 
                 // the key of the current research
-                $key = $units->getUnitID($v);
+                $key = D_Units::getUnitID($v);
 
                 $req_met = true;
 
                 // check requirements
-                if ($units->getRequirements($key) !== []) {
+                if (D_Units::getRequirements($key) !== []) {
 
-                    $req = $units->getRequirements($key);
+                    $req = D_Units::getRequirements($key);
 
                     foreach ($req as $bID => $lvl) {
 
@@ -74,12 +71,12 @@
 
                         // if requirement is a building
                         if ($bID < 100) {
-                            $level = ($data->getBuilding()[$bID])->getLevel();
+                            $level = (Loader::getBuildingList()[$bID])->getLevel();
                         }
 
                         // if requirement is a research
                         if ($bID > 100 && $bID < 200) {
-                            $level = ($data->getTech()[$bID])->getLevel();
+                            $level = (Loader::getTechList()[$bID])->getLevel();
                         }
 
                         if ($level < $lvl) {
@@ -92,15 +89,15 @@
 
                 if ($req_met) {
 
-                    $unitID = $units->getUnitID($v);
+                    $unitID = D_Units::getUnitID($v);
 
-                    $level = ($data->getTech()[$unitID])->getLevel();
+                    $level = (Loader::getTechList()[$unitID])->getLevel();
 
-                    $pricelist = $units->getPriceList($unitID);
+                    $pricelist = D_Units::getPriceList($unitID);
 
-                    $fields['r_name'] = $units->getName($unitID);
+                    $fields['r_name'] = D_Units::getName($unitID);
                     $fields['r_level'] = $level;
-                    $fields['r_description'] = $units->getDescription($unitID);
+                    $fields['r_description'] = D_Units::getDescription($unitID);
 
 
                     // get the baseprice
@@ -128,9 +125,9 @@
                         $fields['r_build_class'] = 'notBuildable';
                     }
 
-                    if ($data->getPlanet()->getBTechId() > 0) {
-                        if ($unitID == $data->getPlanet()->getBTechId()) {
-                            $fields['r_build'] = '-<script>timer(' . ($data->getPlanet()
+                    if (Loader::getPlanet()->getBTechId() > 0) {
+                        if ($unitID == Loader::getPlanet()->getBTechId()) {
+                            $fields['r_build'] = '-<script>timer(' . (Loader::getPlanet()
                                         ->getBTechEndtime() - time()) . ', "build_' . $unitID . '", ' . $unitID . ');</script>';
                         } else {
                             $fields['r_build'] = "-";
@@ -153,13 +150,13 @@
                         }
                     }
 
-                    $fields['r_image'] = $config['skinpath'] . 'gebaeude/' . $unitID . '.png';
+                    $fields['r_image'] = Config::$gameConfig['skinpath'] . 'gebaeude/' . $unitID . '.png';
                     $fields['r_metal'] = number_format(ceil($metal), 0);
                     $fields['r_crystal'] = number_format(ceil($crystal), 0);
                     $fields['r_deuterium'] = number_format(ceil($deuterium), 0);
 
                     // TODO: levels
-                    $duration = 3600 * $units->getBuildTime($research[$unitID], 1,1,1);
+                    $duration = 3600 * D_Units::getBuildTime($research[$unitID], 1, 1, 1);
 
                     $hours = floor($duration / 3600);
                     $minutes = floor(($duration / 60) % 60);
@@ -182,7 +179,7 @@
 
                     ob_start();
 
-                    $file = $path['templates'] . $this->template . '_row.php';
+                    $file = Config::$pathConfig['templates'] . $this->template . '_row.php';
                     if (file_exists($file)) {
                         include $file;
                     } else {
@@ -200,8 +197,8 @@
                 }
             }
 
-            if($output === '') {
-                $output .= '<div class="row"><div class="col-md-12"><div>'.$lang['no_research_available'].'</div></div></div>';
+            if ($output === '') {
+                $output .= '<div class="row"><div class="col-md-12"><div>' . $lang['no_research_available'] . '</div></div></div>';
             }
 
             return $output;

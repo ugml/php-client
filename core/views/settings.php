@@ -38,8 +38,6 @@
          */
         public function loadTemplate($mode = null) {
 
-            global $path, $data;
-
             if ($mode != null) {
                 $this->template .= '_' . $mode;
             }

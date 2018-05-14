@@ -1,19 +1,20 @@
 <?php
 
-    declare(strict_types=1);
-
-    require_once __DIR__.'/config.php';
-
-    require_once ROOT . "/core/classes/data/building.php";
+    declare(strict_types = 1);
 
     use PHPUnit\Framework\TestCase;
 
+    /**
+     * Class DataBuildingTest
+     * @covers D_Building::__construct
+     * @codeCoverageIgnore
+     */
     final class DataBuildingTest extends TestCase {
 
         private $buildingData;
 
         protected function setUp() : void {
-            $this->buildingData = new D_Building(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);
+            $this->buildingData = new D_Building(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
         }
 
         /**

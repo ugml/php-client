@@ -25,10 +25,10 @@
          */
         function __construct($get, $post) {
 
-            global $data, $debug, $path, $base_income, $units;
+            global $debug;
 
             try {
-                $this->planetID = $data->getUser()->getCurrentPlanet();
+                $this->planetID = Loader::getUser()->getCurrentPlanet();
                 $this->get = $get;
                 $this->post = $post;
 
@@ -40,26 +40,25 @@
                     self::handlePOST();
                 }
 
-                require_once($path['classes'] . "topbar.php");
+                require_once(Config::$pathConfig['classes'] . "topbar.php");
+
 
                 // base income
-                $this->lang['config_base_income_metal'] = number_format($base_income['metal'], 0);
-                $this->lang['config_base_income_crystal'] = number_format($base_income['crystal'], 0);
-                $this->lang['config_base_income_deuterium'] = number_format($base_income['deuterium'], 0);
-                $this->lang['config_base_income_energy'] = number_format($base_income['energy'], 0);
+                $this->lang['config_base_income_metal'] = number_format(Config::$gameConfig['base_income_metal'], 0);
+                $this->lang['config_base_income_crystal'] = number_format(Config::$gameConfig['base_income_crystal'], 0);
+                $this->lang['config_base_income_deuterium'] = number_format(Config::$gameConfig['base_income_deuterium'], 0);
+                $this->lang['config_base_income_energy'] = number_format(Config::$gameConfig['base_income_energy'], 0);
 
 
                 $this->model = new M_Resources();
 
 
-
-
                 // planet storage
-                $this->lang['planet_storage_metal'] = number_format($units->getStorageCapacity($data->getBuilding()[$units->getUnitID('metal_storage')]->getLevel()),
+                $this->lang['planet_storage_metal'] = number_format(D_Units::getStorageCapacity(Loader::getBuildingList()[D_Units::getUnitID('metal_storage')]->getLevel()),
                     0);
-                $this->lang['planet_storage_crystal'] = number_format($units->getStorageCapacity($data->getBuilding()[$units->getUnitID('crystal_storage')]->getLevel()),
+                $this->lang['planet_storage_crystal'] = number_format(D_Units::getStorageCapacity(Loader::getBuildingList()[D_Units::getUnitID('crystal_storage')]->getLevel()),
                     0);
-                $this->lang['planet_storage_deuterium'] = number_format($units->getStorageCapacity($data->getBuilding()[$units->getUnitID('deuterium_storage')]->getLevel()),
+                $this->lang['planet_storage_deuterium'] = number_format(D_Units::getStorageCapacity(Loader::getBuildingList()[D_Units::getUnitID('deuterium_storage')]->getLevel()),
                     0);
 
                 // load view
@@ -68,136 +67,136 @@
                 $this->lang['resource_row'] = '';
 
                 // production
-                $prod_metal = $units->getMetalProductionPerHour($data->getBuilding()[$units->getUnitID('metal_mine')]->getLevel());
-                $prod_crystal = $units->getCrystalProductionPerHour($data->getBuilding()[$units->getUnitID('crystal_mine')]->getLevel());
-                $prod_deuterium = $units->getDeuteriumProductionPerHour($data->getBuilding()[$units->getUnitID('deuterium_synthesizer')]->getLevel());
+                $prod_metal = D_Units::getMetalProductionPerHour(Loader::getBuildingList()[D_Units::getUnitID('metal_mine')]->getLevel());
+                $prod_crystal = D_Units::getCrystalProductionPerHour(Loader::getBuildingList()[D_Units::getUnitID('crystal_mine')]->getLevel());
+                $prod_deuterium = D_Units::getDeuteriumProductionPerHour(Loader::getBuildingList()[D_Units::getUnitID('deuterium_synthesizer')]->getLevel());
 
-                $prod_energy_array = $units->getEnergyProduction(
-                    $data->getBuilding()[$units->getUnitID('solar_plant')]->getLevel(),
-                    $data->getBuilding()[$units->getUnitID('fusion_reactor')]->getLevel(),
-                    $data->getTech()[$units->getUnitID('energy_tech')]->getLevel(),
-                    $data->getFleet()[$units->getUnitID('solar_satellite')]->getAmount(),
-                    $data->getPlanet()->getTempMax()
+                $prod_energy_array = D_Units::getEnergyProduction(
+                    Loader::getBuildingList()[D_Units::getUnitID('solar_plant')]->getLevel(),
+                    Loader::getBuildingList()[D_Units::getUnitID('fusion_reactor')]->getLevel(),
+                    Loader::getTechList()[D_Units::getUnitID('energy_tech')]->getLevel(),
+                    Loader::getFleetList()[D_Units::getUnitID('solar_satellite')]->getAmount(),
+                    Loader::getPlanet()->getTempMax()
                 );
 
                 $prod_energy_total = 0;
 
-                if ($data->getBuilding()['metal_mine'] > 0) {
-                    $energy = -$units->getEnergyConsumption($data->getBuilding()['metal_mine']);
+                if (Loader::getBuildingList()['metal_mine'] > 0) {
+                    $energy = -D_Units::getEnergyConsumption(Loader::getBuildingList()['metal_mine']);
                     $prod_energy_total += $energy;
 
-                    $lang_row['building_id'] = $units->getUnit(1);
-                    $lang_row['building_name'] = $units->getName(1);
+                    $lang_row['building_id'] = D_Units::getUnit(1);
+                    $lang_row['building_name'] = D_Units::getName(1);
                     $lang_row['building_production_metal'] = number_format($prod_metal, 0);
                     $lang_row['building_production_crystal'] = 0;
                     $lang_row['building_production_deuterium'] = 0;
                     $lang_row['building_production_energy'] = number_format($energy, 0);
-                    $lang_row['building_level'] = $data->getBuilding()->getMetalMine();
+                    $lang_row['building_level'] = Loader::getBuildingList()->getMetalMine();
 
-                    $lang_row['production_options'] = $this->generateProductionOptions($units->getUnit(1),
-                        $data->getPlanet()->getMetalMinePercent());
+                    $lang_row['production_options'] = $this->generateProductionOptions(D_Units::getUnit(1),
+                        Loader::getPlanet()->getMetalMinePercent());
                     $this->view->assign('lang', $lang_row);
 
                     $this->lang['resource_row'] .= $this->view->loadResourceRow();
                 }
 
-                if ($data->getBuilding()['crystal_mine'] > 0) {
-                    $energy = -$units->getEnergyConsumption($data->getBuilding()->getCrystalMine());
+                if (Loader::getBuildingList()['crystal_mine'] > 0) {
+                    $energy = -D_Units::getEnergyConsumption(Loader::getBuildingList()->getCrystalMine());
                     $prod_energy_total += $energy;
 
-                    $lang_row['building_id'] = $units->getUnit(2);
-                    $lang_row['building_name'] = $units->getName(2);
+                    $lang_row['building_id'] = D_Units::getUnit(2);
+                    $lang_row['building_name'] = D_Units::getName(2);
                     $lang_row['building_production_metal'] = 0;
                     $lang_row['building_production_crystal'] = number_format($prod_crystal, 0);
                     $lang_row['building_production_deuterium'] = 0;
                     $lang_row['building_production_energy'] = number_format($energy, 0);
-                    $lang_row['building_level'] = $data->getBuilding()->getCrystalMine();
+                    $lang_row['building_level'] = Loader::getBuildingList()->getCrystalMine();
 
-                    $lang_row['production_options'] = $this->generateProductionOptions($units->getUnit(2),
-                        $data->getPlanet()->getCrystalMinePercent());
+                    $lang_row['production_options'] = $this->generateProductionOptions(D_Units::getUnit(2),
+                        Loader::getPlanet()->getCrystalMinePercent());
 
                     $this->view->assign('lang', $lang_row);
 
                     $this->lang['resource_row'] .= $this->view->loadResourceRow();
                 }
 
-                if ($data->getBuilding()['deuterium_synthesizer'] > 0) {
-                    $energy = -$units->getEnergyConsumption($data->getBuilding()->getDeuteriumSynthesizer());
+                if (Loader::getBuildingList()['deuterium_synthesizer'] > 0) {
+                    $energy = -D_Units::getEnergyConsumption(Loader::getBuildingList()->getDeuteriumSynthesizer());
                     $prod_energy_total += $energy;
 
-                    $lang_row['building_id'] = $units->getUnit(3);
-                    $lang_row['building_name'] = $units->getName(3);
+                    $lang_row['building_id'] = D_Units::getUnit(3);
+                    $lang_row['building_name'] = D_Units::getName(3);
                     $lang_row['building_production_metal'] = 0;
                     $lang_row['building_production_crystal'] = 0;
                     $lang_row['building_production_deuterium'] = number_format($prod_deuterium, 0);
                     $lang_row['building_production_energy'] = number_format($energy, 0);
 
-                    $lang_row['building_level'] = $data->getBuilding()->getDeuteriumSynthesizer();
+                    $lang_row['building_level'] = Loader::getBuildingList()->getDeuteriumSynthesizer();
 
-                    $lang_row['production_options'] = $this->generateProductionOptions($units->getUnit(3),
-                        $data->getPlanet()->getDeuteriumSynthesizerPercent());
+                    $lang_row['production_options'] = $this->generateProductionOptions(D_Units::getUnit(3),
+                        Loader::getPlanet()->getDeuteriumSynthesizerPercent());
 
                     $this->view->assign('lang', $lang_row);
 
                     $this->lang['resource_row'] .= $this->view->loadResourceRow();
                 }
 
-                if ($data->getBuilding()['solar_plant'] > 0) {
+                if (Loader::getBuildingList()['solar_plant'] > 0) {
                     $energy = $prod_energy_array['solar_plant'];
                     $prod_energy_total += $energy;
 
                     $lang_row['building_id'] = 'solar_plant';
-                    $lang_row['building_name'] = $units->getName($units->getUnitID('solar_plant'));
+                    $lang_row['building_name'] = D_Units::getName(D_Units::getUnitID('solar_plant'));
                     $lang_row['building_production_metal'] = 0;
                     $lang_row['building_production_crystal'] = 0;
                     $lang_row['building_production_deuterium'] = 0;
                     $lang_row['building_production_energy'] = number_format($energy, 0);
-                    $lang_row['building_level'] = $data->getBuilding()['solar_plant'];
+                    $lang_row['building_level'] = Loader::getBuildingList()['solar_plant'];
 
-                    $lang_row['production_options'] = $this->generateProductionOptions($units->getUnit(4),
-                        $data->getPlanet()->getSolarPlantPercent());
+                    $lang_row['production_options'] = $this->generateProductionOptions(D_Units::getUnit(4),
+                        Loader::getPlanet()->getSolarPlantPercent());
 
                     $this->view->assign('lang', $lang_row);
 
                     $this->lang['resource_row'] .= $this->view->loadResourceRow();
                 }
 
-                if ($data->getBuilding()['fusion_reactor'] > 0) {
-                    $energy = $prod_energy_array[$units->getUnit(5)];
+                if (Loader::getBuildingList()['fusion_reactor'] > 0) {
+                    $energy = $prod_energy_array[D_Units::getUnit(5)];
                     $prod_energy_total += $energy;
 
-                    $lang_row['building_id'] = $units->getUnit(5);
-                    $lang_row['building_name'] = $units->getName(5);
+                    $lang_row['building_id'] = D_Units::getUnit(5);
+                    $lang_row['building_name'] = D_Units::getName(5);
                     $lang_row['building_production_metal'] = 0;
                     $lang_row['building_production_crystal'] = 0;
-                    $lang_row['building_production_deuterium'] = -10 * ($data->getPlanet()
+                    $lang_row['building_production_deuterium'] = -10 * (Loader::getPlanet()
                                 ->getFusionReactorPercent() / 100) * pow(1.1,
-                            ($data->getPlanet()->getFusionReactorPercent() / 100));
+                            (Loader::getPlanet()->getFusionReactorPercent() / 100));
                     $lang_row['building_production_energy'] = number_format($energy, 0);
 
-                    $lang_row['production_options'] = $this->generateProductionOptions($units->getUnit(5),
-                        $data->getPlanet()->getFusionReactorPercent());
+                    $lang_row['production_options'] = $this->generateProductionOptions(D_Units::getUnit(5),
+                        Loader::getPlanet()->getFusionReactorPercent());
 
-                    $lang_row['building_level'] = $data->getBuilding()->getSolarPlant();
+                    $lang_row['building_level'] = Loader::getBuildingList()->getSolarPlant();
 
                     $this->view->assign('lang', $lang_row);
 
                     $this->lang['resource_row'] .= $this->view->loadResourceRow();
                 }
 
-                if ($data->getFleet()['solar_satellite'] > 0) {
-                    $energy = $prod_energy_array[$units->getUnit(211)];
+                if (Loader::getFleetList()['solar_satellite'] > 0) {
+                    $energy = $prod_energy_array[D_Units::getUnit(211)];
                     $prod_energy_total += $energy;
 
-                    $lang_row['building_name'] = $units->getName(211);
+                    $lang_row['building_name'] = D_Units::getName(211);
                     $lang_row['building_production_metal'] = 0;
                     $lang_row['building_production_crystal'] = 0;
                     $lang_row['building_production_deuterium'] = 0;
                     $lang_row['building_production_energy'] = number_format($energy, 0);
-                    $lang_row['building_level'] = $data->getFleet()->getSolarSatellite();
+                    $lang_row['building_level'] = Loader::getFleetList()->getSolarSatellite();
 
-                    $lang_row['production_options'] = $this->generateProductionOptions($units->getUnit(211),
-                        $data->getPlanet()->getSolarSatellitePercent());
+                    $lang_row['production_options'] = $this->generateProductionOptions(D_Units::getUnit(211),
+                        Loader::getPlanet()->getSolarSatellitePercent());
 
                     $this->view->assign('lang', $lang_row);
 
@@ -236,9 +235,8 @@
 
         function handleGET() : void {
 
-            global $data;
             if (!empty($this->get['cp'])) {
-                $data->getUser()->setCurrentPlanet(intval($this->get['cp']));
+                Loader::getUser()->setCurrentPlanet(intval($this->get['cp']));
             }
         }
 
@@ -276,18 +274,18 @@
 
         function display() : void {
 
-            global $config, $debug;
+            global $debug;
 
             try {
                 $this->lang = array_merge($this->lang, $this->model->loadLanguage());
 
                 $this->view->assign('lang', $this->lang);
-                $this->view->assign('title', $config['game_name']);
-                $this->view->assign('skinpath', $config['skinpath']);
-                $this->view->assign('copyright', $config['copyright']);
-                $this->view->assign('language', $config['language']);
+                $this->view->assign('title', Config::$gameConfig['game_name']);
+                $this->view->assign('skinpath', Config::$gameConfig['skinpath']);
+                $this->view->assign('copyright', Config::$gameConfig['copyright']);
+                $this->view->assign('language', Config::$pathConfig['language']);
 
-                die($this->view->loadTemplate());
+                echo $this->view->loadTemplate();
 
             } catch (Exception $e) {
                 if (DEBUG) {

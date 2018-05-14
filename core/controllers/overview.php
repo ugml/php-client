@@ -21,7 +21,7 @@
          */
         function __construct($get, $post) {
 
-            global $data, $debug, $path, $config, $units;
+            global $debug;
 
             $this->model = new M_Overview();
 
@@ -37,41 +37,45 @@
                     self::handlePOST();
                 }
 
-                require_once($path['classes'] . "topbar.php");
+                require_once(Config::$pathConfig['classes'] . "topbar.php");
 
 
                 if (!empty($this->get['mode'])) {
                     switch ($this->get['mode']) {
                         case 'renameplanet':
-                            $this->lang['planet_id'] = $data->getUser()->getCurrentPlanet();
+                            $this->lang['planet_id'] = Loader::getUser()->getCurrentPlanet();
                             break;
                     }
                 } else {
-//                    $this->lang['galaxy_metal'] = number_format($data->getGalaxy()->getDebrisMetal(), 0);
-//                    $this->lang['galaxy_crystal'] = number_format($data->getGalaxy()->getDebrisCrystal(), 0);
+                    //                    $this->lang['galaxy_metal'] = number_format(Loader::getGalaxy()->getDebrisMetal(), 0);
+                    //                    $this->lang['galaxy_crystal'] = number_format(Loader::getGalaxy()->getDebrisCrystal(), 0);
                     $this->lang['time'] = time();
                 }
 
                 // currently building?
-                if ($data->getPlanet()->getBBuildingId() > 0) {
-                    $this->lang['building'] = $units->getName($data->getPlanet()->getBBuildingId()) ." ({level} ".($data->getBuilding()[$data->getPlanet()->getBBuildingId()]->getLevel()+1) .")<br />" .
-                        "<span class='timer'></span><script>timer(\"overview\", ".($data->getPlanet()->getBBuildingEndtime() - time()) .", 'timer', ". $data->getPlanet()->getBBuildingId() .", '');</script><br />" .
-                        "<a href='?page=building&cancel=".$data->getPlanet()->getBBuildingId()."'>{cancel}</a>";
+                if (Loader::getPlanet()->getBBuildingId() > 0) {
+                    $this->lang['building'] = D_Units::getName(Loader::getPlanet()
+                            ->getBBuildingId()) . " ({level} " . (Loader::getBuildingList()[Loader::getPlanet()
+                                ->getBBuildingId()]->getLevel() + 1) . ")<br />" .
+                        "<span class='timer'></span><script>timer(\"overview\", " . (Loader::getPlanet()
+                                ->getBBuildingEndtime() - time()) . ", 'timer', " . Loader::getPlanet()
+                            ->getBBuildingId() . ", '');</script><br />" .
+                        "<a href='?page=building&cancel=" . Loader::getPlanet()->getBBuildingId() . "'>{cancel}</a>";
                 } else {
                     $this->lang['building'] = 'free';
                 }
 
-                $this->lang['user_points'] = number_format($data->getUser()->getPoints(), 0);
-                $this->lang['user_rank'] = number_format($data->getUser()->getCurrentRank(), 0);
+                $this->lang['user_points'] = number_format(Loader::getUser()->getPoints(), 0);
+                $this->lang['user_rank'] = number_format(Loader::getUser()->getCurrentRank(), 0);
                 $this->lang['num_users'] = number_format($this->model->getNumUsers(), 0);
 
 
-
                 // TODO: if planet has moon -> show moon
-                $this->lang['moon_image'] = '<img src="'. $config['skinpath'] . '/planeten/small/s_mond.png" />';
+                $this->lang['moon_image'] = '<img src="' . Config::$gameConfig['skinpath'] . '/planeten/small/s_mond.png" />';
 
 
-                $this->lang['planet_image'] = $config['skinpath'] . 'planeten/' . $data->getPlanet()->getImage() . '.png';
+                $this->lang['planet_image'] = Config::$gameConfig['skinpath'] . 'planeten/' . Loader::getPlanet()
+                        ->getImage() . '.png';
 
 
             } catch (Exception $e) {
@@ -87,10 +91,9 @@
          * handles get-requests
          */
         function handleGET() : void {
-            global $data;
 
             if (!empty($this->get['cp'])) {
-                $data->getUser()->setCurrentPlanet(intval($this->get['cp']));
+                Loader::getUser()->setCurrentPlanet(intval($this->get['cp']));
             }
         }
 
@@ -122,18 +125,16 @@
          */
         function display() : void {
 
-            global $config;
-
             $view = new V_Overview();
 
             $this->lang = array_merge($this->lang, $this->model->loadLanguage());
 
             $view->assign('lang', $this->lang);
-            $view->assign('title', $config['game_name']);
-            $view->assign('skinpath', $config['skinpath']);
+            $view->assign('title', Config::$gameConfig['game_name']);
+            $view->assign('skinpath', Config::$gameConfig['skinpath']);
 
-            $view->assign('copyright', $config['copyright']);
-            $view->assign('language', $config['language']);
+            $view->assign('copyright', Config::$gameConfig['copyright']);
+            $view->assign('language', Config::$pathConfig['language']);
 
             if (!empty($this->get['mode'])) {
                 echo $view->loadTemplate($this->get['mode']);

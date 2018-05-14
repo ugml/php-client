@@ -6,9 +6,9 @@
 
         public function loadLanguage() {
 
-            global $path, $lang, $config;
+            global $lang;
 
-            require $path['language'] . $config['language'] . '/changelog.php';
+            require Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/changelog.php';
 
             return $lang;
         }

@@ -14,7 +14,7 @@
                         <div>
                             <a class="button" href="?page=galaxy&g={galaxy_pos_g_prev}&s={galaxy_pos_s}">&#8592;</a>
                             <form>
-                                <input type="text" name="g" value="{galaxy_pos_g}" disabled />
+                                <input type="text" name="g" value="{galaxy_pos_g}" disabled/>
                             </form>
                             <a class="button" href="?page=galaxy&g={galaxy_pos_g_next}&s={galaxy_pos_s}">&#8594;</a>
                         </div>
@@ -38,7 +38,7 @@
                         <div>
                             <a href="?page=galaxy&g={galaxy_pos_g}&s={galaxy_pos_s_prev}">&#8592;</a>
                             <form>
-                                <input type="text" name="s" value="{galaxy_pos_s}" disabled />
+                                <input type="text" name="s" value="{galaxy_pos_s}" disabled/>
                             </form>
                             <a href="?page=galaxy&g={galaxy_pos_g}&s={galaxy_pos_s_next}">&#8594;</a>
                         </div>
@@ -50,7 +50,9 @@
 
     <div class="col-md-1">&nbsp;</div> <!-- spacing -->
 
-    <div class="row"><div class="col-md-12">&nbsp;</div></div> <!-- spacing -->
+    <div class="row">
+        <div class="col-md-12">&nbsp;</div>
+    </div> <!-- spacing -->
 
     <div class="col-md-12">
         <div class="row">

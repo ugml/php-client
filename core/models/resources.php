@@ -11,23 +11,23 @@
          */
         public function loadLanguage() {
 
-            global $path, $config, $lang;
+            global $lang;
 
-            $file = $path['language'] . $config['language'] . '/resources.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/resources.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['language'] . $config['language'] . '/units.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['language'] . $config['language'] . '/menu.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/menu.php';
             if (file_exists($file)) {
                 require $file;
             } else {
@@ -45,9 +45,8 @@
          */
         public static function loadUserData($userID) {
 
-            global $path;
 
-            $file = $path['classes'] . 'loader.php';
+            $file = Config::$pathConfig['classes'] . 'loader.php';
             if (file_exists($file)) {
                 require $file;
             } else {
@@ -65,8 +64,6 @@
          */
         public static function updateProductionLevels($planetID, $levels) {
 
-            global $dbConfig;
-
             $query_values = '';
             foreach ($levels as $k => $v) {
                 // illegal values
@@ -83,7 +80,7 @@
             $dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
             $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'planets SET ' . rtrim($query_values,
+            $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET ' . rtrim($query_values,
                     ', ') . ' WHERE planetID = :planetid');
 
             $stmt->bindParam(':planetid', $planetID);

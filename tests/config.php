@@ -1,69 +1,69 @@
 <?php
 
 
-    define('INSIDE', true);
+    defined('INSIDE') OR exit('No direct script access allowed');
 
-    define('ROOT', dirname(dirname(__FILE__)));
+    define('DEBUG', true);
 
-    // enable debug-mode
-    define('DEBUG', false);
+    class Config {
 
-    $root = $_SERVER['DOCUMENT_ROOT'] . '/ugamela/';
+        public static $gameConfig;
+        public static $dbConfig;
+        public static $pathConfig;
+        public static $debugModeEnabled;
 
-    define('PRODUCTION', false);
+        private static $basepath;
 
+        private static $initialized = false;
 
-    $config = [
-        'basepath'   => $root . '',
-        'game_name'  => 'ugamela',
-        'copyright'  => 'Copyright by ugamela &copy; 2017',
-        'language'   => 'en',
-        'max_galaxy' => 9,
-        'max_system' => 100,
-        'max_planet' => 15,
-        'skinpath'   => 'skins/Maya/'
-    ];
+        static function init() {
 
-    $dbConfig = [
-        'host'   => '172.25.0.100',
-        'port'   => '3306',
-        'dbname' => 'ugamela',
-        'user'   => 'root',
-        'pass'   => '',
-        'prefix' => ''
-    ];
+            // check, if already initialized
+            if(self::$initialized) {
+                return;
+            }
+
+            self::$initialized = true;
+
+            self::$basepath = dirname(dirname(__FILE__)) . '/';
 
 
-    $base_income = [
-        'metal'     => 500,
-        'crystal'   => 250,
-        'deuterium' => 0,
-        'energy'    => 0
-    ];
+            self::$gameConfig = [
+                'game_name'  => 'ugamela',
+                'copyright'  => 'Copyright by ugamela &copy; 2017',
+                'language'   => 'en',
+                'max_galaxy' => 9,
+                'max_system' => 100,
+                'max_planet' => 15,
+                'base_income_metal'     => 500,
+                'base_income_crystal'   => 250,
+                'base_income_deuterium' => 0,
+                'base_income_energy'    => 0,
+                'skinpath'   => 'skins/Maya/'
+            ];
 
-    $path = [
-        'interfaces'  => $config['basepath'] . 'core/interfaces/',
-        'controllers' => $config['basepath'] . 'core/controllers/',
-        'models'      => $config['basepath'] . 'core/models/',
-        'views'       => $config['basepath'] . 'core/views/',
-        'classes'     => $config['basepath'] . 'core/classes/',
-        'data'        => $config['basepath'] . 'core/classes/data/',
-        'units'       => $config['basepath'] . 'core/classes/units/',
-        'language'    => $config['basepath'] . 'core/language/',
-        'templates'   => $config['basepath'] . 'core/templates/'
-    ];
+            self::$dbConfig = [
+                'host'   => 'localhost',
+                'port'   => '3306',
+                'dbname' => 'ugamela',
+                'user'   => 'root',
+                'pass'   => ''
+            ];
 
 
-    $lang['game_name'] = $config['game_name'];
-    $lang['language'] = $config['language'];
-    $lang['copyright'] = $config['copyright'];
 
-//    require_once $path['classes'] . 'debug.php';
+            self::$pathConfig = [
+                'core'        => self::$basepath . 'core/',
+                'interfaces'  => self::$basepath . 'core/interfaces/',
+                'controllers' => self::$basepath . 'core/controllers/',
+                'models'      => self::$basepath . 'core/models/',
+                'views'       => self::$basepath . 'core/views/',
+                'classes'     => self::$basepath . 'core/classes/',
+                'data'        => self::$basepath . 'core/classes/data/',
+                'units'       => self::$basepath . 'core/classes/units/',
+                'language'    => self::$basepath . 'core/language/',
+                'templates'   => self::$basepath . 'core/templates/'
+            ];
 
-//    $debug = new Debug();
-//
-//    if (DEBUG) {
-//        error_reporting(E_ALL & ~E_NOTICE);
-//        ini_set('display_errors', 1);
-//        require_once('LoggedPDO.php');
-//    }
+        }
+    }

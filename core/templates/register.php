@@ -5,16 +5,18 @@
     <a href="login.php"><img src="images/logo.png"/></a>
 
     <?php
-        if($this->_['success']) {
+
+        if ($this->_['success']) {
             ?>
-            <br /><br />
+            <br/><br/>
             <h2>{register_success}</h2>
-            <br />
+            <br/>
             <a href="login.php">{go_to_login}</a>
             <?php
+
         } else {
             ?>
-            <br />
+            <br/>
             <span>CLOSED</span>
             <span>ALPHA</span>
             <form action="" method="post" autocomplete="off">
@@ -26,9 +28,10 @@
                 <!--        <input type="checkbox" name="agb"/>{accept_tc}<br/>-->
                 <input type="submit" value="- {signup} -"/>
             </form>
-            <br />
+            <br/>
             <a href="login.php">Back to login</a>
             <?php
+
         }
     ?>
 

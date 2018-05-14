@@ -11,23 +11,23 @@
          */
         public function loadLanguage() {
 
-            global $path, $config, $lang;
+            global $lang;
 
-            $file = $path['language'] . $config['language'] . '/galaxy.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/galaxy.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['language'] . $config['language'] . '/units.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['language'] . $config['language'] . '/menu.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/menu.php';
             if (file_exists($file)) {
                 require $file;
             } else {
@@ -39,9 +39,11 @@
 
         public static function loadGalaxyData($galaxy, $system) {
 
-            global $dbConfig, $dbConnection;
+            global $debug;
 
             try {
+
+                $dbConnection = new Database();
 
                 $params = array(':galaxy' => $galaxy,
                                 ':system' => $system
@@ -55,7 +57,6 @@
                                              WHERE p.galaxy = :galaxy AND p.system = :system AND p.planet_type = 1 ORDER BY p.planet ASC');
 
 
-
                 $stmt->execute($params);
 
                 $rows = [];
@@ -64,14 +65,14 @@
                     $rows[$data->planet] = $data;
                 }
 
-//                echo "<pre>";
-//                print_r($rows);
-//                echo "</pre>";
-
                 return $rows;
 
             } catch (PDOException $e) {
-                die($e);
+                if (DEBUG) {
+                    $debug->addLog(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
+                } else {
+                    $debug->saveError(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
+                }
             }
         }
 
@@ -83,9 +84,8 @@
          */
         public static function loadUserData($userID) {
 
-            global $path;
 
-            $file = $path['classes'] . 'loader.php';
+            $file = Config::$pathConfig['classes'] . 'loader.php';
             if (file_exists($file)) {
                 require $file;
             } else {

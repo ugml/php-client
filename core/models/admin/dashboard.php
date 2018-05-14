@@ -11,16 +11,16 @@
          */
         public function loadLanguage() {
 
-            global $path, $config, $lang;
+            global $lang;
 
-            $file = $path['language'] . $config['language'] . '/admin/dashboard.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/admin/dashboard.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['language'] . $config['language'] . '/menu.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/menu.php';
             if (file_exists($file)) {
                 require $file;
             } else {
@@ -38,9 +38,8 @@
          */
         public static function loadUserData($userID) {
 
-            global $path;
 
-            $file = $path['classes'] . 'loader.php';
+            $file = Config::$pathConfig['classes'] . 'loader.php';
             if (file_exists($file)) {
                 require $file;
             } else {

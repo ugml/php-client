@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<phpunit bootstrap="./core/autoload.php">
+<phpunit bootstrap="./tests/bootstrap.php">
     <testsuites>
         <testsuite name="The project's test suite">
             <directory>./tests</directory>
@@ -10,16 +10,13 @@
         <whitelist>
             <directory suffix=".php">./</directory>
             <exclude>
-                <directory>./images/</directory>
-                <directory>./scripts/</directory>
-                <directory>./skins/</directory>
-                <directory>./tests/</directory>
-                <directory>./vendor/</directory>
+                <directory suffix=".php">./tests/</directory>
+                <directory suffix=".php">./vendor/</directory>
             </exclude>
         </whitelist>
     </filter>
 
     <logging>
-        <log type="coverage-xml" target="test/coverageData/coverage.xml" />
+        <log type="coverage-xml" target="build/coverageData/coverage.xml"/>
     </logging>
 </phpunit>

@@ -11,8 +11,8 @@
 
         /**
          * Unit constructor.
-         * @param int $uID            - the internal unit-id
-         * @param int $uAmount        - the current amount of the unit
+         * @param int   $uID            - the internal unit-id
+         * @param int   $uAmount        - the current amount of the unit
          * @param float $uCostMetal     - the metal-cost for one unit/first level
          * @param float $uCostCrystal   - the crystal-cost for one unit/first level
          * @param float $uCostDeuterium - the deuterium-cost for one unit/first level

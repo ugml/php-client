@@ -37,12 +37,10 @@
          * @throws FileNotFoundException
          */
         public function loadTemplate($mode = null) {
-
-            global $data;
-
-            // if($data->getPlanet()->getBBuildingId() > 0) {
+            
+            // if(Loader::getPlanet()->getBBuildingId() > 0) {
             //     //duration, container, buildingID
-            //     $this->_['lang']['cnt_script'] = '<script>(function() {timer('. ($data->getPlanet()->getBBuildingEndtime()-time()) .', document.getElementById("s_'. $data->getPlanet()->getBBuildingId() .'"),'. $data->getPlanet()->getBBuildingId() .');})();</script>';
+            //     $this->_['lang']['cnt_script'] = '<script>(function() {timer('. (Loader::getPlanet()->getBBuildingEndtime()-time()) .', document.getElementById("s_'. Loader::getPlanet()->getBBuildingId() .'"),'. Loader::getPlanet()->getBBuildingId() .');})();</script>';
             // } else {
             //     $fields['cnt_script'] = '';
             // }
@@ -56,21 +54,21 @@
 
         public function loadShipyardRows($buildings, $unitsBuilding, $planet) {
 
-            global $path, $config, $lang, $data, $units;
+            global $lang;
 
             $output = '';
 
             foreach ($unitsBuilding as $k => $v) {
 
                 // the key of the current research
-                $key = $units->getUnitID($v);
+                $key = D_Units::getUnitID($v);
 
                 $req_met = true;
 
                 // check requirements
-                if ($units->getRequirements($key) !== []) {
+                if (D_Units::getRequirements($key) !== []) {
 
-                    $req = $units->getRequirements($key);
+                    $req = D_Units::getRequirements($key);
 
                     foreach ($req as $bID => $lvl) {
 
@@ -81,12 +79,12 @@
 
                         // if requirement is a building
                         if ($bID < 100) {
-                            $level = ($data->getBuilding()[$bID])->getLevel();
+                            $level = (Loader::getBuildingList()[$bID])->getLevel();
                         }
 
                         // if requirement is a research
                         if ($bID > 100 && $bID < 200) {
-                            $level = ($data->getTech()[$bID])->getLevel();
+                            $level = (Loader::getTechList()[$bID])->getLevel();
                         }
 
                         if ($level < $lvl) {
@@ -99,18 +97,15 @@
                 if ($req_met) {
 
 
-                    $unitID = $units->getUnitID($v);
+                    $unitID = D_Units::getUnitID($v);
 
-                    $fleet = $data->getFleet()[$unitID];
+                    $fleet = Loader::getFleet()[$unitID];
 
                     $level = $fleet->getAmount();
 
-
-                    $pricelist = $units->getPriceList($unitID);
-
-                    $fields['s_name'] = $units->getName($unitID);
+                    $fields['s_name'] = D_Units::getName($unitID);
                     $fields['s_level'] = $level;
-                    $fields['s_description'] = $units->getDescription($unitID);
+                    $fields['s_description'] = D_Units::getDescription($unitID);
 
 
                     // get the price
@@ -129,19 +124,19 @@
                         $fields['s_disabled'] = 'disabled';
                     }
 
-                    $fields['s_image'] = $config['skinpath'] . 'gebaeude/' . $unitID . '.png';
+                    $fields['s_image'] = Config::$gameConfig['skinpath'] . 'gebaeude/' . $unitID . '.png';
                     $fields['s_metal'] = number_format(ceil($metal), 0);
                     $fields['s_crystal'] = number_format(ceil($crystal), 0);
                     $fields['s_deuterium'] = number_format(ceil($deuterium), 0);
 
 
-                    $duration = 3600 * $units->getBuildTime($fleet, 0,
-                            $data->getBuilding()[$units->getUnitID('shipyard')]->getLevel(),
-                            $data->getBuilding()[$units->getUnitID('nanite_factory')]->getLevel());
+                    $duration = 3600 * D_Units::getBuildTime($fleet, 0,
+                            Loader::getBuildingList()[D_Units::getUnitID('shipyard')]->getLevel(),
+                            Loader::getBuildingList()[D_Units::getUnitID('nanite_factory')]->getLevel());
 
                     //                $duration = 3600 * $units
-                    //                        ->getBuildTime($unitID, 0, $data->getBuilding()->getRoboticFactory(),
-                    //                            $data->getBuilding()->getShipyard(), $data->getBuilding()->getNaniteFactory());
+                    //                        ->getBuildTime($unitID, 0, Loader::getBuildingList()->getRoboticFactory(),
+                    //                            Loader::getBuildingList()->getShipyard(), Loader::getBuildingList()->getNaniteFactory());
 
                     $hours = floor($duration / 3600);
                     $minutes = floor(($duration / 60) % 60);
@@ -165,7 +160,7 @@
 
                     ob_start();
 
-                    $file = $path['templates'] . $this->template . '_row.php';
+                    $file = Config::$pathConfig['templates'] . $this->template . '_row.php';
                     if (file_exists($file)) {
                         include $file;
                     } else {
@@ -183,8 +178,8 @@
                 }
             }
 
-            if($output === '') {
-                $output .= '<div class="row"><div class="col-md-12"><div>'.$lang['no_fleet_available'].'</div></div></div>';
+            if ($output === '') {
+                $output .= '<div class="row"><div class="col-md-12"><div>' . $lang['no_fleet_available'] . '</div></div></div>';
             }
 
             return $output;

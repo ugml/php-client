@@ -94,6 +94,7 @@
 
         /**
          * Prints the object to the page
+         * @codeCoverageIgnore
          */
         public function print() : void {
 
@@ -115,9 +116,11 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setSmallCargoShip(int $small_cargo_ship) : void {
+        public function setSmallCargoShip(int $amount) : void {
 
-            $this->small_cargo_ship = $small_cargo_ship;
+            if ($amount >= 0) {
+                $this->small_cargo_ship = $amount;
+            }
         }
 
         /**
@@ -133,9 +136,11 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setLargeCargoShip(int $large_cargo_ship) : void {
+        public function setLargeCargoShip(int $amount) : void {
 
-            $this->large_cargo_ship = $large_cargo_ship;
+            if ($amount >= 0) {
+                $this->large_cargo_ship = $amount;
+            }
         }
 
         /**
@@ -151,9 +156,11 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setLightFighter(int $light_fighter) : void {
+        public function setLightFighter(int $amount) : void {
 
-            $this->light_fighter = $light_fighter;
+            if ($amount >= 0) {
+                $this->light_fighter = $amount;
+            }
         }
 
         /**
@@ -169,9 +176,11 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setHeavyFighter(int $heavy_fighter) : void {
+        public function setHeavyFighter(int $amount) : void {
 
-            $this->heavy_fighter = $heavy_fighter;
+            if ($amount >= 0) {
+                $this->heavy_fighter = $amount;
+            }
         }
 
         /**
@@ -187,9 +196,11 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setCruiser(int $cruiser) : void {
+        public function setCruiser(int $amount) : void {
 
-            $this->cruiser = $cruiser;
+            if ($amount >= 0) {
+                $this->cruiser = $amount;
+            }
         }
 
         /**
@@ -205,9 +216,11 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setBattleship(int $battleship) : void {
+        public function setBattleship(int $amount) : void {
 
-            $this->battleship = $battleship;
+            if ($amount >= 0) {
+                $this->battleship = $amount;
+            }
         }
 
         /**
@@ -223,9 +236,11 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setColonyShip(int $colony_ship) : void {
+        public function setColonyShip(int $amount) : void {
 
-            $this->colony_ship = $colony_ship;
+            if ($amount >= 0) {
+                $this->colony_ship = $amount;
+            }
         }
 
         /**
@@ -241,9 +256,11 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setRecycler(int $recycler) : void {
+        public function setRecycler(int $amount) : void {
 
-            $this->recycler = $recycler;
+            if ($amount >= 0) {
+                $this->recycler = $amount;
+            }
         }
 
         /**
@@ -259,9 +276,11 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setEspionageProbe(int $espionage_probe) : void {
+        public function setEspionageProbe(int $amount) : void {
 
-            $this->espionage_probe = $espionage_probe;
+            if ($amount >= 0) {
+                $this->espionage_probe = $amount;
+            }
         }
 
         /**
@@ -277,9 +296,11 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setBomber(int $bomber) : void {
+        public function setBomber(int $amount) : void {
 
-            $this->bomber = $bomber;
+            if ($amount >= 0) {
+                $this->bomber = $amount;
+            }
         }
 
         /**
@@ -295,9 +316,11 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setSolarSatellite(int $solar_satellite) : void {
+        public function setSolarSatellite(int $amount) : void {
 
-            $this->solar_satellite = $solar_satellite;
+            if ($amount >= 0) {
+                $this->solar_satellite = $amount;
+            }
         }
 
         /**
@@ -313,14 +336,16 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setDestroyer(int $destroyer) : void {
+        public function setDestroyer(int $amount) : void {
 
-            $this->destroyer = $destroyer;
+            if ($amount >= 0) {
+                $this->destroyer = $amount;
+            }
         }
 
         /**
          * Returns the current amount amount
-         * @return int the current amont
+         * @return int the current amount
          */
         public function getBattlecruiser() : int {
 
@@ -331,9 +356,11 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setBattlecruiser(int $battlecruiser) : void {
+        public function setBattlecruiser(int $amount) : void {
 
-            $this->battlecruiser = $battlecruiser;
+            if ($amount >= 0) {
+                $this->battlecruiser = $amount;
+            }
         }
 
         /**
@@ -349,9 +376,117 @@
          * Sets the current amount
          * @param int the current amount
          */
-        public function setDeathstar(int $deathstar) : void {
+        public function setDeathstar(int $amount) : void {
 
-            $this->deathstar = $deathstar;
+            if ($amount >= 0) {
+                $this->deathstar = $amount;
+            }
+        }
+
+        /**
+         * Return the level of the fleet, given its id
+         * @param int $id the fleet id
+         * @return int the level of the fleet
+         */
+        public function getFleetByID(int $id) : int {
+
+            switch ($id) {
+                case 201:
+                    return $this->getSmallCargoShip();
+                    break;
+                case 202:
+                    return $this->getLargeCargoShip();
+                    break;
+                case 203:
+                    return $this->getLightFighter();
+                    break;
+                case 204:
+                    return $this->getHeavyFighter();
+                    break;
+                case 205:
+                    return $this->getCruiser();
+                    break;
+                case 206:
+                    return $this->getBattleship();
+                    break;
+                case 207:
+                    return $this->getColonyShip();
+                    break;
+                case 208:
+                    return $this->getRecycler();
+                    break;
+                case 209:
+                    return $this->getEspionageProbe();
+                    break;
+                case 210:
+                    return $this->getBomber();
+                    break;
+                case 211:
+                    return $this->getSolarSatellite();
+                    break;
+                case 212:
+                    return $this->getDestroyer();
+                    break;
+                case 213:
+                    return $this->getBattlecruiser();
+                    break;
+                case 214:
+                    return $this->getDeathstar();
+                    break;
+            }
+        }
+
+        /**
+         * Sets the level of the fleet, given its id and new level
+         * @param int $id    the id of the fleet
+         * @param int $level the new level of the fleet
+         */
+        public function setFleetByID(int $id, int $level) {
+
+            switch ($id) {
+                case 201:
+                    $this->setSmallCargoShip($level);
+                    break;
+                case 202:
+                    $this->setLargeCargoShip($level);
+                    break;
+                case 203:
+                    $this->setLightFighter($level);
+                    break;
+                case 204:
+                    $this->setHeavyFighter($level);
+                    break;
+                case 205:
+                    $this->setCruiser($level);
+                    break;
+                case 206:
+                    $this->setBattleship($level);
+                    break;
+                case 207:
+                    $this->setColonyShip($level);
+                    break;
+                case 208:
+                    $this->setRecycler($level);
+                    break;
+                case 209:
+                    $this->setEspionageProbe($level);
+                    break;
+                case 210:
+                    $this->setBomber($level);
+                    break;
+                case 211:
+                    $this->setSolarSatellite($level);
+                    break;
+                case 212:
+                    $this->setDestroyer($level);
+                    break;
+                case 213:
+                    $this->setBattlecruiser($level);
+                    break;
+                case 214:
+                    $this->setDeathstar($level);
+                    break;
+            }
         }
 
     }

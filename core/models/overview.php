@@ -11,23 +11,23 @@
          */
         public function loadLanguage() : array {
 
-            global $path, $config, $lang;
+            global $lang;
 
-            $file = $path['language'] . $config['language'] . '/overview.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/overview.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['language'] . $config['language'] . '/units.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['language'] . $config['language'] . '/menu.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/menu.php';
             if (file_exists($file)) {
                 require $file;
             } else {
@@ -41,10 +41,10 @@
          * @return int the number of registered users
          */
         public function getNumUsers() : int {
-            global $dbConnection, $dbConfig;
 
+            $dbConnection = new Database();
 
-            $query = 'SELECT COUNT(userID) FROM ' . $dbConfig['prefix'] . 'users;';
+            $query = 'SELECT COUNT(userID) FROM ' . Config::$dbConfig['prefix'] . 'users;';
 
             $stmt = $dbConnection->prepare($query);
 

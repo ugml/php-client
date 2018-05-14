@@ -11,23 +11,23 @@
          */
         public function loadLanguage() {
 
-            global $path, $config, $lang;
+            global $lang;
 
-            $file = $path['language'] . $config['language'] . '/shipyard.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/shipyard.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['language'] . $config['language'] . '/units.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            $file = $path['language'] . $config['language'] . '/menu.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/menu.php';
             if (file_exists($file)) {
                 require $file;
             } else {
@@ -45,9 +45,8 @@
          */
         public function loadUserData($userID) {
 
-            global $path;
 
-            $file = $path['classes'] . 'loader.php';
+            $file = Config::$pathConfig['classes'] . 'loader.php';
             if (file_exists($file)) {
                 require $file;
             } else {
@@ -57,12 +56,10 @@
             return new Loader($userID);
         }
 
-        public function build(int $planetID, array $buildingQueue, int $costMetal, int $costCrystal,
-            int $costDeuterium) {
+        public function build(int $planetID, array $buildingQueue, int $costMetal, int $costCrystal, int $costDeuterium) {
+            global $debug;
 
-            global $dbConfig, $dbConnection, $data;
-
-            if ($data->getUser()
+            if (Loader::getUser()
                     ->getCurrentPlanet() != $planetID || $costMetal < 0 || $costCrystal < 0 || $costDeuterium < 0) {
                 throw new InvalidArgumentException('Passed arguments are not valid');
                 //break;
@@ -71,8 +68,8 @@
             try {
 
                 // append to current queue
-                if ($data->getPlanet()->getBHangarId() !== "0") {
-                    $buildingString = $data->getPlanet()->getBHangarId();
+                if (Loader::getPlanet()->getBHangarId() !== "0") {
+                    $buildingString = Loader::getPlanet()->getBHangarId();
                 }
 
                 foreach ($buildingQueue as $k => $v) {
@@ -85,13 +82,15 @@
                 $params = array(
                     ':b_hangar_start_time' => time(),
                     ':b_hangar_id'         => $buildingString,
-                    ':metal'               => $data->getPlanet()->getMetal() - $costMetal,
-                    ':crystal'             => $data->getPlanet()->getCrystal() - $costCrystal,
-                    ':deuterium'           => $data->getPlanet()->getDeuterium() - $costDeuterium,
+                    ':metal'               => Loader::getPlanet()->getMetal() - $costMetal,
+                    ':crystal'             => Loader::getPlanet()->getCrystal() - $costCrystal,
+                    ':deuterium'           => Loader::getPlanet()->getDeuterium() - $costDeuterium,
                     ':planetID'            => $planetID
                 );
 
-                $stmt = $dbConnection->prepare('UPDATE ' . $dbConfig['prefix'] . 'planets SET 
+                $dbConnection = new Databaser();
+
+                $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET 
                                             b_hangar_start_time = :b_hangar_start_time, 
                                             b_hangar_id = :b_hangar_id, 
                                             metal = :metal, 
@@ -101,7 +100,11 @@
 
                 $stmt->execute($params);
             } catch (PDOException $e) {
-                die($e);
+                if (DEBUG) {
+                    $debug->addLog(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
+                } else {
+                    $debug->saveError(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
+                }
             }
 
         }

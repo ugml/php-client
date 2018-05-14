@@ -13,8 +13,8 @@
         private $lang = null;
 
         private $model = null;
-        private $view = null;
 
+        private $view = null;
 
         private $currentGalaxy;
 
@@ -22,7 +22,7 @@
 
         function __construct($get, $post) {
 
-            global $data, $debug, $path;
+            global $debug;
 
             try {
 
@@ -40,7 +40,7 @@
                     self::handlePOST();
                 }
 
-                require_once($path['classes'] . "topbar.php");
+                require_once(Config::$pathConfig['classes'] . "topbar.php");
 
 
             } catch (Exception $e) {
@@ -54,10 +54,8 @@
 
         function handleGET() : void {
 
-
-            global $data;
             if (!empty($this->get['cp'])) {
-                $data->getUser()->setCurrentPlanet(intval($this->get['cp']));
+                Loader::getUser()->setCurrentPlanet(intval($this->get['cp']));
             }
 
             if (isset($this->get['g'])) {
@@ -91,8 +89,6 @@
 
         function display() : void {
 
-            global $config, $data;
-
             $v_lang = $this->model->loadLanguage();
             $galaxyData = $this->model->loadGalaxyData($this->currentGalaxy, $this->currentSystem);
 
@@ -100,35 +96,35 @@
             $this->lang['galaxy_list'] = $this->view->loadGalaxyRows($galaxyData);
 
             // check boundaries
-            if($this->currentGalaxy <= 1) {
+            if ($this->currentGalaxy <= 1) {
                 $this->currentGalaxy = 1;
                 $this->lang['galaxy_pos_g_prev'] = 1;
             } else {
-                $this->lang['galaxy_pos_g_prev'] = $this->currentGalaxy-1;
+                $this->lang['galaxy_pos_g_prev'] = $this->currentGalaxy - 1;
             }
 
             // check boundaries
-            if($this->currentGalaxy >= $config['max_galaxy']) {
-                $this->currentGalaxy = $config['max_galaxy'];
-                $this->lang['galaxy_pos_g_next'] = $config['max_galaxy'];
+            if ($this->currentGalaxy >= Config::$gameConfig['max_galaxy']) {
+                $this->currentGalaxy = Config::$gameConfig['max_galaxy'];
+                $this->lang['galaxy_pos_g_next'] = Config::$gameConfig['max_galaxy'];
             } else {
-                $this->lang['galaxy_pos_g_next'] = $this->currentGalaxy+1;
+                $this->lang['galaxy_pos_g_next'] = $this->currentGalaxy + 1;
             }
 
             // check boundaries
-            if($this->currentSystem <= 1) {
+            if ($this->currentSystem <= 1) {
                 $this->currentSystem = 1;
                 $this->lang['galaxy_pos_s_prev'] = 1;
             } else {
-                $this->lang['galaxy_pos_s_prev'] = $this->currentSystem-1;
+                $this->lang['galaxy_pos_s_prev'] = $this->currentSystem - 1;
             }
 
             // check boundaries
-            if($this->currentSystem >= $config['max_system']) {
-                $this->currentSystem = $config['max_system'];
-                $this->lang['galaxy_pos_s_next'] = $config['max_system'];
+            if ($this->currentSystem >= Config::$gameConfig['max_system']) {
+                $this->currentSystem = Config::$gameConfig['max_system'];
+                $this->lang['galaxy_pos_s_next'] = Config::$gameConfig['max_system'];
             } else {
-                $this->lang['galaxy_pos_s_next'] = $this->currentSystem+1;
+                $this->lang['galaxy_pos_s_next'] = $this->currentSystem + 1;
             }
 
 
@@ -147,10 +143,10 @@
 
 
             $this->view->assign('lang', $this->lang);
-            $this->view->assign('title', $config['game_name']);
-            $this->view->assign('skinpath', $config['skinpath']);
-            $this->view->assign('copyright', $config['copyright']);
-            $this->view->assign('language', $config['language']);
+            $this->view->assign('title', Config::$gameConfig['game_name']);
+            $this->view->assign('skinpath', Config::$gameConfig['skinpath']);
+            $this->view->assign('copyright', Config::$gameConfig['copyright']);
+            $this->view->assign('language', Config::$pathConfig['language']);
 
             if (!empty($this->get['mode'])) {
                 echo $this->view->loadTemplate($this->get['mode']);

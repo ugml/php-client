@@ -39,12 +39,13 @@
         <li><a href="logout.php" style="color: rgb(175, 12, 12);">{logout}</a></li>
         <li><img src="<?php echo $this->_['skinpath']; ?>gfx/info-help.png" alt="info-help"/></li>
 
-        <li><a href="https://github.com/mamen/ugamela/issues"  style="color: rgb(219, 162, 28);" target="_blank">{bug_report}</a></li>
+        <li><a href="https://github.com/mamen/ugamela/issues" style="color: rgb(219, 162, 28);" target="_blank">{bug_report}</a>
+        </li>
         <li><a href="https://discord.gg/YDUHM3k" style="color: rgb(114, 137, 218);" target="_blank">{chat}</a></li>
 
         <!--<li><a href="game.php?page=rules">{rules}</a></li>-->
         <!--<li><a href="game.php?page=imprint">{imprint}</a></li>-->
 
-<!--        {admin_link}-->
+        <!--        {admin_link}-->
     </ul>
 </div>

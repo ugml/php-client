@@ -7,9 +7,11 @@
     class C_Login implements I_Controller {
 
         private $get = null;
+
         private $post = null;
 
         private $view = null;
+
         private $model = null;
 
         private $skin = 'css/login.css';
@@ -22,12 +24,14 @@
             $this->view = new V_Login();
             $this->model = new M_Login();
 
+
+
             if (!empty($get)) {
-                self::handleGET();
+                $this->handleGET();
             }
 
             if (!empty($post)) {
-                self::handlePOST();
+                $this->handlePOST();
             }
 
         }
@@ -59,13 +63,13 @@
 
         function display() : void {
 
-            global $config;
+
 
             $this->view->assign('lang', $this->model->loadLanguage());
-            $this->view->assign('title', $config['game_name']);
+            $this->view->assign('title', Config::$gameConfig['game_name']);
             $this->view->assign('skinpath', $this->skin);
-            $this->view->assign('copyright', $config['copyright']);
-            $this->view->assign('language', $config['language']);
+            $this->view->assign('copyright', Config::$gameConfig['copyright']);
+            $this->view->assign('language', Config::$pathConfig['language']);
 
             echo $this->view->loadTemplate();
         }

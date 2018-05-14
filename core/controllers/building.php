@@ -4,7 +4,6 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-
     class C_Building implements I_Controller {
 
         private $get = null;
@@ -12,6 +11,7 @@
         private $post = null;
 
         private $model = null;
+
         private $view = null;
 
         private $lang = null;
@@ -23,7 +23,7 @@
          */
         function __construct($get, $post) {
 
-            global $data, $debug, $path;
+            global $debug;
 
             try {
 
@@ -41,7 +41,7 @@
                     self::handlePOST();
                 }
 
-                require_once($path['classes'] . "topbar.php");
+                require_once(Config::$pathConfig['classes'] . "topbar.php");
 
             } catch (Exception $e) {
                 if (DEBUG) {
@@ -57,11 +57,9 @@
          */
         function handleGET() : void {
 
-            global $data;
-
             // change current planet
             if (!empty($this->get['cp'])) {
-                $data->getUser()->setCurrentPlanet(intval($this->get['cp']));
+                Loader::getUser()->setCurrentPlanet(intval($this->get['cp']));
             }
 
             if (isset($this->get['build'])) {
@@ -80,7 +78,7 @@
                 }
             }
 
-            if (isset($this->get['cancel']) && $data->getPlanet()->getBBuildingID() > 0) {
+            if (isset($this->get['cancel']) && Loader::getPlanet()->getBBuildingID() > 0) {
 
                 $id = intval(filter_input(INPUT_GET, 'cancel', FILTER_VALIDATE_INT));
 
@@ -88,7 +86,7 @@
                 if (isset($id) && $id != null) {
                     if ($id > 0) {
 
-                        if ($data->getPlanet()->getBBuildingID() == $id) {
+                        if (Loader::getPlanet()->getBBuildingID() == $id) {
                             $this->cancel($id);
                         } else {
                             throw new InvalidArgumentException("cancelID does not match currently building id");
@@ -109,36 +107,34 @@
          */
         function build($buildID) : void {
 
-            global $data, $debug, $units;
+            global $debug;
 
             try {
-                if ($buildID < 1 || $buildID > 99 || !array_key_exists($buildID, $units->getBuildings())) {
+                if ($buildID < 1 || $buildID > 99 || !array_key_exists($buildID, D_Units::getBuildings())) {
                     throw new InvalidArgumentException("ID out of range");
                 }
 
                 //build it only, if there is not already a building in the queue
-                if ($data->getPlanet()->getBBuildingId() == 0) {
+                if (Loader::getPlanet()->getBBuildingId() == 0) {
 
-                    $units = new D_Units();
+                    $level = Loader::getBuildingList()[$buildID]->getLevel();
 
-                    $level = $data->getBuilding()[$buildID]->getLevel();
-
-                    $metal = $data->getBuilding()[$buildID]->getCostMetal();
-                    $crystal = $data->getBuilding()[$buildID]->getCostCrystal();
-                    $deuterium = $data->getBuilding()[$buildID]->getCostDeuterium();
+                    $metal = Loader::getBuildingList()[$buildID]->getCostMetal();
+                    $crystal = Loader::getBuildingList()[$buildID]->getCostCrystal();
+                    $deuterium = Loader::getBuildingList()[$buildID]->getCostDeuterium();
 
 
-                    if ($data->getPlanet()->getMetal() >= $metal &&
-                        $data->getPlanet()->getCrystal() >= $crystal &&
-                        $data->getPlanet()->getDeuterium() >= $deuterium) {
+                    if (Loader::getPlanet()->getMetal() >= $metal &&
+                        Loader::getPlanet()->getCrystal() >= $crystal &&
+                        Loader::getPlanet()->getDeuterium() >= $deuterium) {
 
-                        $n_metal = $data->getPlanet()->getMetal() - $metal;
-                        $n_crystal = $data->getPlanet()->getCrystal() - $crystal;
-                        $n_deuterium = $data->getPlanet()->getDeuterium() - $deuterium;
+                        $n_metal = Loader::getPlanet()->getMetal() - $metal;
+                        $n_crystal = Loader::getPlanet()->getCrystal() - $crystal;
+                        $n_deuterium = Loader::getPlanet()->getDeuterium() - $deuterium;
 
                         $toLvl = $level + 1;
 
-                        $this->model->build($data->getPlanet()->getPlanetId(), $buildID, $toLvl, $n_metal, $n_crystal,
+                        $this->model->build(Loader::getPlanet()->getPlanetId(), $buildID, $toLvl, $n_metal, $n_crystal,
                             $n_deuterium);
                         header("Refresh:0");
                     }
@@ -160,15 +156,12 @@
          */
         function cancel($buildID) : void {
 
-            global $data;
+            if (Loader::getPlanet()->getBBuildingId() == $buildID && Loader::getPlanet()
+                    ->getBBuildingEndtime() > time()) {
 
-            if ($data->getPlanet()->getBBuildingId() == $buildID && $data->getPlanet()->getBBuildingEndtime() > time()) {
+                $pricelist = D_Units::getPriceList($buildID);
 
-                $units = new D_Units();
-
-                $pricelist = $units->getPriceList($buildID);
-
-                $level = $data->getBuilding()[$buildID]->getLevel();
+                $level = Loader::getBuildingList()[$buildID]->getLevel();
 
                 $metal = $pricelist['metal'];
                 $crystal = $pricelist['crystal'];
@@ -181,7 +174,7 @@
                     $deuterium *= $pricelist['factor'];
                 }
 
-                $this->model->cancel($data->getPlanet()->getPlanetId(), $metal, $crystal, $deuterium);
+                $this->model->cancel(Loader::getPlanet()->getPlanetId(), $metal, $crystal, $deuterium);
             }
 
             header("Refresh:0");
@@ -201,14 +194,12 @@
          */
         function display() : void {
 
-            global $config, $data, $units;
-
             $v_lang = $this->model->loadLanguage();
 
             // load the individual rows for each building
 
-            $this->lang['building_list'] = $this->view->loadBuildingRows($data->getBuilding(),
-                $units->getBuildings(), $data->getPlanet());
+            $this->lang['building_list'] = $this->view->loadBuildingRows(Loader::getBuildingList(),
+                D_Units::getBuildings(), Loader::getPlanet());
 
             if (is_array($this->lang) && is_array($v_lang)) {
                 $this->lang = array_merge($this->lang, $v_lang);
@@ -220,10 +211,10 @@
 
 
             $this->view->assign('lang', $this->lang);
-            $this->view->assign('title', $config['game_name']);
-            $this->view->assign('skinpath', $config['skinpath']);
-            $this->view->assign('copyright', $config['copyright']);
-            $this->view->assign('language', $config['language']);
+            $this->view->assign('title', Config::$gameConfig['game_name']);
+            $this->view->assign('skinpath', Config::$gameConfig['skinpath']);
+            $this->view->assign('copyright', Config::$gameConfig['copyright']);
+            $this->view->assign('language', Config::$gameConfig['language']);
 
             if (!empty($this->get['mode'])) {
                 echo $this->view->loadTemplate($this->get['mode']);

@@ -35,15 +35,14 @@
 
         function display() {
 
-            global $config;
 
             $view = new V_Dashboard();
 
             $view->assign('lang', M_Dashboard::loadLanguage());
-            $view->assign('title', $config['game_name']);
+            $view->assign('title', Config::$gameConfig['game_name']);
             $view->assign('skinpath', $this->skin);
-            $view->assign('copyright', $config['copyright']);
-            $view->assign('language', $config['language']);
+            $view->assign('copyright', Config::$gameConfig['copyright']);
+            $view->assign('language', Config::$pathConfig['language']);
 
             echo $view->loadTemplate();
         }
