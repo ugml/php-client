@@ -28,6 +28,9 @@ CREATE TABLE `buildings` (
   `missile_silo` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `buildings` (`planetID`, `metal_mine`, `crystal_mine`, `deuterium_synthesizer`, `solar_plant`, `fusion_reactor`, `robotic_factory`, `nanite_factory`, `shipyard`, `metal_storage`, `crystal_storage`, `deuterium_storage`, `research_lab`, `terraformer`, `alliance_depot`, `missile_silo`) VALUES
+(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
 CREATE TABLE `defenses` (
   `planetID` int(11) NOT NULL,
   `rocket_launcher` int(11) NOT NULL DEFAULT 0,
@@ -41,6 +44,9 @@ CREATE TABLE `defenses` (
   `anti_ballistic_missile` int(11) NOT NULL DEFAULT 0,
   `interplanetary_missile` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `defenses` (`planetID`, `rocket_launcher`, `light_laser`, `heavy_laser`, `ion_cannon`, `gauss_cannon`, `plasma_turret`, `small_shield_dome`, `large_shield_dome`, `anti_ballistic_missile`, `interplanetary_missile`) VALUES
+(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 CREATE TABLE `errors` (
   `id` int(11) NOT NULL,
@@ -69,6 +75,9 @@ CREATE TABLE `fleet` (
   `battlecruiser` int(11) NOT NULL DEFAULT 0,
   `deathstar` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `fleet` (`planetID`, `small_cargo_ship`, `large_cargo_ship`, `light_fighter`, `heavy_fighter`, `cruiser`, `battleship`, `colony_ship`, `recycler`, `espionage_probe`, `bomber`, `solar_satellite`, `destroyer`, `battlecruiser`, `deathstar`) VALUES
+(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 CREATE TABLE `flights` (
   `flightID` int(11) NOT NULL,
@@ -140,12 +149,19 @@ CREATE TABLE `planets` (
   `destroyed` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `planets` (`planetID`, `ownerID`, `name`, `galaxy`, `system`, `planet`, `last_update`, `planet_type`, `image`, `diameter`, `fields_current`, `fields_max`, `temp_min`, `temp_max`, `metal`, `crystal`, `deuterium`, `energy_used`, `energy_max`, `metal_mine_percent`, `crystal_mine_percent`, `deuterium_synthesizer_percent`, `solar_plant_percent`, `fusion_reactor_percent`, `solar_satellite_percent`, `b_building_id`, `b_building_endtime`, `b_tech_id`, `b_tech_endtime`, `b_hangar_id`, `b_hangar_start_time`, `b_hangar_plus`, `destroyed`) VALUES
+(1, 1, 'Planet', 1, 1, 1, 1526333212, 1, 'asdf.jpg', 123, 0, 123, 12, 50, 100000.000000, 100000.000000, 500.000000, 0, 0, 100, 100, 100, 100, 100, 100, NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(2, 1, 'Planet2', 1, 1, 2, 1526333212, 1, 'asdf.jpg', 123, 0, 123, 12, 50, 100000.000000, 100000.000000, 500.000000, 0, 0, 100, 100, 100, 100, 100, 100, NULL, NULL, NULL, NULL, NULL, 0, 0, 0);
+
 CREATE TABLE `stats` (
   `userID` int(11) NOT NULL,
   `points` bigint(11) NOT NULL DEFAULT 0,
   `old_rank` tinyint(4) NOT NULL DEFAULT 0,
   `rank` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `stats` (`userID`, `points`, `old_rank`, `rank`) VALUES
+(1, 0, 0, 0);
 
 CREATE TABLE `techs` (
   `userID` int(11) NOT NULL,
@@ -166,6 +182,9 @@ CREATE TABLE `techs` (
   `graviton_tech` tinyint(2) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `techs` (`userID`, `espionage_tech`, `computer_tech`, `weapon_tech`, `armour_tech`, `shielding_tech`, `energy_tech`, `hyperspace_tech`, `combustion_drive_tech`, `impulse_drive_tech`, `hyperspace_drive_tech`, `laser_tech`, `ion_tech`, `plasma_tech`, `intergalactic_research_tech`, `graviton_tech`) VALUES
+(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
 CREATE TABLE `users` (
   `userID` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -174,6 +193,9 @@ CREATE TABLE `users` (
   `onlinetime` varchar(10) NOT NULL,
   `currentplanet` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `users` (`userID`, `username`, `password`, `email`, `onlinetime`, `currentplanet`) VALUES
+(1, 'admin', '$2y$10$DqC6oDDukX3bAMC5LDc/z.6T2GZwWbw355HWX3FVyeOcqoF8Tvcua', 'admin@a.at', '1526375269', 1);
 
 
 ALTER TABLE `buildings`
