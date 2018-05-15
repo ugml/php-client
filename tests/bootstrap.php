@@ -6,6 +6,13 @@
 
     require_once 'config.php';
 
+    // initialize config
+    Config::init();
+
+    require_once Config::$pathConfig['classes'] . '/debug.php';
+
+    $debug = new Debug();
+
     spl_autoload_register(function (string $className) {
         // classes have the naming convention [FirstLetterOfType]_Name
         // e.g. the Data-class of a planet would be D_Planet
@@ -59,7 +66,6 @@
     });
 
 
-    // initialize config
-    Config::init();
+
 
 

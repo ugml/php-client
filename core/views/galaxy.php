@@ -72,14 +72,14 @@
 
                 // if there is a planet at this position
                 if (array_key_exists($i, $galaxyData)) {
-                    $fields['galaxy_planetimg'] = "<img width='32px' height='32px' src=\"" . Config::$gameConfig['skinpath'] . "/planeten/small/s_" . $galaxyData[$i]->image . ".png\" />";
+                    $fields['galaxy_planetimg'] = "<img width='32px' height='32px' src=\"" . Config::$gameConfig['skinpath'] . "planeten/small/s_" . $galaxyData[$i]->image . ".png\" />";
 
 
                     $fields['galaxy_name'] = $galaxyData[$i]->name;
 
 
                     if (intval($galaxyData[$i]->moonID) > 0) {
-                        $fields['galaxy_moon'] = "<img width='32px' height='32px' src=\"" . Config::$gameConfig['skinpath'] . "/planeten/mond.png\" />";
+                        $fields['galaxy_moon'] = "<img width='32px' height='32px' src=\"" . Config::$gameConfig['skinpath'] . "planeten/mond.png\" />";
                     } else {
                         $fields['galaxy_moon'] = "";
                     }
@@ -87,7 +87,7 @@
 
                     // TODO: mouse-over for more details
                     if ($galaxyData[$i]->debris_metal > 0 || $galaxyData[$i]->debris_crystal > 0) {
-                        $fields['galaxy_debris'] = "<img src=\"" . Config::$gameConfig['skinpath'] . "/images/debris.png\" />";
+                        $fields['galaxy_debris'] = "<img src=\"" . Config::$gameConfig['skinpath'] . "images/debris.png\" />";
                     } else {
                         $fields['galaxy_debris'] = "-";
                     }
@@ -127,18 +127,18 @@
                         // if player has espionage-probes
                         if (Loader::getFleetList()[209]->getAmount() > 0) {
                             // TODO: create link
-                            $fields['galaxy_actions'] .= "<img src=\"" . Config::$gameConfig['skinpath'] . "/images/e.gif\" />&nbsp;";
+                            $fields['galaxy_actions'] .= "<i class=\"far fa-eye\"></i>&nbsp;&nbsp;";
                         }
 
                         // TODO: create link
-                        $fields['galaxy_actions'] .= "<img src=\"" . Config::$gameConfig['skinpath'] . "/images/m.gif\" />&nbsp;";
+                        $fields['galaxy_actions'] .= "<i class=\"far fa-envelope-open\"></i>&nbsp;&nbsp;";
 
                         // TODO: if not already butty
-                        $fields['galaxy_actions'] .= "<img src=\"" . Config::$gameConfig['skinpath'] . "/images/b.gif\" />&nbsp;";
+                        $fields['galaxy_actions'] .= "<i class=\"fas fa-user-plus\"></i>&nbsp;&nbsp;";
 
                         // TODO: if in range
                         if (Loader::getDefenseList()[310]->getAmount() > 0) {
-                            $fields['galaxy_actions'] .= "<img src=\"" . Config::$gameConfig['skinpath'] . "/images/r.gif\" />";
+                            $fields['galaxy_actions'] .= "<i class=\"fas fa-bullseye\"></i>";
                         }
                     }
 

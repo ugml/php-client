@@ -117,6 +117,14 @@
                         $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET b_building_id = :b_building_id, b_building_endtime = :b_building_endtime, metal = :metal, crystal = :crystal, deuterium = :deuterium WHERE planetID = :planetID;');
 
                         $stmt->execute($params);
+
+
+                        Loader::getPlanet()->setBBuildingId($buildID);
+                        Loader::getPlanet()->setBBuildingEndtime($buildTime);
+                        Loader::getPlanet()->setMetal($metal);
+                        Loader::getPlanet()->setCrystal($crystal);
+                        Loader::getPlanet()->setDeuterium($deuterium);
+
                     } catch (PDOException $e) {
                         if (DEBUG) {
                             $debug->addLog(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());
@@ -151,6 +159,12 @@
                         $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET b_building_id = 0, b_building_endtime = 0, metal = metal+:metal, crystal = crystal+:crystal, deuterium = deuterium+:deuterium WHERE planetID = :planetID;');
 
                         $stmt->execute($params);
+
+                        Loader::getPlanet()->setBBuildingId(null);
+                        Loader::getPlanet()->setBBuildingEndtime(null);
+                        Loader::getPlanet()->setMetal(Loader::getPlanet()->getMetal() + $metal);
+                        Loader::getPlanet()->setCrystal(Loader::getPlanet()->getCrystal() + $crystal);
+                        Loader::getPlanet()->setDeuterium(Loader::getPlanet()->getDeuterium() + $deuterium);
                     } catch (PDOException $e) {
                         if (DEBUG) {
                             $debug->addLog(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());

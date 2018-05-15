@@ -6,7 +6,7 @@
     class Database {
 
         /** @var null|PDO the database connection object */
-        private $dbConnection = null;
+        private static $dbConnection = null;
 
         /**
          * Database constructor.
@@ -15,17 +15,17 @@
         function __construct() {
 
             // if the connection was already made, return the connection-object
-            if ($this->dbConnection != null) {
-                return $this->dbConnection;
+            if (self::$dbConnection != null) {
+                return self::$dbConnection;
             }
 
-            $this->dbConnection = new PDO('mysql:host=' . Config::$dbConfig['host'] . ':'.Config::$dbConfig['port'].';dbname=' . Config::$dbConfig['dbname'],
+            self::$dbConnection = new PDO('mysql:host=' . Config::$dbConfig['host'] . ':'.Config::$dbConfig['port'].';dbname=' . Config::$dbConfig['dbname'],
                 Config::$dbConfig['user'], Config::$dbConfig['pass']);
 
-            $this->dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-            $this->dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            self::$dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+            self::$dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            return $this->dbConnection;
+            return self::$dbConnection;
         }
 
         /**
@@ -34,7 +34,7 @@
          * @return PDOStatement a prepared PDO-query
          */
         function prepare($query) : PDOStatement {
-            return $this->dbConnection->prepare($query);
+            return self::$dbConnection->prepare($query);
         }
 
         /**
@@ -42,8 +42,8 @@
          * @codeCoverageIgnore
          */
         function printLog() {
-            if (get_class($this->dbConnection) === "LoggedPDO") {
-                $this->dbConnection->printLog();
+            if (get_class(self::$dbConnection) === "LoggedPDO") {
+                self::$dbConnection->printLog();
             }
         }
 
