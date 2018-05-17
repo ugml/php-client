@@ -30,23 +30,6 @@
             return $lang;
         }
 
-        /**
-         * loads all relevant user-information (planet, buildings, fleet, tech, defense etc.)
-         * @param $userID the user id
-         * @return Loader an object containing all the information
-         * @throws FileNotFoundException
-         */
-        public static function loadUserData($userID) {
 
-
-            $file = Config::$pathConfig['classes'] . 'loader.php';
-            if (file_exists($file)) {
-                require $file;
-            } else {
-                throw new FileNotFoundException('File \'' . $file . '\' not found');
-            }
-
-            return new Loader($userID);
-        }
 
     }

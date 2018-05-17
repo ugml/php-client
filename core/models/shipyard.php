@@ -88,7 +88,7 @@
                     ':planetID'            => $planetID
                 );
 
-                $dbConnection = new Databaser();
+                $dbConnection = new Database();
 
                 $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET 
                                             b_hangar_start_time = :b_hangar_start_time, 
@@ -99,6 +99,11 @@
                                         WHERE planetID = :planetID;');
 
                 $stmt->execute($params);
+
+                Loader::getPlanet()->setMetal(Loader::getPlanet()->getMetal() - $costMetal);
+                Loader::getPlanet()->setCrystal(Loader::getPlanet()->getCrystal() - $costCrystal);
+                Loader::getPlanet()->setDeuterium(Loader::getPlanet()->getDeuterium() - $costDeuterium);
+
             } catch (PDOException $e) {
                 if (DEBUG) {
                     $debug->addLog(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());

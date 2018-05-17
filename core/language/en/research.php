@@ -7,6 +7,7 @@
     $lang['no_research_available'] = "There are currently no technologies available to research.";
 
     $lang['build'] = "Research";
+    $lang['cancel'] = "Cancel";
 
     $lang['upgrade'] = "Upgrade to level %s";
     $lang['requirements'] = "Requirements";

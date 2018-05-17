@@ -119,7 +119,7 @@
                         tech.shielding_tech AS tech_shielding_tech,
                         tech.energy_tech AS tech_energy_tech,
                         tech.hyperspace_tech AS tech_hyperspace_tech,
-                        tech.combustion_drive_tech AS tech_combustion_tech,
+                        tech.combustion_drive_tech AS tech_combustion_drive_tech,
                         tech.impulse_drive_tech AS tech_impulse_drive_tech,
                         tech.hyperspace_drive_tech AS tech_hyperspace_drive_tech,
                         tech.laser_tech AS tech_laser_tech,
@@ -306,13 +306,13 @@
                         self::$techData->setTechByID($i + 100, $dResearch[$i - 1]);
 
                         self::$techList[$i + 100] = new U_Research(
-                            $i,
+                            $i + 100,
                             $dResearch[$i - 1],
-                            D_Units::getPriceList($i)['metal'],
-                            D_Units::getPriceList($i)['crystal'],
-                            D_Units::getPriceList($i)['deuterium'],
-                            D_Units::getPriceList($i)['energy'],
-                            D_Units::getPriceList($i)['factor']
+                            D_Units::getPriceList($i + 100)['metal'],
+                            D_Units::getPriceList($i + 100)['crystal'],
+                            D_Units::getPriceList($i + 100)['deuterium'],
+                            D_Units::getPriceList($i + 100)['energy'],
+                            D_Units::getPriceList($i + 100)['factor']
                         );
                     }
 
@@ -325,14 +325,16 @@
                         self::$fleetData->setFleetByID($i + 200, $dFleet[$i - 1]);
 
                         self::$fleetList[$i + 200] = new U_Fleet(
-                            $i,
+                            $i + 200,
                             $dFleet[$i - 1],
-                            D_Units::getPriceList($i)['metal'],
-                            D_Units::getPriceList($i)['crystal'],
-                            D_Units::getPriceList($i)['deuterium'],
-                            D_Units::getPriceList($i)['energy'],
-                            D_Units::getPriceList($i)['factor']
+                            D_Units::getPriceList($i+200)['metal'],
+                            D_Units::getPriceList($i+200)['crystal'],
+                            D_Units::getPriceList($i+200)['deuterium'],
+                            D_Units::getPriceList($i+200)['energy'],
+                            D_Units::getPriceList($i+200)['factor']
                         );
+
+
                     }
 
                     self::$defenseData = new D_Defense(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -344,13 +346,13 @@
                         self::$defenseData->setDefenseByID($i + 300, $dDefense[$i - 1]);
 
                         self::$defenseList[$i + 300] = new U_Defense(
-                            $i,
+                            $i + 300,
                             $dDefense[$i - 1],
-                            D_Units::getPriceList($i)['metal'],
-                            D_Units::getPriceList($i)['crystal'],
-                            D_Units::getPriceList($i)['deuterium'],
-                            D_Units::getPriceList($i)['energy'],
-                            D_Units::getPriceList($i)['factor']
+                            D_Units::getPriceList($i + 300)['metal'],
+                            D_Units::getPriceList($i + 300)['crystal'],
+                            D_Units::getPriceList($i + 300)['deuterium'],
+                            D_Units::getPriceList($i + 300)['energy'],
+                            D_Units::getPriceList($i + 300)['factor']
                         );
                     }
 

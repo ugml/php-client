@@ -74,32 +74,11 @@
 
 
     // load the controller
-    switch ($page) {
-        case 'overview':
-            $controller = new C_Overview($_GET, $_POST);
-            break;
-        case 'resources':
-            $controller = new C_Resources($_GET, $_POST);
-            break;
-        case 'building':
-            $controller = new C_Building($_GET, $_POST);
-            break;
-        case 'research':
-            $controller = new C_Research($_GET, $_POST);
-            break;
-        case 'shipyard':
-            $controller = new C_Shipyard($_GET, $_POST);
-            break;
-        case 'galaxy':
-            $controller = new C_Galaxy($_GET, $_POST);
-            break;
-        case 'settings':
-            $controller = new C_Settings($_GET, $_POST);
-            break;
-        case 'changelog':
-            $controller = new C_Changelog($_GET, $_POST);
-            break;
-    }
+    $className = 'C_' . ucfirst($page);
+
+    $controller = new $className($_GET, $_POST);
+
+
 
     $lang['admin_link'] = ($userID == 1) ? '<li><a href="admin.php" style="color:lime;"><i class="fa fa-user-circle-o"></i> Admin</a></li>' : 'x';
 

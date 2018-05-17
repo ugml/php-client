@@ -308,10 +308,10 @@
                 // check if research finished
                 if ($this->b_tech_id > 0 && $this->b_tech_endtime > 0 && $this->b_tech_endtime <= $time) {
 
-                    $level = Loader::getTechList()[D_Units::getUnit($this->b_tech_id)]->getLevel();
+                    $level = Loader::getTechList()[$this->b_tech_id]->getLevel();
 
                     // update the building level
-                    $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'techs SET ' . D_Units::getUnit($this->b_tech_id) . ' = ' . ($level + 1));
+                    $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'techs SET ' . D_Units::getUnitName($this->b_tech_id) . ' = ' . ($level + 1));
 
                     $stmt->execute();
 
@@ -320,28 +320,30 @@
 
                 $someShipsFinished = false;
 
-
-                // TODO
                 // check if hangar finished
                 if ($this->b_hangar_id != null && $this->b_hangar_id != "" && $this->b_hangar_id != 0) {
 
                     $shipQueueRows = explode(";", $this->b_hangar_id);
-
-                    $timePassedSinceStart = $time - $this->b_hangar_start_time;
                     $totalBuildTimePassed = 0;
 
                     $i = 0;
 
                     $shipsLeftArray = [];
 
+                    $skip = false;
+
+                    $queuePos = 1;
+
                     foreach ($shipQueueRows as $key => $value) {
+
+                        $timePassedSinceStart = $time - $this->b_hangar_start_time;
+
                         $exp = explode(",", $value);
 
                         $unitID = intval($exp[0]);
                         $unitCnt = intval($exp[1]);
 
                         if ($unitID > 0 && $unitCnt > 0) {
-
 
                             $durationForOneUnit = 3600 * D_Units::getBuildTime(Loader::getFleetList()[$unitID],
                                     Loader::getBuildingList()[6]->getLevel(), Loader::getBuildingList()[8]->getLevel(),
@@ -350,61 +352,92 @@
                             $shipFinishedCnt = floor($timePassedSinceStart / $durationForOneUnit);
 
                             // at least one ship was finished
-                            if ($shipFinishedCnt > 0) {
+                            if ($shipFinishedCnt > 0 && !$skip) {
+
+                                $someShipsFinished = true;
 
                                 if ($shipFinishedCnt > $unitCnt) {
+
                                     $shipFinishedCnt = $unitCnt;
-                                    $timePassedSinceStart -= $durationForOneUnit * $shipFinishedCnt;
 
                                     $totalBuildTimePassed += $durationForOneUnit * $shipFinishedCnt;
-
                                     // delete row in buildqueue
                                     unset($shipQueueRows[$i]);
+                                    $i++;
 
+                                    // set the new start-time
+                                    $this->b_hangar_start_time += round($totalBuildTimePassed);
                                 } else {
-                                    $timePassedSinceStart -= $durationForOneUnit * $shipFinishedCnt;
 
                                     $totalBuildTimePassed += $durationForOneUnit * $shipFinishedCnt;
 
-                                    // update row in buildqueue
-                                    $shipsLeftArray[$i] = array($unitID => ($unitCnt - $shipFinishedCnt));
-                                    $i++;
+                                    echo "time passed: " . $totalBuildTimePassed . "<br />";
+
+                                    // add rest of the ships to the queue
+                                    array_push($shipsLeftArray, array($unitID => ($unitCnt - $shipFinishedCnt)));
+
+                                    // set the new start-time
+                                    $this->b_hangar_start_time += round($totalBuildTimePassed);
+
+                                    // skip the rest of the queue
+                                    $skip = true;
                                 }
 
 
+                                // add the newly built ships
                                 $currentShipCount = Loader::getFleetList()[$unitID]->getAmount();
 
                                 $newShipCount = $currentShipCount + $shipFinishedCnt;
 
-                                Loader::getFleetList()[$unitID]->setAmount($newShipCount);
+                                Loader::getFleetList()[$unitID]->setAmount(intval($newShipCount));
 
-
-                                // TODO: BUG! only first row of queue will be written to DB!
-                                //                                print_r($shipsLeftArray);
-
-                                $shipQueue = "";
-                                for ($i = 0; $i < sizeof($shipsLeftArray); $i++) {
-                                    if (intval($shipsLeftArray[$i][key($shipsLeftArray[$i])]) > 0) {
-                                        $shipQueue .= key($shipsLeftArray[$i]) . "," . $shipsLeftArray[$i][key($shipsLeftArray[$i])] . ";\n";
-                                    }
-                                }
-
-                                $this->b_hangar_id = $shipQueue;
-
-                                // update the building level
+                                // update new shipcount in database
                                 $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'fleet SET ' . D_Units::getUnitName($unitID) . ' = ' . ($newShipCount) . ' WHERE planetId = ' . $this->planetID);
 
                                 $stmt->execute();
 
+                            } else {
+                                // keep the ships in the queue
+                                array_push($shipsLeftArray, array($unitID => $unitCnt));
+
+                                if($queuePos = 1) {
+                                    $skip = true;
+                                }
                             }
                         }
 
+
+                        $queuePos++;
                     }
+
+                    if($someShipsFinished) {
+                        // build new queue
+                        $shipQueue = "";
+                        for ($i = 0; $i < sizeof($shipsLeftArray); $i++) {
+                            if (intval($shipsLeftArray[$i][key($shipsLeftArray[$i])]) > 0) {
+                                $shipQueue .= key($shipsLeftArray[$i]) . "," . $shipsLeftArray[$i][key($shipsLeftArray[$i])] . ";\n";
+                            }
+                        }
+
+                        // append the rest of the queue
+                        foreach($shipsLeftArray as $shipID => $amount) {
+                            if(ctype_digit($shipID) && intval($shipID) > 0 &&
+                                ctype_digit($amount) && intval($amount > 0)){
+                                $shipQueue .= $shipID . "," . ";\n";
+                            }
+                        }
+
+                        echo "queue: " . $shipQueue . "<br />";
+
+                        // set new queue
+                        $this->b_hangar_id = $shipQueue;
+                    }
+
+
+
 
                     if (strlen($this->b_hangar_id) == 0) {
                         $this->b_hangar_start_time = 0;
-                    } else {
-                        $this->b_hangar_start_time = $this->b_hangar_start_time + $totalBuildTimePassed;
                     }
 
                     $query .= ', b_hangar_start_time = :b_hangar_start_time, b_hangar_id = :b_hangar_id ';

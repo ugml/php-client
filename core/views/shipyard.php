@@ -52,11 +52,15 @@
             return parent::mergeTemplates($this->template, $this->_);
         }
 
-        public function loadShipyardRows($buildings, $unitsBuilding, $planet) {
+        public function loadShipyardRows() {
 
             global $lang;
 
             $output = '';
+
+            $unitsBuilding = D_Units::getFleet();
+
+            $planet = Loader::getPlanet();
 
             foreach ($unitsBuilding as $k => $v) {
 
@@ -96,10 +100,9 @@
 
                 if ($req_met) {
 
-
                     $unitID = D_Units::getUnitID($v);
 
-                    $fleet = Loader::getFleet()[$unitID];
+                    $fleet = Loader::getFleetList()[$unitID];
 
                     $level = $fleet->getAmount();
 
@@ -133,10 +136,6 @@
                     $duration = 3600 * D_Units::getBuildTime($fleet, 0,
                             Loader::getBuildingList()[D_Units::getUnitID('shipyard')]->getLevel(),
                             Loader::getBuildingList()[D_Units::getUnitID('nanite_factory')]->getLevel());
-
-                    //                $duration = 3600 * $units
-                    //                        ->getBuildTime($unitID, 0, Loader::getBuildingList()->getRoboticFactory(),
-                    //                            Loader::getBuildingList()->getShipyard(), Loader::getBuildingList()->getNaniteFactory());
 
                     $hours = floor($duration / 3600);
                     $minutes = floor(($duration / 60) % 60);
