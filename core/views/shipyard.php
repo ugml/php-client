@@ -45,6 +45,48 @@
             //     $fields['cnt_script'] = '';
             // }
 
+            if(Loader::getPlanet()->getBHangarStartTime() > 0) {
+
+                $queue = explode(";", Loader::getPlanet()->getBHangarId());
+
+                $totalTimeLeft = 0;
+                $timeLeftForCurrentUnit = 0;
+
+                $first = true;
+
+                foreach ($queue as $key => $value) {
+
+                    if(strlen($value) > 0) {
+
+                        $data = explode(",", $value);
+
+                        $unitID = $data[0];
+                        $amount = $data[1];
+
+                        $durationForOneUnit = 3600 * D_Units::getBuildTime(Loader::getFleetList()[$unitID],
+                                Loader::getBuildingList()[6]->getLevel(), Loader::getBuildingList()[8]->getLevel(),
+                                Loader::getBuildingList()[7]->getLevel());
+
+                        $totalTimeLeft += $durationForOneUnit * $amount;
+
+                        $timeLeftForCurrentUnit = $durationForOneUnit - (time() - Loader::getPlanet()->getBHangarStartTime());
+
+                        if($first) {
+                            $this->_['lang']['currently_building'] = D_Units::getUnitName($unitID);
+                            $this->_['lang']['current_time_left'] = floor($timeLeftForCurrentUnit);
+
+                            $first = false;
+                        }
+
+                        $this->_['lang']['current_queue'] .= "<option>" . $amount . " " . D_Units::getUnitName($unitID) . "</option>\n";
+                    }
+                }
+
+                $this->_['lang']['current_time_left'] = $totalTimeLeft - (time() - Loader::getPlanet()->getBHangarStartTime());
+
+            }
+
+
             if ($mode != null) {
                 $this->template .= '_' . $mode;
             }
