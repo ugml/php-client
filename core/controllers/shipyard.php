@@ -113,9 +113,9 @@
 
                     $pricelist = D_Units::getPriceList($shipID);
 
-//                    echo $shipID;
-//                    echo "<br />";
-//                    print_r($pricelist);
+                    //                    echo $shipID;
+                    //                    echo "<br />";
+                    //                    print_r($pricelist);
 
                     $maxBuildable = 0;
 
@@ -172,7 +172,8 @@
 
             }
 
-            $this->model->build(intval(Loader::getPlanet()->getPlanetId()), $buildList, intval($totalMetal), intval($totalMetal), intval($totalDeuterium));
+            $this->model->build(intval(Loader::getPlanet()->getPlanetId()), $buildList, intval($totalMetal),
+                intval($totalMetal), intval($totalDeuterium));
 
         }
 

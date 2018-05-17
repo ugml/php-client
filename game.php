@@ -79,7 +79,6 @@
     $controller = new $className($_GET, $_POST);
 
 
-
     $lang['admin_link'] = ($userID == 1) ? '<li><a href="admin.php" style="color:lime;"><i class="fa fa-user-circle-o"></i> Admin</a></li>' : 'x';
 
     // get coords for galaxy menu-link

@@ -1,6 +1,7 @@
 <?php
 
     declare(strict_types = 1);
+
     use PHPUnit\Framework\TestCase;
 
     /**
@@ -11,10 +12,6 @@
     class DataFleetTest extends TestCase {
 
         private $fleetData;
-
-        protected function setUp() : void {
-            $this->fleetData = new D_Fleet(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-        }
 
         /**
          * @covers D_Fleet::setBomber
@@ -140,5 +137,9 @@
         public function testGetSetCruiser() {
             $this->fleetData->setCruiser(5);
             $this->assertSame(5, $this->fleetData->getCruiser());
+        }
+
+        protected function setUp() : void {
+            $this->fleetData = new D_Fleet(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
         }
     }

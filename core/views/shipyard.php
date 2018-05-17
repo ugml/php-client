@@ -37,7 +37,7 @@
          * @throws FileNotFoundException
          */
         public function loadTemplate($mode = null) {
-            
+
             // if(Loader::getPlanet()->getBBuildingId() > 0) {
             //     //duration, container, buildingID
             //     $this->_['lang']['cnt_script'] = '<script>(function() {timer('. (Loader::getPlanet()->getBBuildingEndtime()-time()) .', document.getElementById("s_'. Loader::getPlanet()->getBBuildingId() .'"),'. Loader::getPlanet()->getBBuildingId() .');})();</script>';

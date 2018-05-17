@@ -33,7 +33,7 @@
         static function init() {
 
             // check, if already initialized
-            if(self::$initialized) {
+            if (self::$initialized) {
                 return;
             }
 

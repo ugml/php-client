@@ -117,8 +117,4 @@
 
             return 0;
         }
-
-        public function loadUserData($userID) {
-
-        }
     }

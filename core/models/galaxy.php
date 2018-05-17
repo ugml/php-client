@@ -4,39 +4,6 @@
 
     class M_Galaxy implements I_Model {
 
-        /**
-         * loads the required language files
-         * @return array the loaded language-array
-         * @throws FileNotFoundException
-         */
-        public function loadLanguage() {
-
-            global $lang;
-
-            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/galaxy.php';
-            if (file_exists($file)) {
-                require $file;
-            } else {
-                throw new FileNotFoundException('File \'' . $file . '\' not found');
-            }
-
-            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
-            if (file_exists($file)) {
-                require $file;
-            } else {
-                throw new FileNotFoundException('File \'' . $file . '\' not found');
-            }
-
-            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/menu.php';
-            if (file_exists($file)) {
-                require $file;
-            } else {
-                throw new FileNotFoundException('File \'' . $file . '\' not found');
-            }
-
-            return $lang;
-        }
-
         public static function loadGalaxyData($galaxy, $system) {
 
             global $debug;
@@ -76,6 +43,37 @@
             }
         }
 
+        /**
+         * loads the required language files
+         * @return array the loaded language-array
+         * @throws FileNotFoundException
+         */
+        public function loadLanguage() {
 
+            global $lang;
+
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/galaxy.php';
+            if (file_exists($file)) {
+                require $file;
+            } else {
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
+            }
+
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
+            if (file_exists($file)) {
+                require $file;
+            } else {
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
+            }
+
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/menu.php';
+            if (file_exists($file)) {
+                require $file;
+            } else {
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
+            }
+
+            return $lang;
+        }
 
     }

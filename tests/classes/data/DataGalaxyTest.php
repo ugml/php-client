@@ -13,10 +13,6 @@
 
         private $galaxyData;
 
-        protected function setUp() : void {
-            $this->galaxyData = new D_Galaxy(1, 1);
-        }
-
         /**
          * @covers D_Galaxy::setDebrisMetal
          * @covers D_Galaxy::getDebrisMetal
@@ -33,6 +29,10 @@
         public function testGetSetCrystalMine() : void {
             $this->galaxyData->setDebrisCrystal(3356);
             $this->assertSame(3356, $this->galaxyData->getDebrisCrystal());
+        }
+
+        protected function setUp() : void {
+            $this->galaxyData = new D_Galaxy(1, 1);
         }
 
     }

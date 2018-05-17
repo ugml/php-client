@@ -13,10 +13,6 @@
 
         private $buildingData;
 
-        protected function setUp() : void {
-            $this->buildingData = new D_Building(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-        }
-
         /**
          * @covers D_Building::setMetalMine
          * @covers D_Building::getMetalMine
@@ -150,6 +146,10 @@
         public function testGetSetMissileSilo() : void {
             $this->buildingData->setMissileSilo(5);
             $this->assertSame(5, $this->buildingData->getMissileSilo());
+        }
+
+        protected function setUp() : void {
+            $this->buildingData = new D_Building(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
         }
 
     }

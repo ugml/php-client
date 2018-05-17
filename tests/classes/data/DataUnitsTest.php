@@ -13,10 +13,6 @@
 
         private $units;
 
-        protected function setUp() : void {
-            $this->units = new D_Units();
-        }
-
         /**
          * @covers D_Units::getUnitID
          */
@@ -355,6 +351,10 @@
             $level = 13;
 
             $this->assertSame(10 * $level * pow(1.1, $level), $this->units->getEnergyConsumption($level));
+        }
+
+        protected function setUp() : void {
+            $this->units = new D_Units();
         }
 
     }

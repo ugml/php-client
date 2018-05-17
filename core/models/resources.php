@@ -5,6 +5,38 @@
     class M_Resources implements I_Model {
 
         /**
+         * updates the production levels for each ressource-producing building
+         * @param $planetID the current planet id
+         * @param $levels   the level of the building (or the amount of a unit)
+         * @throws InvalidArgumentException
+         */
+        public static function updateProductionLevels($planetID, $levels) {
+
+            $query_values = '';
+            foreach ($levels as $k => $v) {
+                // illegal values
+                if ($v > 100 || $v < 0 || $v == null || !is_numeric($v) || $v % 10 != 0) {
+                    throw new InvalidArgumentException('updateProductionLevels only accepts integers');
+                } else {
+                    $query_values .= $k . '_percent = \'' . $v . '\', ';
+                }
+            }
+
+            // update the planet
+            $dbConnection = connectToDB();
+
+            $dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+            $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET ' . rtrim($query_values,
+                    ', ') . ' WHERE planetID = :planetid');
+
+            $stmt->bindParam(':planetid', $planetID);
+
+            $stmt->execute();
+        }
+
+        /**
          * loads the required language files
          * @return array the loaded language-array
          * @throws FileNotFoundException
@@ -35,40 +67,6 @@
             }
 
             return $lang;
-        }
-
-
-
-        /**
-         * updates the production levels for each ressource-producing building
-         * @param $planetID the current planet id
-         * @param $levels   the level of the building (or the amount of a unit)
-         * @throws InvalidArgumentException
-         */
-        public static function updateProductionLevels($planetID, $levels) {
-
-            $query_values = '';
-            foreach ($levels as $k => $v) {
-                // illegal values
-                if ($v > 100 || $v < 0 || $v == null || !is_numeric($v) || $v % 10 != 0) {
-                    throw new InvalidArgumentException('updateProductionLevels only accepts integers');
-                } else {
-                    $query_values .= $k . '_percent = \'' . $v . '\', ';
-                }
-            }
-
-            // update the planet
-            $dbConnection = connectToDB();
-
-            $dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-            $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET ' . rtrim($query_values,
-                    ', ') . ' WHERE planetID = :planetid');
-
-            $stmt->bindParam(':planetid', $planetID);
-
-            $stmt->execute();
         }
 
     }

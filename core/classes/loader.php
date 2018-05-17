@@ -28,12 +28,10 @@
 
         private static $fleetList = [];
 
-
         private static $initialized = false;
 
-
         public function __construct($userID) {
-            if(!self::$initialized) {
+            if (!self::$initialized) {
                 self::init($userID);
                 self::$initialized = true;
             }
@@ -327,11 +325,11 @@
                         self::$fleetList[$i + 200] = new U_Fleet(
                             $i + 200,
                             $dFleet[$i - 1],
-                            D_Units::getPriceList($i+200)['metal'],
-                            D_Units::getPriceList($i+200)['crystal'],
-                            D_Units::getPriceList($i+200)['deuterium'],
-                            D_Units::getPriceList($i+200)['energy'],
-                            D_Units::getPriceList($i+200)['factor']
+                            D_Units::getPriceList($i + 200)['metal'],
+                            D_Units::getPriceList($i + 200)['crystal'],
+                            D_Units::getPriceList($i + 200)['deuterium'],
+                            D_Units::getPriceList($i + 200)['energy'],
+                            D_Units::getPriceList($i + 200)['factor']
                         );
 
 

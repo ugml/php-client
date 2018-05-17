@@ -82,6 +82,47 @@
         }
 
         /**
+         * Return the level of the defense, given its id
+         * @param int $id the defense id
+         * @return int the level of the defense
+         */
+        public function getDefenseByID(int $id) : int {
+
+            switch ($id) {
+                case 301:
+                    $this->getRocketLauncher();
+                    break;
+                case 302:
+                    $this->getLightLaser();
+                    break;
+                case 303:
+                    $this->getHeavyLaser();
+                    break;
+                case 304:
+                    $this->getGaussCannon();
+                    break;
+                case 305:
+                    $this->getIonCannon();
+                    break;
+                case 306:
+                    $this->getPlasmaTurret();
+                    break;
+                case 307:
+                    $this->getSmallShieldDome();
+                    break;
+                case 308:
+                    $this->getLargeShieldDome();
+                    break;
+                case 309:
+                    $this->getAntiBallisticMissile();
+                    break;
+                case 310:
+                    $this->getInterplanetaryMissile();
+                    break;
+            }
+        }
+
+        /**
          * Returns the current amount
          * @return int the current amount
          */
@@ -141,26 +182,6 @@
         }
 
         /**
-         * Returns the current amount amount
-         * @return int the current amount
-         */
-        public function getIonCannon() : int {
-
-            return $this->ion_cannon;
-        }
-
-        /**
-         * Sets the current amount
-         * @param int $ion_cannon the new amount
-         */
-        public function setIonCannon(int $amount) : void {
-
-            if ($amount >= 0) {
-                $this->ion_cannon = $amount;
-            }
-        }
-
-        /**
          * Returns the current amount
          * @return int the current amount
          */
@@ -177,6 +198,26 @@
 
             if ($amount >= 0) {
                 $this->gauss_cannon = $amount;
+            }
+        }
+
+        /**
+         * Returns the current amount amount
+         * @return int the current amount
+         */
+        public function getIonCannon() : int {
+
+            return $this->ion_cannon;
+        }
+
+        /**
+         * Sets the current amount
+         * @param int $ion_cannon the new amount
+         */
+        public function setIonCannon(int $amount) : void {
+
+            if ($amount >= 0) {
+                $this->ion_cannon = $amount;
             }
         }
 
@@ -277,47 +318,6 @@
 
             if ($amount >= 0) {
                 $this->interplanetary_missile = $amount;
-            }
-        }
-
-        /**
-         * Return the level of the defense, given its id
-         * @param int $id the defense id
-         * @return int the level of the defense
-         */
-        public function getDefenseByID(int $id) : int {
-
-            switch ($id) {
-                case 301:
-                    $this->getRocketLauncher();
-                    break;
-                case 302:
-                    $this->getLightLaser();
-                    break;
-                case 303:
-                    $this->getHeavyLaser();
-                    break;
-                case 304:
-                    $this->getGaussCannon();
-                    break;
-                case 305:
-                    $this->getIonCannon();
-                    break;
-                case 306:
-                    $this->getPlasmaTurret();
-                    break;
-                case 307:
-                    $this->getSmallShieldDome();
-                    break;
-                case 308:
-                    $this->getLargeShieldDome();
-                    break;
-                case 309:
-                    $this->getAntiBallisticMissile();
-                    break;
-                case 310:
-                    $this->getInterplanetaryMissile();
-                    break;
             }
         }
 

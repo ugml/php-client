@@ -13,10 +13,6 @@
 
         private $userData;
 
-        protected function setUp() : void {
-            $this->userData = new D_User(123, "testname", "email@mail.at", time(), 584, 0, 0, 0);
-        }
-
         /**
          * @covers D_User::setUserID
          * @covers D_User::getUserID
@@ -110,6 +106,10 @@
         public function testGetSetOldRank() : void {
             $this->userData->setOldRank(15);
             $this->assertSame(15, $this->userData->getOldRank());
+        }
+
+        protected function setUp() : void {
+            $this->userData = new D_User(123, "testname", "email@mail.at", time(), 584, 0, 0, 0);
         }
 
     }

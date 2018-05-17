@@ -13,10 +13,6 @@
 
         private $techData;
 
-        protected function setUp() : void {
-            $this->techData = new D_Tech(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-        }
-
         /**
          * @covers D_Tech::setEspionageTech
          * @covers D_Tech::getEspionageTech
@@ -150,6 +146,10 @@
         public function testGetSetGravitonTech() : void {
             $this->techData->setGravitonTech(5);
             $this->assertSame(5, $this->techData->getGravitonTech());
+        }
+
+        protected function setUp() : void {
+            $this->techData = new D_Tech(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
         }
 
     }
