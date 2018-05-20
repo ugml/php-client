@@ -53,24 +53,25 @@
                 $this->_['lang']['queue'] = "<div class=\"col-md-12\">
                                                 <div class=\"row\">
                                                         <div class=\"col-md-12 content-header\">
-                                                            Currently building
+                                                             ". $this->_['lang']["queue_heading"] ."
                                                         </div>
                                                         <div class=\"col-md-12 content-body\">
                                                             <div class=\"row\">
                                                                 <div class=\"col-md-12 text-center\">
                                                                     <div>
                                                                         {currently_building} <span id=\"shipyard_timeleft\"></span> <br /><br />
-                                                                        Current queue:<br />
-                                                                        <select size=\"5\" style=\"width: 200px\" id='shipyard_queue'>
+                                                                        ". $this->_['lang']["queue_current"] .":<br />
+                                                                        <select size=\"5\" id='shipyard_queue'>
                                                                             {current_queue}
                                                                         </select> <br />
-                                                                        Total time left: <span id=\"shipyard_total_timeleft\"></span>
+                                                                        ". $this->_['lang']["queue_total_time_left"] .": <span id=\"shipyard_total_timeleft\"></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                 </div>
-                                            </div>";
+                                            </div>
+                                            <div class=\"col-md-12\">&nbsp;</div>";
 
 
                 $queue = explode(";", Loader::getPlanet()->getBHangarId());
