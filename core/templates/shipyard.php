@@ -4,9 +4,6 @@
 
     {queue}
 
-    <!--// ogame: countdown of same units
-    // if different unit is next in the queue, reload the page-->
-
     <div class="col-md-12">
         <div class="row">
             <form action="game.php?page=shipyard" method="post">
@@ -24,7 +21,8 @@
     </div>
 </div>
 
-<script src=""></script>
+<script src="scripts/shipyard.js"></script>
+{queue_script}
 
 <!--            <div id="page">-->
 <!---->

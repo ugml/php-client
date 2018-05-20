@@ -50,15 +50,27 @@
             if(Loader::getPlanet()->getBHangarStartTime() > 0) {
 
 
-                $this->_['lang']['queue'] = "<div class=\"col-md-12 text-center\">
-                                                <b>Current Queue:</b><br />
-                                                {currently_building} {current_time_left} <br />
-                                                <select size=\"10\" style=\"width: 200px\">
-                                                    {current_queue}
-                                                </select> <br />
-                                                {total_time_left}
+                $this->_['lang']['queue'] = "<div class=\"col-md-12\">
+                                                <div class=\"row\">
+                                                        <div class=\"col-md-12 content-header\">
+                                                            Currently building
+                                                        </div>
+                                                        <div class=\"col-md-12 content-body\">
+                                                            <div class=\"row\">
+                                                                <div class=\"col-md-12 text-center\">
+                                                                    <div>
+                                                                        {currently_building} <span id=\"shipyard_timeleft\"></span> <br /><br />
+                                                                        Current queue:<br />
+                                                                        <select size=\"5\" style=\"width: 200px\" id='shipyard_queue'>
+                                                                            {current_queue}
+                                                                        </select> <br />
+                                                                        Total time left: <span id=\"shipyard_total_timeleft\"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
                                             </div>";
-
 
 
                 $queue = explode(";", Loader::getPlanet()->getBHangarId());
@@ -77,6 +89,10 @@
                         $unitID = $data[0];
                         $amount = $data[1];
 
+                        // current time left
+                        // time for one unit
+                        // {buildingname => count}
+
                         $durationForOneUnit = 3600 * D_Units::getBuildTime(Loader::getFleetList()[$unitID],
                                 Loader::getBuildingList()[6]->getLevel(), Loader::getBuildingList()[8]->getLevel(),
                                 Loader::getBuildingList()[7]->getLevel());
@@ -89,6 +105,8 @@
                             $this->_['lang']['currently_building'] = D_Units::getName($unitID);
                             $this->_['lang']['current_time_left'] = floor($timeLeftForCurrentUnit);
 
+                            $this->_['lang']['queue_script'] = "<script>timer(".$timeLeftForCurrentUnit.", ".$durationForOneUnit.", {total_time_left}, ".$amount.", '" .D_Units::getName($unitID) ."', \"shipyard\")</script>";
+
                             $first = false;
                         }
 
@@ -97,7 +115,7 @@
                 }
 
 
-                $this->_['lang']['total_time_left'] = floor($totalTimeLeft - (time() - Loader::getPlanet()->getBHangarStartTime()));
+                $this->_['lang']['total_time_left'] = round($totalTimeLeft - (time() - Loader::getPlanet()->getBHangarStartTime()));
 
             }
 

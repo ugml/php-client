@@ -165,6 +165,7 @@
 
                 $time_diff = $time - $this->last_update;
 
+
                 $lvl_metal = $buildings->getMetalMine();
                 $lvl_crystal = $buildings->getCrystalMine();
                 $lvl_deuterium = $buildings->getDeuteriumSynthesizer();
@@ -471,7 +472,7 @@
 
             // do not produce more then there is storage!
             if ($this->metal < $storageCapacity) {
-                $prod_metal = $prodFactor * $this->getMetalMinePercent() * (D_Units::getMetalProductionPerHour($metalLvl) / 3600) * $timeDiff + ($baseIncome / 3600 * $timeDiff);
+                $prod_metal = $prodFactor * ($this->getMetalMinePercent()/100) * (D_Units::getMetalProductionPerHour($metalLvl) / 3600) * $timeDiff + ($baseIncome / 3600 * $timeDiff);
 
                 if ($this->metal + $prod_metal > $storageCapacity) {
                     $prod_metal = $storageCapacity - $this->metal;
@@ -488,7 +489,7 @@
 
             // do not produce more then there is storage!
             if ($this->crystal < $storageCapacity) {
-                $prod_crystal = $prod_factor * $this->getCrystalMinePercent() * (D_Units::getCrystalProductionPerHour($lvl_crystal) / 3600) * $time_diff + ($baseIncome / 3600 * $time_diff);
+                $prod_crystal = $prod_factor * ($this->getCrystalMinePercent()/100) * (D_Units::getCrystalProductionPerHour($lvl_crystal) / 3600) * $time_diff + ($baseIncome / 3600 * $time_diff);
 
                 if ($this->crystal + $prod_crystal > $storageCapacity) {
                     $prod_crystal = ($storageCapacity - $this->deuterium);
@@ -508,8 +509,7 @@
 
                 $incomeHourly = floor(10 * $lvl_deuterium * pow(1.1, $lvl_deuterium) * (1.28 - 0.002 * $this->getTempMax()));
 
-
-                $prod_deuterium = $prod_factor * $this->getDeuteriumSynthesizerPercent() * ($incomeHourly / 3600) * $time_diff + ($baseIncome / 3600 * $time_diff);
+                $prod_deuterium = $prod_factor * ($this->getDeuteriumSynthesizerPercent()/100) * ($incomeHourly / 3600) * $time_diff + ($baseIncome / 3600 * $time_diff);
 
                 if ($this->deuterium + $prod_deuterium > $storageCapacity) {
                     $prod_deuterium = ($storageCapacity - $this->deuterium);
