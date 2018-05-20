@@ -45,7 +45,21 @@
             //     $fields['cnt_script'] = '';
             // }
 
+            $this->_['lang']['queue'] = "";
+
             if(Loader::getPlanet()->getBHangarStartTime() > 0) {
+
+
+                $this->_['lang']['queue'] = "<div class=\"col-md-12 text-center\">
+                                                <b>Current Queue:</b><br />
+                                                {currently_building} {current_time_left} <br />
+                                                <select size=\"10\" style=\"width: 200px\">
+                                                    {current_queue}
+                                                </select> <br />
+                                                {total_time_left}
+                                            </div>";
+
+
 
                 $queue = explode(";", Loader::getPlanet()->getBHangarId());
 
@@ -54,7 +68,7 @@
 
                 $first = true;
 
-                foreach ($queue as $key => $value) {
+                foreach ($queue as$value) {
 
                     if(strlen($value) > 0) {
 
@@ -72,17 +86,18 @@
                         $timeLeftForCurrentUnit = $durationForOneUnit - (time() - Loader::getPlanet()->getBHangarStartTime());
 
                         if($first) {
-                            $this->_['lang']['currently_building'] = D_Units::getUnitName($unitID);
+                            $this->_['lang']['currently_building'] = D_Units::getName($unitID);
                             $this->_['lang']['current_time_left'] = floor($timeLeftForCurrentUnit);
 
                             $first = false;
                         }
 
-                        $this->_['lang']['current_queue'] .= "<option>" . $amount . " " . D_Units::getUnitName($unitID) . "</option>\n";
+                        $this->_['lang']['current_queue'] .= "<option>" . $amount . " " . D_Units::getName($unitID) . "</option>\n";
                     }
                 }
 
-                $this->_['lang']['current_time_left'] = $totalTimeLeft - (time() - Loader::getPlanet()->getBHangarStartTime());
+
+                $this->_['lang']['total_time_left'] = floor($totalTimeLeft - (time() - Loader::getPlanet()->getBHangarStartTime()));
 
             }
 

@@ -1,14 +1,12 @@
 <!-- content -->
 
 <div class="row" id="page-content">
-    <div class="col-md-12 text-center">
-        <b>Current Queue:</b><br />
-        {currently_building} {current_time_left} <br />
-        <select size="10" style="width: 200px">
-            {current_queue}
-        </select> <br />
-        {total_time_left}
-    </div>
+
+    {queue}
+
+    <!--// ogame: countdown of same units
+    // if different unit is next in the queue, reload the page-->
+
     <div class="col-md-12">
         <div class="row">
             <form action="game.php?page=shipyard" method="post">
@@ -25,6 +23,8 @@
         </div>
     </div>
 </div>
+
+<script src=""></script>
 
 <!--            <div id="page">-->
 <!---->

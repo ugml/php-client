@@ -51,19 +51,19 @@
          * loads each individual building-row
          *
          * @param $buildings     array the building-data of the planet
-         * @param $unitsBuilding array the data of the units
+         * @param $unitsDefense array the data of the units
          * @param $planet        planet the planet
          * @return string the complete list of buildingrows
          * @throws FileNotFoundException
          */
-        public function loadBuildingRows($buildings, $unitsBuilding, $planet) {
+        public function loadDefenseRows($unitsDefense, $planet) {
 
             global $lang;
 
             $output = '';
 
             // foreach building
-            foreach ($unitsBuilding as $k => $v) {
+            foreach ($unitsDefense as $k => $v) {
 
                 $key = intval($k);
 
