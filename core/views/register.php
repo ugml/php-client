@@ -3,7 +3,7 @@
     defined('INSIDE') OR exit('No direct script access allowed');
 
     class V_Register implements I_View {
-        
+
         // Name des Templates, in dem Fall das Standardtemplate.
         private $template = 'register';
 

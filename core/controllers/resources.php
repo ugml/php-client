@@ -45,8 +45,10 @@
 
                 // base income
                 $this->lang['config_base_income_metal'] = number_format(Config::$gameConfig['base_income_metal'], 0);
-                $this->lang['config_base_income_crystal'] = number_format(Config::$gameConfig['base_income_crystal'], 0);
-                $this->lang['config_base_income_deuterium'] = number_format(Config::$gameConfig['base_income_deuterium'], 0);
+                $this->lang['config_base_income_crystal'] = number_format(Config::$gameConfig['base_income_crystal'],
+                    0);
+                $this->lang['config_base_income_deuterium'] = number_format(Config::$gameConfig['base_income_deuterium'],
+                    0);
                 $this->lang['config_base_income_energy'] = number_format(Config::$gameConfig['base_income_energy'], 0);
 
 

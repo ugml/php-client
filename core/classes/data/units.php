@@ -33,7 +33,7 @@
         static function init() {
 
             // check, if already initialized
-            if(self::$initialized) {
+            if (self::$initialized) {
                 return;
             }
 
@@ -209,7 +209,18 @@
                 211 => $lang["solar_satellite_descr"],
                 212 => $lang["destroyer_descr"],
                 213 => $lang["battlecruiser_descr"],
-                214 => $lang["deathstar_descr"]
+                214 => $lang["deathstar_descr"],
+
+                301 => $lang["rocket_launcher_desc"],
+                302 => $lang["light_laser_desc"],
+                303 => $lang["heavy_laser_desc"],
+                304 => $lang["gauss_cannon_desc"],
+                305 => $lang["ion_cannon_desc"],
+                306 => $lang["plasma_turret_desc"],
+                307 => $lang["small_shield_dome_desc"],
+                308 => $lang["large_shield_dome_desc"],
+                309 => $lang["anti_ballistic_missile_desc"],
+                310 => $lang["interplanetary_missile_desc"]
             ];
 
             self::$pricelist = [
@@ -472,6 +483,8 @@
             if (isset(self::$descriptions[$id])) {
                 return self::$descriptions[$id];
             }
+
+            return "";
         }
 
         /**

@@ -13,10 +13,6 @@
 
         private $defenseData;
 
-        protected function setUp() : void {
-            $this->defenseData = new D_Defense(1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-        }
-
         /**
          * @covers D_Defense::setRocketLauncher
          * @covers D_Defense::getRocketLauncher
@@ -105,6 +101,10 @@
         public function testGetSetInterplanetaryMissile() : void {
             $this->defenseData->setInterplanetaryMissile(5);
             $this->assertSame(5, $this->defenseData->getInterplanetaryMissile());
+        }
+
+        protected function setUp() : void {
+            $this->defenseData = new D_Defense(1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
         }
 
     }

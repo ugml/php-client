@@ -37,7 +37,4 @@
                 }
             }
         }
-
-        public function loadUserData($userID) {
-        }
     }

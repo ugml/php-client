@@ -37,13 +37,89 @@
          * @throws FileNotFoundException
          */
         public function loadTemplate($mode = null) {
-            
+
             // if(Loader::getPlanet()->getBBuildingId() > 0) {
             //     //duration, container, buildingID
             //     $this->_['lang']['cnt_script'] = '<script>(function() {timer('. (Loader::getPlanet()->getBBuildingEndtime()-time()) .', document.getElementById("s_'. Loader::getPlanet()->getBBuildingId() .'"),'. Loader::getPlanet()->getBBuildingId() .');})();</script>';
             // } else {
             //     $fields['cnt_script'] = '';
             // }
+
+            $this->_['lang']['queue'] = "";
+
+            if(Loader::getPlanet()->getBHangarStartTime() > 0) {
+
+
+                $this->_['lang']['queue'] = "<div class=\"col-md-12\">
+                                                <div class=\"row\">
+                                                        <div class=\"col-md-12 content-header\">
+                                                             ". $this->_['lang']["queue_heading"] ."
+                                                        </div>
+                                                        <div class=\"col-md-12 content-body\">
+                                                            <div class=\"row\">
+                                                                <div class=\"col-md-12 text-center\">
+                                                                    <div>
+                                                                        {currently_building} <span id=\"shipyard_timeleft\"></span> <br /><br />
+                                                                        ". $this->_['lang']["queue_current"] .":<br />
+                                                                        <select size=\"5\" id='shipyard_queue'>
+                                                                            {current_queue}
+                                                                        </select> <br />
+                                                                        ". $this->_['lang']["queue_total_time_left"] .": <span id=\"shipyard_total_timeleft\"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                            <div class=\"col-md-12\">&nbsp;</div>";
+
+
+                $queue = explode(";", Loader::getPlanet()->getBHangarId());
+
+                $totalTimeLeft = 0;
+                $timeLeftForCurrentUnit = 0;
+
+                $first = true;
+
+                foreach ($queue as$value) {
+
+                    if(strlen($value) > 0) {
+
+                        $data = explode(",", $value);
+
+                        $unitID = $data[0];
+                        $amount = $data[1];
+
+                        // current time left
+                        // time for one unit
+                        // {buildingname => count}
+
+                        $durationForOneUnit = 3600 * D_Units::getBuildTime(Loader::getFleetList()[$unitID],
+                                Loader::getBuildingList()[6]->getLevel(), Loader::getBuildingList()[8]->getLevel(),
+                                Loader::getBuildingList()[7]->getLevel());
+
+                        $totalTimeLeft += $durationForOneUnit * $amount;
+
+                        $timeLeftForCurrentUnit = $durationForOneUnit - (time() - Loader::getPlanet()->getBHangarStartTime());
+
+                        if($first) {
+                            $this->_['lang']['currently_building'] = D_Units::getName($unitID);
+                            $this->_['lang']['current_time_left'] = floor($timeLeftForCurrentUnit);
+
+                            $this->_['lang']['queue_script'] = "<script>timer(".$timeLeftForCurrentUnit.", ".$durationForOneUnit.", {total_time_left}, ".$amount.", '" .D_Units::getName($unitID) ."', \"shipyard\")</script>";
+
+                            $first = false;
+                        }
+
+                        $this->_['lang']['current_queue'] .= "<option>" . $amount . " " . D_Units::getName($unitID) . "</option>\n";
+                    }
+                }
+
+
+                $this->_['lang']['total_time_left'] = round($totalTimeLeft - (time() - Loader::getPlanet()->getBHangarStartTime()));
+
+            }
+
 
             if ($mode != null) {
                 $this->template .= '_' . $mode;
@@ -52,11 +128,15 @@
             return parent::mergeTemplates($this->template, $this->_);
         }
 
-        public function loadShipyardRows($buildings, $unitsBuilding, $planet) {
+        public function loadShipyardRows() {
 
             global $lang;
 
             $output = '';
+
+            $unitsBuilding = D_Units::getFleet();
+
+            $planet = Loader::getPlanet();
 
             foreach ($unitsBuilding as $k => $v) {
 
@@ -96,10 +176,9 @@
 
                 if ($req_met) {
 
-
                     $unitID = D_Units::getUnitID($v);
 
-                    $fleet = Loader::getFleet()[$unitID];
+                    $fleet = Loader::getFleetList()[$unitID];
 
                     $level = $fleet->getAmount();
 
@@ -133,10 +212,6 @@
                     $duration = 3600 * D_Units::getBuildTime($fleet, 0,
                             Loader::getBuildingList()[D_Units::getUnitID('shipyard')]->getLevel(),
                             Loader::getBuildingList()[D_Units::getUnitID('nanite_factory')]->getLevel());
-
-                    //                $duration = 3600 * $units
-                    //                        ->getBuildTime($unitID, 0, Loader::getBuildingList()->getRoboticFactory(),
-                    //                            Loader::getBuildingList()->getShipyard(), Loader::getBuildingList()->getNaniteFactory());
 
                     $hours = floor($duration / 3600);
                     $minutes = floor(($duration / 60) % 60);

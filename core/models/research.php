@@ -4,39 +4,6 @@
 
     class M_Research implements I_Model {
 
-        /**
-         * loads the required language files
-         * @return array the loaded language-array
-         * @throws FileNotFoundException
-         */
-        public function loadLanguage() {
-
-            global $lang;
-
-            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/research.php';
-            if (file_exists($file)) {
-                require $file;
-            } else {
-                throw new FileNotFoundException('File \'' . $file . '\' not found');
-            }
-
-            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
-            if (file_exists($file)) {
-                require $file;
-            } else {
-                throw new FileNotFoundException('File \'' . $file . '\' not found');
-            }
-
-            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/menu.php';
-            if (file_exists($file)) {
-                require $file;
-            } else {
-                throw new FileNotFoundException('File \'' . $file . '\' not found');
-            }
-
-            return $lang;
-        }
-
         public static function build($planetID, $buildID, $toLvl, $metal, $crystal, $deuterium) {
             global $debug;
 
@@ -147,5 +114,38 @@
             } else {
                 throw new UnexpectedValueException('no building is currently in the buildingqueue');
             }
+        }
+
+        /**
+         * loads the required language files
+         * @return array the loaded language-array
+         * @throws FileNotFoundException
+         */
+        public function loadLanguage() {
+
+            global $lang;
+
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/research.php';
+            if (file_exists($file)) {
+                require $file;
+            } else {
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
+            }
+
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
+            if (file_exists($file)) {
+                require $file;
+            } else {
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
+            }
+
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/menu.php';
+            if (file_exists($file)) {
+                require $file;
+            } else {
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
+            }
+
+            return $lang;
         }
     }

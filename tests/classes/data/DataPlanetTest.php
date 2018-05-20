@@ -13,11 +13,6 @@
 
         private $planetData;
 
-        protected function setUp() : void {
-            $this->planetData = new D_Planet(1, 15, "Testplanet", 4, 245, 13, time(), 1, "null", 15360, 0, 198, -12, 10,
-                500000, 245000, 13000, 0, 123, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, "201,50;", false, false);
-        }
-
         /**
          * @covers D_Planet::setMetalMinePercent
          * @covers D_Planet::getMetalMinePercent
@@ -305,6 +300,11 @@
         public function testGetSetDestroyed() : void {
             $this->planetData->setDestroyed(true);
             $this->assertSame(true, $this->planetData->getDestroyed());
+        }
+
+        protected function setUp() : void {
+            $this->planetData = new D_Planet(1, 15, "Testplanet", 4, 245, 13, time(), 1, "null", 15360, 0, 198, -12, 10,
+                500000, 245000, 13000, 0, 123, 100, 100, 100, 100, 100, 100, 1, 1, 1, 1, 1, "201,50;", false, false);
         }
 
     }

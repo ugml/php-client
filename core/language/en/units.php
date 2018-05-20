@@ -140,3 +140,14 @@
     $lang['large_shield_dome_descr'] = '';
     $lang['anti_ballistic_missile_descr'] = '';
     $lang['interplanetary_missile_descr'] = '';
+
+    $lang['rocket_launcher_desc'] = 'Rocket Launcher';
+    $lang['light_laser_desc'] = 'Light Laser';
+    $lang['heavy_laser_desc'] = 'Heavy Laser';
+    $lang['gauss_cannon_desc'] = 'Gauss Cannon';
+    $lang['ion_cannon_desc'] = 'Ion Cannon';
+    $lang['plasma_turret_desc'] = 'Plasma Turret';
+    $lang['small_shield_dome_desc'] = 'Small Shield Dome';
+    $lang['large_shield_dome_desc'] = 'Large Shield Dome';
+    $lang['anti_ballistic_missile_desc'] = 'Anti Ballistic Missile';
+    $lang['interplanetary_missile_desc'] = 'Interplanetary Missile';
