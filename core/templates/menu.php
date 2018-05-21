@@ -14,7 +14,7 @@
         <li><a href="game.php?page=research">{research}</a></li>
         <li><a href="game.php?page=shipyard">{shipyard}</a></li>
 
-        <!--<li><a href="game.php?page=fleet">{fleet}</a></li>-->
+        <li><a href="game.php?page=fleet">{fleet}</a></li>
         <!--<li><a href="game.php?page=techtree">{techtree}</a></li>-->
 
         <li><a href="game.php?page=galaxy&amp;g={g}&amp;s={s}">{galaxy}</a></li>

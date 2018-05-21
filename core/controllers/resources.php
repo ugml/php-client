@@ -68,10 +68,16 @@
 
                 $this->lang['resource_row'] = '';
 
+                $factor = 1;
+
+                if(Loader::getPlanet()->getEnergyUsed() > Loader::getPlanet()->getEnergyMax()) {
+                    $factor = 0.5;
+                }
+
                 // production
-                $prod_metal = D_Units::getMetalProductionPerHour(Loader::getBuildingList()[D_Units::getUnitID('metal_mine')]->getLevel());
-                $prod_crystal = D_Units::getCrystalProductionPerHour(Loader::getBuildingList()[D_Units::getUnitID('crystal_mine')]->getLevel());
-                $prod_deuterium = D_Units::getDeuteriumProductionPerHour(Loader::getBuildingList()[D_Units::getUnitID('deuterium_synthesizer')]->getLevel());
+                $prod_metal = $factor * (Loader::getPlanet()->getMetalMinePercent()/100) * D_Units::getMetalProductionPerHour(Loader::getBuildingData()->getMetalMine(), Loader::getTechData()->getPlasmaTech());
+                $prod_crystal = $factor * (Loader::getPlanet()->getCrystalMinePercent()/100) * D_Units::getCrystalProductionPerHour(Loader::getBuildingData()->getCrystalMine(), Loader::getTechData()->getPlasmaTech());
+                $prod_deuterium = $factor * (Loader::getPlanet()->getDeuteriumSynthesizerPercent()/100) * D_Units::getDeuteriumProductionPerHour(Loader::getBuildingList()[D_Units::getUnitID('deuterium_synthesizer')]->getLevel(), Loader::getPlanet()->getTempMax());
 
                 $prod_energy_array = D_Units::getEnergyProduction(
                     Loader::getBuildingList()[D_Units::getUnitID('solar_plant')]->getLevel(),
