@@ -113,6 +113,10 @@
 
                     $pricelist = D_Units::getPriceList($shipID);
 
+                    //                    echo $shipID;
+                    //                    echo "<br />";
+                    //                    print_r($pricelist);
+
                     $maxBuildable = 0;
 
                     $currentMetal = Loader::getPlanet()->getMetal() - $totalMetal;
@@ -144,6 +148,7 @@
                         }
 
                         $maxBuildable = floor(min($minMet, $minCry, $minDeut));
+
                     } else {
                         // player can afford all ships
                         $maxBuildable = $shipCnt;
@@ -167,8 +172,8 @@
 
             }
 
-            $this->model->build(intval(Loader::getPlanet()->getPlanetId()), $buildList, $totalMetal, $totalMetal,
-                $totalDeuterium);
+            $this->model->build(intval(Loader::getPlanet()->getPlanetId()), $buildList, intval($totalMetal),
+                intval($totalMetal), intval($totalDeuterium));
 
         }
 
@@ -177,8 +182,7 @@
             $v_lang = $this->model->loadLanguage();
 
             // load the individual rows for each building
-            $this->lang['shipyard_list'] = $this->view->loadShipyardRows(Loader::getFleetList(), D_Units::getFleet(),
-                Loader::getPlanet());
+            $this->lang['shipyard_list'] = $this->view->loadShipyardRows();
 
             if (is_array($this->lang) && is_array($v_lang)) {
                 $this->lang = array_merge($this->lang, $v_lang);

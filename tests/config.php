@@ -8,8 +8,11 @@
     class Config {
 
         public static $gameConfig;
+
         public static $dbConfig;
+
         public static $pathConfig;
+
         public static $debugModeEnabled;
 
         private static $basepath;
@@ -19,7 +22,7 @@
         static function init() {
 
             // check, if already initialized
-            if(self::$initialized) {
+            if (self::$initialized) {
                 return;
             }
 
@@ -29,17 +32,17 @@
 
 
             self::$gameConfig = [
-                'game_name'  => 'ugamela',
-                'copyright'  => 'Copyright by ugamela &copy; 2017',
-                'language'   => 'en',
-                'max_galaxy' => 9,
-                'max_system' => 100,
-                'max_planet' => 15,
+                'game_name'             => 'ugamela',
+                'copyright'             => 'Copyright by ugamela &copy; 2017',
+                'language'              => 'en',
+                'max_galaxy'            => 9,
+                'max_system'            => 100,
+                'max_planet'            => 15,
                 'base_income_metal'     => 500,
                 'base_income_crystal'   => 250,
                 'base_income_deuterium' => 0,
                 'base_income_energy'    => 0,
-                'skinpath'   => 'skins/Maya/'
+                'skinpath'              => 'skins/Maya/'
             ];
 
             self::$dbConfig = [
@@ -52,7 +55,6 @@
             ];
 
             //
-
 
 
             self::$pathConfig = [

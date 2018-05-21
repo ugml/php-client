@@ -153,88 +153,6 @@
             $this->destroyed = $destroyed;
         }
 
-        private function getTotalEnergyProduction($baseIncome, $lvlSolarplant, $lvlFusionReactor, $lvlEnergyTech,
-            $solarSatellites) : float {
-
-            return array_sum(D_Units::getEnergyProduction(
-                    $lvlSolarplant,
-                    $lvlFusionReactor,
-                    $lvlEnergyTech,
-                    $solarSatellites,
-                    $this->temp_max
-                )
-                ) + $baseIncome;
-        }
-
-        private function getTotalEnergyConsumption($lvl_metal, $lvl_crystal, $lvl_deuterium, $lvl_fusion) : float {
-
-            return $this->getMetalMinePercent() / 100 * D_Units::getEnergyConsumption($lvl_metal) +
-                $this->getCrystalMinePercent() / 100 * D_Units::getEnergyConsumption($lvl_crystal) +
-                $this->getDeuteriumSynthesizerPercent() / 100 * D_Units::getEnergyConsumption($lvl_deuterium) +
-                $this->getFusionReactorPercent() / 100 * D_Units::getEnergyConsumption($lvl_fusion);
-        }
-
-        private function calculateMetalProduction($metalLvl, $storageCapacity, $prodFactor, $timeDiff,
-            $baseIncome) : float {
-
-            // do not produce more then there is storage!
-            if ($this->metal < $storageCapacity) {
-                $prod_metal = $prodFactor * $this->getMetalMinePercent() * (D_Units::getMetalProductionPerHour($metalLvl) / 3600) * $timeDiff + ($baseIncome / 3600 * $timeDiff);
-
-                if ($this->metal + $prod_metal > $storageCapacity) {
-                    $prod_metal = $this->metal + ($storageCapacity - $this->metal);
-                } else {
-                    $prod_metal += $this->metal;
-                }
-            } else {
-                $prod_metal = $this->metal;
-            }
-
-            return $prod_metal;
-        }
-
-        private function calculateCrystalProduction($lvl_crystal, $storageCapacity, $prod_factor, $time_diff,
-            $baseIncome) : float {
-
-            // do not produce more then there is storage!
-            if ($this->crystal < $storageCapacity) {
-                $prod_crystal = $prod_factor * $this->getCrystalMinePercent() * (D_Units::getCrystalProductionPerHour($lvl_crystal) / 3600) * $time_diff + ($baseIncome / 3600 * $time_diff);
-                if ($this->crystal + $prod_crystal > $storageCapacity) {
-                    $prod_crystal = $this->crystal + ($storageCapacity - $this->crystal);
-                } else {
-                    $prod_crystal += $this->crystal;
-                }
-            } else {
-                $prod_crystal = $this->crystal;
-            }
-
-            return $prod_crystal;
-        }
-
-        private function calculateDeuteriumProduction($lvl_deuterium, $storageCapacity, $prod_factor, $time_diff,
-            $baseIncome) : float {
-
-            // do not produce more then there is storage!
-            if ($this->crystal < $storageCapacity) {
-                $prod_crystal = $prod_factor * $this->getCrystalMinePercent() * (D_Units::getCrystalProductionPerHour($lvl_deuterium) / 3600) * $time_diff + ($baseIncome / 3600 * $time_diff);
-                if ($this->crystal + $prod_crystal > $storageCapacity) {
-                    $prod_crystal = $this->crystal + ($storageCapacity - $this->crystal);
-                } else {
-                    $prod_crystal += $this->crystal;
-                }
-            } else {
-                $prod_crystal = $this->crystal;
-            }
-
-            return $prod_crystal;
-        }
-
-        private function checkBuildingCompletion(int $time) {
-            if ($this->b_building_id > 0 && $this->b_building_endtime > 0 && $this->b_building_endtime <= $time) {
-
-            }
-        }
-
         public function update(D_Building $buildings, D_Tech $technologies, D_Fleet $fleet) {
 
             $dbConnection = new Database();
@@ -246,6 +164,7 @@
             if ($this->last_update < $time) {
 
                 $time_diff = $time - $this->last_update;
+
 
                 $lvl_metal = $buildings->getMetalMine();
                 $lvl_crystal = $buildings->getCrystalMine();
@@ -280,9 +199,6 @@
                 $prod_deuterium = $this->calculateDeuteriumProduction($lvl_deuterium, $storage['deuterium'],
                     $prod_factor, $time_diff, Config::$gameConfig['base_income_deuterium']);
 
-                $this->checkBuildingCompletion($time);
-
-
                 // check if building finished
                 if ($this->b_building_id > 0 && $this->b_building_endtime > 0 && $this->b_building_endtime <= $time) {
 
@@ -308,10 +224,10 @@
                 // check if research finished
                 if ($this->b_tech_id > 0 && $this->b_tech_endtime > 0 && $this->b_tech_endtime <= $time) {
 
-                    $level = Loader::getTechList()[D_Units::getUnit($this->b_tech_id)]->getLevel();
+                    $level = Loader::getTechList()[$this->b_tech_id]->getLevel();
 
                     // update the building level
-                    $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'techs SET ' . D_Units::getUnit($this->b_tech_id) . ' = ' . ($level + 1));
+                    $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'techs SET ' . D_Units::getUnitName($this->b_tech_id) . ' = ' . ($level + 1));
 
                     $stmt->execute();
 
@@ -320,28 +236,30 @@
 
                 $someShipsFinished = false;
 
-
-                // TODO
                 // check if hangar finished
                 if ($this->b_hangar_id != null && $this->b_hangar_id != "" && $this->b_hangar_id != 0) {
 
                     $shipQueueRows = explode(";", $this->b_hangar_id);
-
-                    $timePassedSinceStart = $time - $this->b_hangar_start_time;
                     $totalBuildTimePassed = 0;
 
                     $i = 0;
 
                     $shipsLeftArray = [];
 
+                    $skip = false;
+
+                    $queuePos = 1;
+
                     foreach ($shipQueueRows as $key => $value) {
+
+                        $timePassedSinceStart = $time - $this->b_hangar_start_time;
+
                         $exp = explode(",", $value);
 
                         $unitID = intval($exp[0]);
                         $unitCnt = intval($exp[1]);
 
                         if ($unitID > 0 && $unitCnt > 0) {
-
 
                             $durationForOneUnit = 3600 * D_Units::getBuildTime(Loader::getFleetList()[$unitID],
                                     Loader::getBuildingList()[6]->getLevel(), Loader::getBuildingList()[8]->getLevel(),
@@ -350,61 +268,87 @@
                             $shipFinishedCnt = floor($timePassedSinceStart / $durationForOneUnit);
 
                             // at least one ship was finished
-                            if ($shipFinishedCnt > 0) {
+                            if ($shipFinishedCnt > 0 && !$skip) {
+
+                                $someShipsFinished = true;
 
                                 if ($shipFinishedCnt > $unitCnt) {
+
                                     $shipFinishedCnt = $unitCnt;
-                                    $timePassedSinceStart -= $durationForOneUnit * $shipFinishedCnt;
 
                                     $totalBuildTimePassed += $durationForOneUnit * $shipFinishedCnt;
-
                                     // delete row in buildqueue
                                     unset($shipQueueRows[$i]);
+                                    $i++;
 
+                                    // set the new start-time
+                                    $this->b_hangar_start_time += round($totalBuildTimePassed);
                                 } else {
-                                    $timePassedSinceStart -= $durationForOneUnit * $shipFinishedCnt;
 
                                     $totalBuildTimePassed += $durationForOneUnit * $shipFinishedCnt;
 
-                                    // update row in buildqueue
-                                    $shipsLeftArray[$i] = array($unitID => ($unitCnt - $shipFinishedCnt));
-                                    $i++;
+                                    // add rest of the ships to the queue
+                                    array_push($shipsLeftArray, array($unitID => ($unitCnt - $shipFinishedCnt)));
+
+                                    // set the new start-time
+                                    $this->b_hangar_start_time += round($totalBuildTimePassed);
+
+                                    // skip the rest of the queue
+                                    $skip = true;
                                 }
 
 
+                                // add the newly built ships
                                 $currentShipCount = Loader::getFleetList()[$unitID]->getAmount();
 
                                 $newShipCount = $currentShipCount + $shipFinishedCnt;
 
-                                Loader::getFleetList()[$unitID]->setAmount($newShipCount);
+                                Loader::getFleetList()[$unitID]->setAmount(intval($newShipCount));
 
-
-                                // TODO: BUG! only first row of queue will be written to DB!
-                                //                                print_r($shipsLeftArray);
-
-                                $shipQueue = "";
-                                for ($i = 0; $i < sizeof($shipsLeftArray); $i++) {
-                                    if (intval($shipsLeftArray[$i][key($shipsLeftArray[$i])]) > 0) {
-                                        $shipQueue .= key($shipsLeftArray[$i]) . "," . $shipsLeftArray[$i][key($shipsLeftArray[$i])] . ";\n";
-                                    }
-                                }
-
-                                $this->b_hangar_id = $shipQueue;
-
-                                // update the building level
+                                // update new shipcount in database
                                 $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'fleet SET ' . D_Units::getUnitName($unitID) . ' = ' . ($newShipCount) . ' WHERE planetId = ' . $this->planetID);
 
                                 $stmt->execute();
 
+                            } else {
+                                // keep the ships in the queue
+                                array_push($shipsLeftArray, array($unitID => $unitCnt));
+
+                                if ($queuePos = 1) {
+                                    $skip = true;
+                                }
                             }
                         }
 
+
+                        $queuePos++;
                     }
+
+                    if ($someShipsFinished) {
+                        // build new queue
+                        $shipQueue = "";
+                        for ($i = 0; $i < sizeof($shipsLeftArray); $i++) {
+                            if (intval($shipsLeftArray[$i][key($shipsLeftArray[$i])]) > 0) {
+                                $shipQueue .= key($shipsLeftArray[$i]) . "," . $shipsLeftArray[$i][key($shipsLeftArray[$i])] . ";";
+                            }
+                        }
+
+                        // append the rest of the queue
+                        foreach ($shipsLeftArray as $shipID => $amount) {
+                            if (ctype_digit($shipID) && intval($shipID) > 0 &&
+                                ctype_digit($amount) && intval($amount > 0)) {
+                                $shipQueue .= $shipID . "," . ";";
+                            }
+                        }
+
+
+                        // set new queue
+                        $this->b_hangar_id = $shipQueue;
+                    }
+
 
                     if (strlen($this->b_hangar_id) == 0) {
                         $this->b_hangar_start_time = 0;
-                    } else {
-                        $this->b_hangar_start_time = $this->b_hangar_start_time + $totalBuildTimePassed;
                     }
 
                     $query .= ', b_hangar_start_time = :b_hangar_start_time, b_hangar_id = :b_hangar_id ';
@@ -416,30 +360,53 @@
 
                 $stmt = $dbConnection->prepare($query);
 
+
                 // update the values of the planet-object
                 $this->last_update = $time;
-                $this->metal = $prod_metal;
-                $this->crystal = $prod_crystal;
-                $this->deuterium = $prod_deuterium;
+                $this->metal += $prod_metal;
+                $this->crystal += $prod_crystal;
+                $this->deuterium += $prod_deuterium;
+
                 $this->energy_used = $cons_energy;
                 $this->energy_max = $prod_energy;
 
                 $stmt->bindParam(':last_update', $time);
-                $stmt->bindParam(':metal', $prod_metal);
+                $stmt->bindParam(':metal', $this->metal);
+                $stmt->bindParam(':crystal', $this->crystal);
+                $stmt->bindParam(':deuterium', $this->deuterium);
 
                 if ($someShipsFinished) {
                     $stmt->bindParam(':b_hangar_start_time', $this->b_hangar_start_time);
                     $stmt->bindParam(':b_hangar_id', $this->b_hangar_id);
                 }
 
-                $stmt->bindParam(':crystal', $prod_crystal);
-                $stmt->bindParam(':deuterium', $prod_deuterium);
                 $stmt->bindParam(':energy_used', $cons_energy);
                 $stmt->bindParam(':energy_max', $prod_energy);
                 $stmt->bindParam(':planetID', $this->planetID);
 
                 $stmt->execute();
             }
+        }
+
+        private function getTotalEnergyProduction($baseIncome, $lvlSolarplant, $lvlFusionReactor, $lvlEnergyTech,
+            $solarSatellites) : float {
+
+            return array_sum(D_Units::getEnergyProduction(
+                    $lvlSolarplant,
+                    $lvlFusionReactor,
+                    $lvlEnergyTech,
+                    $solarSatellites,
+                    $this->temp_max
+                )
+                ) + $baseIncome;
+        }
+
+        private function getTotalEnergyConsumption($lvl_metal, $lvl_crystal, $lvl_deuterium, $lvl_fusion) : float {
+
+            return $this->getMetalMinePercent() / 100 * D_Units::getEnergyConsumption($lvl_metal) +
+                $this->getCrystalMinePercent() / 100 * D_Units::getEnergyConsumption($lvl_crystal) +
+                $this->getDeuteriumSynthesizerPercent() / 100 * D_Units::getEnergyConsumption($lvl_deuterium) +
+                $this->getFusionReactorPercent() / 100 * D_Units::getEnergyConsumption($lvl_fusion);
         }
 
         /**
@@ -496,6 +463,60 @@
          */
         public function setFusionReactorPercent($fusion_reactor_percent) : void {
             $this->fusion_reactor_percent = $fusion_reactor_percent;
+        }
+
+        private function calculateMetalProduction($metalLvl, $storageCapacity, $prodFactor, $timeDiff,
+            $baseIncome) : float {
+
+            $prod_metal = 0;
+
+            // do not produce more then there is storage!
+            if ($this->metal < $storageCapacity) {
+                $prod_metal = $prodFactor * ($this->getMetalMinePercent()/100) * (D_Units::getMetalProductionPerHour($metalLvl) / 3600) * $timeDiff + ($baseIncome / 3600 * $timeDiff);
+
+                if ($this->metal + $prod_metal > $storageCapacity) {
+                    $prod_metal = $storageCapacity - $this->metal;
+                }
+            }
+
+            return $prod_metal;
+        }
+
+        private function calculateCrystalProduction($lvl_crystal, $storageCapacity, $prod_factor, $time_diff,
+            $baseIncome) : float {
+
+            $prod_crystal = 0;
+
+            // do not produce more then there is storage!
+            if ($this->crystal < $storageCapacity) {
+                $prod_crystal = $prod_factor * ($this->getCrystalMinePercent()/100) * (D_Units::getCrystalProductionPerHour($lvl_crystal) / 3600) * $time_diff + ($baseIncome / 3600 * $time_diff);
+
+                if ($this->crystal + $prod_crystal > $storageCapacity) {
+                    $prod_crystal = ($storageCapacity - $this->deuterium);
+                }
+            }
+
+            return $prod_crystal;
+        }
+
+        private function calculateDeuteriumProduction($lvl_deuterium, $storageCapacity, $prod_factor, $time_diff,
+            $baseIncome) : float {
+
+            $prod_deuterium = 0;
+
+            // do not produce more then there is storage!
+            if ($this->deuterium < $storageCapacity) {
+
+                $incomeHourly = floor(10 * $lvl_deuterium * pow(1.1, $lvl_deuterium) * (1.28 - 0.002 * $this->getTempMax()));
+
+                $prod_deuterium = $prod_factor * ($this->getDeuteriumSynthesizerPercent()/100) * ($incomeHourly / 3600) * $time_diff + ($baseIncome / 3600 * $time_diff);
+
+                if ($this->deuterium + $prod_deuterium > $storageCapacity) {
+                    $prod_deuterium = ($storageCapacity - $this->deuterium);
+                }
+            }
+
+            return $prod_deuterium;
         }
 
         /**
@@ -658,6 +679,13 @@
         }
 
         /**
+         * @param mixed $planetID
+         */
+        public function setPlanetID($planetID) : void {
+            $this->planetID = $planetID;
+        }
+
+        /**
          * @return mixed
          */
         public function getType() {
@@ -669,6 +697,13 @@
          */
         public function getOwnerID() {
             return $this->ownerID;
+        }
+
+        /**
+         * @param mixed $ownerID
+         */
+        public function setOwnerID($ownerID) : void {
+            $this->ownerID = $ownerID;
         }
 
         /**
@@ -693,6 +728,13 @@
         }
 
         /**
+         * @param mixed $galaxy
+         */
+        public function setGalaxy($galaxy) : void {
+            $this->galaxy = $galaxy;
+        }
+
+        /**
          * @return mixed
          */
         public function getSystem() {
@@ -700,10 +742,24 @@
         }
 
         /**
+         * @param mixed $system
+         */
+        public function setSystem($system) : void {
+            $this->system = $system;
+        }
+
+        /**
          * @return mixed
          */
         public function getPlanet() {
             return $this->planet;
+        }
+
+        /**
+         * @param mixed $planet
+         */
+        public function setPlanet($planet) : void {
+            $this->planet = $planet;
         }
 
         /**
@@ -728,6 +784,13 @@
         }
 
         /**
+         * @param mixed $planet_type
+         */
+        public function setPlanetType($planet_type) : void {
+            $this->planet_type = $planet_type;
+        }
+
+        /**
          * @return mixed
          */
         public function getImage() {
@@ -735,10 +798,24 @@
         }
 
         /**
+         * @param mixed $image
+         */
+        public function setImage($image) : void {
+            $this->image = $image;
+        }
+
+        /**
          * @return mixed
          */
         public function getDiameter() {
             return $this->diameter;
+        }
+
+        /**
+         * @param mixed $diameter
+         */
+        public function setDiameter($diameter) : void {
+            $this->diameter = $diameter;
         }
 
         /**
@@ -763,6 +840,13 @@
         }
 
         /**
+         * @param mixed $fields_max
+         */
+        public function setFieldsMax($fields_max) : void {
+            $this->fields_max = $fields_max;
+        }
+
+        /**
          * @return mixed
          */
         public function getTempMin() {
@@ -770,10 +854,24 @@
         }
 
         /**
+         * @param mixed $temp_min
+         */
+        public function setTempMin($temp_min) : void {
+            $this->temp_min = $temp_min;
+        }
+
+        /**
          * @return mixed
          */
         public function getTempMax() {
             return $this->temp_max;
+        }
+
+        /**
+         * @param mixed $temp_max
+         */
+        public function setTempMax($temp_max) : void {
+            $this->temp_max = $temp_max;
         }
 
         /**
@@ -984,83 +1082,6 @@
          */
         public function setDestroyed($destroyed) : void {
             $this->destroyed = $destroyed;
-        }
-
-        /**
-         * @param mixed $planetID
-         */
-        public function setPlanetID($planetID) : void {
-            $this->planetID = $planetID;
-        }
-
-        /**
-         * @param mixed $ownerID
-         */
-        public function setOwnerID($ownerID) : void {
-            $this->ownerID = $ownerID;
-        }
-
-        /**
-         * @param mixed $galaxy
-         */
-        public function setGalaxy($galaxy) : void {
-            $this->galaxy = $galaxy;
-        }
-
-        /**
-         * @param mixed $system
-         */
-        public function setSystem($system) : void {
-            $this->system = $system;
-        }
-
-        /**
-         * @param mixed $planet
-         */
-        public function setPlanet($planet) : void {
-            $this->planet = $planet;
-        }
-
-        /**
-         * @param mixed $planet_type
-         */
-        public function setPlanetType($planet_type) : void {
-            $this->planet_type = $planet_type;
-        }
-
-        /**
-         * @param mixed $image
-         */
-        public function setImage($image) : void {
-            $this->image = $image;
-        }
-
-        /**
-         * @param mixed $diameter
-         */
-        public function setDiameter($diameter) : void {
-            $this->diameter = $diameter;
-        }
-
-        /**
-         * @param mixed $fields_max
-         */
-        public function setFieldsMax($fields_max) : void {
-            $this->fields_max = $fields_max;
-        }
-
-        /**
-         * @param mixed $temp_min
-         */
-        public function setTempMin($temp_min) : void {
-            $this->temp_min = $temp_min;
-        }
-
-        /**
-         * @param mixed $temp_max
-         */
-        public function setTempMax($temp_max) : void {
-            $this->temp_max = $temp_max;
         }
 
         /**

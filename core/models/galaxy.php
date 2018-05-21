@@ -4,39 +4,6 @@
 
     class M_Galaxy implements I_Model {
 
-        /**
-         * loads the required language files
-         * @return array the loaded language-array
-         * @throws FileNotFoundException
-         */
-        public function loadLanguage() {
-
-            global $lang;
-
-            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/galaxy.php';
-            if (file_exists($file)) {
-                require $file;
-            } else {
-                throw new FileNotFoundException('File \'' . $file . '\' not found');
-            }
-
-            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
-            if (file_exists($file)) {
-                require $file;
-            } else {
-                throw new FileNotFoundException('File \'' . $file . '\' not found');
-            }
-
-            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/menu.php';
-            if (file_exists($file)) {
-                require $file;
-            } else {
-                throw new FileNotFoundException('File \'' . $file . '\' not found');
-            }
-
-            return $lang;
-        }
-
         public static function loadGalaxyData($galaxy, $system) {
 
             global $debug;
@@ -77,22 +44,36 @@
         }
 
         /**
-         * loads all relevant user-information (planet, buildings, fleet, tech, defense etc.)
-         * @param $userID the user id
-         * @return Loader an object containing all the information
+         * loads the required language files
+         * @return array the loaded language-array
          * @throws FileNotFoundException
          */
-        public static function loadUserData($userID) {
+        public function loadLanguage() {
 
+            global $lang;
 
-            $file = Config::$pathConfig['classes'] . 'loader.php';
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/galaxy.php';
             if (file_exists($file)) {
                 require $file;
             } else {
                 throw new FileNotFoundException('File \'' . $file . '\' not found');
             }
 
-            return new Loader($userID);
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/units.php';
+            if (file_exists($file)) {
+                require $file;
+            } else {
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
+            }
+
+            $file = Config::$pathConfig['language'] . Config::$gameConfig['language'] . '/menu.php';
+            if (file_exists($file)) {
+                require $file;
+            } else {
+                throw new FileNotFoundException('File \'' . $file . '\' not found');
+            }
+
+            return $lang;
         }
 
     }

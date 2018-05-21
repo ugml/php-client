@@ -25,7 +25,6 @@
             $this->model = new M_Login();
 
 
-
             if (!empty($get)) {
                 $this->handleGET();
             }
@@ -62,7 +61,6 @@
         }
 
         function display() : void {
-
 
 
             $this->view->assign('lang', $this->model->loadLanguage());

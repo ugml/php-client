@@ -1,5 +1,9 @@
 <!-- content -->
+
 <div class="row" id="page-content">
+
+    {queue}
+
     <div class="col-md-12">
         <div class="row">
             <form action="game.php?page=shipyard" method="post">
@@ -16,6 +20,9 @@
         </div>
     </div>
 </div>
+
+<script src="scripts/shipyard.js"></script>
+{queue_script}
 
 <!--            <div id="page">-->
 <!---->

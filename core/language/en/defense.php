@@ -2,12 +2,13 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    $lang['page'] = "Research";
+    $lang['page'] = "Defense";
 
-    $lang['no_research_available'] = "There are currently no technologies available to research.";
 
-    $lang['build'] = "Research";
+    $lang['build'] = "Build";
     $lang['cancel'] = "Cancel";
+
+    $lang['level'] = "Level";
 
     $lang['upgrade'] = "Upgrade to level %s";
     $lang['requirements'] = "Requirements";

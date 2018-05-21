@@ -127,8 +127,8 @@
 
                     if (Loader::getPlanet()->getBTechId() > 0) {
                         if ($unitID == Loader::getPlanet()->getBTechId()) {
-                            $fields['r_build'] = '-<script>timer(' . (Loader::getPlanet()
-                                        ->getBTechEndtime() - time()) . ', "build_' . $unitID . '", ' . $unitID . ');</script>';
+                            $fields['r_build'] = '-<script>timer("research", ' . (Loader::getPlanet()
+                                        ->getBTechEndtime() - time()) . ', "build_' . $unitID . '", ' . $unitID . ', "{cancel}");</script>';
                         } else {
                             $fields['r_build'] = "-";
                         }

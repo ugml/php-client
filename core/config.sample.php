@@ -8,8 +8,11 @@
     class Config_sample {
 
         public static $gameConfig;
+
         public static $dbConfig;
+
         public static $pathConfig;
+
         public static $debugModeEnabled;
 
         private static $basepath;
@@ -19,7 +22,7 @@
         static function init() {
 
             // check, if already initialized
-            if(self::$initialized) {
+            if (self::$initialized) {
                 return;
             }
 

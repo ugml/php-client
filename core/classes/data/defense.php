@@ -289,39 +289,36 @@
 
             switch ($id) {
                 case 301:
-                    return $this->getRocketLauncher();
+                    $this->getRocketLauncher();
                     break;
                 case 302:
-                    return $this->getLightLaser();
+                    $this->getLightLaser();
                     break;
                 case 303:
-                    return $this->getHeavyLaser();
+                    $this->getHeavyLaser();
                     break;
                 case 304:
-                    return $this->getGaussCannon();
+                    $this->getGaussCannon();
                     break;
                 case 305:
-                    return $this->getIonCannon();
+                    $this->getIonCannon();
                     break;
                 case 306:
-                    return $this->getPlasmaTurret();
+                    $this->getPlasmaTurret();
                     break;
                 case 307:
-                    return $this->getSmallShieldDome();
+                    $this->getSmallShieldDome();
                     break;
                 case 308:
-                    return $this->getLargeShieldDome();
+                    $this->getLargeShieldDome();
                     break;
                 case 309:
-                    return $this->getAntiBallisticMissile();
+                    $this->getAntiBallisticMissile();
                     break;
                 case 310:
-                    return $this->getInterplanetaryMissile();
+                    $this->getInterplanetaryMissile();
                     break;
             }
-
-            return -1;
-
         }
 
         /**

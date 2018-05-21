@@ -37,26 +37,8 @@
             return $lang;
         }
 
-        /**
-         * loads all relevant user-information (planet, buildings, fleet, tech, defense etc.)
-         * @param $userID the user id
-         * @return Loader an object containing all the information
-         * @throws FileNotFoundException
-         */
-        public function loadUserData($userID) {
-
-
-            $file = Config::$pathConfig['classes'] . 'loader.php';
-            if (file_exists($file)) {
-                require $file;
-            } else {
-                throw new FileNotFoundException('File \'' . $file . '\' not found');
-            }
-
-            return new Loader($userID);
-        }
-
-        public function build(int $planetID, array $buildingQueue, int $costMetal, int $costCrystal, int $costDeuterium) {
+        public function build(int $planetID, array $buildingQueue, int $costMetal, int $costCrystal,
+            int $costDeuterium) {
             global $debug;
 
             if (Loader::getUser()
@@ -75,7 +57,7 @@
                 foreach ($buildingQueue as $k => $v) {
                     $key = key($v);
 
-                    $buildingString .= $key . "," . $v[$key] . ";\n";
+                    $buildingString .= $key . "," . $v[$key] . ";";
                 }
 
 
@@ -88,7 +70,7 @@
                     ':planetID'            => $planetID
                 );
 
-                $dbConnection = new Databaser();
+                $dbConnection = new Database();
 
                 $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET 
                                             b_hangar_start_time = :b_hangar_start_time, 
@@ -99,6 +81,11 @@
                                         WHERE planetID = :planetID;');
 
                 $stmt->execute($params);
+
+                Loader::getPlanet()->setMetal(Loader::getPlanet()->getMetal() - $costMetal);
+                Loader::getPlanet()->setCrystal(Loader::getPlanet()->getCrystal() - $costCrystal);
+                Loader::getPlanet()->setDeuterium(Loader::getPlanet()->getDeuterium() - $costDeuterium);
+
             } catch (PDOException $e) {
                 if (DEBUG) {
                     $debug->addLog(self::class, __FUNCTION__, __LINE__, get_class($e), $e->getMessage());

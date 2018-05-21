@@ -107,6 +107,64 @@
         }
 
         /**
+         * Return the level of the building, given its id
+         * @param int $id the building id
+         * @return int the level of the building
+         */
+        public function getBuildingByID(int $id) : int {
+
+            switch ($id) {
+                case 1:
+                    return $this->getMetalMine();
+                    break;
+                case 2:
+                    return $this->getCrystalMine();
+                    break;
+                case 3:
+                    return $this->getDeuteriumSynthesizer();
+                    break;
+                case 4:
+                    return $this->getSolarPlant();
+                    break;
+                case 5:
+                    return $this->getFusionReactor();
+                    break;
+                case 6:
+                    return $this->getRoboticFactory();
+                    break;
+                case 7:
+                    return $this->getNaniteFactory();
+                    break;
+                case 8:
+                    return $this->getShipyard();
+                    break;
+                case 9:
+                    return $this->getMetalStorage();
+                    break;
+                case 10:
+                    return $this->getCrystalStorage();
+                    break;
+                case 11:
+                    return $this->getDeuteriumStorage();
+                    break;
+                case 12:
+                    return $this->getResearchLab();
+                    break;
+                case 13:
+                    return $this->getTerraformer();
+                    break;
+                case 14:
+                    return $this->getAllianceDepot();
+                    break;
+                case 15:
+                    return $this->getMissileSilo();
+                    break;
+            }
+
+            return -1;
+        }
+
+        /**
          * Returns the current level
          * @return int the current level
          */
@@ -406,64 +464,6 @@
             if ($level >= 0) {
                 $this->missile_silo = $level;
             }
-        }
-
-        /**
-         * Return the level of the building, given its id
-         * @param int $id the building id
-         * @return int the level of the building
-         */
-        public function getBuildingByID(int $id) : int {
-
-            switch ($id) {
-                case 1:
-                    return $this->getMetalMine();
-                    break;
-                case 2:
-                    return $this->getCrystalMine();
-                    break;
-                case 3:
-                    return $this->getDeuteriumSynthesizer();
-                    break;
-                case 4:
-                    return $this->getSolarPlant();
-                    break;
-                case 5:
-                    return $this->getFusionReactor();
-                    break;
-                case 6:
-                    return $this->getRoboticFactory();
-                    break;
-                case 7:
-                    return $this->getNaniteFactory();
-                    break;
-                case 8:
-                    return $this->getShipyard();
-                    break;
-                case 9:
-                    return $this->getMetalStorage();
-                    break;
-                case 10:
-                    return $this->getCrystalStorage();
-                    break;
-                case 11:
-                    return $this->getDeuteriumStorage();
-                    break;
-                case 12:
-                    return $this->getResearchLab();
-                    break;
-                case 13:
-                    return $this->getTerraformer();
-                    break;
-                case 14:
-                    return $this->getAllianceDepot();
-                    break;
-                case 15:
-                    return $this->getMissileSilo();
-                    break;
-            }
-
-            return -1;
         }
 
         /**

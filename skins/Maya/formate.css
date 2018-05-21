@@ -273,6 +273,12 @@ input {
     align-items: center;
 }
 
+#shipyard_queue {
+    background-color: #415680;
+    width: 10em;
+    box-shadow: 1px 4px 6px #1c2d42, 0 0 0 #415680, 1px 4px 6px #1c2d42;
+}
+
 .debug_table::before {
     clear: both;
 }
