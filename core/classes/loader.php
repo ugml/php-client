@@ -30,14 +30,14 @@
 
         private static $initialized = false;
 
-        public function __construct($userID) {
+        private function __construct($userID) {
             if (!self::$initialized) {
                 self::init($userID);
                 self::$initialized = true;
             }
         }
 
-        private static function init($userID) {
+        public static function init($userID) {
 
             $dbConnection = new Database();
 

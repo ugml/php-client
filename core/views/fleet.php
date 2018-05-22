@@ -45,6 +45,109 @@
             return parent::mergeTemplates($this->template, $this->_);
         }
 
+        public function loadAvailableShipsRow($shipsAvailable) : string {
+
+            $output = "";
+
+            $first = true;
+
+            foreach($shipsAvailable[0] as $key => $value) {
+                // skip planet-ID
+                if($first) {
+                    $first = false;
+                    continue;
+                }
+
+                if($value > 0) {
+                    $output .= "<div class=\"row\">
+                                <div class=\"col-md-4 text-center\">
+                                    <div>". D_Units::getName(D_Units::getUnitID($key)) ."</div>
+                                </div>
+                                <div class=\"col-md-4 text-center\">
+                                    <div>". number_format($value, 0) ."</div>
+                                </div>
+                                <div class=\"col-md-4 text-center\">
+                                    <div>max. <input name='".$key."' type='number' value='0'  /> </div>
+                                </div>
+                            </div>";
+                }
+
+
+            }
+
+            return $output;
+        }
+
+        public function loadCurrentMissionRow($currentMissions) : string {
+
+            $output = "";
+
+            if(count($currentMissions) == 0) {
+                return "<div class=\"row\">
+                            <div class=\"col-md-1 text-center\">
+                                <div>-</div>
+                            </div>
+                            <div class=\"col-md-2 text-center\">
+                                <div>-</div>
+                            </div>
+                            <div class=\"col-md-2 text-center\">
+                                <div>-</div>
+                            </div>
+                            <div class=\"col-md-1 text-center\">
+                                <div>-</div>
+                            </div>
+                            <div class=\"col-md-1 text-center\">
+                                <div>-</div>
+                            </div>
+                            <div class=\"col-md-2 text-center\">
+                                <div>-</div>
+                            </div>
+                            <div class=\"col-md-2 text-center\">
+                                <div>-</div>
+                            </div>
+                            <div class=\"col-md-1 text-center\">
+                                <div>-</div>
+                            </div>
+                        </div>";
+            }
+
+            for($i = 0; $i < count($currentMissions); $i++) {
+
+                    $output .= "<div class=\"row\">
+                                    <div class=\"col-md-1 text-center\">
+                                        <div>".($i+1)."</div>
+                                    </div>
+                                    <div class=\"col-md-2 text-center\">
+                                        <div>". $currentMissions[$i]->mission ."</div>
+                                    </div>
+                                    <div class=\"col-md-2 text-center\">
+                                        <div>". $currentMissions[$i]->fleetlist ."</div>
+                                    </div>
+                                    <div class=\"col-md-1 text-center\">
+                                        <div>". $currentMissions[$i]->start_id ."</div>
+                                    </div>
+                                    <div class=\"col-md-2 text-center\">
+                                        <div>". date("d.m.y h:m:s", $currentMissions[$i]->start_time) ."</div>
+                                    </div>
+                                    <div class=\"col-md-1 text-center\">
+                                        <div>". $currentMissions[$i]->end_id ."</div>
+                                    </div>
+                                    <div class=\"col-md-2 text-center\">
+                                        <div>". date("d.m.y h:m:s", $currentMissions[$i]->end_time) ."</div>
+                                    </div>
+                                    <div class=\"col-md-1 text-center\">
+                                        <div>x</div>
+                                    </div>
+                                </div>";
+
+
+
+            }
+
+
+            return $output;
+        }
+
 
     }
 

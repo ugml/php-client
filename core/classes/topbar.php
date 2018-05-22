@@ -18,15 +18,9 @@
     $this->lang['planet_crystal_max'] = D_Units::getStorageCapacity(Loader::getBuildingData()->getCrystalStorage());
     $this->lang['planet_deuterium_max'] = D_Units::getStorageCapacity(Loader::getBuildingData()->getDeuteriumStorage());
 
-
     $this->lang['planet_energy_used'] = number_format(Loader::getPlanet()->getEnergyUsed(), 0);
     $this->lang['planet_energy_max'] = number_format(Loader::getPlanet()->getEnergyMax(), 0);
-    $this->lang['planet_image_small'] = Config::$gameConfig['skinpath'] . 'planeten/small/s_' . Loader::getPlanet()
-            ->getImage() . '.png';
-    $this->lang['icon_metal'] = Config::$gameConfig['skinpath'] . 'images/metal.gif';
-    $this->lang['icon_crystal'] = Config::$gameConfig['skinpath'] . 'images/crystal.gif';
-    $this->lang['icon_deuterium'] = Config::$gameConfig['skinpath'] . 'images/deuterium.gif';
-    $this->lang['icon_energy'] = Config::$gameConfig['skinpath'] . 'images/energy.gif';
+//    $this->lang['planet_image_small'] = ;
 
     $planetList = Loader::getUser()->getPlanetList();
 

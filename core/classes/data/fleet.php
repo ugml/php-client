@@ -388,6 +388,59 @@
          * @param int $id    the id of the fleet
          * @param int $level the new level of the fleet
          */
+        public function getFleetByID(int $id) {
+
+            switch ($id) {
+                case 201:
+                    return $this->getSmallCargoShip();
+                    break;
+                case 202:
+                    return $this->getLargeCargoShip();
+                    break;
+                case 203:
+                    return $this->getLightFighter();
+                    break;
+                case 204:
+                    return $this->getHeavyFighter();
+                    break;
+                case 205:
+                    return $this->getCruiser();
+                    break;
+                case 206:
+                    return $this->getBattleship();
+                    break;
+                case 207:
+                    return $this->getColonyShip();
+                    break;
+                case 208:
+                    return $this->getRecycler();
+                    break;
+                case 209:
+                    return $this->getEspionageProbe();
+                    break;
+                case 210:
+                    return $this->getBomber();
+                    break;
+                case 211:
+                    return $this->getSolarSatellite();
+                    break;
+                case 212:
+                    return $this->getDestroyer();
+                    break;
+                case 213:
+                    return $this->getBattlecruiser();
+                    break;
+                case 214:
+                    return $this->getDeathstar();
+                    break;
+            }
+        }
+
+        /**
+         * Sets the level of the fleet, given its id and new level
+         * @param int $id    the id of the fleet
+         * @param int $level the new level of the fleet
+         */
         public function setFleetByID(int $id, int $level) {
 
             switch ($id) {
