@@ -6,6 +6,8 @@
 
     require_once 'config.php';
 
+    // TODO: autoloading
+
     require_once dirname(dirname(__FILE__)) . '/core/classes/data/units.php';
     require_once dirname(dirname(__FILE__)) . '/core/classes/data/building.php';
     require_once dirname(dirname(__FILE__)) . "/core/classes/data/user.php";
@@ -22,6 +24,15 @@
     require_once dirname(dirname(__FILE__)) . "/core/classes/units/building.php";
     require_once dirname(dirname(__FILE__)) . "/core/classes/units/defense.php";
     require_once dirname(dirname(__FILE__)) . "/core/classes/units/fleet.php";
+
+
+    require_once dirname(dirname(__FILE__)) . "/core/interfaces/controller.php";
+    require_once dirname(dirname(__FILE__)) . "/core/interfaces/model.php";
+    require_once dirname(dirname(__FILE__)) . "/core/interfaces/view.php";
+    require_once dirname(dirname(__FILE__)) . "/core/models/building.php";
+    require_once dirname(dirname(__FILE__)) . "/core/views/view.php";
+    require_once dirname(dirname(__FILE__)) . "/core/views/building.php";
+    require_once dirname(dirname(__FILE__)) . "/core/controllers/building.php";
 
 
     // initialize static objects
