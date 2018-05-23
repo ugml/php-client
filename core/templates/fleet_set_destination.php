@@ -13,9 +13,9 @@
                             </div>
                             <div class="col-md-6 text-center">
                                 <div>
-                                    <input type="number" size="2" min="1" max="<?php echo Config::$gameConfig['max_galaxy'] ?>" maxlength="2" class="input-coordinates" name="fleet_dest_galaxy" />:
-                                    <input type="number" size="2" min="1" max="<?php echo Config::$gameConfig['max_system'] ?>" maxlength="3" class="input-coordinates" name="fleet_dest_system" />:
-                                    <input type="number" size="2" min="1" max="<?php echo Config::$gameConfig['max_planet'] ?>" maxlength="2" class="input-coordinates" name="fleet_dest_planet" />
+                                    <input oninput="javascript:calculateDistance(<?php echo Loader::getPlanet()->getGalaxy(); ?>, <?php echo Loader::getPlanet()->getSystem(); ?>, <?php echo Loader::getPlanet()->getPlanet(); ?>);" type="number" size="2" min="1" max="<?php echo Config::$gameConfig['max_galaxy'] ?>" maxlength="2" value="<?php echo Loader::getPlanet()->getGalaxy(); ?>" class="input-coordinates" name="fleet_dest_galaxy" />:
+                                    <input oninput="javascript:calculateDistance(<?php echo Loader::getPlanet()->getGalaxy(); ?>, <?php echo Loader::getPlanet()->getSystem(); ?>, <?php echo Loader::getPlanet()->getPlanet(); ?>);"  type="number" size="2" min="1" max="<?php echo Config::$gameConfig['max_system'] ?>" maxlength="3" value="<?php echo Loader::getPlanet()->getSystem(); ?>" class="input-coordinates" name="fleet_dest_system" />:
+                                    <input oninput="javascript:calculateDistance(<?php echo Loader::getPlanet()->getGalaxy(); ?>, <?php echo Loader::getPlanet()->getSystem(); ?>, <?php echo Loader::getPlanet()->getPlanet(); ?>);"  type="number" size="2" min="1" max="<?php echo Config::$gameConfig['max_planet'] ?>" maxlength="2" value="<?php echo Loader::getPlanet()->getPlanet(); ?>" class="input-coordinates" name="fleet_dest_planet" />
                                     <select name="fleet_dest_type">
                                         <option value="0">{planet_type_planet}</option>
                                         <option value="1">{planet_type_moon}</option>
@@ -57,7 +57,7 @@
                             </div>
                             <div class="col-md-6 text-center">
                                 <div>
-                                    0 (todo)
+                                    <span id="distance">0</span>
                                 </div>
                             </div>
                         </div>
@@ -195,3 +195,5 @@
         </form>
     </div>
 </div>
+
+<script src="scripts/fleet.js"></script>
