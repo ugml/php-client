@@ -139,14 +139,14 @@
                         fleet.destroyer AS fleet_destroyer,
                         fleet.battlecruiser AS fleet_battlecruiser,
                         fleet.deathstar AS fleet_deathstar
-                        FROM ' . Config::$dbConfig['prefix'] . 'users AS user
-                        LEFT JOIN ' . Config::$dbConfig['prefix'] . 'stats AS stats ON user.userID = stats.userID
-                        LEFT JOIN ' . Config::$dbConfig['prefix'] . 'planets AS planet ON user.userID = planet.ownerID
-                        LEFT JOIN ' . Config::$dbConfig['prefix'] . 'galaxy AS galaxy ON planet.planetID = galaxy.planetID
-                        LEFT JOIN ' . Config::$dbConfig['prefix'] . 'buildings AS building ON planet.planetID = building.planetID
-                        LEFT JOIN ' . Config::$dbConfig['prefix'] . 'defenses AS defense ON planet.planetID = defense.planetID
-                        LEFT JOIN ' . Config::$dbConfig['prefix'] . 'techs AS tech ON user.userID = tech.userID
-                        LEFT JOIN ' . Config::$dbConfig['prefix'] . 'fleet AS fleet ON planet.planetID = fleet.planetID
+                        FROM users AS user
+                        LEFT JOIN stats AS stats ON user.userID = stats.userID
+                        LEFT JOIN planets AS planet ON user.userID = planet.ownerID
+                        LEFT JOIN galaxy AS galaxy ON planet.planetID = galaxy.planetID
+                        LEFT JOIN buildings AS building ON planet.planetID = building.planetID
+                        LEFT JOIN defenses AS defense ON planet.planetID = defense.planetID
+                        LEFT JOIN techs AS tech ON user.userID = tech.userID
+                        LEFT JOIN fleet AS fleet ON planet.planetID = fleet.planetID
                         WHERE user.userID = :userID;';
 
             $stmt = $dbConnection->prepare($query);
@@ -430,7 +430,7 @@
                 $points += floor((round($metal, -3) + round($crystal, -3) + round($deuterium, -3)) / 1000);
             }
 
-            $query = 'UPDATE ' . Config::$dbConfig['prefix'] . 'stats SET points = ' . $points . ' WHERE userID = :userID;';
+            $query = 'UPDATE stats SET points = ' . $points . ' WHERE userID = :userID;';
 
             $stmt = $dbConnection->prepare($query);
 
@@ -440,7 +440,7 @@
 
 
             // update onlinetime
-            $query = 'UPDATE ' . Config::$dbConfig['prefix'] . 'users SET onlinetime = ' . time() . ' WHERE userID = :userID;';
+            $query = 'UPDATE users SET onlinetime = ' . time() . ' WHERE userID = :userID;';
 
             $stmt = $dbConnection->prepare($query);
 

@@ -157,7 +157,7 @@
 
             $dbConnection = new Database();
 
-            $query = 'UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET last_update = :last_update, metal = :metal, crystal = :crystal, deuterium = :deuterium, energy_used = :energy_used, energy_max = :energy_max';
+            $query = 'UPDATE planets SET last_update = :last_update, metal = :metal, crystal = :crystal, deuterium = :deuterium, energy_used = :energy_used, energy_max = :energy_max';
 
             $time = time();
 
@@ -214,7 +214,7 @@
                     //                    $level = call_user_func_array(array($data->getBuildingList(), $method), array());
 
                     // update the building level
-                    $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'buildings SET ' . D_Units::getUnitName($this->b_building_id) . ' = ' . ($level + 1));
+                    $stmt = $dbConnection->prepare('UPDATE buildings SET ' . D_Units::getUnitName($this->b_building_id) . ' = ' . ($level + 1));
 
                     $stmt->execute();
 
@@ -227,7 +227,7 @@
                     $level = Loader::getTechList()[$this->b_tech_id]->getLevel();
 
                     // update the building level
-                    $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'techs SET ' . D_Units::getUnitName($this->b_tech_id) . ' = ' . ($level + 1));
+                    $stmt = $dbConnection->prepare('UPDATE techs SET ' . D_Units::getUnitName($this->b_tech_id) . ' = ' . ($level + 1));
 
                     $stmt->execute();
 
@@ -306,7 +306,7 @@
                                 Loader::getFleetList()[$unitID]->setAmount(intval($newShipCount));
 
                                 // update new shipcount in database
-                                $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'fleet SET ' . D_Units::getUnitName($unitID) . ' = ' . ($newShipCount) . ' WHERE planetId = ' . $this->planetID);
+                                $stmt = $dbConnection->prepare('UPDATE fleet SET ' . D_Units::getUnitName($unitID) . ' = ' . ($newShipCount) . ' WHERE planetId = ' . $this->planetID);
 
                                 $stmt->execute();
 
@@ -549,7 +549,7 @@
                         $this->system = rand(1, Config::$gameConfig['max_system']);
                         $this->planet = rand(1, Config::$gameConfig['max_planet']);
 
-                        $stmt = $dbConnection->prepare('SELECT 1 FROM ' . Config::$dbConfig['prefix'] . 'planets WHERE galaxy = :g AND system = :s AND planet = :p;');
+                        $stmt = $dbConnection->prepare('SELECT 1 FROM planets WHERE galaxy = :g AND system = :s AND planet = :p;');
 
                         $stmt->bindParam(':g', $this->galaxy);
                         $stmt->bindParam(':s', $this->system);
@@ -641,7 +641,7 @@
             do {
                 $this->planetID = rand(0, 100000);
 
-                $stmt = $dbConnection->prepare('SELECT ownerID FROM ' . Config::$dbConfig['prefix'] . 'planets WHERE planetID = :planetID;');
+                $stmt = $dbConnection->prepare('SELECT ownerID FROM planets WHERE planetID = :planetID;');
 
                 $stmt->bindParam(':planetID', $this->planetID);
 
@@ -650,7 +650,7 @@
             } while ($stmt->rowCount() > 0);
 
 
-            $stmt = $dbConnection->prepare('INSERT INTO ' . Config::$dbConfig['prefix'] . 'planets (planetID, ownerID, name, galaxy, system, planet, last_update, planet_type, image, diameter, fields_max, temp_min, temp_max) VALUES ' .
+            $stmt = $dbConnection->prepare('INSERT INTO planets (planetID, ownerID, name, galaxy, system, planet, last_update, planet_type, image, diameter, fields_max, temp_min, temp_max) VALUES ' .
                 '(:planetID, :ownerID, :name, :galaxy, :system, :planet, :last_update, :planet_type, :image, :diameter, :fields_max, :temp_min, :temp_max);');
 
             $stmt->bindParam(':planetID', $this->planetID);

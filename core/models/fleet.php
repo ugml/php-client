@@ -53,6 +53,7 @@
         }
 
         public function loadCurrentMissions() : array {
+
             $dbConnection = new Database();
 
             $params = array(':ownerID' => Loader::getUser()->getUserID());

@@ -19,7 +19,7 @@
                 return $this->dbConnection;
             }
 
-            $this->dbConnection = new PDO('mysql:host=' . Config::$dbConfig['host'] . ';dbname=' . Config::$dbConfig['dbname'],
+            $this->dbConnection = new PDO('mysql:host=' . Config::$dbConfig['host'] . ';dbname=' . Config::$dbConfig['dbname'] . ';port=' . Config::$dbConfig['port'],
                 Config::$dbConfig['user'], Config::$dbConfig['pass']);
 
             $this->dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
