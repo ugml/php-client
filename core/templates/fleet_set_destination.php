@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-md-6 text-center">
                                 <div>
-                                    5.000 (todo)
+                                    <span id="storage">5.000</span>(todo)
                                 </div>
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                         </div>
                         <div class="col-md-6 text-center">
                             <div>
-                                {max} <input type="number" min="0" max="<?php echo Loader::getPlanet()->getMetal(); ?>" name="fleet_metal" />
+                                <a href="javascript:void(0)" onclick="return setMax(this);">{max}</a> <input type="number" min="0" max="<?php echo Loader::getPlanet()->getMetal(); ?>" name="fleet_metal" />
                             </div>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                         </div>
                         <div class="col-md-6 text-center">
                             <div>
-                                {max} <input type="number" min="0" max="<?php echo Loader::getPlanet()->getCrystal(); ?>" name="fleet_crystal" />
+                                <a href="javascript:void(0)" onclick="return setMax(this);">{max}</a> <input type="number" min="0" max="<?php echo Loader::getPlanet()->getCrystal(); ?>" name="fleet_crystal" />
                             </div>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                         </div>
                         <div class="col-md-6 text-center">
                             <div>
-                                {max} <input type="number" min="0" max="<?php echo Loader::getPlanet()->getDeuterium(); ?>" name="fleet_deuterium" />
+                                <a href="javascript:void(0)" onclick="return setMax(this);">{max}</a> <input type="number" min="0" max="<?php echo Loader::getPlanet()->getDeuterium(); ?>" name="fleet_deuterium" />
                             </div>
                         </div>
                     </div>
@@ -195,5 +195,4 @@
         </form>
     </div>
 </div>
-
 <script src="scripts/fleet.js"></script>

@@ -56,6 +56,7 @@
                         <div class="col-md-12 text-center">
                             <div>
                                 <input type="hidden" name="step" value="1" />
+                                <input type="reset" value="{reset}" /> &nbsp;
                                 <input type="submit" value="{continue}" />
                             </div>
                         </div>
@@ -65,3 +66,4 @@
         </div>
     </div>
 </div>
+<script src="scripts/fleet.js"></script>

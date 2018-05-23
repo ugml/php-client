@@ -20,3 +20,23 @@ function calculateDistance(startGalaxy, startSystem, startPlanet) {
     document.getElementById("distance").innerText = distance;
 
 }
+
+function setMax(element) {
+    // TOOD
+
+    var maxValue = element.nextElementSibling.max;
+
+    element.nextElementSibling.value = maxValue;
+
+    console.log();
+
+    if(element.nextElementSibling.getAttribute("name").match("fleet_metal|fleet_crystal|fleet_deuterium")) {
+        var maxStorage = parseInt(document.getElementById("storage").innerText.replace(".", ""));
+
+        if(maxValue > maxStorage) {
+            element.nextElementSibling.value = maxStorage;
+        }
+    }
+
+
+}

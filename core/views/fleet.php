@@ -67,7 +67,7 @@
                                     <div>". number_format($value, 0) ."</div>
                                 </div>
                                 <div class=\"col-md-4 text-center\">
-                                    <div>max. <input name='".$key."' type='number' value='0'  /> </div>
+                                    <div><a href=\"javascript:void(0)\" onclick=\"return setMax(this);\">{max}</a> <input name='".$key."' type='number' value='0' max='{$value}'  /> </div>
                                 </div>
                             </div>";
                 }

@@ -18,6 +18,7 @@
     $lang['new_mission'] = "New Mission";
     $lang['ship_name'] = "Name";
     $lang['ships_available'] = "Available";
+    $lang['reset'] = "Reset";
     $lang['continue'] = "Continue";
 
     // second view
