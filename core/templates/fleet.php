@@ -2,33 +2,33 @@
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-12 content-header">
-                Missions (max. 12)
+                {missions} ({max} 12)
             </div>
             <div class="col-md-12 content-body">
                 <div class="row">
                     <div class="col-md-1 text-center">
-                        <div>Num.</div>
+                        <div>{num}</div>
                     </div>
                     <div class="col-md-2 text-center">
-                        <div>Mission</div>
+                        <div>{missions}</div>
                     </div>
                     <div class="col-md-2 text-center">
-                        <div>Ships</div>
+                        <div>{ships}</div>
                     </div>
                     <div class="col-md-1 text-center">
-                        <div>Start</div>
+                        <div>{start}</div>
                     </div>
                     <div class="col-md-2 text-center">
-                        <div>Starttime</div>
+                        <div>{start_time}</div>
                     </div>
                     <div class="col-md-1 text-center">
-                        <div>Dest.</div>
+                        <div>{destination_short}</div>
                     </div>
                     <div class="col-md-2 text-center">
-                        <div>Arrivaltime</div>
+                        <div>{arrival_time}</div>
                     </div>
                     <div class="col-md-1 text-center">
-                        <div>Actions</div>
+                        <div>{actions}</div>
                     </div>
                 </div>
                 {fleet_current_missions}
@@ -36,15 +36,15 @@
         </div>
         <div class="row">
             <div class="col-md-12 content-header">
-                New Mission
+                {new_mission}
             </div>
             <div class="col-md-12 content-body">
                 <div class="row">
                     <div class="col-md-4 text-center">
-                        <div>Name</div>
+                        <div>{ship_name}</div>
                     </div>
                     <div class="col-md-4 text-center">
-                        <div>Available</div>
+                        <div>{ships_available}</div>
                     </div>
                     <div class="col-md-4 text-center">
                         <div>&nbsp;</div>
@@ -56,7 +56,7 @@
                         <div class="col-md-12 text-center">
                             <div>
                                 <input type="hidden" name="step" value="1" />
-                                <input type="submit" value="Continue" />
+                                <input type="submit" value="{continue}" />
                             </div>
                         </div>
                     </div>

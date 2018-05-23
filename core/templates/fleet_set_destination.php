@@ -3,13 +3,13 @@
         <form action="game.php?page=fleet" method="post">
             <div class="row">
                 <div class="col-md-12 content-header">
-                    Send fleet
+                    {send_fleet}
                 </div>
 
                     <div class="col-md-12 content-body">
                         <div class="row">
                             <div class="col-md-6 text-center">
-                                <div>Destination</div>
+                                <div>{destination}</div>
                             </div>
                             <div class="col-md-6 text-center">
                                 <div>
@@ -17,9 +17,9 @@
                                     <input type="number" size="2" min="1" max="<?php echo Config::$gameConfig['max_system'] ?>" maxlength="3" class="input-coordinates" name="fleet_dest_system" />:
                                     <input type="number" size="2" min="1" max="<?php echo Config::$gameConfig['max_planet'] ?>" maxlength="2" class="input-coordinates" name="fleet_dest_planet" />
                                     <select name="fleet_dest_type">
-                                        <option value="0">Planet</option>
-                                        <option value="1">Moon</option>
-                                        <option value="2">Debris</option>
+                                        <option value="0">{planet_type_planet}</option>
+                                        <option value="1">{planet_type_moon}</option>
+                                        <option value="2">{planet_type_debris}</option>
                                     </select>
                                 </div>
                             </div>
@@ -29,7 +29,7 @@
                     <div class="col-md-12 content-body">
                         <div class="row">
                             <div class="col-md-6 text-center">
-                                <div>Speed</div>
+                                <div>{speed}</div>
                             </div>
                             <div class="col-md-6 text-center">
                                 <div>
@@ -53,11 +53,11 @@
                     <div class="col-md-12 content-body">
                         <div class="row">
                             <div class="col-md-6 text-center">
-                                <div>Distance</div>
+                                <div>{distance}</div>
                             </div>
                             <div class="col-md-6 text-center">
                                 <div>
-                                    3.555 (todo)
+                                    0 (todo)
                                 </div>
                             </div>
                         </div>
@@ -66,11 +66,11 @@
                     <div class="col-md-12 content-body">
                         <div class="row">
                             <div class="col-md-6 text-center">
-                                <div>Duration (one way)</div>
+                                <div>{duration_one_way}</div>
                             </div>
                             <div class="col-md-6 text-center">
                                 <div>
-                                    1h 3m 12s (todo)
+                                    0s (todo)
                                 </div>
                             </div>
                         </div>
@@ -79,11 +79,11 @@
                     <div class="col-md-12 content-body">
                         <div class="row">
                             <div class="col-md-6 text-center">
-                                <div>Consumtion</div>
+                                <div>{consumption}</div>
                             </div>
                             <div class="col-md-6 text-center">
                                 <div>
-                                    5 (todo)
+                                    0 (todo)
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                     <div class="col-md-12 content-body">
                         <div class="row">
                             <div class="col-md-6 text-center">
-                                <div>Storage</div>
+                                <div>{storage}</div>
                             </div>
                             <div class="col-md-6 text-center">
                                 <div>
@@ -103,50 +103,50 @@
                     </div>
 
                 <div class="col-md-12 content-header">
-                    Resources
+                    {resources}
                 </div>
 
                 <div class="col-md-12 content-body">
                     <div class="row">
                         <div class="col-md-6 text-center">
                             <div>
-                                Metal
+                                {metal}
                             </div>
                         </div>
                         <div class="col-md-6 text-center">
                             <div>
-                                max. <input type="number" min="0" max="<?php echo Loader::getPlanet()->getMetal(); ?>" name="fleet_metal" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 text-center">
-                            <div>
-                                Crystal
-                            </div>
-                        </div>
-                        <div class="col-md-6 text-center">
-                            <div>
-                                max. <input type="number" min="0" max="<?php echo Loader::getPlanet()->getCrystal(); ?>" name="fleet_crystal" />
+                                {max} <input type="number" min="0" max="<?php echo Loader::getPlanet()->getMetal(); ?>" name="fleet_metal" />
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 text-center">
                             <div>
-                                Deuterium
+                                {crystal}
                             </div>
                         </div>
                         <div class="col-md-6 text-center">
                             <div>
-                                max. <input type="number" min="0" max="<?php echo Loader::getPlanet()->getDeuterium(); ?>" name="fleet_deuterium" />
+                                {max} <input type="number" min="0" max="<?php echo Loader::getPlanet()->getCrystal(); ?>" name="fleet_crystal" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <div>
+                                {deuterium}
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <div>
+                                {max} <input type="number" min="0" max="<?php echo Loader::getPlanet()->getDeuterium(); ?>" name="fleet_deuterium" />
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-12 content-header">
-                    Shortlinks
+                    {shortlinks}
                 </div>
 
                 <div class="col-md-12 content-body">
@@ -165,19 +165,19 @@
                 </div>
 
 
-                <div class="col-md-12 content-header">
-                    ACS
-                </div>
-
-                <div class="col-md-12 content-body">
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <div>
-                                todo
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="col-md-12 content-header">-->
+<!--                    {acs}-->
+<!--                </div>-->
+<!---->
+<!--                <div class="col-md-12 content-body">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-md-12 text-center">-->
+<!--                            <div>-->
+<!--                                todo-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <div class="col-md-12 content-body">
                     <div class="row">
