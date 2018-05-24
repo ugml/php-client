@@ -28,6 +28,17 @@
     $lang['planet_type_moon'] = "Moon";
     $lang['planet_type_debris'] = "Debris";
     $lang['speed'] = "Speed";
+    $lang['mission'] = "Mission";
+    $lang['transport'] = "Transport";
+    $lang['deploy'] = "Deploy";
+    $lang['attack'] = "Attack";
+    $lang['acs'] = "ACS";
+    $lang['hold'] = "Hold";
+    $lang['colonize'] = "Colonize";
+    $lang['harvest'] = "Harvest";
+    $lang['espionage'] = "Espionage";
+    $lang['destroy'] = "Destroy";
+
     $lang['distance'] = "Distance";
     $lang['duration_one_way'] = "Duration (one way)";
     $lang['consumption'] = "Consumption";

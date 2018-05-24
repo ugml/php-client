@@ -33,22 +33,45 @@
                             </div>
                             <div class="col-md-6 text-center">
                                 <div>
-                                    <select name="fleet_speed">
-                                        <option value="100">100%</option>
-                                        <option value="90">90%</option>
-                                        <option value="80">80%</option>
-                                        <option value="70">70%</option>
-                                        <option value="60">60%</option>
-                                        <option value="50">50%</option>
-                                        <option value="40">40%</option>
-                                        <option value="30">30%</option>
-                                        <option value="20">20%</option>
-                                        <option value="10">10%</option>
+                                    <select name="fleet_mission">
+                                        <option value="0">{transport}</option>
+                                        <option value="1">{deploy}</option>
+                                        <option value="2">{attack}</option>
+                                        <option value="3">{acs}</option>
+                                        <option value="4">{hold}</option>
+                                        <option value="5">{colonize}</option>
+                                        <option value="6">{harvest}</option>
+                                        <option value="7">{espionage}</option>
+                                        <option value="8">{destroy}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                <div class="col-md-12 content-body">
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <div>{mission}</div>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <div>
+                                <select name="fleet_speed">
+                                    <option value="100">100%</option>
+                                    <option value="90">90%</option>
+                                    <option value="80">80%</option>
+                                    <option value="70">70%</option>
+                                    <option value="60">60%</option>
+                                    <option value="50">50%</option>
+                                    <option value="40">40%</option>
+                                    <option value="30">30%</option>
+                                    <option value="20">20%</option>
+                                    <option value="10">10%</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                     <div class="col-md-12 content-body">
                         <div class="row">

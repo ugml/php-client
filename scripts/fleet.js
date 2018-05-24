@@ -5,15 +5,15 @@ function calculateDistance(startGalaxy, startSystem, startPlanet) {
 
     var distance = 0;
 
-    if(startGalaxy != endGalaxy) {
+    if(startGalaxy !== endGalaxy) {
         distance += 20000 * Math.abs(startGalaxy - endGalaxy);
     }
 
-    if(startGalaxy != endGalaxy) {
+    if(startGalaxy !== endGalaxy) {
         distance += 2700 + 95 * Math.abs(startSystem - endSystem);
     }
 
-    if(startPlanet != endPlanet) {
+    if(startPlanet !== endPlanet) {
         distance += 1000 + 5 * Math.abs(startPlanet - endPlanet);
     }
 
@@ -27,8 +27,6 @@ function setMax(element) {
     var maxValue = element.nextElementSibling.max;
 
     element.nextElementSibling.value = maxValue;
-
-    console.log();
 
     if(element.nextElementSibling.getAttribute("name").match("fleet_metal|fleet_crystal|fleet_deuterium")) {
         var maxStorage = parseInt(document.getElementById("storage").innerText.replace(".", ""));
