@@ -113,12 +113,51 @@
 
             for($i = 0; $i < count($currentMissions); $i++) {
 
+                $mission = "";
+                $actions = "";
+
+                switch($currentMissions[$i]->mission) {
+                    case 0:
+                        $mission = "{transport}";
+                        break;
+                    case 1:
+                        $mission = "{deploy}";
+                        break;
+                    case 2:
+                        $mission = "{attack}";
+                        break;
+                    case 3:
+                        $mission = "{acs}";
+                        break;
+                    case 4:
+                        $mission = "{hold}";
+                        break;
+                    case 5:
+                        $mission = "{colonize}";
+                        break;
+                    case 6:
+                        $mission = "{harvest}";
+                        break;
+                    case 7:
+                        $mission = "{espionage}";
+                        break;
+                    case 8:
+                        $mission = "{destroy}";
+                        break;
+                }
+
+                if($currentMissions[$i]->returning == 1) {
+                    $mission .= " (R)";
+                } else {
+                    $actions = "x";
+                }
+
                     $output .= "<div class=\"row\">
                                     <div class=\"col-md-1 text-center\">
                                         <div>".($i+1)."</div>
                                     </div>
                                     <div class=\"col-md-2 text-center\">
-                                        <div>". $currentMissions[$i]->mission ."</div>
+                                        <div>". $mission ."</div>
                                     </div>
                                     <div class=\"col-md-2 text-center\">
                                         <div>". $currentMissions[$i]->fleetlist ."</div>
@@ -136,7 +175,7 @@
                                         <div>". date("d.m.y h:m:s", $currentMissions[$i]->end_time) ."</div>
                                     </div>
                                     <div class=\"col-md-1 text-center\">
-                                        <div>x</div>
+                                        <div>".$actions."</div>
                                     </div>
                                 </div>";
 

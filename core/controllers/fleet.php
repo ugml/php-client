@@ -99,6 +99,15 @@
                     throw new InvalidArgumentException("invalid destination");
                 }
 
+
+//
+                // check fleet mission
+                if(!ctype_digit($this->post['fleet_mission']) ||
+                    intval($this->post['fleet_mission']) < 0 ||
+                    intval($this->post['fleet_mission']) > 8) {
+                    throw new InvalidArgumentException("invalid mission type");
+                }
+
                 // check destination type
                 if(!ctype_digit($this->post['fleet_dest_type']) ||
                     intval($this->post['fleet_dest_type']) < 0 ||
@@ -147,6 +156,7 @@
                 $dest_galaxy = intval($this->post["fleet_dest_galaxy"]);
                 $dest_system = intval($this->post["fleet_dest_system"]);
                 $dest_planet = intval($this->post["fleet_dest_planet"]);
+                $mission = intval($this->post["fleet_mission"]);
                 $dest_type = intval($this->post["fleet_dest_type"]);
 
                 $fleet_metal = intval($this->post["fleet_metal"]);
@@ -169,7 +179,7 @@
                 }
 
 
-                $this->model->sendFleet($dest_galaxy, $dest_system, $dest_planet, $dest_type, $fleet_metal, $fleet_crystal, $fleet_deuterium, $fleetData);
+                $this->model->sendFleet($dest_galaxy, $dest_system, $dest_planet, $mission, $dest_type, $fleet_metal, $fleet_crystal, $fleet_deuterium, $fleetData);
 
             }
 

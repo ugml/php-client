@@ -2,8 +2,8 @@
 <html lang="{language}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{game_name} :: {page}</title>
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon"/>
     <link rel="SHORTCUT ICON" href="images/favicon.png"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"

@@ -68,7 +68,7 @@
             return $data;
         }
 
-        public function sendFleet(int $galaxy, int $system, int $planet, int $type, int $metal, int $crystal, int $deuterium, array $fleetData) : int {
+        public function sendFleet(int $galaxy, int $system, int $planet, int $mission, int $type, int $metal, int $crystal, int $deuterium, array $fleetData) : int {
 
             $dbConnection = new Database();
 
@@ -109,7 +109,7 @@
 
                 // send fleet
                 $stmt = $dbConnection->prepare("INSERT INTO `flights` (`flightID`, `ownerID`, `mission`, `fleetlist`, `start_id`, `start_type`, `start_time`, `end_id`, `end_type`, `end_time`, `loaded_metal`, `loaded_crystal`, `loaded_deuterium`, `returning`, `processed`) VALUES 
-                                                                            (NULL, '".Loader::getUser()->getUserID()."', '1', '".$fleetDataString."', '".Loader::getPlanet()->getPlanetID()."', '1', '".time()."', '". $data[0]->planetID ."', '1', '". (time() + 1000) ."', '".$metal."', '".$crystal."', '".$deuterium."', '0', '0');");
+                                                                            (NULL, '".Loader::getUser()->getUserID()."', '".$mission."', '".$fleetDataString."', '".Loader::getPlanet()->getPlanetID()."', '1', '".time()."', '". $data[0]->planetID ."', '1', '". (time() + 1000) ."', '".$metal."', '".$crystal."', '".$deuterium."', '0', '0');");
 
                 $stmt->execute();
 

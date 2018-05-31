@@ -20,8 +20,8 @@
                                              g.debris_metal, g.debris_crystal, m.planetID AS moonID FROM planets AS p 
                                              LEFT JOIN users AS u ON u.userID = p.ownerID 
                                              LEFT JOIN galaxy AS g ON g.planetID = p.planetID 
-                                             LEFT JOIN planets AS m ON m.galaxy = p.galaxy AND m.system = p.system AND m.planet = p.planet AND m.planet_type = 2 
-                                             WHERE p.galaxy = :galaxy AND p.system = :system AND p.planet_type = 1 ORDER BY p.planet ASC');
+                                             LEFT JOIN planets AS m ON m.galaxy = p.galaxy AND m.system = p.system AND m.planet = p.planet AND m.planet_type = 1 
+                                             WHERE p.galaxy = :galaxy AND p.system = :system AND p.planet_type = 0 ORDER BY p.planet ASC');
 
 
                 $stmt->execute($params);
