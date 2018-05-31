@@ -96,10 +96,10 @@
                             <div class=\"col-md-1 text-center\">
                                 <div>-</div>
                             </div>
-                            <div class=\"col-md-1 text-center\">
+                            <div class=\"col-md-2 text-center\">
                                 <div>-</div>
                             </div>
-                            <div class=\"col-md-2 text-center\">
+                            <div class=\"col-md-1 text-center\">
                                 <div>-</div>
                             </div>
                             <div class=\"col-md-2 text-center\">
