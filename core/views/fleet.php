@@ -149,7 +149,7 @@
                 if($currentMissions[$i]->returning == 1) {
                     $mission .= " (R)";
                 } else {
-                    $actions = "x";
+                    $actions = "<a href='?page=fleet&return=".$currentMissions[$i]->flightID."'><i class=\"fas fa-undo-alt\"></i></a>";
                 }
 
                     $output .= "<div class=\"row\">
