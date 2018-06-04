@@ -121,8 +121,8 @@ input {
     border-bottom: none;
     list-style: none;
     padding: 0;
-    width: 110px;
-    margin: 10px 0 0 0;
+    width: 9em;
+    margin: 0;
 
 }
 
@@ -146,7 +146,6 @@ input {
 
 #topnav {
     padding-left: 10%;
-    max-width: 800px;
 }
 
 #topnav #planetList {
@@ -186,7 +185,6 @@ input {
 #page-content {
     padding-left: 10%;
     padding-top: 1%;
-    max-width: 800px;
 }
 
 .content-header {
@@ -296,7 +294,12 @@ input {
 .sql_debug_table th, .debug_table th {
     font-weight: bold;
     padding-left: 5px;
-    background-image: url(img/bg1.gif);
+    background: rgb(36, 59, 85);
+    background: -moz-linear-gradient(top, rgb(36, 59, 85) 0%, rgb(20, 30, 48) 100%);
+    background: -webkit-linear-gradient(top, rgb(36, 59, 85) 0%, rgb(20, 30, 48) 100%);
+    background: linear-gradient(to bottom, rgb(36, 59, 85) 0%, rgb(20, 30, 48) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#243b55', endColorstr='#141e30', GradientType=0);
+    border: 1px #192026 solid;
     border: 1px #415680 solid;
     margin-top: 2px;
 }
@@ -319,4 +322,9 @@ input {
     height: 30px; /* Set the fixed height of the footer here */
     line-height: 30px; /* Vertically center the text there */
     text-align: right;
+}
+
+
+.input-coordinates {
+    width: 3em;
 }

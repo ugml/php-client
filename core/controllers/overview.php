@@ -130,11 +130,6 @@
             $this->lang = array_merge($this->lang, $this->model->loadLanguage());
 
             $view->assign('lang', $this->lang);
-            $view->assign('title', Config::$gameConfig['game_name']);
-            $view->assign('skinpath', Config::$gameConfig['skinpath']);
-
-            $view->assign('copyright', Config::$gameConfig['copyright']);
-            $view->assign('language', Config::$pathConfig['language']);
 
             if (!empty($this->get['mode'])) {
                 echo $view->loadTemplate($this->get['mode']);

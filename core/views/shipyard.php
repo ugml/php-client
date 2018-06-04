@@ -46,6 +46,7 @@
             // }
 
             $this->_['lang']['queue'] = "";
+            $this->_['lang']['queue_script'] = "";
 
             if(Loader::getPlanet()->getBHangarStartTime() > 0) {
 

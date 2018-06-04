@@ -90,6 +90,7 @@
         function display() : void {
 
             $v_lang = $this->model->loadLanguage();
+
             $galaxyData = $this->model->loadGalaxyData($this->currentGalaxy, $this->currentSystem);
 
             // load the individual rows for each building

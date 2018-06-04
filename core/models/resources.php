@@ -28,7 +28,7 @@
             $dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
             $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET ' . rtrim($query_values,
+            $stmt = $dbConnection->prepare('UPDATE planets SET ' . rtrim($query_values,
                     ', ') . ' WHERE planetID = :planetid');
 
             $stmt->bindParam(':planetid', $planetID);

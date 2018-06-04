@@ -308,8 +308,9 @@
         public function testGetMetalProductionPerHour() : void {
 
             $level = 12;
+            $plasmaLevel = 4;
 
-            $this->assertSame(10 * $level * pow(1.1, $level), $this->units->getMetalProductionPerHour($level));
+            $this->assertSame(floor(30 * $level * pow(1.1, $level)) * ((100 + 1 * $plasmaLevel)/100), $this->units->getMetalProductionPerHour($level, $plasmaLevel));
         }
 
         /**
@@ -318,8 +319,9 @@
         public function testGetCrystalProductionPerHour() : void {
 
             $level = 5;
+            $plasmaLevel = 8;
 
-            $this->assertSame(10 * $level * pow(1.1, $level), $this->units->getCrystalProductionPerHour($level));
+            $this->assertSame(floor(20 * $level * pow(1.1, $level)) * ((100 + 0.66 * $plasmaLevel)/100), $this->units->getCrystalProductionPerHour($level, $plasmaLevel));
         }
 
         /**
@@ -328,8 +330,9 @@
         public function testGetDeuteriumProductionPerHour() : void {
 
             $level = 8;
+            $maxTemp = 103;
 
-            $this->assertSame(10 * $level * pow(1.1, $level), $this->units->getDeuteriumProductionPerHour($level));
+            $this->assertSame(floor(10 * $level * pow(1.1, $level) * (1.28 - 0.002 * $maxTemp)), $this->units->getDeuteriumProductionPerHour($level, $maxTemp));
         }
 
         /**
