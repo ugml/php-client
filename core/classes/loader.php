@@ -266,7 +266,7 @@
                                   intval($data->tech_shielding_tech),
                                   intval($data->tech_energy_tech),
                                   intval($data->tech_hyperspace_tech),
-                                  intval($data->tech_combustion_tech),
+                                  intval($data->tech_combustion_drive_tech),
                                   intval($data->tech_impulse_drive_tech),
                                   intval($data->tech_hyperspace_drive_tech),
                                   intval($data->tech_laser_tech),

@@ -146,6 +146,8 @@
                     return $this->getGravitonTech();
                     break;
             }
+
+            return -1;
         }
 
         /**
@@ -389,64 +391,6 @@
         }
 
 
-
-        /**
-         * Return the level of the tech, given its id
-         * @param int $id the tech id
-         * @return int the level of the tech
-         */
-        public function getTechByID(int $id) : int {
-
-            switch ($id) {
-                case 101:
-                    return $this->getEspionageTech();
-                    break;
-                case 102:
-                    return $this->getComputerTech();
-                    break;
-                case 103:
-                    return $this->getWeaponTech();
-                    break;
-                case 104:
-                    return $this->getArmourTech();
-                    break;
-                case 105:
-                    return $this->getShieldingTech();
-                    break;
-                case 106:
-                    return $this->getEnergyTech();
-                    break;
-                case 107:
-                    return $this->getHyperspaceTech();
-                    break;
-                case 108:
-                    return $this->getCombustionDriveTech();
-                    break;
-                case 109:
-                    return $this->getImpulseDriveTech();
-                    break;
-                case 110:
-                    return $this->getHyperspaceDriveTech();
-                    break;
-                case 111:
-                    return $this->getLaserTech();
-                    break;
-                case 112:
-                    return $this->getIonTech();
-                    break;
-                case 113:
-                    return $this->getPlasmaTech();
-                    break;
-                case 114:
-                    return $this->getIntergalacticResearchTech();
-                    break;
-                case 115:
-                    return $this->getGravitonTech();
-                    break;
-            }
-
-            return -1;
-        }
 
         /**
          * Sets the level of the tech, given its id and new level

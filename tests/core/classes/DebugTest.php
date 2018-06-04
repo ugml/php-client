@@ -48,7 +48,7 @@
 
             $dbConnection = new Database();
 
-            $stmt = $dbConnection->prepare('SELECT count(id) FROM ' . Config::$dbConfig['prefix'] . 'errors');
+            $stmt = $dbConnection->prepare('SELECT count(id) FROM errors');
 
             $stmt->execute();
 
@@ -58,7 +58,7 @@
 
             $this->debug->saveError(self::class, "", "", "", "");
 
-            $stmt = $dbConnection->prepare('SELECT count(id) FROM ' . Config::$dbConfig['prefix'] . 'errors');
+            $stmt = $dbConnection->prepare('SELECT count(id) FROM errors');
 
             $stmt->execute();
 
@@ -72,7 +72,7 @@
         {
             $dbConnection = new Database();
 
-            $stmt = $dbConnection->prepare('TRUNCATE ' . Config::$dbConfig['prefix'] . 'errors');
+            $stmt = $dbConnection->prepare('TRUNCATE errors;');
 
             $stmt->execute();
 

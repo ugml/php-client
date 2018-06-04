@@ -50,11 +50,8 @@
                 'port'   => '3306',
                 'dbname' => 'ugamela_testing',
                 'user'   => 'root',
-                'pass'   => '',
-                'prefix' => ''
+                'pass'   => ''
             ];
-
-            //
 
 
             self::$pathConfig = [
