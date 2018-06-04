@@ -72,7 +72,7 @@
 
                 $dbConnection = new Database();
 
-                $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET 
+                $stmt = $dbConnection->prepare('UPDATE planets SET 
                                             b_hangar_start_time = :b_hangar_start_time, 
                                             b_hangar_id = :b_hangar_id, 
                                             metal = :metal, 

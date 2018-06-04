@@ -63,7 +63,7 @@
 
                         $dbConnection = new Database();
 
-                        $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET b_building_id = :b_building_id, b_building_endtime = :b_building_endtime, metal = :metal, crystal = :crystal, deuterium = :deuterium WHERE planetID = :planetID;');
+                        $stmt = $dbConnection->prepare('UPDATE planets SET b_building_id = :b_building_id, b_building_endtime = :b_building_endtime, metal = :metal, crystal = :crystal, deuterium = :deuterium WHERE planetID = :planetID;');
 
                         $stmt->execute($params);
 
@@ -105,7 +105,7 @@
                                         ':deuterium' => $deuterium
                         );
 
-                        $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET b_building_id = 0, b_building_endtime = 0, metal = metal+:metal, crystal = crystal+:crystal, deuterium = deuterium+:deuterium WHERE planetID = :planetID;');
+                        $stmt = $dbConnection->prepare('UPDATE planets SET b_building_id = 0, b_building_endtime = 0, metal = metal+:metal, crystal = crystal+:crystal, deuterium = deuterium+:deuterium WHERE planetID = :planetID;');
 
                         $stmt->execute($params);
 

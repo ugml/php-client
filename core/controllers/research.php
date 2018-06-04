@@ -200,10 +200,6 @@
 
 
             $this->view->assign('lang', $this->lang);
-            $this->view->assign('title', Config::$gameConfig['game_name']);
-            $this->view->assign('skinpath', Config::$gameConfig['skinpath']);
-            $this->view->assign('copyright', Config::$gameConfig['copyright']);
-            $this->view->assign('language', Config::$pathConfig['language']);
 
             if (!empty($this->get['mode'])) {
                 echo $this->view->loadTemplate($this->get['mode']);

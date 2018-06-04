@@ -64,7 +64,7 @@
                                         ':planetID'       => $planetID
                         );
 
-                        $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET b_tech_id = :b_tech_id, b_tech_endtime = :b_tech_endtime, metal = :metal, crystal = :crystal, deuterium = :deuterium WHERE planetID = :planetID;');
+                        $stmt = $dbConnection->prepare('UPDATE planets SET b_tech_id = :b_tech_id, b_tech_endtime = :b_tech_endtime, metal = :metal, crystal = :crystal, deuterium = :deuterium WHERE planetID = :planetID;');
 
                         $stmt->execute($params);
                     } catch (PDOException $e) {
@@ -98,7 +98,7 @@
                                         ':deuterium' => $deuterium
                         );
 
-                        $stmt = $dbConnection->prepare('UPDATE ' . Config::$dbConfig['prefix'] . 'planets SET b_tech_id = 0, b_tech_endtime = 0, metal = metal+:metal, crystal = crystal+:crystal, deuterium = deuterium+:deuterium WHERE planetID = :planetID;');
+                        $stmt = $dbConnection->prepare('UPDATE planets SET b_tech_id = 0, b_tech_endtime = 0, metal = metal+:metal, crystal = crystal+:crystal, deuterium = deuterium+:deuterium WHERE planetID = :planetID;');
 
                         $stmt->execute($params);
                     } catch (PDOException $e) {

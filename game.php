@@ -1,10 +1,5 @@
 <?php
 
-    if (DEBUG) {
-        /* @var RENDERING_STARTTIME time of start for the page-rendering */
-        define("RENDERING_STARTTIME", microtime(true));
-    }
-
     // start the session
     // and load the userID
     if (session_status() == PHP_SESSION_NONE) {
@@ -43,16 +38,28 @@
     // initialize static objects
     Config::init();
     D_Units::init();
+    Loader::init($userID);
+
+
+
+    if (DEBUG) {
+        /* @var RENDERING_STARTTIME time of start for the page-rendering */
+        define("RENDERING_STARTTIME", microtime(true));
+
+        $debug = new Debug();
+    }
+
+    $lang['title'] = Config::$gameConfig['game_name'];
+    $lang['skinpath'] = Config::$gameConfig['skinpath'];
+    $lang['copyright'] = Config::$gameConfig['copyright'];
+    $lang['language'] = Config::$gameConfig['language'];
 
 
     // load the database-class
     $dbConnection = new Database();
 
-    // load the userdata
-    $data = new Loader($userID);
-
     // update the planet (ressources etc.)
-    $data->getPlanet()->update($data->getBuildingData(), $data->getTechData(), $data->getFleetData());
+    Loader::getPlanet()->update(Loader::getBuildingData(), Loader::getTechData(), Loader::getFleetData());
 
     // default value
     $page = 'overview';
@@ -65,11 +72,6 @@
         // delete the element, because the controller
         // does not need the page-value
         unset($_GET['page']);
-    } else {
-        // file does not exist -> redirect to overview
-        if (isset($_GET['page']) && !file_exists(Config::$pathConfig['controllers'] . $_GET['page'] . '.php')) {
-            $page = 'overview';
-        }
     }
 
 
@@ -82,11 +84,16 @@
     $lang['admin_link'] = ($userID == 1) ? '<li><a href="admin.php" style="color:lime;"><i class="fa fa-user-circle-o"></i> Admin</a></li>' : 'x';
 
     // get coords for galaxy menu-link
-    $lang["g"] = $data->getPlanet()->getGalaxy();
-    $lang["s"] = $data->getPlanet()->getSystem();
+    $lang["g"] = Loader::getPlanet()->getGalaxy();
+    $lang["s"] = Loader::getPlanet()->getSystem();
 
     $lang["ugamela_version"] = Config::$gameConfig['ugamela_version'];
     $lang["game_name"] = Config::$gameConfig['game_name'];
 
     // display the page
     $controller->display();
+
+
+    if (DEBUG) {
+        $debug->printDebugLog();
+    }

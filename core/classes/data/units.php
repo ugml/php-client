@@ -581,9 +581,9 @@
          * @param int $level the level of the metal-mine
          * @return float the metal-production per hour
          */
-        static function getMetalProductionPerHour(int $level) : float {
+        static function getMetalProductionPerHour(int $level, int $plasmaLevel) : float {
             if ($level >= 0) {
-                return 10 * $level * pow(1.1, $level);
+                return floor(30 * $level * pow(1.1, $level)) * ((100 + 1 * $plasmaLevel)/100);
             }
 
             return -1.0;
@@ -594,9 +594,9 @@
          * @param int $level the level of the metal-mine
          * @return float the metal-production per hour
          */
-        static function getCrystalProductionPerHour(int $level) : float {
+        static function getCrystalProductionPerHour(int $level, int $plasmaLevel) : float {
             if ($level >= 0) {
-                return 10 * $level * pow(1.1, $level);
+                return floor(20 * $level * pow(1.1, $level)) * ((100 + 0.66 * $plasmaLevel)/100);
             }
 
             return -1.0;
@@ -607,9 +607,9 @@
          * @param int $level the level of the metal-mine
          * @return float the metal-production per hour
          */
-        static function getDeuteriumProductionPerHour(int $level) : float {
+        static function getDeuteriumProductionPerHour(int $level, float $maxTemp) : float {
             if ($level >= 0) {
-                return 10 * $level * pow(1.1, $level);
+                return floor(10 * $level * pow(1.1, $level) * (1.28 - 0.002 * $maxTemp));
             }
 
             return -1.0;

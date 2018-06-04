@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-4" id="planetList">
-                    <img src="{planet_image_small}" alt="Planet"/>
+                    <img src="{skinpath}planeten/small/s_<?php echo Loader::getPlanet()->getImage(); ?>.png" alt="Planet"/>
                     <select onchange="cpChange(this.value)">
                         {planet_dropdown}
                     </select>
@@ -12,7 +12,7 @@
                 <div class="col-md-2 text-center">
                     <div class="row">
                         <div class="col-md-12">
-                            <img src="<?php echo $this->_['skinpath']; ?>images/metal.png" alt="Metall"/>
+                            <img src="{skinpath}images/metal.png" alt="Metall"/>
                         </div>
                         <div class="col-md-12 resource-name resource-metal">
                             {metal}
@@ -33,7 +33,7 @@
                 <div class="col-md-2 text-center">
                     <div class="row">
                         <div class="col-md-12">
-                            <img src="<?php echo $this->_['skinpath']; ?>images/crystal.png" alt="Kristall"/>
+                            <img src="{skinpath}images/crystal.png" alt="Kristall"/>
                         </div>
                         <div class="col-md-12 resource-name resource-crystal">
                             {crystal}
@@ -54,7 +54,7 @@
                 <div class="col-md-2 text-center">
                     <div class="row">
                         <div class="col-md-12">
-                            <img src="<?php echo $this->_['skinpath']; ?>images/deuterium.png" alt="Deuterium"/>
+                            <img src="{skinpath}images/deuterium.png" alt="Deuterium"/>
                         </div>
                         <div class="col-md-12 resource-name resource-deuterium">
                             {deuterium}
@@ -76,7 +76,7 @@
                 <div class="col-md-2 text-center">
                     <div class="row">
                         <div class="col-md-12">
-                            <img src="<?php echo $this->_['skinpath']; ?>images/energy.png" alt="Energie"/>
+                            <img src="{skinpath}images/energy.png" alt="Energie"/>
                         </div>
                         <div class="col-md-12 resource-name resource-energy">
                             {energy}

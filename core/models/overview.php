@@ -44,7 +44,7 @@
 
             $dbConnection = new Database();
 
-            $query = 'SELECT COUNT(userID) FROM ' . Config::$dbConfig['prefix'] . 'users;';
+            $query = 'SELECT COUNT(userID) FROM users;';
 
             $stmt = $dbConnection->prepare($query);
 

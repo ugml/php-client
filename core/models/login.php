@@ -20,7 +20,7 @@
 
                 $params = array(':username' => $username);
 
-                $stmt = $dbConnection->prepare('SELECT userID, password FROM ' . Config::$dbConfig['prefix'] . 'users WHERE username = :username;');
+                $stmt = $dbConnection->prepare('SELECT userID, password FROM users WHERE username = :username;');
 
                 $stmt->execute($params);
 

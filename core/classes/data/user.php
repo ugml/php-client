@@ -119,7 +119,7 @@
 
                 if ($this->planetList[$i]->getPlanetID() == $cp) {
                     // update the database
-                    $query = 'UPDATE  ' . Config::$dbConfig['prefix'] . 'users SET currentplanet = :cp WHERE  userID = :userID;';
+                    $query = 'UPDATE  users SET currentplanet = :cp WHERE  userID = :userID;';
 
                     $dbConnection = new Database();
 
