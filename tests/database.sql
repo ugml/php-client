@@ -150,8 +150,8 @@ CREATE TABLE `planets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `planets` (`planetID`, `ownerID`, `name`, `galaxy`, `system`, `planet`, `last_update`, `planet_type`, `image`, `diameter`, `fields_current`, `fields_max`, `temp_min`, `temp_max`, `metal`, `crystal`, `deuterium`, `energy_used`, `energy_max`, `metal_mine_percent`, `crystal_mine_percent`, `deuterium_synthesizer_percent`, `solar_plant_percent`, `fusion_reactor_percent`, `solar_satellite_percent`, `b_building_id`, `b_building_endtime`, `b_tech_id`, `b_tech_endtime`, `b_hangar_id`, `b_hangar_start_time`, `b_hangar_plus`, `destroyed`) VALUES
-(1, 1, 'Planet', 1, 1, 1, 1526333212, 1, 'asdf.jpg', 123, 0, 123, 12, 50, 100000.000000, 100000.000000, 500.000000, 0, 0, 100, 100, 100, 100, 100, 100, NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
-(2, 1, 'Planet2', 1, 1, 2, 1526333212, 1, 'asdf.jpg', 123, 0, 123, 12, 50, 100000.000000, 100000.000000, 500.000000, 0, 0, 100, 100, 100, 100, 100, 100, NULL, NULL, NULL, NULL, NULL, 0, 0, 0);
+(1, 1, 'Planet', 1, 1, 1, 1528375199, 1, 'asdf.jpg', 123, 0, 123, 12, 50, 0.000000, 0.000000, 0.000000, 0, 100, 100, 100, 100, 100, 100, 100, NULL, NULL, NULL, NULL, NULL, 0, 0, 0),
+(2, 1, 'Planet2', 1, 1, 2, 1526333212, 1, 'asdf.jpg', 123, 0, 123, 12, 50, 100000.000000, 100000.000000, 500.000000, 0, 0, 100, 100, 100, 100, 100, 100, 1, 1528375382, NULL, NULL, NULL, 0, 0, 0);
 
 CREATE TABLE `stats` (
   `userID` int(11) NOT NULL,
@@ -195,7 +195,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `users` (`userID`, `username`, `password`, `email`, `onlinetime`, `currentplanet`) VALUES
-(1, 'admin', '$2y$10$DqC6oDDukX3bAMC5LDc/z.6T2GZwWbw355HWX3FVyeOcqoF8Tvcua', 'admin@a.at', '1526375269', 1);
+(1, 'admin', '$2y$10$DqC6oDDukX3bAMC5LDc/z.6T2GZwWbw355HWX3FVyeOcqoF8Tvcua', 'admin@a.at', '1528375194', 1);
 
 
 ALTER TABLE `buildings`

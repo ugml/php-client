@@ -14,13 +14,127 @@
         private $planet;
 
         /**
+         * @covers U_Planet::update
          * @covers U_Planet::getTotalEnergyProduction
          * @covers U_Planet::getTotalEnergyConsumption
          * @covers U_Planet::calculateMetalProduction
          * @covers U_Planet::calculateCrystalProduction
          * @covers U_Planet::calculateDeuteriumProduction
          */
-        public function testGetTotalEnergyProduction() : void {
+        public function testUpdatePlanet() : void {
+
+            $buildings = new D_Building(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+            $tech = new D_Tech(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+            $fleet = new D_Fleet(101,102,103,104,105,106,107,108,109,110,111,112,113,114);
+
+            $dbConnection = new Database();
+
+            // get old values
+            $stmt = $dbConnection->prepare('SELECT * FROM planets WHERE planetId = ' . $this->planet->getPlanetID());
+
+            $stmt->execute();
+
+            $oldValues = $stmt->fetchAll();
+
+            D_Units::init();
+
+            // run the update
+            $this->planet->update($buildings, $tech, $fleet);
+
+            // check new values in database
+            $stmt = $dbConnection->prepare('SELECT * FROM planets WHERE planetId = ' . $this->planet->getPlanetID());
+
+            $newValues = $stmt->fetchAll();
+
+            $this->assertNotSame($newValues, $oldValues[0]);
+
+        }
+
+        /**
+         * @covers U_Planet::update
+         * @covers U_Planet::getTotalEnergyProduction
+         * @covers U_Planet::getTotalEnergyConsumption
+         * @covers U_Planet::calculateMetalProduction
+         * @covers U_Planet::calculateCrystalProduction
+         * @covers U_Planet::calculateDeuteriumProduction
+         */
+        public function testUpdatePlanetWithLowerProductionFactor() : void {
+
+            $buildings = new D_Building(1000,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+            $tech = new D_Tech(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+            $fleet = new D_Fleet(101,102,103,104,105,106,107,108,109,110,111,112,113,114);
+
+            $dbConnection = new Database();
+
+            // get old values
+            $stmt = $dbConnection->prepare('SELECT * FROM planets WHERE planetId = ' . $this->planet->getPlanetID());
+
+            $stmt->execute();
+
+            $oldValues = $stmt->fetchAll();
+
+            D_Units::init();
+
+            // run the update
+            $this->planet->update($buildings, $tech, $fleet);
+
+            // check new values in database
+            $stmt = $dbConnection->prepare('SELECT * FROM planets WHERE planetId = ' . $this->planet->getPlanetID());
+
+            $newValues = $stmt->fetchAll();
+
+            $this->assertNotSame($newValues, $oldValues[0]);
+
+        }
+
+        /**
+         * @covers U_Planet::update
+         * @covers U_Planet::getTotalEnergyProduction
+         * @covers U_Planet::getTotalEnergyConsumption
+         * @covers U_Planet::calculateMetalProduction
+         * @covers U_Planet::calculateCrystalProduction
+         * @covers U_Planet::calculateDeuteriumProduction
+         */
+        public function testUpdatePlanetWithBuildingFinished() : void {
+
+            $this->planet = new U_Planet(2,1,"Heimatplanet",1,1,1,time()-500,0,"asdf",1,0,180,-12,36,100000,100000,100000,0,100,100,100,100,100,100,100,1,time()-500,0,0,0,"",false,false);
+
+
+            $buildings = new D_Building(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+            $tech = new D_Tech(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+            $fleet = new D_Fleet(101,102,103,104,105,106,107,108,109,110,111,112,113,114);
+
+            $dbConnection = new Database();
+
+            // get old values
+            $stmt = $dbConnection->prepare('SELECT * FROM planets WHERE planetId = ' . $this->planet->getPlanetID());
+
+            $stmt->execute();
+
+            $oldValues = $stmt->fetchAll();
+
+            D_Units::init();
+
+            // run the update
+            $this->planet->update($buildings, $tech, $fleet);
+
+            // check new values in database
+            $stmt = $dbConnection->prepare('SELECT * FROM planets WHERE planetId = ' . $this->planet->getPlanetID());
+
+            $newValues = $stmt->fetchAll();
+
+            $this->assertNotSame($newValues, $oldValues[0]);
+
+        }
+
+        /**
+         * @covers U_Planet::getTotalEnergyProduction
+         * @covers U_Planet::getTotalEnergyConsumption
+         * @covers U_Planet::calculateMetalProduction
+         * @covers U_Planet::calculateCrystalProduction
+         * @covers U_Planet::calculateDeuteriumProduction
+         */
+        public function testCreatePlanet() : void {
 
             $this->assertSame(0, 0);
 
@@ -292,7 +406,7 @@
          * @covers U_Planet::__construct
          */
         protected function setUp() : void {
-            $this->planet = new U_Planet(1,1,"Heimatplanet",1,1,1,time(),0,"asdf",1,0,180,-12,36,100000,100000,100000,0,100,100,100,100,100,100,100,0,0,0,0,0,"",false,false);
+            $this->planet = new U_Planet(1,1,"Heimatplanet",1,1,1,time()-500,0,"asdf",1,0,180,-12,36,100000,100000,100000,0,100,100,100,100,100,100,100,0,0,0,0,0,"",false,false);
         }
 
     }
