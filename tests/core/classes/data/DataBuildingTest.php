@@ -152,4 +152,80 @@
             $this->assertSame(5, $this->buildingData->getMissileSilo());
         }
 
+        /**
+         * @covers D_Building::getBuildingByID
+         */
+        public function testGetDefenseByID() : void {
+
+            $this->assertSame(-1, $this->buildingData->getBuildingByID(0));
+            $this->assertSame(1, $this->buildingData->getBuildingByID(1));
+            $this->assertSame(2, $this->buildingData->getBuildingByID(2));
+            $this->assertSame(3, $this->buildingData->getBuildingByID(3));
+            $this->assertSame(4, $this->buildingData->getBuildingByID(4));
+            $this->assertSame(5, $this->buildingData->getBuildingByID(5));
+            $this->assertSame(6, $this->buildingData->getBuildingByID(6));
+            $this->assertSame(7, $this->buildingData->getBuildingByID(7));
+            $this->assertSame(8, $this->buildingData->getBuildingByID(8));
+            $this->assertSame(9, $this->buildingData->getBuildingByID(9));
+            $this->assertSame(10, $this->buildingData->getBuildingByID(10));
+            $this->assertSame(11, $this->buildingData->getBuildingByID(11));
+            $this->assertSame(12, $this->buildingData->getBuildingByID(12));
+            $this->assertSame(13, $this->buildingData->getBuildingByID(13));
+            $this->assertSame(14, $this->buildingData->getBuildingByID(14));
+            $this->assertSame(15, $this->buildingData->getBuildingByID(15));
+            $this->assertSame(-1, $this->buildingData->getBuildingByID(16));
+        }
+
+        /**
+         * @covers D_Building::getBuildingByID()
+         * @covers D_Building::setBuildingByID()
+         */
+        public function testSetBuildingByID() : void {
+
+            $this->buildingData->setBuildingByID(1,10);
+            $this->assertSame(10, $this->buildingData->getMetalMine());
+
+            $this->buildingData->setBuildingByID(2,11);
+            $this->assertSame(11, $this->buildingData->getCrystalMine());
+
+            $this->buildingData->setBuildingByID(3,12);
+            $this->assertSame(12, $this->buildingData->getDeuteriumSynthesizer());
+
+            $this->buildingData->setBuildingByID(4,13);
+            $this->assertSame(13, $this->buildingData->getSolarPlant());
+
+            $this->buildingData->setBuildingByID(5,14);
+            $this->assertSame(14, $this->buildingData->getFusionReactor());
+
+            $this->buildingData->setBuildingByID(6,15);
+            $this->assertSame(15, $this->buildingData->getRoboticFactory());
+
+            $this->buildingData->setBuildingByID(7,16);
+            $this->assertSame(16, $this->buildingData->getNaniteFactory());
+
+            $this->buildingData->setBuildingByID(8,17);
+            $this->assertSame(17, $this->buildingData->getShipyard());
+
+            $this->buildingData->setBuildingByID(9,18);
+            $this->assertSame(18, $this->buildingData->getMetalStorage());
+
+            $this->buildingData->setBuildingByID(10,19);
+            $this->assertSame(19, $this->buildingData->getCrystalStorage());
+
+            $this->buildingData->setBuildingByID(11,20);
+            $this->assertSame(20, $this->buildingData->getDeuteriumStorage());
+
+            $this->buildingData->setBuildingByID(12,21);
+            $this->assertSame(21, $this->buildingData->getResearchLab());
+
+            $this->buildingData->setBuildingByID(13,22);
+            $this->assertSame(22, $this->buildingData->getTerraformer());
+
+            $this->buildingData->setBuildingByID(14,23);
+            $this->assertSame(23, $this->buildingData->getAllianceDepot());
+
+            $this->buildingData->setBuildingByID(15,24);
+            $this->assertSame(24, $this->buildingData->getMissileSilo());
+        }
+
     }

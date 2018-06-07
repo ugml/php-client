@@ -12,9 +12,11 @@
     final class DataUnitsTest extends TestCase {
 
         /**
+         * @covers D_Units::destruct
          * @covers D_Units::init
          */
         protected function setUp() : void {
+            D_Units::destruct();
             D_Units::init();
         }
 

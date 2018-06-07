@@ -4,6 +4,9 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
+    /**
+     * Class U_Planet
+     */
     class U_Planet {
 
         private $planetID;
@@ -688,8 +691,8 @@
         /**
          * @return mixed
          */
-        public function getType() {
-            return $this->type;
+        public function getPlanetType() {
+            return $this->planet_type;
         }
 
         /**
@@ -774,13 +777,6 @@
          */
         public function setLastUpdate($last_update) : void {
             $this->last_update = $last_update;
-        }
-
-        /**
-         * @return mixed
-         */
-        public function getPlanetType() {
-            return $this->planet_type;
         }
 
         /**

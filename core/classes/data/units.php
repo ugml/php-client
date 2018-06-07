@@ -27,6 +27,15 @@
 
         private static $initialized = false;
 
+        static function destruct() {
+            self::$units = null;
+            self::$names = null;
+            self::$descriptions = null;
+            self::$pricelist = null;
+            self::$requeriments = null;
+            self::$initialized = false;
+        }
+
         /**
          *
          */
