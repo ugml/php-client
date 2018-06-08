@@ -4,73 +4,73 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class U_Planet {
+    class U_Planet implements JsonSerializable {
 
-        private $planetID;
+        protected $planetID;
 
-        private $ownerID;
+        protected $ownerID;
 
-        private $name;
+        protected $name;
 
-        private $galaxy;
+        protected $galaxy;
 
-        private $system;
+        protected $system;
 
-        private $planet;
+        protected $planet;
 
-        private $last_update;
+        protected $last_update;
 
-        private $planet_type;
+        protected $planet_type;
 
-        private $image;
+        protected $image;
 
-        private $diameter;
+        protected $diameter;
 
-        private $fields_current;
+        protected $fields_current;
 
-        private $fields_max;
+        protected $fields_max;
 
-        private $temp_min;
+        protected $temp_min;
 
-        private $temp_max;
+        protected $temp_max;
 
-        private $metal;
+        protected $metal;
 
-        private $crystal;
+        protected $crystal;
 
-        private $deuterium;
+        protected $deuterium;
 
-        private $energy_used;
+        protected $energy_used;
 
-        private $energy_max;
+        protected $energy_max;
 
-        private $metal_mine_percent;
+        protected $metal_mine_percent;
 
-        private $crystal_mine_percent;
+        protected $crystal_mine_percent;
 
-        private $deuterium_synthesizer_percent;
+        protected $deuterium_synthesizer_percent;
 
-        private $solar_plant_percent;
+        protected $solar_plant_percent;
 
-        private $fusion_reactor_percent;
+        protected $fusion_reactor_percent;
 
-        private $solar_satellite_percent;
+        protected $solar_satellite_percent;
 
-        private $b_building_id;
+        protected $b_building_id;
 
-        private $b_building_endtime;
+        protected $b_building_endtime;
 
-        private $b_tech_id;
+        protected $b_tech_id;
 
-        private $b_hangar_start_time;
+        protected $b_hangar_start_time;
 
-        private $b_tech_endtime;
+        protected $b_tech_endtime;
 
-        private $b_hangar_id;
+        protected $b_hangar_id;
 
-        private $b_hangar_plus;
+        protected $b_hangar_plus;
 
-        private $destroyed;
+        protected $destroyed;
 
         /**
          * U_Planet constructor.
@@ -1091,6 +1091,10 @@
             echo '<pre>';
             print_r($this);
             echo '</pre>';
+        }
+
+        public function jsonSerialize() {
+            return get_object_vars($this);
         }
 
     }

@@ -7,7 +7,7 @@
     /**
      * This class maps the 'defense'-table to an php object.
      */
-    class D_Defense {
+    class D_Defense implements JsonSerializable {
 
         /** @var int Amount of Rocket Launcher */
         private $rocket_launcher;
@@ -360,6 +360,10 @@
                     $this->setInterplanetaryMissile($level);
                     break;
             }
+        }
+
+        public function jsonSerialize() {
+            return get_object_vars($this);
         }
 
     }

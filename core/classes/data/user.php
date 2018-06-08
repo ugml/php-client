@@ -8,7 +8,7 @@
      * This class maps the 'user'-table to an php object and is also responsible of keeping it up-to-date.
      *
      */
-    class D_User {
+    class D_User implements JsonSerializable {
 
         private $userID;
 
@@ -188,6 +188,10 @@
          */
         public function setOldRank($old_rank) : void {
             $this->old_rank = $old_rank;
+        }
+
+        public function jsonSerialize() {
+            return get_object_vars($this);
         }
 
     }

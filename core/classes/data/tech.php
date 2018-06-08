@@ -7,7 +7,7 @@
     /**
      * This class maps the 'tech'-table to an php object.
      */
-    class D_Tech {
+    class D_Tech implements JsonSerializable {
 
         private $espionage_tech;
 
@@ -444,6 +444,10 @@
                     $this->setGravitonTech($level);
                     break;
             }
+        }
+
+        public function jsonSerialize() {
+            return get_object_vars($this);
         }
 
     }

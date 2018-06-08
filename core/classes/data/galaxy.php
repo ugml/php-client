@@ -7,7 +7,7 @@
     /**
      * This class maps the 'galaxy'-table to an php object.
      */
-    class D_Galaxy {
+    class D_Galaxy implements JsonSerializable {
 
         /** @var int Amount of Metal in the Debris */
         private $debris_metal;
@@ -73,6 +73,10 @@
             if ($debris_crystal >= 0) {
                 $this->debris_crystal = $debris_crystal;
             }
+        }
+
+        public function jsonSerialize() {
+            return get_object_vars($this);
         }
 
     }

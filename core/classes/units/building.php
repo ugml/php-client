@@ -4,7 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class U_Building extends U_Unit {
+    class U_Building extends U_Unit implements JsonSerializable {
 
         /** @var int the current level */
         private $level;
@@ -92,5 +92,9 @@
          */
         public function getLevel() : int {
             return $this->level;
+        }
+
+        public function jsonSerialize() {
+            return get_object_vars($this);
         }
     }
