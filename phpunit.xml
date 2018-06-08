@@ -12,6 +12,9 @@
             <exclude>
                 <directory suffix=".php">./tests/</directory>
                 <directory suffix=".php">./vendor/</directory>
+                <directory suffix=".php">./core/interfaces/</directory>
+                <directory suffix=".php">./core/language/</directory>
+                <directory suffix=".php">./core/templates/</directory>
             </exclude>
         </whitelist>
     </filter>
