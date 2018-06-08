@@ -37,7 +37,7 @@
                 $p = Config::$pathConfig['classes'] . strtolower($s[0]) . '.php';
                 break;
             case "Database":
-                $p = Config::$pathConfig['classes'] . 'db.php';
+                $p = Config::$pathConfig['classes'] . 'database.php';
                 break;
             case "Debug":
                 $p = Config::$pathConfig['classes'] . 'debug.php';

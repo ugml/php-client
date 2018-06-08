@@ -13,6 +13,10 @@
 
         private $defenseData;
 
+        protected function setUp() : void {
+            $this->defenseData = new D_Defense(301,302,303,304,305,306,307,308,309,310);
+        }
+
         /**
          * @covers D_Defense::setRocketLauncher
          * @covers D_Defense::getRocketLauncher
@@ -103,8 +107,60 @@
             $this->assertSame(5, $this->defenseData->getInterplanetaryMissile());
         }
 
-        protected function setUp() : void {
-            $this->defenseData = new D_Defense(1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+        /**
+         * @covers D_Defense::getDefenseByID
+         */
+        public function testGetDefenseByID() : void {
+
+            $this->assertSame(-1, $this->defenseData->getDefenseByID(0));
+            $this->assertSame(301, $this->defenseData->getDefenseByID(301));
+            $this->assertSame(302, $this->defenseData->getDefenseByID(302));
+            $this->assertSame(303, $this->defenseData->getDefenseByID(303));
+            $this->assertSame(304, $this->defenseData->getDefenseByID(304));
+            $this->assertSame(305, $this->defenseData->getDefenseByID(305));
+            $this->assertSame(306, $this->defenseData->getDefenseByID(306));
+            $this->assertSame(307, $this->defenseData->getDefenseByID(307));
+            $this->assertSame(308, $this->defenseData->getDefenseByID(308));
+            $this->assertSame(309, $this->defenseData->getDefenseByID(309));
+            $this->assertSame(310, $this->defenseData->getDefenseByID(310));
+            $this->assertSame(-1, $this->defenseData->getDefenseByID(311));
+        }
+
+        /**
+         * @covers D_Defense::getDefenseByID
+         * @covers D_Defense::setDefenseByID
+         */
+        public function testSetDefenseByID() : void {
+
+            $this->defenseData->setDefenseByID(301,301);
+            $this->assertSame(301, $this->defenseData->getRocketLauncher());
+
+            $this->defenseData->setDefenseByID(302,302);
+            $this->assertSame(302, $this->defenseData->getLightLaser());
+
+            $this->defenseData->setDefenseByID(303,303);
+            $this->assertSame(303, $this->defenseData->getHeavyLaser());
+
+            $this->defenseData->setDefenseByID(304,304);
+            $this->assertSame(304, $this->defenseData->getGaussCannon());
+
+            $this->defenseData->setDefenseByID(305,305);
+            $this->assertSame(305, $this->defenseData->getIonCannon());
+
+            $this->defenseData->setDefenseByID(306,306);
+            $this->assertSame(306, $this->defenseData->getPlasmaTurret());
+
+            $this->defenseData->setDefenseByID(307,0);
+            $this->assertSame(0, $this->defenseData->getSmallShieldDome());
+
+            $this->defenseData->setDefenseByID(308,1);
+            $this->assertSame(1, $this->defenseData->getLargeShieldDome());
+
+            $this->defenseData->setDefenseByID(309,309);
+            $this->assertSame(309, $this->defenseData->getAntiBallisticMissile());
+
+            $this->defenseData->setDefenseByID(310,310);
+            $this->assertSame(310, $this->defenseData->getInterplanetaryMissile());
         }
 
     }

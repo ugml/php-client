@@ -6,10 +6,6 @@
         define('INSIDE', true);
     }
 
-    //    require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/core/config.sample.php';
-
-    //    require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/core/classes/data/units.php";
-
     use PHPUnit\Framework\TestCase;
 
     /**

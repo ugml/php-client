@@ -2,8 +2,6 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    require_once Config::$pathConfig['interfaces'] . 'model.php';
-
     class M_Login implements I_Model {
 
         public function loadLanguage() {
@@ -15,8 +13,6 @@
 
         public function getUserInfo($username) {
             global $debug;
-
-            require_once Config::$pathConfig['classes'] . 'db.php';
 
             $dbConnection = new Database();
 

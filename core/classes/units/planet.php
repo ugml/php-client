@@ -4,6 +4,9 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
+    /**
+     * Class U_Planet
+     */
     class U_Planet {
 
         private $planetID;
@@ -184,18 +187,17 @@
                     $prod_factor = 0.5;
                 }
 
-                $storage = array(
-                    'metal'     => D_Units::getStorageCapacity($buildings->getMetalStorage()),
-                    'crystal'   => D_Units::getStorageCapacity($buildings->getCrystalStorage()),
-                    'deuterium' => D_Units::getStorageCapacity($buildings->getDeuteriumStorage())
-                );
+                $storage = [
+                    "metal" => D_Units::getStorageCapacity($buildings->getMetalStorage()),
+                    "crystal" => D_Units::getStorageCapacity($buildings->getCrystalStorage()),
+                    "deuterium" => D_Units::getStorageCapacity($buildings->getDeuteriumStorage())
+                ];
 
-                //($metalLvl, $storageCapacity, $prodFactor, $timeDiff, $baseIncome) {
+                //calculateMetalProduction($metalLvl, $storageCapacity, $prodFactor, $timeDiff, $baseIncome)
 
-                $prod_metal = $this->calculateMetalProduction($lvl_metal, $storage['metal'], $prod_factor, $time_diff,
-                    Config::$gameConfig['base_income_metal']);
+                $prod_metal = $this->calculateMetalProduction($lvl_metal, $storage['metal'], $prod_factor, $time_diff, Config::$gameConfig['base_income_metal'], $technologies->getPlasmaTech());
                 $prod_crystal = $this->calculateCrystalProduction($lvl_crystal, $storage['crystal'], $prod_factor,
-                    $time_diff, Config::$gameConfig['base_income_crystal']);
+                    $time_diff, Config::$gameConfig['base_income_crystal'], $technologies->getPlasmaTech());
                 $prod_deuterium = $this->calculateDeuteriumProduction($lvl_deuterium, $storage['deuterium'],
                     $prod_factor, $time_diff, Config::$gameConfig['base_income_deuterium']);
 
@@ -466,13 +468,13 @@
         }
 
         private function calculateMetalProduction($metalLvl, $storageCapacity, $prodFactor, $timeDiff,
-            $baseIncome) : float {
+            $baseIncome, $plasmaLevel) : float {
 
             $prod_metal = 0;
 
             // do not produce more then there is storage!
             if ($this->metal < $storageCapacity) {
-                $prod_metal = $prodFactor * ($this->getMetalMinePercent()/100) * (D_Units::getMetalProductionPerHour($metalLvl) / 3600) * $timeDiff + ($baseIncome / 3600 * $timeDiff);
+                $prod_metal = $prodFactor * ($this->getMetalMinePercent()/100) * (D_Units::getMetalProductionPerHour($metalLvl, $plasmaLevel) / 3600) * $timeDiff + ($baseIncome / 3600 * $timeDiff);
 
                 if ($this->metal + $prod_metal > $storageCapacity) {
                     $prod_metal = $storageCapacity - $this->metal;
@@ -483,13 +485,13 @@
         }
 
         private function calculateCrystalProduction($lvl_crystal, $storageCapacity, $prod_factor, $time_diff,
-            $baseIncome) : float {
+            $baseIncome, $plasmaLevel) : float {
 
             $prod_crystal = 0;
 
             // do not produce more then there is storage!
             if ($this->crystal < $storageCapacity) {
-                $prod_crystal = $prod_factor * ($this->getCrystalMinePercent()/100) * (D_Units::getCrystalProductionPerHour($lvl_crystal) / 3600) * $time_diff + ($baseIncome / 3600 * $time_diff);
+                $prod_crystal = $prod_factor * ($this->getCrystalMinePercent()/100) * (D_Units::getCrystalProductionPerHour($lvl_crystal, $plasmaLevel) / 3600) * $time_diff + ($baseIncome / 3600 * $time_diff);
 
                 if ($this->crystal + $prod_crystal > $storageCapacity) {
                     $prod_crystal = ($storageCapacity - $this->deuterium);
@@ -688,8 +690,8 @@
         /**
          * @return mixed
          */
-        public function getType() {
-            return $this->type;
+        public function getPlanetType() {
+            return $this->planet_type;
         }
 
         /**
@@ -774,13 +776,6 @@
          */
         public function setLastUpdate($last_update) : void {
             $this->last_update = $last_update;
-        }
-
-        /**
-         * @return mixed
-         */
-        public function getPlanetType() {
-            return $this->planet_type;
         }
 
         /**
