@@ -60,7 +60,7 @@
          */
         public function testUpdatePlanetWithLowerProductionFactor() : void {
 
-            $buildings = new D_Building(1000,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+            $buildings = new D_Building(20,2,3,0,5,6,7,8,9,10,11,12,13,14,15);
             $tech = new D_Tech(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
             $fleet = new D_Fleet(101,102,103,104,105,106,107,108,109,110,111,112,113,114);
 
@@ -406,7 +406,7 @@
          * @covers U_Planet::__construct
          */
         protected function setUp() : void {
-            $this->planet = new U_Planet(1,1,"Heimatplanet",1,1,1,time()-500,0,"asdf",1,0,180,-12,36,100000,100000,100000,0,100,100,100,100,100,100,100,0,0,0,0,0,"",false,false);
+            $this->planet = new U_Planet(1,1,"Heimatplanet",1,1,1,time()-500,0,"asdf",1,0,180,-12,36,100000,100000,100000,0,0,100,100,100,100,100,100,0,0,0,0,0,"",false,false);
         }
 
     }
