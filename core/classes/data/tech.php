@@ -146,6 +146,8 @@
                     return $this->getGravitonTech();
                     break;
             }
+
+            return -1;
         }
 
         /**

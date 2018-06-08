@@ -42,7 +42,7 @@
                         user.onlinetime AS user_onlinetime,
                         user.currentplanet AS user_currentplanet,
                         stats.points AS user_points,
-                        stats.old_rank AS user_old_rank,
+                        stats.old_rank AS user_rank_old,
                         stats.rank AS user_rank,
                         planet.planetID AS planet_planetID,
                         planet.name AS planet_name,

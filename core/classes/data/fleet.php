@@ -154,6 +154,8 @@
                     return $this->getDeathstar();
                     break;
             }
+
+            return -1;
         }
 
         /**

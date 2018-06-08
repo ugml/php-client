@@ -6,7 +6,14 @@
 
     require_once 'config.php';
 
+    Config::init();
+
     // TODO: autoloading
+    require_once dirname(dirname(__FILE__)) . '/core/classes/database.php';
+    require_once dirname(dirname(__FILE__)) . '/core/classes/loader.php';
+    require_once dirname(dirname(__FILE__)) . '/core/classes/debug.php';
+
+    $debug = new Debug();
 
     require_once dirname(dirname(__FILE__)) . '/core/classes/data/units.php';
     require_once dirname(dirname(__FILE__)) . '/core/classes/data/building.php';
@@ -22,6 +29,7 @@
     require_once dirname(dirname(__FILE__)) . "/core/classes/units/unit.php";
     require_once dirname(dirname(__FILE__)) . "/core/classes/units/research.php";
     require_once dirname(dirname(__FILE__)) . "/core/classes/units/building.php";
+    require_once dirname(dirname(__FILE__)) . "/core/classes/units/planet.php";
     require_once dirname(dirname(__FILE__)) . "/core/classes/units/defense.php";
     require_once dirname(dirname(__FILE__)) . "/core/classes/units/fleet.php";
 
@@ -36,7 +44,7 @@
 
 
     // initialize static objects
-    Config::init();
     D_Units::init();
+    Loader::init(1);
 
 

@@ -16,6 +16,14 @@
 
         private $lang = null;
 
+        function __destruct() {
+            unset($this->get);
+            unset($this->post);
+            unset($this->model);
+            unset($this->view);
+            unset($this->lang);
+        }
+
         /**
          * C_Building constructor.
          * @param $get
@@ -40,6 +48,8 @@
                 if (!empty($post)) {
                     self::handlePOST();
                 }
+
+                $this->lang['planet_dropdown'] = "";
 
                 require_once(Config::$pathConfig['classes'] . "topbar.php");
 
@@ -136,7 +146,7 @@
 
                         $this->model->build(Loader::getPlanet()->getPlanetId(), $buildID, $toLvl, $n_metal, $n_crystal,
                             $n_deuterium);
-                        header("Refresh:0");
+                        //header("Refresh:0");
                     }
                 }
 
@@ -177,7 +187,7 @@
                 $this->model->cancel(Loader::getPlanet()->getPlanetId(), $metal, $crystal, $deuterium);
             }
 
-            header("Refresh:0");
+            //header("Refresh:0");
 
         }
 

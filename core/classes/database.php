@@ -39,6 +39,7 @@
 
         /**
          * prints the debug-log
+         * @codeCoverageIgnore
          */
         function printLog() {
             if (get_class($this->dbConnection) === "LoggedPDO") {

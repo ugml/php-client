@@ -18,21 +18,6 @@
          */
         public function testGetCostMetal() : void {
 
-            //            $data = new D_Units();
-            //
-            //            for($i = 301; $i <= 310; $i ++) {
-            //                $unitID = $i;
-            //                $amount = rand(1,100000);
-            //
-            //                $priceList = $data->getPriceList($unitID);
-            //
-            //                $building = new U_Defense($unitID, $amount, $priceList['metal'], $priceList['crystal'],
-            //                    $priceList['deuterium'], $priceList['energy'], $priceList['factor']);
-            //
-            //                $this->assertSame(floor($priceList['metal'] * pow($priceList['factor'], $amount)),
-            //                    $building->getCostMetal());
-            //            }
-
             $amount = 100;
 
             $building = new U_Defense(301, $amount, 60, 15, 0, 0, 1.5);

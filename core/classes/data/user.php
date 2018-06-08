@@ -107,9 +107,9 @@
             return $this->currentPlanet;
         }
 
-        public function setCurrentPlanet($cp) : void {
+        public function setCurrentPlanet(int $cp) : void {
 
-            if ($cp == $this->currentPlanet) {
+            if (intval($cp) == $this->currentPlanet) {
                 return;
             }
 
@@ -130,8 +130,11 @@
 
                     $stmt->execute();
 
+                    $this->currentPlanet = intval($cp);
+
                     // need to reload all the data, so refresh the page
-                    header("Refresh:0");
+                    //header("Refresh:0");
+                    // TODO: return value to caller who then will refresh the page
 
                     break;
                 }
