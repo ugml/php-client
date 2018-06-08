@@ -1,36 +1,14 @@
--- phpMyAdmin SQL Dump
--- version 4.7.9
--- https://www.phpmyadmin.net/
---
--- Host: mysql:3306
--- Erstellungszeit: 02. Mai 2018 um 10:19
--- Server-Version: 10.2.13-MariaDB-10.2.13+maria~jessie
--- PHP-Version: 7.2.2
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Datenbank: `ugamela`
---
-CREATE DATABASE IF NOT EXISTS `ugamela` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `ugamela`;
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `buildings`
---
-
-DROP TABLE IF EXISTS `buildings`;
 CREATE TABLE `buildings` (
   `planetID` int(11) NOT NULL,
   `metal_mine` int(11) NOT NULL DEFAULT 0,
@@ -50,13 +28,6 @@ CREATE TABLE `buildings` (
   `missile_silo` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `defenses`
---
-
-DROP TABLE IF EXISTS `defenses`;
 CREATE TABLE `defenses` (
   `planetID` int(11) NOT NULL,
   `rocket_launcher` int(11) NOT NULL DEFAULT 0,
@@ -71,13 +42,6 @@ CREATE TABLE `defenses` (
   `interplanetary_missile` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `errors`
---
-
-DROP TABLE IF EXISTS `errors`;
 CREATE TABLE `errors` (
   `id` int(11) NOT NULL,
   `class` text NOT NULL,
@@ -88,13 +52,6 @@ CREATE TABLE `errors` (
   `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `fleet`
---
-
-DROP TABLE IF EXISTS `fleet`;
 CREATE TABLE `fleet` (
   `planetID` int(11) NOT NULL,
   `small_cargo_ship` int(11) NOT NULL DEFAULT 0,
@@ -113,13 +70,6 @@ CREATE TABLE `fleet` (
   `deathstar` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `flights`
---
-
-DROP TABLE IF EXISTS `flights`;
 CREATE TABLE `flights` (
   `flightID` int(11) NOT NULL,
   `ownerID` int(11) NOT NULL,
@@ -138,26 +88,12 @@ CREATE TABLE `flights` (
   `processed` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `galaxy`
---
-
-DROP TABLE IF EXISTS `galaxy`;
 CREATE TABLE `galaxy` (
   `planetID` int(11) NOT NULL DEFAULT 0,
   `debris_metal` int(11) NOT NULL DEFAULT 0,
   `debris_crystal` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `messages`
---
-
-DROP TABLE IF EXISTS `messages`;
 CREATE TABLE `messages` (
   `messageID` int(11) NOT NULL,
   `senderID` int(11) NOT NULL,
@@ -168,13 +104,6 @@ CREATE TABLE `messages` (
   `body` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `planets`
---
-
-DROP TABLE IF EXISTS `planets`;
 CREATE TABLE `planets` (
   `planetID` int(11) NOT NULL,
   `ownerID` int(11) NOT NULL,
@@ -211,13 +140,6 @@ CREATE TABLE `planets` (
   `destroyed` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `stats`
---
-
-DROP TABLE IF EXISTS `stats`;
 CREATE TABLE `stats` (
   `userID` int(11) NOT NULL,
   `points` bigint(11) NOT NULL DEFAULT 0,
@@ -225,13 +147,6 @@ CREATE TABLE `stats` (
   `rank` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `techs`
---
-
-DROP TABLE IF EXISTS `techs`;
 CREATE TABLE `techs` (
   `userID` int(11) NOT NULL,
   `espionage_tech` tinyint(2) NOT NULL DEFAULT 0,
@@ -251,13 +166,6 @@ CREATE TABLE `techs` (
   `graviton_tech` tinyint(2) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `users`
---
-
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `userID` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -267,78 +175,42 @@ CREATE TABLE `users` (
   `currentplanet` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Indizes der exportierten Tabellen
---
 
---
--- Indizes für die Tabelle `buildings`
---
 ALTER TABLE `buildings`
   ADD UNIQUE KEY `planetid_UNIQUE` (`planetID`);
 
---
--- Indizes für die Tabelle `defenses`
---
 ALTER TABLE `defenses`
   ADD UNIQUE KEY `planetid_UNIQUE` (`planetID`);
 
---
--- Indizes für die Tabelle `errors`
---
 ALTER TABLE `errors`
   ADD PRIMARY KEY (`id`);
 
---
--- Indizes für die Tabelle `fleet`
---
 ALTER TABLE `fleet`
   ADD UNIQUE KEY `planetid_UNIQUE` (`planetID`);
 
---
--- Indizes für die Tabelle `flights`
---
 ALTER TABLE `flights`
   ADD PRIMARY KEY (`flightID`),
   ADD KEY `fk_flight_ownerid` (`ownerID`);
 
---
--- Indizes für die Tabelle `galaxy`
---
 ALTER TABLE `galaxy`
   ADD UNIQUE KEY `planetid_UNIQUE` (`planetID`);
 
---
--- Indizes für die Tabelle `messages`
---
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`messageID`),
   ADD UNIQUE KEY `messageID_UNIQUE` (`messageID`),
   ADD KEY `fk_messages_users1_idx` (`senderID`),
   ADD KEY `fk_messages_users2_idx` (`receiverID`);
 
---
--- Indizes für die Tabelle `planets`
---
 ALTER TABLE `planets`
   ADD PRIMARY KEY (`planetID`),
   ADD KEY `fk_planet_ownerid` (`ownerID`);
 
---
--- Indizes für die Tabelle `stats`
---
 ALTER TABLE `stats`
   ADD UNIQUE KEY `userid_UNIQUE` (`userID`);
 
---
--- Indizes für die Tabelle `techs`
---
 ALTER TABLE `techs`
   ADD UNIQUE KEY `userid_UNIQUE` (`userID`);
 
---
--- Indizes für die Tabelle `users`
---
 ALTER TABLE `users`
   ADD PRIMARY KEY (`userID`),
   ADD UNIQUE KEY `id_UNIQUE` (`userID`),
@@ -346,84 +218,42 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `email_UNIQUE` (`email`),
   ADD UNIQUE KEY `currentplanet_UNIQUE` (`currentplanet`);
 
---
--- AUTO_INCREMENT für exportierte Tabellen
---
 
---
--- AUTO_INCREMENT für Tabelle `errors`
---
 ALTER TABLE `errors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT für Tabelle `flights`
---
 ALTER TABLE `flights`
-  MODIFY `flightID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `flightID` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT für Tabelle `messages`
---
 ALTER TABLE `messages`
   MODIFY `messageID` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- Constraints der exportierten Tabellen
---
 
---
--- Constraints der Tabelle `buildings`
---
 ALTER TABLE `buildings`
   ADD CONSTRAINT `fk_building_planetid` FOREIGN KEY (`planetID`) REFERENCES `planets` (`planetID`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
---
--- Constraints der Tabelle `defenses`
---
 ALTER TABLE `defenses`
   ADD CONSTRAINT `fk_defense_planetid` FOREIGN KEY (`planetID`) REFERENCES `planets` (`planetID`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
---
--- Constraints der Tabelle `fleet`
---
 ALTER TABLE `fleet`
   ADD CONSTRAINT `fk_fleet_planetid` FOREIGN KEY (`planetID`) REFERENCES `planets` (`planetID`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
---
--- Constraints der Tabelle `flights`
---
 ALTER TABLE `flights`
   ADD CONSTRAINT `fk_flight_ownerid` FOREIGN KEY (`ownerID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
---
--- Constraints der Tabelle `galaxy`
---
 ALTER TABLE `galaxy`
   ADD CONSTRAINT `fk_galaxy_planetid` FOREIGN KEY (`planetID`) REFERENCES `planets` (`planetID`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
---
--- Constraints der Tabelle `messages`
---
 ALTER TABLE `messages`
   ADD CONSTRAINT `fk_messages_users1` FOREIGN KEY (`senderID`) REFERENCES `users` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_messages_users2` FOREIGN KEY (`receiverID`) REFERENCES `users` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
---
--- Constraints der Tabelle `planets`
---
 ALTER TABLE `planets`
   ADD CONSTRAINT `fk_planet_ownerid` FOREIGN KEY (`ownerID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
---
--- Constraints der Tabelle `stats`
---
 ALTER TABLE `stats`
   ADD CONSTRAINT `fk_stats_userid` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
---
--- Constraints der Tabelle `techs`
---
 ALTER TABLE `techs`
   ADD CONSTRAINT `fk_research_userid` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
