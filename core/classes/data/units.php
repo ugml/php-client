@@ -27,6 +27,15 @@
 
         private static $initialized = false;
 
+        static function destruct() {
+            self::$units = null;
+            self::$names = null;
+            self::$descriptions = null;
+            self::$pricelist = null;
+            self::$requeriments = null;
+            self::$initialized = false;
+        }
+
         /**
          *
          */
@@ -428,6 +437,8 @@
             if (isset(self::$units[$id])) {
                 return self::$units[$id];
             }
+
+            return "";
         }
 
         /**
@@ -471,6 +482,8 @@
             if (isset(self::$names[$id])) {
                 return self::$names[$id];
             }
+
+            return "";
         }
 
         /**
@@ -518,20 +531,24 @@
 
         /**
          * Calculates and returns the build-time for the next level (or one unit for fleet/defense) of the Unit
-         * @param U_Building $building    the unit-object of the given unit
-         * @param int        $robotLvl    the level of the robotic factory
-         * @param int        $shipYardLvl the level of the shipyard factory
-         * @param int        $naniteLvl   the level of the nanite factory
+         * @param U_Unit $unit        the unit-object of the given unit
+         * @param int    $robotLvl    the level of the robotic factory
+         * @param int    $shipYardLvl the level of the shipyard factory
+         * @param int    $naniteLvl   the level of the nanite factory
          * @return float the needed time to build in seconds
          */
-        static function getBuildTime(U_Unit $building, int $robotLvl, int $shipYardLvl, int $naniteLvl) : float {
+        static function getBuildTime(U_Unit $unit, int $robotLvl, int $shipYardLvl, int $naniteLvl) : float {
 
-            $metal = $building->getCostMetal();
-            $crystal = $building->getCostCrystal();
-            $factor = $building->getFactor();
+            if($robotLvl < 0 || $shipYardLvl < 0 || $naniteLvl < 0) {
+                return -1.0;
+            }
+
+            $metal = $unit->getCostMetal();
+            $crystal = $unit->getCostCrystal();
+            $factor = $unit->getFactor();
 
             // building
-            if ($building->getUnitId() < 100) {
+            if ($unit->getUnitId() < 100) {
                 //(39410 + 9852)/(2500 * (1+10) * 2^3)
                 return ($metal + $crystal) / (2500 * (1 + $robotLvl) * (2 ** $naniteLvl));
             }
@@ -539,14 +556,16 @@
             // TODO: research-lab-level and research-network level
 
             // tech
-            if ($building->getUnitId() > 100 && $building->getUnitId() < 200) {
+            if ($unit->getUnitId() > 100 && $unit->getUnitId() < 200) {
                 return ($metal * $factor + $crystal * $factor) / (2500 * (1 + $robotLvl) * pow(2, $naniteLvl));
             }
 
             // fleet and defense
-            if ($building->getUnitId() > 200 && $building->getUnitId() < 400) {
+            if ($unit->getUnitId() > 200 && $unit->getUnitId() < 400) {
                 return ($metal + $crystal) / (2500 * (1 + $shipYardLvl) * pow(2, $naniteLvl));
             }
+
+            return -1.0;
 
         }
 
@@ -562,6 +581,8 @@
                 return 100000 + 50000 * (ceil(pow(1.5, $storage_level)) - 1);
             }
 
+            return -1.0;
+
         }
 
         /**
@@ -573,6 +594,8 @@
             if ($level >= 0) {
                 return floor(30 * $level * pow(1.1, $level)) * ((100 + 1 * $plasmaLevel)/100);
             }
+
+            return -1.0;
         }
 
         /**
@@ -584,6 +607,8 @@
             if ($level >= 0) {
                 return floor(20 * $level * pow(1.1, $level)) * ((100 + 0.66 * $plasmaLevel)/100);
             }
+
+            return -1.0;
         }
 
         /**
@@ -595,6 +620,8 @@
             if ($level >= 0) {
                 return floor(10 * $level * pow(1.1, $level) * (1.28 - 0.002 * $maxTemp));
             }
+
+            return -1.0;
         }
 
         /**
@@ -617,6 +644,8 @@
                 ];
             }
 
+            return [];
+
         }
 
         /**
@@ -629,5 +658,7 @@
             if ($level >= 0) {
                 return 10 * $level * pow(1.1, $level);
             }
+
+            return -1.0;
         }
     }

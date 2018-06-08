@@ -20,8 +20,6 @@
          */
         public function createNewUser($username, $planetname, $email, $password) {
 
-            require_once Config::$pathConfig['classes'] . 'db.php';
-
             $dbConnection = new Database();
 
 
