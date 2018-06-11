@@ -61,6 +61,8 @@
 
                 ob_end_clean();
 
+                $this->_['lang']['ugamela_version'] = Config::$gameConfig['ugamela_version'];
+
                 foreach ($this->_['lang'] as $a => $b) {
                     $output = str_replace("{{$a}}", $b, $output);
                 }

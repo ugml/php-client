@@ -53,6 +53,8 @@
                 // nicht gleich ausgegeben.
                 ob_start();
 
+                $this->_['lang']['ugamela_version'] = Config::$gameConfig['ugamela_version'];
+
                 include Config::$pathConfig['templates'] . DIRECTORY_SEPARATOR . 'header_login.php';
                 include $file;
                 include Config::$pathConfig['templates'] . DIRECTORY_SEPARATOR . 'footer.php';

@@ -33,7 +33,7 @@
 
             self::$gameConfig = [
                 'game_name'             => 'ugamela',
-                'ugamela_version'       => "0.0.1-alpha",
+                'ugamela_version'       => "0.1.0",
                 'copyright'             => 'Copyright by ugamela &copy; 2017',
                 'language'              => 'en',
                 'max_galaxy'            => 9,

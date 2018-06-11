@@ -37,7 +37,7 @@
 
         <footer>
             <span class="left">
-<!--                v {ugamela_version}-->
+                v {ugamela_version}
             </span>
             <span class="right">
                 <a href="register.php">Create a new Account</a> &bull;

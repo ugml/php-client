@@ -17,7 +17,7 @@
         } else {
             ?>
             <br/>
-            <span>CLOSED</span>
+            <span>OPEN</span>
             <span>ALPHA</span>
             <form action="" method="post" autocomplete="off">
                 <input name="username" type="text" maxlength="20" autocomplete="off" placeholder="{username}"/><br/>
