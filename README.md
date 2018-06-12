@@ -45,7 +45,7 @@ This open-source project is still in an alpha-state, **please do not use this in
 
 1.  This project uses is being developed with the (currently) latest release of PHP (Version 7.1.9) and mariaDB (Version 10.2). For a easy quick start, use the latest release of [XAMPP](https://www.apachefriends.org/de/download.html) or use [Docker](https://www.docker.com) with the necessary containers.
 2.  After setting up your environment, import the sql-file located in the install directory.
-3.  Edit the config.sample.php in the core-folder to match your server-configuration and **rename it to config.php**.
+3.  Edit the config.sample.php in the core-folder to match your server-configuration and **rename it to config.php and change the classname to Config**.
 
 # Documentation & Demo
 
@@ -60,6 +60,27 @@ Password: test
 
 The [documentation](https://ugamela.mamen.at/docs) is hosted on the same server as the game.
 
+# Roadmap
+
+The current roadmap for the next version is listed below with their respective issues linked.
+
+* [ ] ability to build defense ([#10](https://github.com/mamen/ugamela/issues/10))
+* [ ] empire-view ([#31](https://github.com/mamen/ugamela/issues/31))
+* [ ] techtree-view ([#32](https://github.com/mamen/ugamela/issues/32))
+* [ ] simple statistics ([#11](https://github.com/mamen/ugamela/issues/11))
+* [ ] research
+    - [ ] make technologies usefull (make ships go faster etc.) ([#33](https://github.com/mamen/ugamela/issues/33))
+* [ ] fleet
+    - [X] transportation
+    - [ ] colonization ([#36](https://github.com/mamen/ugamela/issues/36))
+* [ ] settings-view ([#14](https://github.com/mamen/ugamela/issues/14))
+* [ ] search-functionality ([#37](https://github.com/mamen/ugamela/issues/37))
+* [ ] admin-panel ([#39](https://github.com/mamen/ugamela/issues/39))
+    - [ ] show currently online users
+    - [ ] show all users/planets
+    - [ ] ban/unban users
+    - [ ] send messages to all players
+* [ ] game-installer ([#38](https://github.com/mamen/ugamela/issues/38))
 
 # Support / Questions
 
