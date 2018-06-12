@@ -92,8 +92,3 @@
 
     // display the page
     $controller->display();
-
-
-    if (DEBUG) {
-        $debug->printDebugLog();
-    }

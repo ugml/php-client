@@ -81,7 +81,7 @@
                     </table>
                 </div>
             </div>';
-            echo $this->log;
+            echo "<br />" . $this->log;
         }
 
     }

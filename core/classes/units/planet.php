@@ -206,17 +206,12 @@
 
                     $level = Loader::getBuildingList()[$this->b_building_id]->getLevel();
 
-                    //                    $methodArr = explode('_', D_Units::getUnit());
-                    //
-                    //                    $method = 'get';
-                    //
-                    //                    foreach ($methodArr as $a => $b) {
-                    //                        $method .= ucfirst($b);
-                    //                    }
-                    //                    $level = call_user_func_array(array($data->getBuildingList(), $method), array());
-
                     // update the building level
                     $stmt = $dbConnection->prepare('UPDATE buildings SET ' . D_Units::getUnitName($this->b_building_id) . ' = ' . ($level + 1));
+
+
+                    // update the object
+                    Loader::getBuildingData()->setBuildingByID($this->b_building_id,  ($level + 1));
 
                     $stmt->execute();
 
@@ -230,6 +225,9 @@
 
                     // update the building level
                     $stmt = $dbConnection->prepare('UPDATE techs SET ' . D_Units::getUnitName($this->b_tech_id) . ' = ' . ($level + 1));
+
+                    // update the object
+                    Loader::getTechData()->setTechByID($this->b_tech_id,  ($level + 1));
 
                     $stmt->execute();
 
