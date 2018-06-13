@@ -4,7 +4,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4d0fb3f129a8413e820144e6fba280e1)](https://www.codacy.com/app/mamen/ugamela?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mamen/ugamela&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/4d0fb3f129a8413e820144e6fba280e1)](https://www.codacy.com/app/mamen/ugamela?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mamen/ugamela&amp;utm_campaign=Badge_Coverage)
 [![Discord Server](https://discordapp.com/api/guilds/339129999082913794/embed.png)](https://discord.gg/YDUHM3k)
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](./LICENSE)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](./LICENSE)
 
 # What is ugamela?
 
