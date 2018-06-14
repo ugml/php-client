@@ -4,7 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class Loader {
+    class Loader implements JsonSerializable {
 
         private static $user = null;
 
@@ -29,13 +29,6 @@
         private static $fleetList = [];
 
         private static $initialized = false;
-
-        private function __construct($userID) {
-            if (!self::$initialized) {
-                self::init($userID);
-                self::$initialized = true;
-            }
-        }
 
         public static function init($userID) {
 
@@ -543,6 +536,24 @@
          */
         public static function getFleetData() : D_Fleet {
             return self::$fleetData;
+        }
+
+        public function jsonSerialize() {
+            if(!self::$initialized) self::init(1);
+
+            return [
+                "user" => self::$user,
+                "planet" => self::$planet,
+                "galaxy" => self::$galaxy,
+                "buildingData" => self::$buildingData,
+                "buildingList" => self::$buildingList,
+                "defenseData" => self::$defenseData,
+                "defenseList" => self::$defenseList,
+                "techData" => self::$techData,
+                "techList" => self::$techList,
+                "fleetData" => self::$fleetData,
+                "fleetList" => self::$fleetList
+            ];
         }
 
     }

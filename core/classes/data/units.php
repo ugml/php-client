@@ -8,24 +8,24 @@
      * This class contains all information about every unit, including
      * prices, dependencies and language-bindings.
      */
-    class D_Units {
+    class D_Units implements JsonSerializable {
 
         /** @var array Mapping of Unit-ID to Unit-String-ID */
-        private static $units;
+        protected static $units;
 
         /** @var array Mapping of Unit-ID to the name in the currently loaded language */
-        private static $names;
+        protected static $names;
 
         /** @var array Mapping of Unit-ID to the description, according to the current language-file */
-        private static $descriptions;
+        protected static $descriptions;
 
         /** @var array Mapping of Unit-ID to the price for the unit */
-        private static $pricelist;
+        protected static $pricelist;
 
         /** @var array Mapping of Unit-ID to the requirements for the unit */
-        private static $requeriments;
+        protected static $requeriments;
 
-        private static $initialized = false;
+        protected static $initialized = false;
 
         static function destruct() {
             self::$units = null;
@@ -660,5 +660,16 @@
             }
 
             return -1.0;
+        }
+
+        public function jsonSerialize() {
+            if(!self::$initialized) self::init();
+
+            return [
+                "units" => self::$units,
+                "descriptions" => self::$descriptions,
+                "pricelist" => self::$pricelist,
+                "requeriments" => self::$requeriments
+            ];
         }
     }

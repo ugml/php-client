@@ -8,7 +8,7 @@
      * This class maps the 'buildings'-table to an php object and contains
      * all necessary getters and setters.
      */
-    class D_Building {
+    class D_Building implements JsonSerializable {
 
         /** @var int Level of Metal Mine */
         private $metal_mine;
@@ -519,6 +519,10 @@
                     $this->setMissileSilo($level);
                     break;
             }
+        }
+
+        public function jsonSerialize() {
+            return get_object_vars($this);
         }
 
     }

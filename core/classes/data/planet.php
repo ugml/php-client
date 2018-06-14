@@ -8,7 +8,7 @@
     /**
      * This class maps the 'planet'-table to an php object.
      */
-    class D_Planet {
+    class D_Planet implements JsonSerializable {
 
         /** @var int The ID of the planet */
         private $planetID;
@@ -770,6 +770,10 @@
 
             $this->destroyed = $destroyed;
 
+        }
+
+        public function jsonSerialize() {
+            return get_object_vars($this);
         }
 
     }

@@ -4,7 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class U_Defense extends U_Unit {
+    class U_Defense extends U_Unit implements JsonSerializable {
 
         /** @var int The current amount */
         private $amount;
@@ -52,5 +52,9 @@
 
         public function getAmount() : int {
             return $this->amount;
+        }
+
+        public function jsonSerialize() {
+            return get_object_vars($this);
         }
     }

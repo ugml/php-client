@@ -7,7 +7,7 @@
     /**
      * This class maps the 'fleet'-table to an php object.
      */
-    class D_Fleet {
+    class D_Fleet implements JsonSerializable {
 
         /** @var int Amount of Small Cargo Ship */
         private $small_cargo_ship;
@@ -491,6 +491,10 @@
                     $this->setDeathstar($level);
                     break;
             }
+        }
+
+        public function jsonSerialize() {
+            return get_object_vars($this);
         }
 
     }

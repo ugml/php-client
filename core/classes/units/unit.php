@@ -4,25 +4,25 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    abstract class U_Unit {
+    abstract class U_Unit implements JsonSerializable {
 
         /** @var int The unitID */
-        private $unitID;
+        protected $unitID;
 
         /** @var float the metal cost */
-        private $costMetal;
+        protected $costMetal;
 
         /** @var float the crystal cost */
-        private $costCrystal;
+        protected $costCrystal;
 
         /** @var float the deuterium cost */
-        private $costDeuterium;
+        protected $costDeuterium;
 
         /** @var float the energy cost */
-        private $costEnergy;
+        protected $costEnergy;
 
         /** @var float the cost factor */
-        private $costFactor;
+        protected $costFactor;
 
         /**
          * Unit constructor.
@@ -83,6 +83,10 @@
          */
         public function getFactor() : float {
             return $this->costFactor;
+        }
+
+        public function jsonSerialize() {
+            return get_object_vars($this);
         }
 
     }

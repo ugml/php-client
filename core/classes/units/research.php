@@ -4,11 +4,11 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class U_Research extends U_Unit {
+    class U_Research extends U_Unit implements JsonSerializable {
 
-        private $level;
+        protected $level;
 
-        private $costFactor;
+        protected $costFactor;
 
         /**
          * Unit constructor.
@@ -62,5 +62,9 @@
          */
         public function getLevel() : int {
             return $this->level;
+        }
+
+        public function jsonSerialize() {
+            return get_object_vars($this);
         }
     }
