@@ -13,18 +13,18 @@
 
 <?php
 
+    // indicates, wether the input-fields should be displayer
     $displayPage = true;
 
+    // if a config-file already exists, throw an error
     if(file_exists(dirname(dirname(__FILE__)) . "/core/config.php")) {
         $errorMessage = "ERROR: There is already an existing configuration-file!";
         $displayPage = false;
     }
 
-
-
-
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+        // filter input
         $dbHost = filter_input(INPUT_POST, 'dbHost', FILTER_SANITIZE_STRING);
         $dbPort = filter_input(INPUT_POST, 'dbPort', FILTER_VALIDATE_INT);
         $dbUser = filter_input(INPUT_POST, 'dbUser', FILTER_SANITIZE_STRING);
@@ -36,6 +36,7 @@
             $dbPort = 3306;
         }
 
+        // load the database-class
         require_once "../core/classes/database.php";
 
         $dbConnection = new Database($dbHost, $dbName, $dbPort, $dbUser, $dbPass);
@@ -48,6 +49,7 @@
             // 1. create database and import data
             $dbConnection->getConnection();
 
+            // create the queries
             $query = "CREATE DATABASE IF NOT EXISTS `{$dbName}`; USE `{$dbName}`;";
             $sqlScript = file('data/ugamela.sql');
             foreach ($sqlScript as $line)	{
@@ -68,10 +70,11 @@
             $stmt->execute();
 
 
-        // 2. create Config.php
-
+            // 2. create Config.php
+            // get the sample-config
             $configFile = file_get_contents('data/config.sample.php');
 
+            // replace the placeholders with the values given by the user
             $configFile = str_replace("Config_sample", "Config", $configFile);
             $configFile = str_replace("DBHOST", $dbHost, $configFile);
             $configFile = str_replace("DBPORT", $dbPort, $configFile);
@@ -79,19 +82,15 @@
             $configFile = str_replace("DBUSER", $dbUser, $configFile);
             $configFile = str_replace("DBPASS", $dbPass, $configFile);
 
-
+            // write the data to a new config-file
             file_put_contents("../core/config.php", $configFile);
 
 
             $successMessage = "Game successfully installed<br /><a href='../register.php'>Click here to create a new account</a>";
-
-
         }
-
-
     }
 
-    ?>
+?>
 
 
 <div id='title'>
