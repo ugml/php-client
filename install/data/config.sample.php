@@ -33,7 +33,7 @@
 
             self::$gameConfig = [
                 'game_name'             => 'ugamela',
-                'ugamela_version'       => "0.1.0",
+                'ugamela_version'       => "0.0.1-alpha",
                 'copyright'             => 'Copyright by ugamela &copy; 2017',
                 'language'              => 'en',
                 'max_galaxy'            => 9,
@@ -47,11 +47,11 @@
             ];
 
             self::$dbConfig = [
-                'host'   => '172.25.0.100',
-                'port'   => '3306',
-                'dbname' => 'ugamela',
-                'user'   => 'root',
-                'pass'   => 'root'
+                'host'   => 'DBHOST',
+                'port'   => 'DBPORT',
+                'dbname' => 'DBNAME',
+                'user'   => 'DBUSER',
+                'pass'   => 'DBPASS'
             ];
 
             self::$pathConfig = [
