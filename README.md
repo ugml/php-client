@@ -43,9 +43,9 @@ This open-source project is still in an alpha-state, **please do not use this in
 
 # Quick Start
 
-1.  This project uses is being developed with the (currently) latest release of PHP (Version 7.1.9) and mariaDB (Version 10.2). For a easy quick start, use the latest release of [XAMPP](https://www.apachefriends.org/de/download.html) or use [Docker](https://www.docker.com) with the necessary containers.
-2.  After setting up your environment, import the sql-file located in the install directory.
-3.  Edit the config.sample.php in the core-folder to match your server-configuration and **rename it to config.php**.
+This project uses is being developed with the (currently) latest release of PHP (Version 7.1.9) and mariaDB (Version 10.2). For a easy quick start, use the latest release of [XAMPP](https://www.apachefriends.org/de/download.html) or use [Docker](https://www.docker.com) with the necessary containers.
+
+To install ugamela, navigate to **https://YOURDOMAIN/PATH/TO/UGAMELA/install/** and enter your database-configuration. After this, you can delete the *install*-folder and start playing.
 
 # Documentation & Demo
 
