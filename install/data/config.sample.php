@@ -47,11 +47,11 @@
             ];
 
             self::$dbConfig = [
-                'host'   => '172.25.0.100',
-                'port'   => '3306',
-                'dbname' => 'ugamela',
-                'user'   => 'root',
-                'pass'   => 'root'
+                'host'   => 'DBHOST',
+                'port'   => 'DBPORT',
+                'dbname' => 'DBNAME',
+                'user'   => 'DBUSER',
+                'pass'   => 'DBPASS'
             ];
 
             self::$pathConfig = [

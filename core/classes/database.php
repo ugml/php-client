@@ -12,19 +12,34 @@
          * Database constructor.
          * Connects to the MySQL-Database and creates a database-object
          */
-        function __construct() {
+        function __construct(string $dbHost = null, string $dbName = null, int $dbPort = null, string $dbUser = null, string $dbPass = null) {
 
             // if the connection was already made, return the connection-object
-            if ($this->dbConnection != null) {
+            if ($this->dbConnection !== null) {
                 return $this->dbConnection;
             }
 
-            $this->dbConnection = new PDO('mysql:host=' . Config::$dbConfig['host'] . ';dbname=' . Config::$dbConfig['dbname'] . ';port=' . Config::$dbConfig['port'],
-                Config::$dbConfig['user'], Config::$dbConfig['pass']);
+            try {
+                if($dbHost !== null && $dbName !== null && $dbPort !== null && $dbUser !== null && $dbPass !== null) {
+                    $this->dbConnection = new PDO('mysql:host=' . $dbHost . ';port=' . $dbPort,
+                        $dbUser, $dbPass);
+                } else {
+                    $this->dbConnection = new PDO('mysql:host=' . Config::$dbConfig['host'] . ';dbname=' . Config::$dbConfig['dbname'] . ';port=' . Config::$dbConfig['port'],
+                        Config::$dbConfig['user'], Config::$dbConfig['pass']);
+                }
 
-            $this->dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-            $this->dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $this->dbConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+                $this->dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+                return $this->dbConnection;
+
+            } catch(PDOException $e) {
+                $this->dbConnection = $e;
+                return false;
+            }
+        }
+
+        function getConnection() {
             return $this->dbConnection;
         }
 
