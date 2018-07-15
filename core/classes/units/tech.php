@@ -4,7 +4,7 @@
 
     defined('INSIDE') OR exit('No direct script access allowed');
 
-    class U_Research extends U_Unit {
+    class U_Tech extends U_Unit {
 
         private $level;
 

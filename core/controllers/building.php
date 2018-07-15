@@ -127,7 +127,9 @@
                 //build it only, if there is not already a building in the queue
                 if (Loader::getPlanet()->getBBuildingId() == 0) {
 
-                    $level = Loader::getBuildingList()[$buildID]->getLevel();
+
+
+                    $level = Loader::getBuildingData()->getBuildingByID(intval($buildID));
 
                     $metal = Loader::getBuildingList()[$buildID]->getCostMetal();
                     $crystal = Loader::getBuildingList()[$buildID]->getCostCrystal();

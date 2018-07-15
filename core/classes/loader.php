@@ -303,7 +303,7 @@
 
                         self::$techData->setTechByID($i + 100, $dResearch[$i - 1]);
 
-                        self::$techList[$i + 100] = new U_Research(
+                        self::$techList[$i + 100] = new U_Tech(
                             $i + 100,
                             $dResearch[$i - 1],
                             D_Units::getPriceList($i + 100)['metal'],

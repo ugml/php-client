@@ -290,7 +290,7 @@
          */
         public function testGetBuildTimeTech() : void {
 
-            $research = new U_Research(101, 0, 200, 100, 200, 0, 2);
+            $research = new U_Tech(101, 0, 200, 100, 200, 0, 2);
 
 
             $this->assertSame(864.0, D_Units::getBuildTime($research, 0, 0, 0) * 3600);
